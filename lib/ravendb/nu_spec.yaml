@@ -1,0 +1,88 @@
+--- !ruby/object:Gem::Specification 
+name: ravendb
+version: !ruby/object:Gem::Version 
+  hash: 40201619
+  prerelease: false
+  segments: 
+  - 1
+  - 0
+  - 0
+  - 0
+  - 121
+  - 20100804
+  version: 1.0.0.0.121.20100804
+platform: ruby
+authors: 
+- Ayende Rahien
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2010-08-04 00:00:00 +08:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: json-net
+  prerelease: false
+  requirement: &id001 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - "="
+      - !ruby/object:Gem::Version 
+        hash: 104207
+        segments: 
+        - 3
+        - 5
+        - 0
+        - 52140
+        version: 3.5.0.52140
+  type: :runtime
+  version_requirements: *id001
+description: "\t\tRaven is an Open Source (with a commercial option) document database for the .NET/Windows platform. Raven offers a \n\
+  \t\tflexible data model design to fit the needs of real world systems. Raven stores schema-less JSON documents, allow you \n\
+  \t\tto define indexes using Linq queries and focus on low latency and high performance.\n"
+email: Ayende@ayende.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: []
+
+files: 
+- lib/Raven.Client.Lightweight.dll
+has_rdoc: true
+homepage: http://ravendb.net/
+licenses: []
+
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+requirements: []
+
+rubyforge_project: ravendb
+rubygems_version: 1.3.7
+signing_key: 
+specification_version: 3
+summary: Raven is an Open Source (with a commercial option) document database for the .NET/Windows platform.
+test_files: []
+
