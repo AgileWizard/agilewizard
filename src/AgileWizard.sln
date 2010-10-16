@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileWizard.Website", "AgileWizard.Website\AgileWizard.Website.csproj", "{254C40E6-B9A1-409C-8D2E-17A5431AD449}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileWizard.Domain", "AgileWizard.Domain\AgileWizard.Domain.csproj", "{FB09A149-71B0-4ECA-9231-C739ABA2625D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileWizard.Domain.Tests", "AgileWizard.Domain.Tests\AgileWizard.Domain.Tests.csproj", "{ED5AA858-7FD4-4E14-8BC1-B0D26026F36A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +17,14 @@ Global
 		{254C40E6-B9A1-409C-8D2E-17A5431AD449}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{254C40E6-B9A1-409C-8D2E-17A5431AD449}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{254C40E6-B9A1-409C-8D2E-17A5431AD449}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB09A149-71B0-4ECA-9231-C739ABA2625D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB09A149-71B0-4ECA-9231-C739ABA2625D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB09A149-71B0-4ECA-9231-C739ABA2625D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB09A149-71B0-4ECA-9231-C739ABA2625D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED5AA858-7FD4-4E14-8BC1-B0D26026F36A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED5AA858-7FD4-4E14-8BC1-B0D26026F36A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED5AA858-7FD4-4E14-8BC1-B0D26026F36A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED5AA858-7FD4-4E14-8BC1-B0D26026F36A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
