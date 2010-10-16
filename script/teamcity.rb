@@ -1,6 +1,6 @@
 require  "albacore"
 
-task :default => [:ncoverreport, :ncoverreport2]
+task :default => [:ncoverreport2]
 
 @outputDir="bin"
 @ncoverConsole="C:\\Program Files\\NCover\\NCover.Console.exe"
@@ -64,15 +64,15 @@ desc "Run NCover Console code coverage"
     )
   end  
   
-  desc "Run NCover Report to check code coverage"
-  ncoverreport :ncoverreport2 => :ncoverconsole do |ncr|
+  desc "Run NCover Report Summary to check code coverage"
+  ncoverreport :ncoverreport2 => :ncoverreport do |ncr|
     @xml_coverage = @outputDir + "\\CodeCoverage\\coverage.xml"
 
     ncr.path_to_command = @ncoverReporting
     ncr.coverage_files @xml_coverage
 
-    fullcoveragereport = NCover::FullCoverageReport.new
-    fullcoveragereport.output_path = @outputDir+"\\CodeCoverage\\output2"
+    fullcoveragereport = NCover::SummaryReport.new
+    fullcoveragereport.output_path = @outputDir+"\\CodeCoverageSummary\\output"
     ncr.reports ModuleClassSummary
 
     ncr.required_coverage(
