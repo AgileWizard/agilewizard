@@ -1,8 +1,10 @@
 ﻿This folder is installed by nu, http://nu.wikispot.org/
-You should have Ruby installed, and then 
+You should have Ruby installed at http://rubyinstaller.org/downloads/ 
+
+and then 
 ------
 gem install nu
 ------
 nu install xunitnet
 nu install moq
-nu install raven
+nu install ravendb
