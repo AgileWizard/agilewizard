@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileWizard.Domain", "Agile
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileWizard.Domain.Tests", "AgileWizard.Domain.Tests\AgileWizard.Domain.Tests.csproj", "{ED5AA858-7FD4-4E14-8BC1-B0D26026F36A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileWizard.AcceptanceTests", "AgileWizard.AcceptanceTests\AgileWizard.AcceptanceTests.csproj", "{3A8A4C6F-ADED-47D8-85EC-0466EAEA7099}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{ED5AA858-7FD4-4E14-8BC1-B0D26026F36A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED5AA858-7FD4-4E14-8BC1-B0D26026F36A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED5AA858-7FD4-4E14-8BC1-B0D26026F36A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A8A4C6F-ADED-47D8-85EC-0466EAEA7099}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A8A4C6F-ADED-47D8-85EC-0466EAEA7099}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A8A4C6F-ADED-47D8-85EC-0466EAEA7099}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A8A4C6F-ADED-47D8-85EC-0466EAEA7099}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
