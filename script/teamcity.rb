@@ -60,9 +60,9 @@ desc "Run NCover Console code coverage"
     fullcoveragereport.output_path = @outputDir+"\\CodeCoverage\\output"
     ncr.reports fullcoveragereport
 
-    summaryReport = NCover::SummaryReport.new
-    summaryReport.output_path = @output + "\\CodeCoverage\\summary\\CoverageSummary.html"
-    ncr.reports summaryReport
+    summaryreport = NCover::SummaryReport.new
+    summaryreport.output_path = @outputDir + "\\CodeCoverage\\summary\\CoverageSummary.html"
+    ncr.reports summaryreport
 
     ncr.required_coverage(
     	NCover::BranchCoverage.new(:minimum => 10)
