@@ -7,3 +7,5 @@
 *.sln.cache
 _ReSharper.*/
 *.user
+Server/Data/
+/tool/ravendb/Server/Data/

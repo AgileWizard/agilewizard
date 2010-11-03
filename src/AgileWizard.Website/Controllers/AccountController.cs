@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using AgileWizard.Website.Models;
+using AgileWizard.Domain;
+using AgileWizard.Domain.QueryIndex;
 
 namespace AgileWizard.Website.Controllers
 {
@@ -41,7 +43,13 @@ namespace AgileWizard.Website.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (MembershipService.ValidateUser(model.UserName, model.Password))
+                var users = MvcApplication.CurrentSession.Query<User>(typeof(UserIndexByUserName).Name);
+                var user = from x in users
+                           where x.UserName == model.UserName
+                           select x;
+
+                if(user.Count() == 1 && user.First().Password == model.Password)
+                //if (MembershipService.ValidateUser(model.UserName, model.Password))
                 {
                     FormsService.SignIn(model.UserName, model.RememberMe);
                     if (!String.IsNullOrEmpty(returnUrl))
