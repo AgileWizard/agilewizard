@@ -7,12 +7,25 @@ using Raven.Client.Document;
 using Xunit;
 using Raven.Database.Data;
 using AgileWizard.AcceptanceTests.Data;
+using AgileWizard.AcceptanceTests.Helper;
 
 namespace AgileWizard.AcceptanceTests
 {
     [Binding]
-    public class ClearDatabase
+    public class EventDefinition
     {
+        [BeforeScenario("UI")]
+        public void OpenBrowser()
+        {
+            BrowserHelper.OpenBrowser();
+        }
+
+        [AfterScenario("UI")]
+        public void CloseBrowser()
+        {
+            BrowserHelper.CloseBrowser();
+        }
+
         [BeforeTestRun]
         public static void BeforeTestRun()
         {

@@ -57,23 +57,23 @@ namespace AgileWizard.AcceptanceTests.Features
             this.ScenarioTearDown();
         }
         
-        [Xunit.FactAttribute(Skip="Ignored")]
+        [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "User")]
         [Xunit.TraitAttribute("Description", "Login")]
         public virtual void Login()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login", new string[] {
-                        "ignore"});
+                        "UI"});
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("I open login page");
+ testRunner.Given("open login page");
 #line 9
- testRunner.And("I enter username - \'agilewizard\' and password - \'agilewizard\'");
+ testRunner.And("enter username - \'agilewizard\' and password - \'agilewizard\'");
 #line 10
- testRunner.When("I press login");
+ testRunner.When("press button - \'Log On\'");
 #line 11
- testRunner.Then("I should be redirected to main page");
+ testRunner.Then("should be redirected to main page");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
