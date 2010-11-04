@@ -40,9 +40,10 @@ desc "Run NCover Console code coverage"
 
     xunit = XUnitTestRunner.new("lib\\xunitnet\\xunit.console.clr4.exe")
     xunit.log_level = :verbose
-    # xunit.assembly = @outputDir+"\\Release\\AgileWizard.Domain.Tests.dll"
+    xunit.asemblies = [ @outputDir+"\\Release\\AgileWizard.Domain.Tests.dll",
+			@outputDir+"\\Release\\AgileWizard.AcceptanceTests.dll"
+		      ]
     xunit.options = [
-      @outputDir+"\\Release\\AgileWizard.Domain.Tests.dll",
       "/xml "+ @outputDir + "\\xUnit\\XUnit-Result.xml"
     ]
     ncc.testrunner = xunit
@@ -51,7 +52,7 @@ desc "Run NCover Console code coverage"
   desc "Run NCover Report to check code coverage"
   ncoverreport :ncoverreport => :ncoverconsole do |ncr|
     @xml_coverage = @outputDir + "\\CodeCoverage\\coverage.xml"
-    ncr.parameters "//p "+ @projName
+    ncr.parameters = [ "//p "+ @projName ]
 
     ncr.path_to_command = @ncoverReporting
     ncr.coverage_files @xml_coverage
