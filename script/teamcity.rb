@@ -1,10 +1,11 @@
 require  "albacore"
 
-task :default => [:ncoverreport2]
+task :default => [:ncoverreport]
 
 @outputDir="bin"
 @ncoverConsole="C:\\Program Files\\NCover\\NCover.Console.exe"
 @ncoverReporting="C:\\Program Files\\NCover\\NCover.Reporting.exe"
+@projName="AgileWizard"
 
 desc "delete the bin directory before building"
 deletebin :deletebin do
@@ -15,7 +16,7 @@ deletebin :deletebin do
 end 
 
 desc "Build the agile wizard teamcity file"
-msbuild :build=>:deletebin do |msb|
+msbuild :build => :deletebin do |msb|
   msb.solution = "src\\AgileWizard.sln"
   msb.targets :clean, :build
   msb.properties :configuration => :release
@@ -50,6 +51,7 @@ desc "Run NCover Console code coverage"
   desc "Run NCover Report to check code coverage"
   ncoverreport :ncoverreport => :ncoverconsole do |ncr|
     @xml_coverage = @outputDir + "\\CodeCoverage\\coverage.xml"
+    ncr.parameters "//p "+ @projName
 
     ncr.path_to_command = @ncoverReporting
     ncr.coverage_files @xml_coverage
@@ -58,25 +60,13 @@ desc "Run NCover Console code coverage"
     fullcoveragereport.output_path = @outputDir+"\\CodeCoverage\\output"
     ncr.reports fullcoveragereport
 
+    summaryreport = NCover::SummaryReport.new
+    summaryreport.output_path = @outputDir + "\\CodeCoverage\\summary\\CoverageSummary.html"
+    ncr.reports summaryreport
+
     ncr.required_coverage(
     	NCover::BranchCoverage.new(:minimum => 10)
     	# NCover::CyclomaticComplexity.new(:maximum => 1)
     )
   end  
-  
-  desc "Run NCover Report Summary to check code coverage"
-  ncoverreport :ncoverreport2 => :ncoverreport do |ncr|
-    @xml_coverage = @outputDir + "\\CodeCoverage\\coverage.xml"
 
-    ncr.path_to_command = @ncoverReporting
-    ncr.coverage_files @xml_coverage
-
-    fullcoveragereport = NCover::SummaryReport.new
-    fullcoveragereport.output_path = @outputDir+"\\CodeCoverageSummary\\output"
-    ncr.reports ModuleClassSummary
-
-    ncr.required_coverage(
-    	NCover::BranchCoverage.new(:minimum => 10)
-    	# NCover::CyclomaticComplexity.new(:maximum => 1)
-    )
-  end
