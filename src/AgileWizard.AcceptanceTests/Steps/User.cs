@@ -12,7 +12,7 @@ namespace AgileWizard.AcceptanceTests.Steps
     public class User
     {
         [Given(@"open login page")]
-        public void GivenIOpenLoginPage()
+        public void GivenOpenLoginPage()
         {
             var browser = BrowserHelper.Browser;
             var url = BrowserHelper.ConstructUrl("Account/LogOn");
@@ -21,7 +21,7 @@ namespace AgileWizard.AcceptanceTests.Steps
         }
 
         [Given(@"enter username - '(\w+)' and password - '(\w+)'")]
-        public void GivenIEnterUsername_AgilewizardAndPassword_Agilewizard(string userName, string password)
+        public void GivenEnterUsernameAndPassword(string userName, string password)
         {
             var browser = BrowserHelper.Browser;
 
@@ -30,7 +30,7 @@ namespace AgileWizard.AcceptanceTests.Steps
         }
 
         [When(@"press button - '([\w| ]+)'")]
-        public void WhenIPressButton(string butttonText)
+        public void WhenPressButton(string butttonText)
         {
             var browser = BrowserHelper.Browser;
 
@@ -39,7 +39,7 @@ namespace AgileWizard.AcceptanceTests.Steps
 
 
         [Then(@"should be redirected to main page")]
-        public void ThenIShouldBeRedirectedToMainPage()
+        public void ThenShouldBeRedirectedToMainPage()
         {
             var browser = BrowserHelper.Browser;
 
