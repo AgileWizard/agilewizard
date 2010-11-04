@@ -40,8 +40,8 @@ desc "Run NCover Console code coverage"
 
     xunit = XUnitTestRunner.new("lib\\xunitnet\\xunit.console.clr4.exe")
     xunit.log_level = :verbose
-    xunit.asemblies = [ @outputDir+"\\Release\\AgileWizard.Domain.Tests.dll",
-			@outputDir+"\\Release\\AgileWizard.AcceptanceTests.dll"
+    xunit.assemblies = [ @outputDir+"\\Release\\AgileWizard.AcceptanceTests.dll",
+			@outputDir+"\\Release\\AgileWizard.Domain.Tests.dll"
 		      ]
     xunit.options = [
       "/xml "+ @outputDir + "\\xUnit\\XUnit-Result.xml"
