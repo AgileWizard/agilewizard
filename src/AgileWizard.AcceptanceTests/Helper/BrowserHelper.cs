@@ -27,7 +27,10 @@ namespace AgileWizard.AcceptanceTests.Helper
         {
             get
             {
-                return ScenarioContext.Current["Browser"] as IE;
+                if (!ScenarioContext.Current.ContainsKey("Browser") ||
+                    ScenarioContext.Current["Browser"] == null)
+                    ScenarioContext.Current["Browser"] = new IE();
+                return (IE)ScenarioContext.Current["Browser"];
             }
             set
             {
@@ -37,7 +40,6 @@ namespace AgileWizard.AcceptanceTests.Helper
 
         public static IE OpenBrowser()
         {
-            Browser = new IE();
             Browser.GoTo(WebsiteUrl);
 
             return Browser;

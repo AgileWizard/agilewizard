@@ -14,10 +14,7 @@ namespace AgileWizard.AcceptanceTests.Steps
         [Given(@"open login page")]
         public void GivenOpenLoginPage()
         {
-            var browser = BrowserHelper.Browser;
-            var url = BrowserHelper.ConstructUrl("Account/LogOn");
-
-            browser.GoTo(url);
+            SharedSteps.OpenPage("Account/LogOn");
         }
 
         [Given(@"enter username - '(\w+)' and password - '(\w+)'")]
@@ -29,14 +26,7 @@ namespace AgileWizard.AcceptanceTests.Steps
             browser.TextField("Password").TypeText(password);
         }
 
-        [When(@"press button - '([\w| ]+)'")]
-        public void WhenPressButton(string butttonText)
-        {
-            var browser = BrowserHelper.Browser;
-
-            browser.Button(x => x.Value == butttonText).Click();
-        }
-
+        // when press button in shared steps
 
         [Then(@"should be redirected to main page")]
         public void ThenShouldBeRedirectedToMainPage()

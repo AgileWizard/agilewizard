@@ -45,9 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="QueryIndex\IndexRegister.cs" />
+    <Compile Include="QueryIndex\ResourceIndexByTitle.cs" />
     <Compile Include="QueryIndex\UserIndexByUserName.cs" />
-    <Compile Include="IntegrateToTeamctiy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
