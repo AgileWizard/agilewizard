@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using AgileWizard.Website.Models;
 using Raven.Client;
@@ -11,14 +9,11 @@ namespace AgileWizard.Website.Controllers
 {
     public class ResourceController : Controller
     {
-        private IDocumentSession session = MvcApplication.CurrentSession;
-
-        //
-        // GET: /Resource/
+        private IDocumentSession _session = MvcApplication.CurrentSession;
 
         public ActionResult Index()
         {
-            var albums = session.LuceneQuery<Resource>().ToArray();
+            var albums = _session.LuceneQuery<Resource>().ToArray();
 
             return View(from c in albums
                         select new ResourceModel
@@ -40,8 +35,8 @@ namespace AgileWizard.Website.Controllers
                 LastUpdateTime = DateTime.Now
             };
 
-            session.Store(resource);
-            session.SaveChanges();
+            _session.Store(resource);
+            _session.SaveChanges();
 
             return RedirectToAction("Index");
         }

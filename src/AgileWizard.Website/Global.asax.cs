@@ -44,7 +44,7 @@ namespace AgileWizard.Website
             _documentStore = new DocumentStore { Url = "http://localhost:8080/" };
             _documentStore.Initialize();
 
-            new AgileWizard.Domain.QueryIndex.IndexRegister().RegisterAt(_documentStore);
+            new Domain.QueryIndex.IndexRegister().RegisterAt(_documentStore);
 
             AreaRegistration.RegisterAllAreas();
 
