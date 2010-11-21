@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileWizard.Domain.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileWizard.AcceptanceTests", "AgileWizard.AcceptanceTests\AgileWizard.AcceptanceTests.csproj", "{3A8A4C6F-ADED-47D8-85EC-0466EAEA7099}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileWizard.MVC.Tests", "AgileWizard.MVC.Tests\AgileWizard.MVC.Tests.csproj", "{F03B073A-53A2-475A-8CF5-C5B2121B7E8B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,10 +31,6 @@ Global
 		{3A8A4C6F-ADED-47D8-85EC-0466EAEA7099}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A8A4C6F-ADED-47D8-85EC-0466EAEA7099}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A8A4C6F-ADED-47D8-85EC-0466EAEA7099}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F03B073A-53A2-475A-8CF5-C5B2121B7E8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F03B073A-53A2-475A-8CF5-C5B2121B7E8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F03B073A-53A2-475A-8CF5-C5B2121B7E8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F03B073A-53A2-475A-8CF5-C5B2121B7E8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

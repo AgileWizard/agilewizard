@@ -28,7 +28,7 @@ namespace AgileWizard.Website.Controllers
         }
 
         [HttpPost]
-        public ActionResult LogOn(LogOnModel model, string returnUrl)
+        public ActionResult LogOn(LogOnModel model)
         {
             if (ModelState.IsValid)
             {
@@ -40,10 +40,7 @@ namespace AgileWizard.Website.Controllers
                 if(user.Count() == 1 && user.First().Password == model.Password)
                 {
                     FormsService.SignIn(model.UserName, model.RememberMe);
-                    if (!String.IsNullOrEmpty(returnUrl))
-                    {
-                        return Redirect(returnUrl);
-                    }
+                   
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", "The user name or password provided is incorrect.");
