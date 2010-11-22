@@ -4,11 +4,18 @@ using Raven.Client;
 
 namespace AgileWizard.Domain
 {
-    public class UserRavenRepository
+    public class UserRepository
     {
-        public static User GetUserByName(string userName, IDocumentSession documentSession)
+        private IDocumentSession _session;
+
+        public UserRepository(IDocumentSession session)
         {
-            var users = documentSession.Query<User>(typeof(UserIndexByUserName).Name);
+            this._session = session;
+        }
+
+        public User GetUserByName(string userName)
+        {
+            var users = _session.Query<User>(typeof(UserIndexByUserName).Name);
 
             var resultUsers = from x in users
                               where x.UserName == userName

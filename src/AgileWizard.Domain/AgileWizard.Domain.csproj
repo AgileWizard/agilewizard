@@ -48,7 +48,7 @@
     <Compile Include="QueryIndex\ResourceIndexByTitle.cs" />
     <Compile Include="QueryIndex\UserIndexByUserName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserRavenRepository.cs" />
+    <Compile Include="UserRepository.cs" />
     <Compile Include="Resource.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>

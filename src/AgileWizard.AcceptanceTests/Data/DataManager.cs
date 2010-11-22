@@ -10,6 +10,8 @@ namespace AgileWizard.AcceptanceTests.Data
 {
     public class DataManager
     {
+        private const string PermantIndex = "Raven/DocumentsByEntityName";
+
         private IDocumentStore DocumentStore { get; set; }
 
         public DataManager(IDocumentStore store)
@@ -19,7 +21,7 @@ namespace AgileWizard.AcceptanceTests.Data
 
         public void ClearAllDocuments()
         {
-            DocumentStore.DatabaseCommands.DeleteByIndex("Raven/DocumentsByEntityName", new IndexQuery(), true);
+            DocumentStore.DatabaseCommands.DeleteByIndex(PermantIndex, new IndexQuery(), true);
         }
 
         public void InitData()
@@ -32,6 +34,11 @@ namespace AgileWizard.AcceptanceTests.Data
             }
 
             session.SaveChanges();
+
+            //query user back to wait index update
+            session.Query<User>(PermantIndex).Customize(x => x.WaitForNonStaleResults()).FirstOrDefault();
+
+
             session.Clear();
         }
 

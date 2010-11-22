@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileWizard.Domain.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileWizard.AcceptanceTests", "AgileWizard.AcceptanceTests\AgileWizard.AcceptanceTests.csproj", "{3A8A4C6F-ADED-47D8-85EC-0466EAEA7099}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{88A90E19-72A6-4E1A-8A73-53958950F31D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,5 +36,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3A8A4C6F-ADED-47D8-85EC-0466EAEA7099} = {88A90E19-72A6-4E1A-8A73-53958950F31D}
+		{ED5AA858-7FD4-4E14-8BC1-B0D26026F36A} = {88A90E19-72A6-4E1A-8A73-53958950F31D}
 	EndGlobalSection
 EndGlobal

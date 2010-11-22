@@ -5,12 +5,12 @@ using Xunit;
 
 namespace AgileWizard.Domain.Tests
 {
-    public class UserRavenRepositoryTester
+    public class UserRepositoryTester
     {
         private IDocumentStore _documentStore;
         private IDocumentSession _documentSession;
 
-        public UserRavenRepositoryTester()
+        public UserRepositoryTester()
         {
             _documentStore = new DocumentStore { Url = "http://localhost:8080/" };
             _documentStore.Initialize();
@@ -27,9 +27,9 @@ namespace AgileWizard.Domain.Tests
         {
             const string userName = "agilewizard";
 
-           var user = UserRavenRepository.GetUserByName(userName, _documentSession);
+            var user = new UserRepository(_documentSession).GetUserByName(userName);
 
-            Assert.Equal(userName,user.UserName);
+            Assert.Equal(userName, user.UserName);
         }
     }
 }
