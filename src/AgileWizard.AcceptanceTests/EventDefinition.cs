@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using TechTalk.SpecFlow;
+﻿using TechTalk.SpecFlow;
 using Raven.Client.Document;
-using Xunit;
-using Raven.Database.Data;
 using AgileWizard.AcceptanceTests.Data;
 using AgileWizard.AcceptanceTests.Helper;
 

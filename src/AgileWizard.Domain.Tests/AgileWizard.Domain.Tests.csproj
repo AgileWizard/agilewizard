@@ -48,8 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RavenRepositoryTester.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AgileWizard.AcceptanceTests\AgileWizard.AcceptanceTests.csproj">
+      <Project>{3A8A4C6F-ADED-47D8-85EC-0466EAEA7099}</Project>
+      <Name>AgileWizard.AcceptanceTests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AgileWizard.Domain\AgileWizard.Domain.csproj">
       <Project>{FB09A149-71B0-4ECA-9231-C739ABA2625D}</Project>
       <Name>AgileWizard.Domain</Name>
