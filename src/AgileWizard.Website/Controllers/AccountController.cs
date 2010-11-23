@@ -1,10 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 using AgileWizard.Website.Models;
 using AgileWizard.Domain;
-using AgileWizard.Domain.QueryIndex;
 
 namespace AgileWizard.Website.Controllers
 {
@@ -12,12 +9,13 @@ namespace AgileWizard.Website.Controllers
     [HandleError]
     public class AccountController : Controller
     {
-
         public IFormsAuthenticationService FormsService { get; set; }
+        private public IUserRepository UserRepository { get; set; }
 
         protected override void Initialize(RequestContext requestContext)
         {
-            if (FormsService == null) { FormsService = new FormsAuthenticationService(); }
+            FormsService = new FormsAuthenticationService(); 
+            UserRepository = new UserRepository(MvcApplication.CurrentSession);
 
             base.Initialize(requestContext);
         }
@@ -32,9 +30,7 @@ namespace AgileWizard.Website.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userRepository = new UserRepository(MvcApplication.CurrentSession);
-
-                var user = userRepository.GetUserByName(model.UserName);
+                var user = UserRepository.GetUserByName(model.UserName);
 
                 if(user.Password == model.Password)
                 {
@@ -42,11 +38,15 @@ namespace AgileWizard.Website.Controllers
                    
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                ShowLoginError();
             }
-
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        private void ShowLoginError()
+        {
+            ModelState.AddModelError("", "The user name or password provided is incorrect.");
         }
 
         public ActionResult LogOff()

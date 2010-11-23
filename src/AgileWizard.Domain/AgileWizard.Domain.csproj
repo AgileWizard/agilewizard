@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IUserRepository.cs" />
     <Compile Include="QueryIndex\IndexRegister.cs" />
     <Compile Include="QueryIndex\ResourceIndexByTitle.cs" />
     <Compile Include="QueryIndex\UserIndexByUserName.cs" />

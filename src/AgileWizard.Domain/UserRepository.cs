@@ -5,7 +5,7 @@ using Raven.Client;
 
 namespace AgileWizard.Domain
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly IDocumentSession _session;
         private IEnumerable<User> _resultUsers;
