@@ -5,12 +5,12 @@ using Xunit;
 
 namespace AgileWizard.Domain.Tests
 {
-    public class UserRepositoryTester
+    public class GetUserByNameTester
     {
         private IDocumentStore _documentStore;
         private IDocumentSession _documentSession;
 
-        public UserRepositoryTester()
+        public GetUserByNameTester()
         {
             _documentStore = new DocumentStore { Url = "http://localhost:8080/" };
             _documentStore.Initialize();
@@ -23,7 +23,7 @@ namespace AgileWizard.Domain.Tests
         }
 
         [Fact]
-        public void get_user_by_name_when_user_exists_return_the_user()
+        public void when_user_exists_return_the_user()
         {
             const string userName = "agilewizard";
 
@@ -33,7 +33,7 @@ namespace AgileWizard.Domain.Tests
         }
 
         [Fact]
-        public void get_user_by_name_when_user_not_exists_return_empty_user()
+        public void when_user_not_exists_return_empty_user()
         {
             const string userName = "non_exist_user";
 
