@@ -2,7 +2,7 @@ require  "albacore"
 
 task :default => [:codeCoverage]
 
-@root="C:\\Projects\\AgileWizard\\"
+@root="..\\"
 @ncoverConsole="C:\\Program Files\\NCover\\NCover.Console.exe"
 @ncoverReporting="C:\\Program Files\\NCover\\NCover.Reporting.exe"
 @projName="AgileWizard"
