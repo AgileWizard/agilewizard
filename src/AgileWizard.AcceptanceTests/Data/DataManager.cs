@@ -38,7 +38,6 @@ namespace AgileWizard.AcceptanceTests.Data
             //query user back to wait index update
             session.Query<User>(PermantIndex).Customize(x => x.WaitForNonStaleResults()).FirstOrDefault();
 
-
             session.Clear();
         }
 

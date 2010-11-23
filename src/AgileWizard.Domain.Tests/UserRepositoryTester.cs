@@ -31,5 +31,17 @@ namespace AgileWizard.Domain.Tests
 
             Assert.Equal(userName, user.UserName);
         }
+
+        [Fact]
+        public void get_user_by_name_when_user_not_exists_return_empty_user()
+        {
+            const string userName = "non_exist_user";
+
+            var user = new UserRepository(_documentSession).GetUserByName(userName);
+
+            var expectedEmptyUser = User.EmptyUser();
+
+            Assert.Equal(expectedEmptyUser.UserName, user.UserName);
+        }
     }
 }

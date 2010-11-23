@@ -6,11 +6,11 @@ namespace AgileWizard.Domain
 {
     public class UserRepository
     {
-        private IDocumentSession _session;
+        private readonly IDocumentSession _session;
 
         public UserRepository(IDocumentSession session)
         {
-            this._session = session;
+            _session = session;
         }
 
         public User GetUserByName(string userName)
@@ -21,7 +21,9 @@ namespace AgileWizard.Domain
                               where x.UserName == userName
                               select x;
 
-            return resultUsers.First();
+            if (resultUsers.Count() > 0)
+                return resultUsers.First();
+            return User.EmptyUser();
         }
     }
 }
