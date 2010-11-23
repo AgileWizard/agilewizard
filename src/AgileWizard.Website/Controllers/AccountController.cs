@@ -10,7 +10,7 @@ namespace AgileWizard.Website.Controllers
     public class AccountController : Controller
     {
         public IFormsAuthenticationService FormsService { get; set; }
-        private public IUserRepository UserRepository { get; set; }
+        private IUserRepository UserRepository { get; set; }
 
         protected override void Initialize(RequestContext requestContext)
         {
