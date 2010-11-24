@@ -5,12 +5,12 @@ using Xunit;
 
 namespace AgileWizard.Domain.Tests
 {
-    public class GetUserByNameTester
+    public class GetUserByNameTest
     {
         private IDocumentStore _documentStore;
         private IDocumentSession _documentSession;
 
-        public GetUserByNameTester()
+        public GetUserByNameTest()
         {
             _documentStore = new DocumentStore { Url = "http://localhost:8080/" };
             _documentStore.Initialize();
