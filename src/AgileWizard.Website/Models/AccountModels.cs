@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
 using System.Web.Security;
+using AgileWizard.Domain;
 
 namespace AgileWizard.Website.Models
 {
@@ -21,6 +22,13 @@ namespace AgileWizard.Website.Models
 
         [DisplayName("Remember me?")]
         public bool RememberMe { get; set; }
+
+       public IUserRepository UserRepositoryService { get; set; }
+
+       public bool IsMatch()
+       {
+           throw new NotImplementedException();
+       }
     }
     #endregion
 

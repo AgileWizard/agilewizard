@@ -2801,6 +2801,12 @@
 			The member to provide a default	value for.
 		</param>
         </member>
+        <member name="T:Moq.ExpressionStringBuilder">
+            <summary>
+            The intention of <see cref="T:Moq.ExpressionStringBuilder"/> is to create a more readable 
+            string representation for the failure message.
+            </summary>
+        </member>
         <member name="T:Moq.Language.Flow.ICallbackResult">
             <summary>
             Implements the fluent API.
@@ -4714,7 +4720,7 @@
 			</code>
 		</example><typeparam name="TValue">Type of the value.</typeparam>
         </member>
-        <member name="M:Moq.It.Is``1(System.Linq.Expressions.Expression{System.Predicate{``0}})">
+        <member name="M:Moq.It.Is``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
             <summary>
 			Matches any value that satisfies the given predicate.
 		</summary><typeparam name="TValue">Type of the argument to check.</typeparam><param name="match">The predicate used to match the method argument.</param><remarks>
@@ -5327,7 +5333,7 @@
             </example>
             <typeparam name="TValue">Type of the value.</typeparam>
         </member>
-        <member name="M:Moq.Protected.ItExpr.Is``1(System.Linq.Expressions.Expression{System.Predicate{``0}})">
+        <member name="M:Moq.Protected.ItExpr.Is``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
             <summary>
             Matches any value that satisfies the given predicate.
             </summary>
