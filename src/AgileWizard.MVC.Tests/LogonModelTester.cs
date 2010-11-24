@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AgileWizard.Domain;
+﻿using AgileWizard.Domain;
 using AgileWizard.Website.Models;
 using Moq;
 using Xunit;
@@ -11,23 +7,56 @@ namespace AgileWizard.MVC.Tests
 {
     public class LogOnModelTester
     {
+        private const string _userName = "agilewizard";
+        private readonly User _user = new User { UserName = "agilewizard", Password = "agilewizard" };
+        private readonly LogOnModel _logOnModelSUT = new LogOnModel { UserName = "agilewizard", Password = "agilewizard" };
+        private readonly Mock<IUserRepository> _userRepositoryMock;
+
+        public LogOnModelTester()
+        {
+            _userRepositoryMock = new Mock<IUserRepository>();
+
+            _logOnModelSUT.UserRepository = _userRepositoryMock.Object;
+        }
+
         [Fact]
         public void when_correct_username_password_return_true()
         {
-            var logOnModel = new LogOnModel();
+            SetUpUserExpectationForExistingUser();
 
-            var userRepositoryMock = new Mock<IUserRepository>();
+            Assert.True(_logOnModelSUT.IsMatch());
+        }
 
-            const string userName = "agilewizard";
+        [Fact]
+        public void when_wrong_username_return_false()
+        {
+            _logOnModelSUT.UserName = "non_existing";
+            
+            SetUpEmptyUserExpectationForNonExistingUser();
 
-            var user = new User {UserName = userName, Password = "agilewizard"};
+            Assert.False(_logOnModelSUT.IsMatch());
+        }
 
-            userRepositoryMock.Setup(x => x.GetUserByName(userName)).Returns(user);
+        [Fact]
+        public void when_wrong_password_return_false()
+        {
+            _logOnModelSUT.Password = "wrong_password";
 
+            SetUpUserExpectationForExistingUser();
 
-            logOnModel.UserRepositoryService = userRepositoryMock.Object;
+            Assert.False(_logOnModelSUT.IsMatch());
+        }
 
-            Assert.True(logOnModel.IsMatch());
+        private void SetUpUserExpectationForExistingUser()
+        {
+            _userRepositoryMock.Setup(x => x.GetUserByName(_userName)).Returns(_user);
+        }
+
+        private void SetUpEmptyUserExpectationForNonExistingUser()
+        {
+            var emptyUser = User.EmptyUser();
+
+            _userRepositoryMock.Setup(x => x.GetUserByName(_logOnModelSUT.UserName)).Returns(emptyUser);
         }
     }
 }

@@ -30,9 +30,9 @@ namespace AgileWizard.Website.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = UserRepository.GetUserByName(model.UserName);
+                model.UserRepository = new UserRepository(MvcApplication.CurrentSession);
 
-                if(user.Password == model.Password)
+                if(model.IsMatch())
                 {
                     FormsService.SignIn(model.UserName, model.RememberMe);
                    

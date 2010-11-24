@@ -23,11 +23,13 @@ namespace AgileWizard.Website.Models
         [DisplayName("Remember me?")]
         public bool RememberMe { get; set; }
 
-       public IUserRepository UserRepositoryService { get; set; }
+       public IUserRepository UserRepository { get; set; }
 
        public bool IsMatch()
        {
-           throw new NotImplementedException();
+            var user = UserRepository.GetUserByName(UserName);
+
+           return user.Password == Password;
        }
     }
     #endregion
