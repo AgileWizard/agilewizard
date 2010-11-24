@@ -2,7 +2,7 @@
 
 namespace AgileWizard.Domain.Tests
 {
-    public class UserTest
+    public class UserTester
     {
         [Fact]
         public void empty_user_object_test()

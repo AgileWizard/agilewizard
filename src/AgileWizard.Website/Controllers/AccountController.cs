@@ -9,15 +9,13 @@ namespace AgileWizard.Website.Controllers
     [HandleError]
     public class AccountController : Controller
     {
-        public IFormsAuthenticationService FormsService { get; set; }
+        private IFormsAuthenticationService FormsService { get; set; }
         private IUserRepository UserRepository { get; set; }
 
-        protected override void Initialize(RequestContext requestContext)
+        public AccountController(IUserRepository userRepository, IFormsAuthenticationService formsService)
         {
-            FormsService = new FormsAuthenticationService(); 
-            UserRepository = new UserRepository(MvcApplication.CurrentSession);
-
-            base.Initialize(requestContext);
+            this.UserRepository = userRepository;
+            this.FormsService = formsService;
         }
 
         public ActionResult LogOn()

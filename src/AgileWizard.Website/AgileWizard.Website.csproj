@@ -40,6 +40,9 @@
     <Reference Include="Raven.Client.Lightweight">
       <HintPath>..\..\lib\ravendb\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\..\lib\structuremap\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -71,6 +74,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControllerRegistry.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
@@ -80,6 +84,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\ResourceModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controllers\StructureMapControllerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
