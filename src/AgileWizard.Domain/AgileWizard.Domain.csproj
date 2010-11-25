@@ -34,6 +34,9 @@
     <Reference Include="Raven.Client.Lightweight">
       <HintPath>..\..\lib\ravendb\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\..\lib\structuremap\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -44,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DomainRegistry.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="QueryIndex\IndexRegister.cs" />
     <Compile Include="QueryIndex\ResourceIndexByTitle.cs" />
