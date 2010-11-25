@@ -1,1 +1,16 @@
-Please go to \lib\README.TXT to see instructions to install your environment
+**************************************************
+* Introduction for development environment setup *
+**************************************************
+
+* Github usage
+1. Download git from http://git-scm.org/ and install it on the machine
+2. Register a github account on the site of http://github.com
+3. Follow the introduction of http://help.github.com/ to generate SSH key. Be aware that in Windows OS, please run git-bash first (will be installed with git) and complete each step in git-bash environment
+4. After the SSH key being set up in your github account setting, if agilewizard repository admin had added your github account as the contributor, then you will be able to fetch and commit the codes
+
+* MS Visual Studio
+1. In git-bash, run command of "git clone" to get the latest version of repository to your machine
+2. Go to \lib\README.TXT to see instructions to install your environment
+3. Make sure that you are using MS Visual Studio 2010
+4. Make sure that you start MS Visual Studio as system administrator. You may start it through "Run As Administrator";
+5. Build the whole solution and start the web application through "Ctrl + F5", then run the acceptance test. If all of the tests were succeed, then the environment should be set up properly
