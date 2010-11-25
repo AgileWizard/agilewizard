@@ -1,2 +1,4 @@
 ﻿AgileWizard use Rake as build tool and ruby as language for build script. Documentation of Rake at http://docs.rubyrake.org/
+Ruby 1.9.2 is required.
+Albacore has been modified. Install the albacore-0.1.5.gem in this directory locally.
 

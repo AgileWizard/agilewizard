@@ -2,7 +2,8 @@ require  "albacore"
 
 task :default => [:codeCoverage]
 
-@root="..\\"
+path=File.expand_path(File.dirname(__FILE__)).gsub(/\//, "\\")  
+@root=path[0, path.length - 6]
 @ncoverConsole="C:\\Program Files\\NCover\\NCover.Console.exe"
 @ncoverReporting="C:\\Program Files\\NCover\\NCover.Reporting.exe"
 @projName="AgileWizard"
@@ -23,7 +24,9 @@ end
 
 desc "Build the agile wizard teamcity file"
 msbuild :build => :deletebin do |msb|
+  puts @root
   msb.solution = @root+"src\\AgileWizard.sln"
+  msb.version = "v4.0.30319"
   msb.targets :clean, :build
   msb.properties :configuration => :release
 end
@@ -52,7 +55,7 @@ desc "Run NCover Console code coverage"
     ncc.log_level = :verbose
     ncc.path_to_command = @ncoverConsole
     ncc.output :xml => @xml_coverage
-    ncc.working_directory = @root + "lib\\xunitnet"
+    ncc.working_directory = "."
 
     xunit = XUnitTestRunner.new(@root + "lib\\xunitnet" + "\\xunit.console.clr4.exe")
     xunit.log_level = :verbose
@@ -62,8 +65,8 @@ desc "Run NCover Console code coverage"
     #, @outputDir+"\\Release\\AgileWizard.Domain.Tests.dll"
 
     xunit.options = [
-#      @outputDir+"\\Release\\AgileWizard.Domain.Tests.dll",
-      @outputDir+"\\Release\\AgileWizard.AcceptanceTests.dll",
+      @outputDir+"\\Release\\AgileWizard.Domain.Tests.dll",
+#      @outputDir+"\\Release\\AgileWizard.AcceptanceTests.dll",
       "/xml "+ @outputDir + "\\xUnit\\XUnit-Result.xml"
     ]
     ncc.testrunner = xunit

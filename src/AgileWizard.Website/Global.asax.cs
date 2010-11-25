@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Raven.Client.Document;
 using Raven.Client;
+using AgileWizard.Website.Controllers;
+using StructureMap;
+using AgileWizard.Domain;
 
 namespace AgileWizard.Website
 {
@@ -18,7 +21,19 @@ namespace AgileWizard.Website
         private static DocumentStore _documentStore;
 
         public MvcApplication() {
-            BeginRequest += (sender, args) => HttpContext.Current.Items[RavenSessionKey] = _documentStore.OpenSession();
+            BeginRequest += (sender, args) =>
+            {
+                var documentSession = _documentStore.OpenSession();
+
+                HttpContext.Current.Items[RavenSessionKey] = documentSession;
+
+                ObjectFactory.Configure(x =>
+                {
+                    x.For<IDocumentSession>().HttpContextScoped().Use(documentSession);
+                }
+                );
+            };
+
             EndRequest += (o, eventArgs) =>
             {
                 var disposable = HttpContext.Current.Items[RavenSessionKey] as IDisposable;
@@ -49,6 +64,19 @@ namespace AgileWizard.Website
             AreaRegistration.RegisterAllAreas();
 
             RegisterRoutes(RouteTable.Routes);
+
+            RegisterIoC();
+        }
+
+        private static void RegisterIoC()
+        {
+            ObjectFactory.Configure(x =>
+            {
+                x.AddRegistry(new ControllerRegistry());
+                x.AddRegistry(new DomainRegistry());
+            });
+
+            ControllerBuilder.Current.SetControllerFactory(new StructureMapControllerFactory());
         }
 
         public static IDocumentSession CurrentSession {
