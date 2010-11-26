@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using System.Web.Routing;
 using AgileWizard.Website.Models;
 using AgileWizard.Domain;
 
@@ -15,8 +14,8 @@ namespace AgileWizard.Website.Controllers
 
         public AccountController(IUserRepository userRepository, IFormsAuthenticationService formsService)
         {
-            this.UserRepository = userRepository;
-            this.FormsService = formsService;
+            UserRepository = userRepository;
+            FormsService = formsService;
         }
 
         public ActionResult LogOn()
@@ -29,7 +28,7 @@ namespace AgileWizard.Website.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.UserRepository = new UserRepository(MvcApplication.CurrentSession);
+                model.UserRepository = UserRepository;
 
                 if(model.IsMatch())
                 {
