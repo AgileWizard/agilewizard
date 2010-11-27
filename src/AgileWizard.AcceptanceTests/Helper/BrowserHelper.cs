@@ -18,6 +18,16 @@ namespace AgileWizard.AcceptanceTests.Helper
             }
         }
 
+        public static string UserName
+        {
+            get { return ConfigurationManager.AppSettings["UserName"]; }
+        }
+
+        public static string Password
+        {
+            get { return ConfigurationManager.AppSettings["Password"]; }
+        }
+
         public static string ConstructUrl(string relativeUrl)
         {
             return WebsiteUrl + relativeUrl;
@@ -54,5 +64,23 @@ namespace AgileWizard.AcceptanceTests.Helper
                 Browser = null;
             }
         }
+
+        public static void PressButton(string buttonText)
+        {
+            Browser.Button(x => x.Value == buttonText).Click();
+        }
+
+        public static void InputText(string field, string text)
+        {
+            Browser.TextField(field).TypeText(text);
+        }
+
+        public static void OpenPage(string pageUrl)
+        {
+            var url = ConstructUrl(pageUrl);
+
+            Browser.GoTo(url);
+        }
+
     }
 }
