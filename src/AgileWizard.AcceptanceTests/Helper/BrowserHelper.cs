@@ -72,7 +72,7 @@ namespace AgileWizard.AcceptanceTests.Helper
 
         public static void InputText(string field, string text)
         {
-            Browser.TextField(field).TypeText(text);
+            Browser.TextFields.Single(t => t.Name == field).TypeText(text);
         }
 
         public static void OpenPage(string pageUrl)
