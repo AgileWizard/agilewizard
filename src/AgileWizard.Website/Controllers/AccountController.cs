@@ -29,7 +29,7 @@ namespace AgileWizard.Website.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.UserRepository = new UserRepository(MvcApplication.CurrentSession);
+                model.UserRepository = UserRepository;
 
                 if(model.IsMatch())
                 {
