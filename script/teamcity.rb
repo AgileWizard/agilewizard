@@ -64,7 +64,6 @@ end
 task :test=>[:compile,
             :xunit_acceptance,
             :xunit_domain,
-            :xunit_mvc,
             :xunit_website] do
     
 end
@@ -77,11 +76,6 @@ end
 xunit :xunit_domain do |xunit|
     xunit.path_to_command = @xunitPath
     xunit.assembly = File.join(@outputDllDir, "AgileWizard.Domain.Tests.dll")
-end
-
-xunit :xunit_mvc do |xunit|
-    xunit.path_to_command = @xunitPath
-    xunit.assembly = File.join(@outputDllDir, "AgileWizard.MVC.Tests.dll")
 end
 
 xunit :xunit_website do |xunit|
