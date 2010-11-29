@@ -11,19 +11,20 @@ namespace AgileWizard.AcceptanceTests.Steps
     public class SharedSteps
     {
         [When(@"press button - '([\w\s]+)'")]
-        public void WhenPressButton(string butttonText)
+        public void WhenPressButton(string buttonText)
         {
-            var browser = BrowserHelper.Browser;
-
-            browser.Button(x => x.Value == butttonText).Click();
+            BrowserHelper.PressButton(buttonText);
         }
 
-        public static void OpenPage(string pageUrl)
+        [Given(@"login already")]
+        public void GivenLoginAlready()
         {
-            var browser = BrowserHelper.Browser;
-            var url = BrowserHelper.ConstructUrl(pageUrl);
+            BrowserHelper.OpenPage("Account/LogOn");
 
-            browser.GoTo(url);
+            BrowserHelper.InputText("UserName", BrowserHelper.UserName);
+            BrowserHelper.InputText("Password", BrowserHelper.Password);
+
+            BrowserHelper.PressButton("Log On");
         }
 
     }
