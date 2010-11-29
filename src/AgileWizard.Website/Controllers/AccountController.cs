@@ -9,12 +9,11 @@ namespace AgileWizard.Website.Controllers
     public class AccountController : Controller
     {
         private IFormsAuthenticationService FormsService { get; set; }
-        private IUserRepository UserRepository { get; set; }
+        private IUerAuthenticationService UerAuthenticationService { get; set; }
 
-
-        public AccountController(IUserRepository userRepository, IFormsAuthenticationService formsService)
+        public AccountController(IUerAuthenticationService uerAuthenticationService, IFormsAuthenticationService formsService)
         {
-            UserRepository = userRepository;
+            UerAuthenticationService = uerAuthenticationService;
             FormsService = formsService;
         }
 
@@ -28,9 +27,7 @@ namespace AgileWizard.Website.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.UserRepository = UserRepository;
-
-                if(model.IsMatch())
+                if (UerAuthenticationService.IsMatch(model.UserName, model.Password))
                 {
                     FormsService.SignIn(model.UserName, model.RememberMe);
                    

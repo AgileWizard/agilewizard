@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Xunit;
+﻿using Xunit;
 using AgileWizard.Domain;
 using Moq;
 using AgileWizard.Website.Models;
@@ -12,40 +8,93 @@ namespace AgileWizard.Website.Tests
 {
     public class AccountControllerTest
     {
+        private string _userName = "agilewizard";
+        private string _password = "thepassword";
+        private Mock<IUerAuthenticationService> _userAuthenticationService;
+        private Mock<IFormsAuthenticationService> _formsService;
+        private LogOnModel _logOnModel;
+        private AccountController _accountControllerSUT;
+
+        public AccountControllerTest()
+        {
+            _logOnModel = new LogOnModel
+                              {
+                                  UserName = _userName,
+                                  Password = _password,
+                                  RememberMe = false,
+                              };
+
+            _userAuthenticationService = new Mock<IUerAuthenticationService>();
+
+            _formsService = new Mock<IFormsAuthenticationService>();
+
+            _accountControllerSUT = new AccountController(_userAuthenticationService.Object, _formsService.Object);
+        }
+
         [Fact]
-        public void LogOn_Success_Should_Call_FormsService_To_SignIn()
+        public void logon_success_should_call_formsservice_to_signin()
         {
             // arrange
-            var userName = "agilewizard";
-            var password = "thepassword";
+            SetUpSuccessfulExpectationOnUserAuthentication();
 
-            var userRepository = new Mock<IUserRepository>();
-            userRepository.Setup(x => x.GetUserByName(userName)).Returns(
-                new User
-                {
-                    UserName = userName,
-                    Password = password,
-                }
-            );
-
-            var formsService = new Mock<IFormsAuthenticationService>();
-            formsService.Setup(x => x.SignIn(userName, false)).Verifiable();
-
-            var accountController = new AccountController(userRepository.Object, formsService.Object);
-            
-            var model = new LogOnModel
-            {
-                UserName = userName,
-                Password = password,
-                RememberMe = false,
-            };
+            FromsServideSginInWillBeCalled();
 
             // act
-            accountController.LogOn(model);
+            VerifyOnControllerSUBAction();
+        }
+
+        [Fact]
+        public void logon_failure_should_not_call_formsservice_to_signin()
+        {
+            // arrange
+            SetUpFailureExpectationOnUserAuthentication();
+
+            FromsServideSginInWillNotBeCalled();
+
+            // act
+            VerifyOnControllerSUBAction();
+        }
+
+        private void SetUpSuccessfulExpectationOnUserAuthentication()
+       {
+           SetUpExpectationOnUserAuthentication(true);
+       }
+
+        private void SetUpFailureExpectationOnUserAuthentication()
+        {
+            SetUpExpectationOnUserAuthentication(false);
+        }
+
+        private void SetUpExpectationOnUserAuthentication(bool expectation)
+        {
+            _userAuthenticationService.Setup(x => x.IsMatch(_userName, _password)).Returns(expectation);
+        }
+
+        private void FromsServideSginInWillBeCalled()
+        {
+            _formsService.Setup(x => x.SignIn(_userName, false)).Verifiable();
+        }
+
+        private void FromsServideSginInWillNotBeCalled()
+        {
+            _formsService.Verify(x => x.SignIn(_userName, false), Times.Never());
+        }
+
+        private void VerifyOnControllerSUBAction()
+        {
+            _accountControllerSUT.LogOn(_logOnModel);
 
             // assert
-            userRepository.VerifyAll();
-            formsService.VerifyAll();
+            VerifyServiceExpectations();
         }
+
+        private void VerifyServiceExpectations()
+        {
+            _userAuthenticationService.VerifyAll();
+            _formsService.VerifyAll();
+        }
+
+     
+
     }
 }

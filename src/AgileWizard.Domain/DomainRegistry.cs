@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using StructureMap.Configuration.DSL;
-using System.IO;
+﻿using StructureMap.Configuration.DSL;
 
 namespace AgileWizard.Domain
 {
@@ -12,6 +7,7 @@ namespace AgileWizard.Domain
         public DomainRegistry()
         {
             For<IUserRepository>().Use<UserRepository>();
+            For<IUerAuthenticationService>().Use<UerAuthenticationService>();
         }
     }
 }

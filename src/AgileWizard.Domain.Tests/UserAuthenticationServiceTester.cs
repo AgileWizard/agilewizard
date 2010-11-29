@@ -1,22 +1,23 @@
-﻿using AgileWizard.Domain;
-using AgileWizard.Website.Models;
-using Moq;
+﻿using Moq;
 using Xunit;
 
-namespace AgileWizard.Website.Tests
+namespace AgileWizard.Domain.Tests
 {
-    public class LogOnModelTester
+    public class UserAuthenticationServiceTester
     {
         private const string _userName = "agilewizard";
+        private const string _password = "agilewizard";
+        private const string _nonExistignUserName = "non_existing";
         private readonly User _user = new User { UserName = "agilewizard", Password = "agilewizard" };
-        private readonly LogOnModel _logOnModelSUT = new LogOnModel { UserName = "agilewizard", Password = "agilewizard" };
         private readonly Mock<IUserRepository> _userRepositoryMock;
 
-        public LogOnModelTester()
+        private readonly UerAuthenticationService _userAuthenticationServiceSUT;
+
+        public UserAuthenticationServiceTester()
         {
             _userRepositoryMock = new Mock<IUserRepository>();
 
-            _logOnModelSUT.UserRepository = _userRepositoryMock.Object;
+            _userAuthenticationServiceSUT = new UerAuthenticationService(_userRepositoryMock.Object);
         }
 
         [Fact]
@@ -24,27 +25,25 @@ namespace AgileWizard.Website.Tests
         {
             SetUpUserExpectationForExistingUser();
 
-            Assert.True(_logOnModelSUT.IsMatch());
+            Assert.True(_userAuthenticationServiceSUT.IsMatch(_userName, _password));
         }
 
         [Fact]
         public void when_wrong_username_return_false()
         {
-            _logOnModelSUT.UserName = "non_existing";
-            
             SetUpEmptyUserExpectationForNonExistingUser();
 
-            Assert.False(_logOnModelSUT.IsMatch());
+            Assert.False(_userAuthenticationServiceSUT.IsMatch(_nonExistignUserName, _password));
         }
 
         [Fact]
         public void when_wrong_password_return_false()
         {
-            _logOnModelSUT.Password = "wrong_password";
+            const string wrongPassword = "wrong_password";
 
             SetUpUserExpectationForExistingUser();
 
-            Assert.False(_logOnModelSUT.IsMatch());
+            Assert.False(_userAuthenticationServiceSUT.IsMatch(_userName, wrongPassword));
         }
 
         private void SetUpUserExpectationForExistingUser()
@@ -56,7 +55,7 @@ namespace AgileWizard.Website.Tests
         {
             var emptyUser = User.EmptyUser();
 
-            _userRepositoryMock.Setup(x => x.GetUserByName(_logOnModelSUT.UserName)).Returns(emptyUser);
+            _userRepositoryMock.Setup(x => x.GetUserByName(_nonExistignUserName)).Returns(emptyUser);
         }
     }
 }
