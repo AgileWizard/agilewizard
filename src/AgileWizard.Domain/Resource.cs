@@ -4,11 +4,11 @@ namespace AgileWizard.Domain
 {
     public class Resource
     {
+        public string Id { get; set; }
+
         public string Title { get; set; }
 
         public string Content { get; set; }
-
-        public Guid Guid { get; set; }
 
         public string Author { get; set; }
 
