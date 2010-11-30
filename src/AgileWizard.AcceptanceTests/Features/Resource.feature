@@ -11,7 +11,7 @@ Scenario: Add Simple Resource
 	When press button - 'Save'
 	Then should be redirected to list page
 
-@UI
+@UI @ignore
 Scenario: View Resource Detail
 	Given there is a resource
 	And open resouce page
