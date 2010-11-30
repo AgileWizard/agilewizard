@@ -7,6 +7,7 @@ namespace AgileWizard.Domain
         public DomainRegistry()
         {
             For<IUserRepository>().Use<UserRepository>();
+            For<IResourceRepository>().Use<ResourceRepository>();
             For<IUerAuthenticationService>().Use<UerAuthenticationService>();
         }
     }

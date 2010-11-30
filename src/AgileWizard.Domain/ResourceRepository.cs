@@ -3,7 +3,12 @@ using Raven.Client;
 
 namespace AgileWizard.Domain
 {
-    public class ResourceRepository
+    public interface IResourceRepository
+    {
+        void Add(string title, string content);
+    }
+
+    public class ResourceRepository : IResourceRepository
     {
         private readonly IDocumentSession _documentSession;
 

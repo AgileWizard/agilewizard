@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using AgileWizard.Website.Models;
 using Raven.Client;
@@ -9,11 +8,18 @@ namespace AgileWizard.Website.Controllers
 {
     public class ResourceController : Controller
     {
-        private IDocumentSession _session = MvcApplication.CurrentSession;
+        private IDocumentSession _documentSession { get; set; }
+        private IResourceRepository _resourceRepository { get; set; }
+
+        public ResourceController(IDocumentSession documentSession, IResourceRepository resourceRepository)
+        {
+            _documentSession = documentSession;
+            _resourceRepository = resourceRepository;
+        }
 
         public ActionResult Index()
         {
-            var albums = _session.LuceneQuery<Resource>().ToArray();
+            var albums = _documentSession.LuceneQuery<Resource>().ToArray();
 
             return View(from c in albums
                         select new ResourceModel
@@ -26,17 +32,7 @@ namespace AgileWizard.Website.Controllers
         [HttpPost]
         public ActionResult Create(ResourceModel model)
         {
-            var resource = new Resource
-            {
-                Guid = new Guid(),
-                Title = model.Title,
-                Content = model.Content,
-                CreateTime = DateTime.Now,
-                LastUpdateTime = DateTime.Now
-            };
-
-            _session.Store(resource);
-            _session.SaveChanges();
+            _resourceRepository.Add(model.Title, model.Content);
 
             return RedirectToAction("Index");
         }
