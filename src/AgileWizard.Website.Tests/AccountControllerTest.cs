@@ -8,12 +8,12 @@ namespace AgileWizard.Website.Tests
 {
     public class AccountControllerTest
     {
-        private string _userName = "agilewizard";
-        private string _password = "thepassword";
-        private Mock<IUerAuthenticationService> _userAuthenticationService;
-        private Mock<IFormsAuthenticationService> _formsService;
-        private LogOnModel _logOnModel;
-        private AccountController _accountControllerSUT;
+        private const string _userName = "agilewizard";
+        private const string _password = "thepassword";
+        private readonly Mock<IUerAuthenticationService> _userAuthenticationService;
+        private readonly Mock<IFormsAuthenticationService> _formsService;
+        private readonly LogOnModel _logOnModel;
+        private readonly AccountController _accountControllerSUT;
 
         public AccountControllerTest()
         {
@@ -40,7 +40,7 @@ namespace AgileWizard.Website.Tests
             FromsServideSginInWillBeCalled();
 
             // act
-            VerifyOnControllerSUBAction();
+            VerifyOnControllerSUTAction();
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace AgileWizard.Website.Tests
             FromsServideSginInWillNotBeCalled();
 
             // act
-            VerifyOnControllerSUBAction();
+            VerifyOnControllerSUTAction();
         }
 
         private void SetUpSuccessfulExpectationOnUserAuthentication()
@@ -80,7 +80,7 @@ namespace AgileWizard.Website.Tests
             _formsService.Verify(x => x.SignIn(_userName, false), Times.Never());
         }
 
-        private void VerifyOnControllerSUBAction()
+        private void VerifyOnControllerSUTAction()
         {
             _accountControllerSUT.LogOn(_logOnModel);
 
@@ -93,8 +93,5 @@ namespace AgileWizard.Website.Tests
             _userAuthenticationService.VerifyAll();
             _formsService.VerifyAll();
         }
-
-     
-
     }
 }
