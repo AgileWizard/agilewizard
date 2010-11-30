@@ -10,7 +10,7 @@ namespace AgileWizard.Website.Tests
     {
         private const string _userName = "agilewizard";
         private const string _password = "thepassword";
-        private readonly Mock<IUerAuthenticationService> _userAuthenticationService;
+        private readonly Mock<IUserAuthenticationService> _userAuthenticationService;
         private readonly Mock<IFormsAuthenticationService> _formsService;
         private readonly LogOnModel _logOnModel;
         private readonly AccountController _accountControllerSUT;
@@ -24,7 +24,7 @@ namespace AgileWizard.Website.Tests
                                   RememberMe = false,
                               };
 
-            _userAuthenticationService = new Mock<IUerAuthenticationService>();
+            _userAuthenticationService = new Mock<IUserAuthenticationService>();
 
             _formsService = new Mock<IFormsAuthenticationService>();
 
