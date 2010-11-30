@@ -21,7 +21,6 @@ namespace AgileWizard.Domain
         {
             var resource = new Resource
                                {
-                                   Guid = new Guid(),
                                    Title = title,
                                    Content = content,
                                    CreateTime = DateTime.Now,

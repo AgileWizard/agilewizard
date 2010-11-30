@@ -27,8 +27,8 @@ namespace AgileWizard.AcceptanceTests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Addition", "In order to manage resources\nAs a admin\nI should be able to add/edit a resource o" +
-                    "nto website", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Addition", "In order to manage resources\r\nAs a admin\r\nI should be able to add/edit a resource" +
+                    " onto website", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -76,6 +76,26 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.When("press button - \'Save\'");
 #line 12
  testRunner.Then("should be redirected to list page");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [Xunit.FactAttribute(Skip="Ignored")]
+        [Xunit.TraitAttribute("FeatureTitle", "Addition")]
+        [Xunit.TraitAttribute("Description", "View Resource Detail")]
+        public virtual void ViewResourceDetail()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View Resource Detail", new string[] {
+                        "UI",
+                        "ignore"});
+#line 15
+this.ScenarioSetup(scenarioInfo);
+#line 16
+ testRunner.Given("there is a resource");
+#line 17
+ testRunner.And("open resouce page");
+#line 18
+ testRunner.When("click on title - \'\'");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

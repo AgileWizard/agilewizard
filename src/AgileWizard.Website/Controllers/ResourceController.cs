@@ -24,12 +24,14 @@ namespace AgileWizard.Website.Controllers
             return View(from c in albums
                         select new ResourceModel
                         {
+                            Id = c.Id.Substring(10),
                             Title = c.Title,
                             Content = c.Content
                         });
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(ResourceModel model)
         {
             _resourceRepository.Add(model.Title, model.Content);
@@ -42,6 +44,17 @@ namespace AgileWizard.Website.Controllers
             var viewModel = new ResourceModel();
 
             return View(viewModel);
+        }
+
+        public ActionResult Details(string id)
+        {
+            var resource = _documentSession.Load<Resource>(string.Format("resources/{0}", id));
+            return View(new ResourceModel
+                            {
+                                Id = resource.Id,
+                                Title = resource.Title,
+                                Content = resource.Content
+                            });
         }
 
     }

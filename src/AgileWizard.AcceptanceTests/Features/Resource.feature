@@ -10,3 +10,9 @@ Scenario: Add Simple Resource
 	And enter title - 'simple Resource' and content - 'simple Content'
 	When press button - 'Save'
 	Then should be redirected to list page
+
+@UI @ignore
+Scenario: View Resource Detail
+	Given there is a resource
+	And open resouce page
+	When click on title - ''
