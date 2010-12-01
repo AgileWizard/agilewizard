@@ -14,13 +14,13 @@ namespace AgileWizard.Domain.Tests.Services
         private readonly User _user = new User { UserName = "agilewizard", Password = "agilewizard" };
         private readonly Mock<IUserRepository> _userRepositoryMock;
 
-        private readonly UerAuthenticationService _userAuthenticationServiceSUT;
+        private readonly UserAuthenticationService _userAuthenticationServiceSUT;
 
         public UserAuthenticationServiceTester()
         {
             _userRepositoryMock = new Mock<IUserRepository>();
 
-            _userAuthenticationServiceSUT = new UerAuthenticationService(_userRepositoryMock.Object);
+            _userAuthenticationServiceSUT = new UserAuthenticationService(_userRepositoryMock.Object);
         }
 
         [Fact]

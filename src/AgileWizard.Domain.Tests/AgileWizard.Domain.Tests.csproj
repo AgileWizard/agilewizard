@@ -51,6 +51,8 @@
     <Compile Include="Repositories\UserRepositoryTest.cs" />
     <Compile Include="Repositories\RepositoryTestBase.cs" />
     <Compile Include="Repositories\ResourceRepositoryTest.cs" />
+    <Compile Include="Services\ResourceService.cs" />
+    <Compile Include="Services\ResourceServiceTest.cs" />
     <Compile Include="Services\UserAuthenticationServiceTester.cs" />
     <Compile Include="Entities\UserTest.cs" />
   </ItemGroup>

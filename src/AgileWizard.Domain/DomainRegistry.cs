@@ -8,9 +8,11 @@ namespace AgileWizard.Domain
     {
         public DomainRegistry()
         {
-            For<IUserRepository>().Use<UserRepository>();
-            For<IResourceRepository>().Use<ResourceRepository>();
-            For<IUserAuthenticationService>().Use<UerAuthenticationService>();
+            Scan(x => 
+            { 
+                x.TheCallingAssembly();
+                x.WithDefaultConventions();
+            });
         }
     }
 }

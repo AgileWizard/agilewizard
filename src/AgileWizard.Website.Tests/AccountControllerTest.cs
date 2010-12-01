@@ -7,7 +7,7 @@ using AgileWizard.Website.Controllers;
 
 namespace AgileWizard.Website.Tests
 {
-    public class AccountControllerTester
+    public class AccountControllerTest
     {
         private const string _userName = "agilewizard";
         private const string _password = "thepassword";
@@ -16,7 +16,7 @@ namespace AgileWizard.Website.Tests
         private readonly LogOnModel _logOnModel;
         private readonly AccountController _accountControllerSUT;
 
-        public AccountControllerTester()
+        public AccountControllerTest()
         {
             _logOnModel = new LogOnModel
                               {

@@ -54,8 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AccountControllerTester.cs" />
-    <Compile Include="ResourceControllerTester.cs" />
+    <Compile Include="AccountControllerTest.cs" />
+    <Compile Include="ResourceControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AgileWizard.Domain\AgileWizard.Domain.csproj">

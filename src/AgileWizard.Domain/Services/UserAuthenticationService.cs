@@ -2,11 +2,11 @@
 
 namespace AgileWizard.Domain.Services
 {
-    public class UerAuthenticationService : IUserAuthenticationService
+    public class UserAuthenticationService : IUserAuthenticationService
     {
         public IUserRepository UserRepository { get; set; }
 
-        public UerAuthenticationService(IUserRepository userRepository)
+        public UserAuthenticationService(IUserRepository userRepository)
         {
             UserRepository = userRepository;
         }

@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using AgileWizard.Domain.Entities;
 using AgileWizard.Domain.Repositories;
+using AgileWizard.Domain.Services;
 using AgileWizard.Website.Models;
 using Raven.Client;
 using AgileWizard.Domain;
@@ -11,9 +12,9 @@ namespace AgileWizard.Website.Controllers
     public class ResourceController : Controller
     {
         private IDocumentSession _documentSession { get; set; }
-        private IResourceRepository _resourceRepository { get; set; }
+        private IResourceService _resourceRepository { get; set; }
 
-        public ResourceController(IDocumentSession documentSession, IResourceRepository resourceRepository)
+        public ResourceController(IDocumentSession documentSession, IResourceService resourceRepository)
         {
             _documentSession = documentSession;
             _resourceRepository = resourceRepository;
@@ -36,7 +37,7 @@ namespace AgileWizard.Website.Controllers
         [ValidateInput(false)]
         public ActionResult Create(ResourceModel model)
         {
-            _resourceRepository.Add(model.Title, model.Content);
+            _resourceRepository.AddResource(model.Title, model.Content);
 
             return RedirectToAction("Index");
         }
