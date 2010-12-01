@@ -4,7 +4,7 @@ using AgileWizard.Domain.Services;
 using Moq;
 using Xunit;
 
-namespace AgileWizard.Domain.Tests
+namespace AgileWizard.Domain.Tests.Services
 {
     public class UserAuthenticationServiceTester
     {

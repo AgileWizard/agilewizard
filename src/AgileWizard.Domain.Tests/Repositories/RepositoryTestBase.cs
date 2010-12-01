@@ -2,15 +2,15 @@
 using Raven.Client;
 using Raven.Client.Document;
 
-namespace AgileWizard.Domain.Tests
+namespace AgileWizard.Domain.Tests.Repositories
 {
-    public class RepositoryTesterBase
+    public class RepositoryTestBase
     {
         private readonly IDocumentStore _documentStore;
         protected IDocumentSession _documentSession;
         protected readonly DataManager _dataManager;
 
-        protected RepositoryTesterBase()
+        protected RepositoryTestBase()
         {
             _documentStore = new DocumentStore { Url = "http://localhost:8080/" };
             _documentStore.Initialize();

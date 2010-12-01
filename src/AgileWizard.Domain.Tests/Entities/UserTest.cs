@@ -1,7 +1,7 @@
 ﻿using AgileWizard.Domain.Entities;
 using Xunit;
 
-namespace AgileWizard.Domain.Tests
+namespace AgileWizard.Domain.Tests.Entities
 {
     public class UserTester
     {

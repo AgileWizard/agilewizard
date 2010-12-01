@@ -4,13 +4,13 @@ using AgileWizard.Domain.QueryIndexes;
 using AgileWizard.Domain.Repositories;
 using Xunit;
 
-namespace AgileWizard.Domain.Tests
+namespace AgileWizard.Domain.Tests.Repositories
 {
-    public class ResourceRepositoryTester : RepositoryTesterBase
+    public class ResourceRepositoryTest : RepositoryTestBase
     {
         private readonly ResourceRepository _resourceRepositorySUT;
 
-        public ResourceRepositoryTester()
+        public ResourceRepositoryTest()
         {
             _resourceRepositorySUT = new ResourceRepository(_documentSession);
         }

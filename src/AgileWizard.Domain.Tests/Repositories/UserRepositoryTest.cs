@@ -2,11 +2,11 @@
 using AgileWizard.Domain.Repositories;
 using Xunit;
 
-namespace AgileWizard.Domain.Tests
+namespace AgileWizard.Domain.Tests.Repositories
 {
-    public class GetUserByNameTest : RepositoryTesterBase
+    public class UserRepositoryTest : RepositoryTestBase
     {
-        public GetUserByNameTest()
+        public UserRepositoryTest()
         {
             _dataManager.InitData();
         }
