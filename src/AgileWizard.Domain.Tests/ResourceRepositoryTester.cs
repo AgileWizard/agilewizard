@@ -1,5 +1,7 @@
 ﻿using System.Linq;
-using AgileWizard.Domain.QueryIndex;
+using AgileWizard.Domain.Entities;
+using AgileWizard.Domain.QueryIndexes;
+using AgileWizard.Domain.Repositories;
 using Xunit;
 
 namespace AgileWizard.Domain.Tests

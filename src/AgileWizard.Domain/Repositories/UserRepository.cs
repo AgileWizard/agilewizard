@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AgileWizard.Domain.QueryIndex;
+using AgileWizard.Domain.Entities;
+using AgileWizard.Domain.QueryIndexes;
 using Raven.Client;
 
-namespace AgileWizard.Domain
+namespace AgileWizard.Domain.Repositories
 {
     public class UserRepository : IUserRepository
     {

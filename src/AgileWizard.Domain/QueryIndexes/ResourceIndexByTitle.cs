@@ -1,8 +1,9 @@
 ﻿using System.Linq;
+using AgileWizard.Domain.Entities;
 using Raven.Client.Indexes;
 using Raven.Database.Indexing;
 
-namespace AgileWizard.Domain.QueryIndex
+namespace AgileWizard.Domain.QueryIndexes
 {
     public class ResourceIndexByTitle : AbstractIndexCreationTask
     {

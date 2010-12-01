@@ -1,4 +1,6 @@
-﻿using Xunit;
+﻿using AgileWizard.Domain.Entities;
+using AgileWizard.Domain.Repositories;
+using Xunit;
 
 namespace AgileWizard.Domain.Tests
 {

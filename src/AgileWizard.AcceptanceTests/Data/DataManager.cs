@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AgileWizard.AcceptanceTests.Helper;
+using AgileWizard.Domain.Entities;
 using Raven.Client;
 using Raven.Database.Data;
 using AgileWizard.Domain;

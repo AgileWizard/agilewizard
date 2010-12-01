@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using AgileWizard.Domain.QueryIndexes;
 using Raven.Client.Document;
 using Raven.Client;
 using AgileWizard.Website.Controllers;
@@ -57,7 +58,7 @@ namespace AgileWizard.Website
             _documentStore = new DocumentStore { Url = "http://localhost:8080/" };
             _documentStore.Initialize();
 
-            new Domain.QueryIndex.IndexRegister().RegisterAt(_documentStore);
+            new IndexRegister().RegisterAt(_documentStore);
 
             AreaRegistration.RegisterAllAreas();
 

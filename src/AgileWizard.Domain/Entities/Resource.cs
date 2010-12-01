@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AgileWizard.Domain
+namespace AgileWizard.Domain.Entities
 {
     public class Resource
     {

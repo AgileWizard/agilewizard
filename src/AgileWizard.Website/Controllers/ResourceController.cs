@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using AgileWizard.Domain.Entities;
+using AgileWizard.Domain.Repositories;
 using AgileWizard.Website.Models;
 using Raven.Client;
 using AgileWizard.Domain;
@@ -48,7 +50,7 @@ namespace AgileWizard.Website.Controllers
 
         public ActionResult Details(string id)
         {
-            var resource = _documentSession.Load<Resource>(string.Format("resources/{0}", id));
+            var resource = _resourceRepository.GetResourceById(id);
             return View(new ResourceModel
                             {
                                 Id = resource.Id,
@@ -56,6 +58,5 @@ namespace AgileWizard.Website.Controllers
                                 Content = resource.Content
                             });
         }
-
     }
 }

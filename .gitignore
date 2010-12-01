@@ -9,3 +9,4 @@ _ReSharper.*/
 *.user
 Server/Data/
 /tool/ravendb/Server/Data/
+src/lint.db

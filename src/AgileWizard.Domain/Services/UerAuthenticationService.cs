@@ -1,10 +1,7 @@
-﻿namespace AgileWizard.Domain
-{
-    public interface IUserAuthenticationService
-    {
-        bool IsMatch(string userName, string password);
-    }
+﻿using AgileWizard.Domain.Repositories;
 
+namespace AgileWizard.Domain.Services
+{
     public class UerAuthenticationService : IUserAuthenticationService
     {
         public IUserRepository UserRepository { get; set; }

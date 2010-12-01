@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
 using System.Web.Security;
 using AgileWizard.Domain;
+using AgileWizard.Domain.Repositories;
 
 namespace AgileWizard.Website.Models
 {

@@ -1,4 +1,7 @@
-﻿using Moq;
+﻿using AgileWizard.Domain.Entities;
+using AgileWizard.Domain.Repositories;
+using AgileWizard.Domain.Services;
+using Moq;
 using Xunit;
 
 namespace AgileWizard.Domain.Tests

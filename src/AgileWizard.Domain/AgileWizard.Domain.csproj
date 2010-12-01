@@ -48,16 +48,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainRegistry.cs" />
-    <Compile Include="IUserRepository.cs" />
-    <Compile Include="QueryIndex\IndexRegister.cs" />
-    <Compile Include="QueryIndex\ResourceIndexByTitle.cs" />
-    <Compile Include="QueryIndex\UserIndexByUserName.cs" />
+    <Compile Include="Repositories\IResourceRepository.cs" />
+    <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="QueryIndexes\IndexRegister.cs" />
+    <Compile Include="QueryIndexes\ResourceIndexByTitle.cs" />
+    <Compile Include="QueryIndexes\UserIndexByUserName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResourceRepository.cs" />
-    <Compile Include="UerAuthenticationService.cs" />
-    <Compile Include="UserRepository.cs" />
-    <Compile Include="Resource.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="Repositories\ResourceRepository.cs" />
+    <Compile Include="Services\IUserAuthenticationService.cs" />
+    <Compile Include="Services\UerAuthenticationService.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Entities\Resource.cs" />
+    <Compile Include="Entities\User.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
