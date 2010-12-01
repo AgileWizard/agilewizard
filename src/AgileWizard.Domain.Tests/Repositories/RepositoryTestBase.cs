@@ -1,6 +1,7 @@
 ﻿using Raven.Client;
 using Raven.Client.Document;
 using Raven.Database.Data;
+using System;
 
 namespace AgileWizard.Domain.Tests.Repositories
 {
@@ -23,11 +24,13 @@ namespace AgileWizard.Domain.Tests.Repositories
             _documentSession.SaveChanges();
 
             _documentSession.Query<T>(indexName).Customize(x => x.WaitForNonStaleResults());
+            //_documentSession.Query<T>(indexName).Customize(x => x.WaitForNonStaleResultsAsOfNow(TimeSpan.FromSeconds(10)));
         }
 
         protected void DeleteDataByIndex(string indexName)
         {
             _documentStore.DatabaseCommands.DeleteByIndex(indexName, new IndexQuery(), true);
+
         }
 
     }

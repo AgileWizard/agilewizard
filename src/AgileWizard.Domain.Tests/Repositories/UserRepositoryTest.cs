@@ -2,6 +2,7 @@
 using AgileWizard.Domain.QueryIndexes;
 using AgileWizard.Domain.Repositories;
 using Xunit;
+using System.Threading;
 
 namespace AgileWizard.Domain.Tests.Repositories
 {
@@ -18,12 +19,13 @@ namespace AgileWizard.Domain.Tests.Repositories
             var indexName = typeof(UserIndexByUserName).Name;
             var initUser = CreateAgileWizardUserForTest();
 
-            this.DeleteDataByIndex(indexName);
             this.PrepareData<User>(initUser, indexName);
 
             var actualUser = new UserRepository(_documentSession).GetUserByName(userName);
+
             Assert.Equal(userName, actualUser.UserName);
             Assert.Equal(userName, actualUser.Password);
+
         }
 
         [Fact]

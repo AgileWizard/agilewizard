@@ -25,7 +25,7 @@ namespace AgileWizard.Domain.Repositories
 
         private void GetUsersByName(string userName)
         {
-            var users = _session.Query<User>(typeof(UserIndexByUserName).Name);
+            var users = _session.LuceneQuery<User>(typeof(UserIndexByUserName).Name);
 
             _resultUsers = from x in users
                    where x.UserName == userName
