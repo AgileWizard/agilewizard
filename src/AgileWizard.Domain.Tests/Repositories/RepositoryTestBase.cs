@@ -1,24 +1,37 @@
-﻿using AgileWizard.AcceptanceTests.Data;
-using Raven.Client;
+﻿using Raven.Client;
 using Raven.Client.Document;
+using Raven.Database.Data;
+using System;
 
 namespace AgileWizard.Domain.Tests.Repositories
 {
-    public class RepositoryTestBase
+    public abstract class RepositoryTestBase
     {
-        private readonly IDocumentStore _documentStore;
+        protected readonly IDocumentStore _documentStore;
         protected IDocumentSession _documentSession;
-        protected readonly DataManager _dataManager;
 
         protected RepositoryTestBase()
         {
             _documentStore = new DocumentStore { Url = "http://localhost:8080/" };
             _documentStore.Initialize();
 
-            _dataManager = new DataManager(_documentStore);
-            _dataManager.ClearAllDocuments();
-
             _documentSession = _documentStore.OpenSession();
         }
+
+        protected void PrepareData<T>(T entity, string indexName)
+        {
+            _documentSession.Store(entity);
+            _documentSession.SaveChanges();
+
+            _documentSession.Query<T>(indexName).Customize(x => x.WaitForNonStaleResults());
+            //_documentSession.Query<T>(indexName).Customize(x => x.WaitForNonStaleResultsAsOfNow(TimeSpan.FromSeconds(10)));
+        }
+
+        protected void DeleteDataByIndex(string indexName)
+        {
+            _documentStore.DatabaseCommands.DeleteByIndex(indexName, new IndexQuery(), true);
+
+        }
+
     }
 }

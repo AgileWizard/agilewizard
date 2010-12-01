@@ -20,21 +20,21 @@ namespace AgileWizard.Domain.Repositories
         {
             GetUsersByName(userName);
 
-            return ThereIsMatchingUser() ? FirstUser() : User.EmptyUser();
+            return HasMatchedUser() ? FirstUser() : User.EmptyUser();
         }
 
         private void GetUsersByName(string userName)
         {
-            var users = _session.Query<User>(typeof(UserIndexByUserName).Name);
+            var users = _session.LuceneQuery<User>(typeof(UserIndexByUserName).Name);
 
             _resultUsers = from x in users
                    where x.UserName == userName
                    select x;
         }
         
-        private bool ThereIsMatchingUser()
+        private bool HasMatchedUser()
         {
-            return _resultUsers.Count() > 0;
+            return _resultUsers.Any();
         }
 
         private User FirstUser()
