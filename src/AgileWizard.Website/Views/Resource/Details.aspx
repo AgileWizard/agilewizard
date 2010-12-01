@@ -3,6 +3,6 @@
     <%: Model.Title %>
 </asp:Content>
 <asp:Content runat="server" ID="Main" ContentPlaceHolderID="MainContent">
-    <h2><%: Model.Title %></h2>
-    <span><%=Model.Content %></span>
+    <h2 class="Title"><%: Model.Title %></h2>
+    <span class="Content"><%=Model.Content %></span>
 </asp:Content>

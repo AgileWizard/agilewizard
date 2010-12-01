@@ -21,11 +21,10 @@
 	<% foreach (var item in Model) { %>
 		<tr>
 			<td>
-				<%: Html.ActionLink("Details", "Details", new { id=item.Id }) %> |
 				<%: Html.ActionLink("Edit", "Edit", new { id=item.Title }) %> |
 				<%: Html.ActionLink("Delete", "Delete", new { id=item.Title })%>
 			</td>
-			<td><%: item.Title %></td>
+			<td><%: Html.ActionLink(item.Title, "Details", new { id = item.Id })%></td>
 			<td><%: item.Content %></td>
 		</tr>
 	

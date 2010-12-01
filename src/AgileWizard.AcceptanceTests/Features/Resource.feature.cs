@@ -80,22 +80,21 @@ this.ScenarioSetup(scenarioInfo);
             testRunner.CollectScenarioErrors();
         }
         
-        [Xunit.FactAttribute(Skip="Ignored")]
+        [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "Addition")]
         [Xunit.TraitAttribute("Description", "View Resource Detail")]
         public virtual void ViewResourceDetail()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View Resource Detail", new string[] {
-                        "UI",
-                        "ignore"});
+                        "UI"});
 #line 15
 this.ScenarioSetup(scenarioInfo);
 #line 16
- testRunner.Given("there is a resource");
+ testRunner.Given("open resouce list page");
 #line 17
- testRunner.And("open resouce page");
+ testRunner.When("open a resource titled with \'Embeded Video\'");
 #line 18
- testRunner.When("click on title - \'\'");
+ testRunner.Then("\'Embeded Video\' resource details page should be open");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

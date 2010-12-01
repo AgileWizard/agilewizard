@@ -11,8 +11,8 @@ Scenario: Add Simple Resource
 	When press button - 'Save'
 	Then should be redirected to list page
 
-@UI @ignore
+@UI
 Scenario: View Resource Detail
-	Given there is a resource
-	And open resouce page
-	When click on title - ''
+	Given open resouce list page
+	When open a resource titled with 'Embeded Video'
+	Then 'Embeded Video' resource details page should be open

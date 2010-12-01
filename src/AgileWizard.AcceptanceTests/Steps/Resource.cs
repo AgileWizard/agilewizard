@@ -29,5 +29,27 @@ namespace AgileWizard.AcceptanceTests.Steps
 
             Assert.Equal(BrowserHelper.WebsiteUrl + suffix, browser.Url);
         }
+
+        [Given(@"open resouce list page")]
+        public void GivenOpenResourceListPage()
+        {
+            BrowserHelper.OpenPage("Resource");
+        }
+
+        [When(@"open a resource titled with '([\w\s]+)'")]
+        public void ClickOnATitleOfAResource(string title)
+        {
+            var browser = BrowserHelper.Browser;
+            browser.Link(l => l.Text == title).Click();
+        }
+
+        [Then(@"'([\w\s]+)' resource details page should be open")]
+        public void ResourceDetailsPageShouldBeOpen(string title)
+        {
+            var browser = BrowserHelper.Browser;
+            Assert.Equal(title, browser.Title);
+            var head = browser.Element(e => e.ClassName == "Title");
+            Assert.Equal(title, head.Text);
+        }
     }
 }
