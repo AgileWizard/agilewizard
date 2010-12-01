@@ -20,7 +20,7 @@ namespace AgileWizard.Domain.Repositories
         {
             GetUsersByName(userName);
 
-            return ThereIsMatchingUser() ? FirstUser() : User.EmptyUser();
+            return HasMatchedUser() ? FirstUser() : User.EmptyUser();
         }
 
         private void GetUsersByName(string userName)
@@ -32,9 +32,9 @@ namespace AgileWizard.Domain.Repositories
                    select x;
         }
         
-        private bool ThereIsMatchingUser()
+        private bool HasMatchedUser()
         {
-            return _resultUsers.Count() > 0;
+            return _resultUsers.Any();
         }
 
         private User FirstUser()

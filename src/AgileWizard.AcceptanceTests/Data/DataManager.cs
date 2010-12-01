@@ -12,7 +12,7 @@ namespace AgileWizard.AcceptanceTests.Data
 {
     public class DataManager
     {
-        private const string PermantIndex = "Raven/DocumentsByEntityName";
+        public const string PermantIndex = "Raven/DocumentsByEntityName";
 
         private IDocumentStore DocumentStore { get; set; }
 

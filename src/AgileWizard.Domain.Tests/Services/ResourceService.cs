@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using AgileWizard.Domain.Entities;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
-using Moq;
-using Raven.Client;
 
 namespace AgileWizard.Domain.Tests.Services
 {
