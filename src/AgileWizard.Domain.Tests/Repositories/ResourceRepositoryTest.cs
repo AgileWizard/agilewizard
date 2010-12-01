@@ -2,46 +2,74 @@
 using AgileWizard.Domain.Entities;
 using AgileWizard.Domain.QueryIndexes;
 using AgileWizard.Domain.Repositories;
+using Moq;
+using Raven.Client.Document;
 using Xunit;
+using Raven.Client;
+using System.Collections.Generic;
 
 namespace AgileWizard.Domain.Tests.Repositories
 {
     public class ResourceRepositoryTest : RepositoryTestBase
     {
         private readonly ResourceRepository _resourceRepositorySUT;
+        private Mock<IDocumentSession> _session;
 
         public ResourceRepositoryTest()
         {
-            _resourceRepositorySUT = new ResourceRepository(_documentSession);
+            _session = new Mock<IDocumentSession>();
+            _resourceRepositorySUT = new ResourceRepository(_session.Object);
         }
 
         [Fact]
         public void add_resource()
         {
-            string title = "title";
-            string content = "content";
+            //Arrange
+            const string TITLE = "title";
+            const string CONTENT = "content";
+            _session.Setup(s => s.Store(It.Is<Resource>(r => r.Title == TITLE && r.Content == CONTENT))).Verifiable();
+            _session.Setup(s => s.SaveChanges()).Verifiable();
             
-            _resourceRepositorySUT.Add(title, content);
+            //Act
+            _resourceRepositorySUT.Add(TITLE, CONTENT);
 
-            ResourceHasBeenSaved(title);
-        }
-        
-        private Resource GetResourceByTitle(string title)
-        {
-            var resources = _documentSession.Query<Resource>(typeof(ResourceIndexByTitle).Name).Customize(x => x.WaitForNonStaleResults());
-
-            var _resultResources = from x in resources
-                                   where x.Title == title
-                                   select x;
-            return _resultResources.First();
+            //Assert
+            _session.VerifyAll();
         }
 
-        private void ResourceHasBeenSaved(string title)
+        [Fact]
+        public void Given_an_id_should_return_a_resource()
         {
-            var expectedResource = GetResourceByTitle(title);
+            //Arrange
+            const string ID = "1";
+            _session.Setup(s => s.Load<Resource>(DocumentId(ID))).Verifiable();
 
-            Assert.NotNull(expectedResource);
-            Assert.Equal(expectedResource.Title, title);
+            //Act
+            _resourceRepositorySUT.GetResourceById(ID);
+
+            //Assert
+            _session.VerifyAll();
+        }
+
+        [Fact]
+        public void Can_get_a_list_of_resources()
+        {
+            //Arrange
+            var resourceQuery = new Mock<IDocumentQuery<Resource>>();
+            var enumerator = (new List<Resource>()).GetEnumerator();
+            resourceQuery.Setup(q => q.GetEnumerator()).Returns(enumerator);
+            _session.Setup(s => s.LuceneQuery<Resource>(typeof(ResourceIndexByTitle).Name)).Returns(resourceQuery.Object);
+
+            //Act
+            _resourceRepositorySUT.GetResourceList();
+
+            //Assert
+            _session.VerifyAll();
+        }
+
+        private string DocumentId(string id)
+        {
+            return string.Format("resources/{0}", id);
         }
     }
 

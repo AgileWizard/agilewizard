@@ -26,7 +26,7 @@ namespace AgileWizard.Domain.Services
 
         public IList<Resource> GetResourceList()
         {
-            throw new NotImplementedException();
+            return _repository.GetResourceList();
         }
     }
 }

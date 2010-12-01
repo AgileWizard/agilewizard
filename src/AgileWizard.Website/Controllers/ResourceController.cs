@@ -12,19 +12,19 @@ namespace AgileWizard.Website.Controllers
     public class ResourceController : Controller
     {
         private IDocumentSession _documentSession { get; set; }
-        private IResourceService _resourceRepository { get; set; }
+        private IResourceService _resourceService { get; set; }
 
-        public ResourceController(IDocumentSession documentSession, IResourceService resourceRepository)
+        public ResourceController(IDocumentSession documentSession, IResourceService resourceService)
         {
             _documentSession = documentSession;
-            _resourceRepository = resourceRepository;
+            _resourceService = resourceService;
         }
 
         public ActionResult Index()
         {
-            var albums = _documentSession.LuceneQuery<Resource>().ToArray();
+            var resources = _resourceService.GetResourceList();
 
-            return View(from c in albums
+            return View(from c in resources
                         select new ResourceModel
                         {
                             Id = c.Id.Substring(10),
@@ -37,7 +37,7 @@ namespace AgileWizard.Website.Controllers
         [ValidateInput(false)]
         public ActionResult Create(ResourceModel model)
         {
-            _resourceRepository.AddResource(model.Title, model.Content);
+            _resourceService.AddResource(model.Title, model.Content);
 
             return RedirectToAction("Index");
         }
@@ -51,7 +51,7 @@ namespace AgileWizard.Website.Controllers
 
         public ActionResult Details(string id)
         {
-            var resource = _resourceRepository.GetResourceById(id);
+            var resource = _resourceService.GetResourceById(id);
             return View(new ResourceModel
                             {
                                 Id = resource.Id,

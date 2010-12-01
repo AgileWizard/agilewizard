@@ -6,7 +6,7 @@ using Xunit;
 
 namespace AgileWizard.Domain.Tests.Services
 {
-    public class UserAuthenticationServiceTester
+    public class UserAuthenticationServiceTest
     {
         private const string _userName = "agilewizard";
         private const string _password = "agilewizard";
@@ -16,7 +16,7 @@ namespace AgileWizard.Domain.Tests.Services
 
         private readonly UserAuthenticationService _userAuthenticationServiceSUT;
 
-        public UserAuthenticationServiceTester()
+        public UserAuthenticationServiceTest()
         {
             _userRepositoryMock = new Mock<IUserRepository>();
 

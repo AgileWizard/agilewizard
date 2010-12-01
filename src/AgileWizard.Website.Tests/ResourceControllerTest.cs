@@ -1,4 +1,8 @@
-﻿using AgileWizard.Domain.Repositories;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using AgileWizard.Domain.Entities;
+using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
 using AgileWizard.Website.Controllers;
 using AgileWizard.Website.Models;
@@ -31,11 +35,48 @@ namespace AgileWizard.Website.Tests
         [Fact]
         public void when_add_resource()
         {
+            //Arrange
             ResourceRepositoryWillBeCalled();
 
-            resourceControllerSUT.Create(_resourceModel);
+            //Act
+            var actionResult = resourceControllerSUT.Create(_resourceModel);
 
+            //Assert
             _resourceService.VerifyAll();
+            ShouldRedirectToActionIndex(actionResult);
+        }
+
+        [Fact]
+        public void index_action_should_return_a_view_of_a_list_of_resouces()
+        {
+            //Arrange
+            var resources = new List<Resource>
+                                {
+                                    new Resource() {Id = "resources/1", Title = "title", Content = "content"}
+                                };
+            _resourceService.Setup(s => s.GetResourceList()).Returns(resources);
+
+            //Act
+            var actionResult = resourceControllerSUT.Index();
+
+            //Assert
+            ShouldShowIndexViewWithModel(actionResult);
+        }
+
+        private void ShouldShowIndexViewWithModel(ActionResult actionResult)
+        {
+            Assert.IsType<ViewResult>(actionResult);
+            var viewResult = (ViewResult)actionResult;
+            Assert.Empty(viewResult.ViewName);
+            Assert.IsAssignableFrom<IEnumerable<ResourceModel>>(viewResult.ViewData.Model);
+            var viewModel = (IEnumerable<ResourceModel>)viewResult.ViewData.Model;
+            Assert.Equal("1", viewModel.First().Id);
+        }
+
+        private void ShouldRedirectToActionIndex(ActionResult actionResult)
+        {
+            Assert.IsType<RedirectToRouteResult>(actionResult);
+            Assert.Equal("Index", ((RedirectToRouteResult)actionResult).RouteValues["action"].ToString());
         }
 
         private void ResourceRepositoryWillBeCalled()

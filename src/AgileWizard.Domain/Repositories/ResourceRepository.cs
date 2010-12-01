@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using AgileWizard.Domain.Entities;
+using AgileWizard.Domain.QueryIndexes;
 using Raven.Client;
+using System.Linq;
 
 namespace AgileWizard.Domain.Repositories
 {
@@ -33,5 +36,9 @@ namespace AgileWizard.Domain.Repositories
             return _documentSession.Load<Resource>(string.Format("resources/{0}", id));
         }
 
+        public List<Resource> GetResourceList()
+        {
+            return _documentSession.LuceneQuery<Resource>(typeof(ResourceIndexByTitle).Name).ToList();
+        }
     }
 }

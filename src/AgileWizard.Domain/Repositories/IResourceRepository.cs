@@ -1,4 +1,5 @@
-﻿using AgileWizard.Domain.Entities;
+﻿using System.Collections.Generic;
+using AgileWizard.Domain.Entities;
 
 namespace AgileWizard.Domain.Repositories
 {
@@ -6,5 +7,6 @@ namespace AgileWizard.Domain.Repositories
     {
         void Add(string title, string content);
         Resource GetResourceById(string id);
+        List<Resource> GetResourceList();
     }
 }

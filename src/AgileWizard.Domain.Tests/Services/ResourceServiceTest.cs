@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AgileWizard.Domain.Entities;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
 using Moq;
@@ -48,6 +49,21 @@ namespace AgileWizard.Domain.Tests.Services
             
             //Assert
             _repository.VerifyAll();
+        }
+
+        [Fact]
+        public void Can_get_a_list_of_resources()
+        {
+            //Arrange
+            var expectedResources = new List<Resource>();
+            _repository.Setup(r => r.GetResourceList()).Returns(expectedResources);
+
+            //Act
+            var actualResources = _service.GetResourceList();
+
+            //Assert
+            Assert.Equal(expectedResources, actualResources);
+
         }
     }
 }
