@@ -1,4 +1,6 @@
-﻿The server was downloaded from ravendb latest builds.
+The server was downloaded from ravendb latest builds.
 http://builds.hibernatingrhinos.com/builds/ravendb
 
 How to Run RavenDB, check http://ravendb.net/documentation
+
+You may run Raven Server as windows service, see details at http://ravendb.net/documentation/docs-deployment-service
