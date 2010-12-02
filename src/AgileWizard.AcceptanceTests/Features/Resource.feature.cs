@@ -90,11 +90,30 @@ this.ScenarioSetup(scenarioInfo);
 #line 15
 this.ScenarioSetup(scenarioInfo);
 #line 16
- testRunner.Given("open resouce list page");
+ testRunner.Given("open resource list page");
 #line 17
  testRunner.When("open a resource titled with \'Embeded Video\'");
 #line 18
  testRunner.Then("\'Embeded Video\' resource details page should be open");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "Resource")]
+        [Xunit.TraitAttribute("Description", "View Resource List")]
+        public virtual void ViewResourceList()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View Resource List", new string[] {
+                        "UI"});
+#line 21
+this.ScenarioSetup(scenarioInfo);
+#line 22
+ testRunner.Given("login already");
+#line 23
+ testRunner.And("open resource list page");
+#line 24
+ testRunner.Then("I can see the total resouce count");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

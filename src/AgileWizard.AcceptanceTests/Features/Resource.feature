@@ -13,6 +13,12 @@ Scenario: Add Simple Resource
 
 @UI
 Scenario: View Resource Detail
-	Given open resouce list page
+	Given open resource list page
 	When open a resource titled with 'Embeded Video'
 	Then 'Embeded Video' resource details page should be open
+
+@UI
+Scenario: View Resource List
+	Given login already
+	And open resource list page
+	Then I can see the total resouce count

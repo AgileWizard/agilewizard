@@ -30,7 +30,7 @@ namespace AgileWizard.AcceptanceTests.Steps
             Assert.Equal(BrowserHelper.WebsiteUrl + suffix, browser.Url);
         }
 
-        [Given(@"open resouce list page")]
+        [Given(@"open resource list page")]
         public void GivenOpenResourceListPage()
         {
             BrowserHelper.OpenPage("Resource");
@@ -50,6 +50,14 @@ namespace AgileWizard.AcceptanceTests.Steps
             Assert.Equal(title, browser.Title);
             var head = browser.Element(e => e.ClassName == "Title");
             Assert.Equal(title, head.Text);
+        }
+        
+        [Then(@"I can see the total resouce count")]
+        public void ThenICanSeeTheTotalResouceCount()
+        {
+            var browser = BrowserHelper.Browser;
+            Assert.True(int.Parse(browser.Element(x => x.ClassName == "totalResourceCount").Text) > 0);
+
         }
     }
 }
