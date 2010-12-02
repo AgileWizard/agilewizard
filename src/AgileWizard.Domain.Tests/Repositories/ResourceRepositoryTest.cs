@@ -29,8 +29,8 @@ namespace AgileWizard.Domain.Tests.Repositories
             //Arrange
             const string TITLE = "title";
             const string CONTENT = "content";
-            _session.Setup(s => s.Store(It.Is<Resource>(r => r.Title == TITLE && r.Content == CONTENT))).Verifiable();
-            _session.Setup(s => s.SaveChanges()).Verifiable();
+            _session.SetupStoreExpectation<Resource>(r => r.Title == TITLE && r.Content == CONTENT);
+            _session.SetupSaveChangesCalledExpectation();
             
             //Act
             _resourceRepositorySUT.Add(TITLE, CONTENT);
@@ -57,11 +57,8 @@ namespace AgileWizard.Domain.Tests.Repositories
         public void can_get_a_list_of_resources()
         {
             //Arrange
-            var enumerator = 101.CountOfResouces().GetEnumerator();
-            var ravenQueryableMock = new Mock<IRavenQueryable<Resource>>();
-            ravenQueryableMock.Setup(x=>x.GetEnumerator()).Returns(enumerator);
-            _session.Setup(s => s.Query<Resource>(typeof(ResourceIndexByTitle).Name)).Returns(ravenQueryableMock.Object).Verifiable();
-                
+            _session.SetupQueryResult<Resource>(typeof(ResourceIndexByTitle).Name, 101.CountOfResouces());
+            
             //Act
             var resources = _resourceRepositorySUT.GetResourceList();
 
@@ -78,7 +75,7 @@ namespace AgileWizard.Domain.Tests.Repositories
 
     internal static class ResourcesGenerator
     {
-        public static IEnumerable<Resource> CountOfResouces(this int totalCount)
+        internal static IEnumerable<Resource> CountOfResouces(this int totalCount)
         {
             for(int i = 0;i<totalCount;i++)
                 yield return new Resource { Author = "agilewizard", Content = "agilewizard blog number" + i , CreateTime = DateTime.Now, LastUpdateTime = DateTime.Now, Title = "agilewizard", Id = "1" };
