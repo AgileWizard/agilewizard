@@ -38,7 +38,14 @@ namespace AgileWizard.Domain.Repositories
 
         public List<Resource> GetResourceList()
         {
-            return _documentSession.Query<Resource>(typeof(ResourceIndexByTitle).Name).ToList();
+            var query = (IEnumerable<Resource>)_documentSession.Query<Resource>(typeof(ResourceIndexByTitle).Name);
+            return query.Take<Resource>(100).ToList();
+        }
+
+        public int GetResourceTotalCount()
+        {
+            var query = (IEnumerable<Resource>)_documentSession.Query<Resource>(typeof(ResourceIndexByTitle).Name);
+            return query.Count<Resource>();
         }
     }
 }

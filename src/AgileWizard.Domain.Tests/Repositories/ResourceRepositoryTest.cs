@@ -54,18 +54,27 @@ namespace AgileWizard.Domain.Tests.Repositories
         }
 
         [Fact]
-        public void can_get_a_list_of_resources()
+        public void can_get_first_100_list_of_resources()
         {
-            //Arrange
             _session.SetupQueryResult<Resource>(typeof(ResourceIndexByTitle).Name, 101.CountOfResouces());
             
-            //Act
             var resources = _resourceRepositorySUT.GetResourceList();
-
-            //Assert
-            Assert.Equal(resources.Count, 101);
+            
+            Assert.Equal(resources.Count, 100);
             _session.VerifyAll();
         }
+
+        [Fact]
+        public void can_calculate_resources_total_count()
+        {
+            _session.SetupQueryResult<Resource>(typeof(ResourceIndexByTitle).Name, 200.CountOfResouces());
+
+            int count = _resourceRepositorySUT.GetResourceTotalCount();
+
+            Assert.Equal(count, 200);
+            _session.VerifyAll();
+        }
+
 
         private string DocumentId(string id)
         {
