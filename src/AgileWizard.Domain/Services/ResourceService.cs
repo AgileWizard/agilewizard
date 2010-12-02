@@ -28,5 +28,10 @@ namespace AgileWizard.Domain.Services
         {
             return _repository.GetResourceList();
         }
+
+        public int GetResourcesTotalCount()
+        {
+            return _repository.GetResourcesTotalCount();
+        }
     }
 }

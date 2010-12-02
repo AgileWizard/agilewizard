@@ -23,14 +23,18 @@ namespace AgileWizard.Website.Controllers
         public ActionResult Index()
         {
             var resources = _resourceService.GetResourceList();
+            ResourceList resourceList = new ResourceList();
 
-            return View(from c in resources
-                        select new ResourceModel
+            var t = from c in resources
+                    select new ResourceModel
                         {
                             Id = c.Id.Substring(10),
                             Title = c.Title,
                             Content = c.Content
-                        });
+                        };
+            resourceList.AddRange(t);
+            resourceList.TotalCount = _resourceService.GetResourcesTotalCount();
+            return View(resourceList);
         }
 
         [HttpPost]

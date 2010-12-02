@@ -8,5 +8,6 @@ namespace AgileWizard.Domain.Repositories
         void Add(string title, string content);
         Resource GetResourceById(string id);
         List<Resource> GetResourceList();
+        int GetResourcesTotalCount();
     }
 }

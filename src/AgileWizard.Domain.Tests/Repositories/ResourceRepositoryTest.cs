@@ -69,12 +69,39 @@ namespace AgileWizard.Domain.Tests.Repositories
         {
             _session.SetupQueryResult<Resource>(typeof(ResourceIndexByTitle).Name, 200.CountOfResouces());
 
-            int count = _resourceRepositorySUT.GetResourceTotalCount();
+            int count = _resourceRepositorySUT.GetResourcesTotalCount();
 
             Assert.Equal(count, 200);
             _session.VerifyAll();
         }
 
+        [Fact]
+        public void resource_list_should_sort_descending()
+        {
+            _session.SetupQueryResult<Resource>(typeof(ResourceIndexByTitle).Name, 101.CountOfResouces());
+
+            var resources = _resourceRepositorySUT.GetResourceList();
+
+            AssertResourceOrderByLastupdateTimeDescending(resources);
+            
+        }
+
+        private void AssertResourceOrderByLastupdateTimeDescending(List<Resource> resources)
+        {
+            using (IEnumerator<Resource> e = resources.GetEnumerator())
+            {
+                Resource current;
+                bool hasNext = true;
+                while (hasNext)
+                {
+                    hasNext = e.MoveNext();
+                    current = e.Current;
+                    hasNext = e.MoveNext();
+                    if (hasNext)
+                        Assert.True(current.LastUpdateTime >= e.Current.LastUpdateTime);
+                }
+            }
+        }
 
         private string DocumentId(string id)
         {
@@ -87,7 +114,7 @@ namespace AgileWizard.Domain.Tests.Repositories
         internal static IEnumerable<Resource> CountOfResouces(this int totalCount)
         {
             for(int i = 0;i<totalCount;i++)
-                yield return new Resource { Author = "agilewizard", Content = "agilewizard blog number" + i , CreateTime = DateTime.Now, LastUpdateTime = DateTime.Now, Title = "agilewizard", Id = "1" };
+                yield return new Resource { Author = "agilewizard", Content = "agilewizard blog number" + i , CreateTime = DateTime.Now, LastUpdateTime = DateTime.Now, Title = "agilewizard", Id = (i+1).ToString() };
         }
     }
 }

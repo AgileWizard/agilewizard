@@ -17,8 +17,10 @@ namespace AgileWizard.Domain.Tests
 
             var ravenQueryableMock = new Mock<IRavenQueryable<T>>();
             ravenQueryableMock.Setup(x => x.GetEnumerator()).Returns(()=>result.GetEnumerator());
+            ravenQueryableMock.Setup(x => x.Customize(It.IsAny<Action<Object>>()).GetEnumerator()).Returns(() => result.GetEnumerator());
+            
             documentSession.Setup(s => s.Query<T>(indexName)).Returns(ravenQueryableMock.Object).Verifiable();
-
+            
             return documentSession;
         }
 

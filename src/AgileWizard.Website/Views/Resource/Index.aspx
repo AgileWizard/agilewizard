@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<AgileWizard.Website.Models.ResourceModel>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<AgileWizard.Website.Models.ResourceList>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	All Resources
@@ -10,7 +10,10 @@
 	<p>
 		<%: Html.ActionLink("Create New Resource", "Create") %>
 	</p>
-
+    <p>
+        <span class="display-label">Total resource count:</span>
+        <span class="totalResourceCount"><%: Model.TotalCount %></span>
+    </p>
 	<table>
 		<tr>
 			<th></th>

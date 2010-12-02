@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace AgileWizard.Website.Models
 {
@@ -15,5 +16,11 @@ namespace AgileWizard.Website.Models
         [Required]
         [DisplayName("Content")]
         public string Content { get; set; }
+    }
+
+    public class ResourceList : List<ResourceModel>
+    {
+        public int TotalCount { set; get; }
+
     }
 }
