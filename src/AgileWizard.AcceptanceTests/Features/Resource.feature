@@ -1,4 +1,4 @@
-﻿Feature: Addition
+﻿Feature: Resource
 	In order to manage resources
 	As a admin
 	I should be able to add/edit a resource onto website

@@ -5,7 +5,7 @@ using Xunit;
 namespace AgileWizard.AcceptanceTests.Steps
 {
     [Binding]
-    public class User
+    public class Account
     {
         [Given(@"open login page")]
         public void GivenOpenLoginPage()

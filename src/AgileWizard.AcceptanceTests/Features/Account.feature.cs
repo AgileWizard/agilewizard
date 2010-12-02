@@ -16,23 +16,23 @@ namespace AgileWizard.AcceptanceTests.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.4.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class UserFeature : Xunit.IUseFixture<UserFeature.FixtureData>, System.IDisposable
+    public partial class AccountFeature : Xunit.IUseFixture<AccountFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "User.feature"
+#line 1 "Account.feature"
 #line hidden
         
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "User", "In order to indentify user\r\nAs a website master\r\nI want user to login with userna" +
-                    "me and password", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Account", "In order to indentify user\nAs a website master\nI want user to login with username" +
+                    " and password", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
-        public virtual void SetFixture(UserFeature.FixtureData fixtureData)
+        public virtual void SetFixture(AccountFeature.FixtureData fixtureData)
         {
         }
         
@@ -58,7 +58,7 @@ namespace AgileWizard.AcceptanceTests.Features
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "User")]
+        [Xunit.TraitAttribute("FeatureTitle", "Account")]
         [Xunit.TraitAttribute("Description", "Login")]
         public virtual void Login()
         {
@@ -85,12 +85,12 @@ this.ScenarioSetup(scenarioInfo);
             
             public FixtureData()
             {
-                UserFeature.FeatureSetup();
+                AccountFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                UserFeature.FeatureTearDown();
+                AccountFeature.FeatureTearDown();
             }
         }
     }

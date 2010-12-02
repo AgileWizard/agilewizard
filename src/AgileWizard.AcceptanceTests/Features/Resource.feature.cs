@@ -16,7 +16,7 @@ namespace AgileWizard.AcceptanceTests.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.4.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class AdditionFeature : Xunit.IUseFixture<AdditionFeature.FixtureData>, System.IDisposable
+    public partial class ResourceFeature : Xunit.IUseFixture<ResourceFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -27,12 +27,12 @@ namespace AgileWizard.AcceptanceTests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Addition", "In order to manage resources\r\nAs a admin\r\nI should be able to add/edit a resource" +
-                    " onto website", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Resource", "In order to manage resources\nAs a admin\nI should be able to add/edit a resource o" +
+                    "nto website", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
-        public virtual void SetFixture(AdditionFeature.FixtureData fixtureData)
+        public virtual void SetFixture(ResourceFeature.FixtureData fixtureData)
         {
         }
         
@@ -58,7 +58,7 @@ namespace AgileWizard.AcceptanceTests.Features
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "Addition")]
+        [Xunit.TraitAttribute("FeatureTitle", "Resource")]
         [Xunit.TraitAttribute("Description", "Add Simple Resource")]
         public virtual void AddSimpleResource()
         {
@@ -81,7 +81,7 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "Addition")]
+        [Xunit.TraitAttribute("FeatureTitle", "Resource")]
         [Xunit.TraitAttribute("Description", "View Resource Detail")]
         public virtual void ViewResourceDetail()
         {
@@ -106,12 +106,12 @@ this.ScenarioSetup(scenarioInfo);
             
             public FixtureData()
             {
-                AdditionFeature.FeatureSetup();
+                ResourceFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                AdditionFeature.FeatureTearDown();
+                ResourceFeature.FeatureTearDown();
             }
         }
     }

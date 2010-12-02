@@ -1,4 +1,4 @@
-﻿Feature: User
+﻿Feature: Account
 	In order to indentify user
 	As a website master
 	I want user to login with username and password
