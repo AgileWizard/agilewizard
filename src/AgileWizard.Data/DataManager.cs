@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AgileWizard.AcceptanceTests.Helper;
 using AgileWizard.Domain.Entities;
 using Raven.Client;
 using Raven.Database.Data;
 using AgileWizard.Domain;
 
-namespace AgileWizard.AcceptanceTests.Data
+namespace AgileWizard.Data
 {
     public class DataManager
     {
@@ -48,7 +47,7 @@ namespace AgileWizard.AcceptanceTests.Data
         public IList<User> AddUsers()
         {
             return new List<User>{
-                new User { UserName = BrowserHelper.UserName, Password = BrowserHelper.Password }
+                new User { UserName = "agilewizard", Password = "agilewizard" }
             };
         }
 

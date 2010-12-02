@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3A8A4C6F-ADED-47D8-85EC-0466EAEA7099}</ProjectGuid>
+    <ProjectGuid>{802D6204-E3E9-427D-8B4A-2FBE250DDEAB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AgileWizard.AcceptanceTests</RootNamespace>
-    <AssemblyName>AgileWizard.AcceptanceTests</AssemblyName>
+    <RootNamespace>AgileWizard.IntegrationTests</RootNamespace>
+    <AssemblyName>AgileWizard.IntegrationTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -37,9 +37,12 @@
     <Reference Include="Raven.Client.Lightweight">
       <HintPath>..\..\lib\ravendb\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
+    <Reference Include="StructureMap, Version=2.6.2.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL" />
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,30 +51,21 @@
     <Reference Include="TechTalk.SpecFlow">
       <HintPath>..\..\lib\specflow\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
-    <Reference Include="WatiN.Core">
-      <HintPath>..\..\lib\watin\WatiN.Core.dll</HintPath>
-    </Reference>
     <Reference Include="xunit">
       <HintPath>..\..\lib\xunitnet\xunit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Consts.cs" />
     <Compile Include="EventDefinition.cs" />
-    <Compile Include="Features\Resource.feature.cs">
+    <Compile Include="FakeControllerRegistry.cs" />
+    <Compile Include="Features\Account.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.feature</DependentUpon>
+      <DependentUpon>Account.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\User.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>User.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Helper\BrowserHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Steps\Resource.cs" />
-    <Compile Include="Steps\SharedSteps.cs" />
-    <Compile Include="Steps\User.cs" />
+    <Compile Include="Steps\Account.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AgileWizard.Data\AgileWizard.Data.csproj">
@@ -82,20 +76,21 @@
       <Project>{FB09A149-71B0-4ECA-9231-C739ABA2625D}</Project>
       <Name>AgileWizard.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AgileWizard.Website\AgileWizard.Website.csproj">
+      <Project>{254C40E6-B9A1-409C-8D2E-17A5431AD449}</Project>
+      <Name>AgileWizard.Website</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Features\Resource.feature">
+    <None Include="Features\Account.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Resource.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\User.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>User.feature.cs</LastGenOutput>
+      <LastGenOutput>Account.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
