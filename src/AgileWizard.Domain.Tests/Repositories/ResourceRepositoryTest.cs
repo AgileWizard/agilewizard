@@ -7,10 +7,12 @@ using Raven.Client.Document;
 using Xunit;
 using Raven.Client;
 using System.Collections.Generic;
+using Raven.Client.Linq;
+using System;
 
 namespace AgileWizard.Domain.Tests.Repositories
 {
-    public class ResourceRepositoryTest : RepositoryTestBase
+    public class ResourceRepositoryTest
     {
         private readonly ResourceRepository _resourceRepositorySUT;
         private Mock<IDocumentSession> _session;
@@ -38,7 +40,7 @@ namespace AgileWizard.Domain.Tests.Repositories
         }
 
         [Fact]
-        public void Given_an_id_should_return_a_resource()
+        public void can_get_one_resource_with_given_id()
         {
             //Arrange
             const string ID = "1";
@@ -52,18 +54,19 @@ namespace AgileWizard.Domain.Tests.Repositories
         }
 
         [Fact]
-        public void Can_get_a_list_of_resources()
+        public void can_get_a_list_of_resources()
         {
             //Arrange
-            var resourceQuery = new Mock<IDocumentQuery<Resource>>();
-            var enumerator = (new List<Resource>()).GetEnumerator();
-            resourceQuery.Setup(q => q.GetEnumerator()).Returns(enumerator);
-            _session.Setup(s => s.LuceneQuery<Resource>(typeof(ResourceIndexByTitle).Name)).Returns(resourceQuery.Object);
-
+            var enumerator = 101.CountOfResouces().GetEnumerator();
+            var ravenQueryableMock = new Mock<IRavenQueryable<Resource>>();
+            ravenQueryableMock.Setup(x=>x.GetEnumerator()).Returns(enumerator);
+            _session.Setup(s => s.Query<Resource>(typeof(ResourceIndexByTitle).Name)).Returns(ravenQueryableMock.Object).Verifiable();
+                
             //Act
-            _resourceRepositorySUT.GetResourceList();
+            var resources = _resourceRepositorySUT.GetResourceList();
 
             //Assert
+            Assert.Equal(resources.Count, 101);
             _session.VerifyAll();
         }
 
@@ -73,4 +76,14 @@ namespace AgileWizard.Domain.Tests.Repositories
         }
     }
 
+    internal static class ResourcesGenerator
+    {
+        public static IEnumerable<Resource> CountOfResouces(this int totalCount)
+        {
+            for(int i = 0;i<totalCount;i++)
+                yield return new Resource { Author = "agilewizard", Content = "agilewizard blog number" + i , CreateTime = DateTime.Now, LastUpdateTime = DateTime.Now, Title = "agilewizard", Id = "1" };
+        }
+    }
 }
+
+

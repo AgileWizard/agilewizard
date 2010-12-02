@@ -38,7 +38,7 @@ namespace AgileWizard.Domain.Repositories
 
         public List<Resource> GetResourceList()
         {
-            return _documentSession.LuceneQuery<Resource>(typeof(ResourceIndexByTitle).Name).ToList();
+            return _documentSession.Query<Resource>(typeof(ResourceIndexByTitle).Name).ToList();
         }
     }
 }
