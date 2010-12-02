@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
-using Raven.Client;
 using System.Collections.Generic;
-using Moq;
-using Raven.Client.Linq;
 using System.Linq.Expressions;
+using Moq;
+using Raven.Client;
+using Raven.Client.Linq;
 
 namespace AgileWizard.Domain.Tests
 {

@@ -8,38 +8,21 @@ namespace AgileWizard.Domain.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly IDocumentSession _session;
-        private IEnumerable<User> _resultUsers;
+        private readonly IDocumentSession _documentSession;
 
         public UserRepository(IDocumentSession session)
         {
-            _session = session;
+            _documentSession = session;
         }
 
         public User GetUserByName(string userName)
         {
-            GetUsersByName(userName);
+            var users = (IEnumerable<User>)(_documentSession.Query<User>(typeof(UserIndexByUserName).Name).Customize(x => x.WaitForNonStaleResults()));
 
-            return HasMatchedUser() ? FirstUser() : User.EmptyUser();
+            var user = users.FirstOrDefault(x => x.UserName == userName);
+
+            return user ?? User.EmptyUser();
         }
 
-        private void GetUsersByName(string userName)
-        {
-            var users = _session.LuceneQuery<User>(typeof(UserIndexByUserName).Name);
-
-            _resultUsers = from x in users
-                   where x.UserName == userName
-                   select x;
-        }
-        
-        private bool HasMatchedUser()
-        {
-            return _resultUsers.Any();
-        }
-
-        private User FirstUser()
-        {
-            return _resultUsers.First();
-        }
     }
 }

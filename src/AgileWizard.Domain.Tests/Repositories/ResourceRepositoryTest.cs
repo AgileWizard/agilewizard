@@ -1,25 +1,18 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using AgileWizard.Domain.Entities;
 using AgileWizard.Domain.QueryIndexes;
 using AgileWizard.Domain.Repositories;
-using Moq;
-using Raven.Client.Document;
 using Xunit;
-using Raven.Client;
-using System.Collections.Generic;
-using Raven.Client.Linq;
-using System;
 
 namespace AgileWizard.Domain.Tests.Repositories
 {
-    public class ResourceRepositoryTest
+    public class ResourceRepositoryTest : RepositoryTestBase
     {
         private readonly ResourceRepository _resourceRepositorySUT;
-        private Mock<IDocumentSession> _session;
 
         public ResourceRepositoryTest()
         {
-            _session = new Mock<IDocumentSession>();
             _resourceRepositorySUT = new ResourceRepository(_session.Object);
         }
 

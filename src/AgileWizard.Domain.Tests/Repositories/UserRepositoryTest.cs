@@ -1,31 +1,31 @@
-﻿using AgileWizard.Domain.Entities;
+﻿using System.Collections.Generic;
+using AgileWizard.Domain.Entities;
 using AgileWizard.Domain.QueryIndexes;
 using AgileWizard.Domain.Repositories;
 using Xunit;
-using System.Threading;
 
 namespace AgileWizard.Domain.Tests.Repositories
 {
     public class UserRepositoryTest : RepositoryTestBase
     {
-        const string userName = "agilewizard";
+        private readonly UserRepository _userRepositorySUT;
+
         public UserRepositoryTest()
         {
+            _userRepositorySUT = new UserRepository(_session.Object);
         }
 
         [Fact]
         public void when_user_exists_return_the_user()
         {
-            var indexName = typeof(UserIndexByUserName).Name;
-            var initUser = CreateAgileWizardUserForTest();
+            const string userName = "agilewizard";
+            _session.SetupQueryResult<User>(typeof(UserIndexByUserName).Name, new List<User> { new User { UserName = userName, Password = userName } });
 
-            this.PrepareData<User>(initUser, indexName);
-
-            var actualUser = new UserRepository(_documentSession).GetUserByName(userName);
+            var actualUser = _userRepositorySUT.GetUserByName(userName);
 
             Assert.Equal(userName, actualUser.UserName);
             Assert.Equal(userName, actualUser.Password);
-
+            _session.VerifyAll();
         }
 
         [Fact]
@@ -33,16 +33,15 @@ namespace AgileWizard.Domain.Tests.Repositories
         {
             const string userName = "non_exist_user";
 
-            var actualUser = new UserRepository(_documentSession).GetUserByName(userName);
+            _session.SetupQueryResult<User>(typeof(UserIndexByUserName).Name, new List<User>());
 
-            var expectedEmptyUser = User.EmptyUser();
+            var actualUser = _userRepositorySUT.GetUserByName(userName);
+            var emptyUser = User.EmptyUser();
 
-            Assert.Equal(expectedEmptyUser.UserName, actualUser.UserName);
-        }
+            Assert.Equal(emptyUser.UserName, actualUser.UserName);
+            Assert.Equal(emptyUser.Password, actualUser.Password);
+            _session.VerifyAll();
 
-        private User CreateAgileWizardUserForTest()
-        {
-            return new User { UserName = userName, Password = userName };
         }
     }
 }
