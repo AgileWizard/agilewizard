@@ -60,7 +60,9 @@ namespace AgileWizard.Website.Controllers
                             {
                                 Id = resource.Id,
                                 Title = resource.Title,
-                                Content = resource.Content
+                                Content = resource.Content,
+                                Author = resource.Author,
+                                CreateTime = resource.CreateTime
                             });
         }
     }

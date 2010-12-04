@@ -63,6 +63,27 @@ namespace AgileWizard.Website.Tests
             ShouldShowIndexViewWithModel(actionResult);
         }
 
+        [Fact]
+        public void detail_action_should_return_a_view_for_a_resource()
+        {
+            //Arrange
+            const string ID = "1";
+            const string TITLE = "title";
+            var resource = new Resource() {Title = TITLE};
+            _resourceService.Setup(s => s.GetResourceById(ID)).Returns(resource);
+
+            //Act
+            var actionResult = resourceControllerSUT.Details(ID);
+
+            //Assert
+            Assert.IsType<ViewResult>(actionResult);
+            var viewResult = (ViewResult) actionResult;
+            Assert.Empty(viewResult.ViewName);
+            Assert.IsAssignableFrom<ResourceModel>(viewResult.ViewData.Model);
+            var viewModel = (ResourceModel)viewResult.ViewData.Model;
+            Assert.Equal(TITLE, viewModel.Title);
+        }
+
         private void ShouldShowIndexViewWithModel(ActionResult actionResult)
         {
             Assert.IsType<ViewResult>(actionResult);
