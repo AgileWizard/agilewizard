@@ -1,5 +1,8 @@
 ﻿AgileWizard use Rake as build tool and ruby as language for build script. Documentation of Rake at http://docs.rubyrake.org/
-Ruby 1.9.2 is required.
+Ruby 1.9.2 & ruby_devkit are required.
+Please download ruby and devkit from http://rubyinstaller.org/.
+And you can find method to install ruby devkit at https://github.com/oneclick/rubyinstaller/wiki/Development-Kit.
+
 Please install albacore version 0.2.0 which under this directory.
 
 Note: No blank char allowed in ruby installed directory, or you can not install ruby extension 'jekyll'.

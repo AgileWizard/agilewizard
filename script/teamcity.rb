@@ -35,6 +35,12 @@ msbuild :compile => :init do |msb|
   msb.properties :configuration => :release,:platform => 'Any CPU'
 end
 
+task :test=>[:startWebServer,
+			:openIE,
+            :xunit
+			] do    
+end
+
 task :startWebServer do
   START_COMMAND= "\"" + WEB_DEV_FULL_NAME + "\"" + " /port:"  + WEB_PORT + " /path:\"" + WEBSITE_LOCATION+"\""
   
@@ -45,35 +51,22 @@ task :startWebServer do
   sleep(1)
 end
 
-task :test=>[:xunit_acceptance,
-            :xunit_domain,
-            :xunit_website] do
-    
-end
-
-xunit :xunit_acceptance=>[:startWebServer,:openIE] do |xunit|
+xunit :xunit =>[:startWebServer,:openIE] do |xunit|
     xunit.command = XUNIT_PATH
-    xunit.assembly = File.join(OUTPUT_DLL_DIR, "AgileWizard.AcceptanceTests.dll")
-	puts xunit.assembly
-	puts xunit.command
-end
-
-xunit :xunit_domain do |xunit|
-    xunit.command = XUNIT_PATH
-    xunit.assembly = File.join(OUTPUT_DLL_DIR, "AgileWizard.Domain.Tests.dll")
-end
-
-xunit :xunit_website do |xunit|
-    xunit.command = XUNIT_PATH
-    xunit.assembly = File.join(OUTPUT_DLL_DIR, "AgileWizard.Website.Tests.dll")
+	xunit.assemblies = [
+		File.join(OUTPUT_DLL_DIR, "AgileWizard.Domain.Tests.dll"),
+		File.join(OUTPUT_DLL_DIR, "AgileWizard.Website.Tests.dll"),
+		File.join(OUTPUT_DLL_DIR, "AgileWizard.AcceptanceTests.dll"),
+		File.join(OUTPUT_DLL_DIR, "AgileWizard.IntegrationTests.dll")
+		]
 end
 
 task :openIE do
-puts "close all IE"
-  system("call taskkill /F /IM iexplore")
+	puts "close all IE first"
+	system("call taskkill /F /IM iexplore*")
 
-  puts "start one IE for forbidding the COM error when WatiN running"
-  system("start iexplore.exe about:blank")
+	puts "start one IE for forbidding the COM error when WatiN running"
+	system("start iexplore.exe about:blank")
 end
 
 desc "finialize the whole step"
