@@ -9,11 +9,11 @@ namespace AgileWizard.Locale
 {
     public static class LocaleHelper
     {
-        static ResourceManager localeResourceManager = new ResourceManager("AgileWizard.Locale.String", System.Reflection.Assembly.GetCallingAssembly());
+        static ResourceManager localeResourceManager = new ResourceManager("AgileWizard.Locale.String", System.Reflection.Assembly.GetExecutingAssembly());
 
-        public static string GetLocaleString(string stringId, string localeName)
+        public static string GetLocaleString(string stringId)
         {
-            CultureInfo cultureInfo = new CultureInfo(localeName);
+            CultureInfo cultureInfo = System.Threading.Thread.CurrentThread.CurrentCulture;
             return localeResourceManager.GetString(stringId, cultureInfo);
         }       
     }

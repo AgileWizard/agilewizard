@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountModelsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AccountControllerTest.cs" />
     <Compile Include="ResourceControllerTest.cs" />
@@ -63,6 +64,10 @@
     <ProjectReference Include="..\AgileWizard.Domain\AgileWizard.Domain.csproj">
       <Project>{FB09A149-71B0-4ECA-9231-C739ABA2625D}</Project>
       <Name>AgileWizard.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AgileWizard.Locale\AgileWizard.Locale.csproj">
+      <Project>{087C421B-B96C-41A9-9593-548913174FDA}</Project>
+      <Name>AgileWizard.Locale</Name>
     </ProjectReference>
     <ProjectReference Include="..\AgileWizard.Website\AgileWizard.Website.csproj">
       <Project>{254C40E6-B9A1-409C-8D2E-17A5431AD449}</Project>
