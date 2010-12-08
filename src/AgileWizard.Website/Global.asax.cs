@@ -22,8 +22,6 @@ namespace AgileWizard.Website
         public MvcApplication() {
             BeginRequest += (sender, args) =>
             {
-                System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("zh-CN");
-
                 var documentSession = _documentStore.OpenSession();
 
                 HttpContext.Current.Items[RavenSessionKey] = documentSession;
