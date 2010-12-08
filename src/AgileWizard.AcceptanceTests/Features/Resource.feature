@@ -22,3 +22,6 @@ Scenario: View Resource List
 	Given login already
 	And open resource list page
 	Then I can see the total resouce count
+	And I can see the create resource entry in current culture
+	And I can see the total resource count in current culture
+	And I can see the List in current culture

@@ -2,6 +2,7 @@
 using TechTalk.SpecFlow;
 using AgileWizard.AcceptanceTests.Helper;
 using Xunit;
+using AgileWizard.Locale;
 
 namespace AgileWizard.AcceptanceTests.Steps
 {
@@ -57,7 +58,28 @@ namespace AgileWizard.AcceptanceTests.Steps
         {
             var browser = BrowserHelper.Browser;
             Assert.True(int.Parse(browser.Element(x => x.ClassName == "totalResourceCount").Text) > 0);
-
         }
+
+        #region Resource List Culture
+        [Then(@"I can see the create resource entry in current culture")]
+        public void ThenICanSeeTheCreateResourceEntryInCurrentCulture()
+        {
+            var expect = LocaleHelper.GetLocaleString("Create New Resource");
+            Assert.Equal(BrowserHelper.Browser.Element(x => x.ClassName == "createNewResource").Text, expect);
+        }
+
+        [Then(@"I can see the total resource count in current culture")]
+        public void ThenICanSeeTheTotalResourceCountInCurrentCulture()
+        {
+            var expect = LocaleHelper.GetLocaleString("Total resource count:");
+            Assert.Equal(BrowserHelper.Browser.Element(x => x.ClassName == "display-label").Text, expect);
+        }
+
+        [Then(@"I can see the List in current culture")]
+        public void ThenICanSeeTheListInCurrentCulture()
+        {
+          //toto
+        }
+        #endregion
     }
 }

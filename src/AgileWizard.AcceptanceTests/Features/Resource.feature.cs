@@ -114,6 +114,12 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("open resource list page");
 #line 24
  testRunner.Then("I can see the total resouce count");
+#line 25
+ testRunner.And("I can see the create resource entry in current culture");
+#line 26
+ testRunner.And("I can see the total resource count in current culture");
+#line 27
+ testRunner.And("I can see the List in current culture");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
