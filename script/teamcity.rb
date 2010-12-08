@@ -57,7 +57,8 @@ xunit :xunit =>[:startWebServer,:openIE] do |xunit|
 		File.join(OUTPUT_DLL_DIR, "AgileWizard.Domain.Tests.dll"),
 		File.join(OUTPUT_DLL_DIR, "AgileWizard.Website.Tests.dll"),
 		File.join(OUTPUT_DLL_DIR, "AgileWizard.AcceptanceTests.dll"),
-		File.join(OUTPUT_DLL_DIR, "AgileWizard.IntegrationTests.dll")
+		File.join(OUTPUT_DLL_DIR, "AgileWizard.IntegrationTests.dll"),
+		File.join(OUTPUT_DLL_DIR, "AgileWizard.Locale.Tests.dll")
 		]
 end
 
