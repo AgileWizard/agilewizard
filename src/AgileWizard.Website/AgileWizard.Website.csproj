@@ -90,6 +90,7 @@
     <Content Include="Global.asax" />
     <Content Include="Views\Resource\Create.aspx" />
     <Content Include="Views\Resource\Details.aspx" />
+    <Content Include="Views\Resource\Edit.aspx" />
     <Content Include="Views\Resource\Index.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

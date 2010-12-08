@@ -10,10 +10,10 @@
 	<p>
 		<%: Html.ActionLink("Create New Resource", "Create") %>
 	</p>
-    <p>
-        <span class="display-label">Total resource count:</span>
-        <span class="totalResourceCount"><%: Model.TotalCount %></span>
-    </p>
+	<p>
+		<span class="display-label">Total resource count:</span>
+		<span class="totalResourceCount"><%: Model.TotalCount %></span>
+	</p>
 	<table>
 		<tr>
 			<th></th>
@@ -24,8 +24,7 @@
 	<% foreach (var item in Model) { %>
 		<tr>
 			<td>
-				<%: Html.ActionLink("Edit", "Edit", new { id=item.Title }) %> |
-				<%: Html.ActionLink("Delete", "Delete", new { id=item.Title })%>
+				<%: Html.ActionLink("Edit", "Edit", new { id=item.Id }) %>
 			</td>
 			<td><%: Html.ActionLink(item.Title, "Details", new { id = item.Id })%></td>
 			<td><%: item.Content %></td>

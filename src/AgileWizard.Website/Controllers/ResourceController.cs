@@ -65,5 +65,24 @@ namespace AgileWizard.Website.Controllers
                                 CreateTime = resource.CreateTime
                             });
         }
+
+        public ActionResult Edit(string id)
+        {
+            var resource = _resourceService.GetResourceById(id);
+            return View(new ResourceModel
+            {
+                Id = resource.Id,
+                Title = resource.Title,
+                Content = resource.Content,
+                Author = resource.Author,
+                CreateTime = resource.CreateTime
+            });
+        }
+
+        [HttpPost]
+        public ActionResult Edit(ResourceModel model)
+        {
+            return RedirectToAction("Index");
+        }
     }
 }
