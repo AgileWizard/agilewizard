@@ -14,13 +14,26 @@ namespace AgileWizard.Website.Tests
 {
     public class ResourceControllerTest
     {
+        private const string ID = "1";
+        private const string DOCUMENT_ID = "resources/1";
+        private const string TITLE = "title";
+        private const string CONTENT = "content";
+
         private readonly Mock<IResourceService> _resourceService;
         private readonly Mock<IDocumentSession> _documentSession;
         private readonly ResourceController resourceControllerSUT;
-        private ResourceModel _resourceModel = new ResourceModel()
+
+        private readonly Resource _resource = new Resource()
+                                         {
+                                             Id = DOCUMENT_ID,
+                                             Title = TITLE,
+                                             Content = CONTENT
+                                         };
+        private readonly ResourceModel _resourceModel = new ResourceModel()
                                                   {
-                                                      Title = "title",
-                                                      Content = "content"
+                                                      Id = ID,
+                                                      Title = TITLE,
+                                                      Content = CONTENT
                                                   };
 
         public ResourceControllerTest()
@@ -52,7 +65,7 @@ namespace AgileWizard.Website.Tests
             //Arrange
             var resources = new List<Resource>
                                 {
-                                    new Resource() {Id = "resources/1", Title = "title", Content = "content"}
+                                    _resource
                                 };
             _resourceService.Setup(s => s.GetResourceList()).Returns(resources);
 
@@ -67,10 +80,7 @@ namespace AgileWizard.Website.Tests
         public void detail_action_should_return_a_view_for_a_resource()
         {
             //Arrange
-            const string ID = "1";
-            const string TITLE = "title";
-            var resource = new Resource() {Title = TITLE};
-            _resourceService.Setup(s => s.GetResourceById(ID)).Returns(resource);
+            _resourceService.Setup(s => s.GetResourceById(ID)).Returns(_resource);
 
             //Act
             var actionResult = resourceControllerSUT.Details(ID);
@@ -79,19 +89,31 @@ namespace AgileWizard.Website.Tests
             ShouldShowDefaultViewWithModel(TITLE, actionResult);
         }
 
+        [Fact]
         public void edit_action_should_return_a_view_for_a_resource()
         {
             //Arrange
-            const string ID = "1";
-            const string TITLE = "title";
-            var resource = new Resource() { Title = TITLE };
-            _resourceService.Setup(s => s.GetResourceById(ID)).Returns(resource);
+            _resourceService.Setup(s => s.GetResourceById(ID)).Returns(_resource);
 
             //Act
             var actionResult = resourceControllerSUT.Details(ID);
 
             //Assert
             ShouldShowDefaultViewWithModel(TITLE, actionResult);
+        }
+
+        [Fact]
+        public void post_edit_action_should_get_original_resource_and_update_it()
+        {
+            //Arrange
+            _resourceService.Setup(s => s.UpdateResource(ID, It.Is<Resource>(r => r.Title == TITLE && r.Content == CONTENT))).Verifiable();
+
+            //Act
+            var actionResult = resourceControllerSUT.Edit(ID, _resourceModel);
+
+            //Assert
+            _resourceService.VerifyAll();
+            ShouldRedirectToActionIndex(actionResult);
         }
 
         private void ShouldShowDefaultViewWithModel(string title, ActionResult actionResult)

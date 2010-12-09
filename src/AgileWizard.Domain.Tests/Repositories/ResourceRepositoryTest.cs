@@ -23,7 +23,6 @@ namespace AgileWizard.Domain.Tests.Repositories
             const string TITLE = "title";
             const string CONTENT = "content";
             _session.SetupStoreExpectation<Resource>(r => r.Title == TITLE && r.Content == CONTENT);
-            _session.SetupSaveChangesCalledExpectation();
             
             //Act
             _resourceRepositorySUT.Add(TITLE, CONTENT);
@@ -77,6 +76,19 @@ namespace AgileWizard.Domain.Tests.Repositories
 
             AssertResourceOrderByLastupdateTimeDescending(resources);
             
+        }
+
+        [Fact]
+        public void resource_can_be_save()
+        {
+            //Arrange
+            _session.Setup(s => s.SaveChanges()).Verifiable();
+
+            //Act
+            _resourceRepositorySUT.Save();
+
+            //Assert
+            _session.VerifyAll();
         }
 
         private void AssertResourceOrderByLastupdateTimeDescending(List<Resource> resources)

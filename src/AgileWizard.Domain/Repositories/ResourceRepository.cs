@@ -27,7 +27,6 @@ namespace AgileWizard.Domain.Repositories
                                };
 
             _documentSession.Store(resource);
-            _documentSession.SaveChanges();
 
         }
 
@@ -46,6 +45,11 @@ namespace AgileWizard.Domain.Repositories
         {
             var query = (IEnumerable<Resource>)_documentSession.Query<Resource>(typeof(ResourceIndexByTitle).Name);
             return query.Count<Resource>();
+        }
+
+        public void Save()
+        {
+            _documentSession.SaveChanges();
         }
     }
 }

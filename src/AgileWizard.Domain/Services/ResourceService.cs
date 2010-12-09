@@ -17,6 +17,7 @@ namespace AgileWizard.Domain.Services
         public void AddResource(string title, string content)
         {
             _repository.Add(title, content);
+            _repository.Save();
         }
 
         public Resource GetResourceById(string id)
@@ -32,6 +33,16 @@ namespace AgileWizard.Domain.Services
         public int GetResourcesTotalCount()
         {
             return _repository.GetResourcesTotalCount();
+        }
+
+        public void UpdateResource(string id, Resource resource)
+        {
+            var resourceUpdate = _repository.GetResourceById(id);
+            resourceUpdate.Title = resource.Title;
+            resourceUpdate.Content = resource.Content;
+            resourceUpdate.LastUpdateTime = DateTime.Now;
+            _repository.Save();
+
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AgileWizard.Domain.Entities;
 using AgileWizard.Domain.Repositories;
@@ -9,22 +10,37 @@ namespace AgileWizard.Domain.Tests.Services
 {
     public class ResourceServiceTest
     {
+        private const string ID = "1";
+        private const string DOCUMENT_ID = "resources/1";
+        private const string TITLE = "title";
+        private const string CONTENT = "content";
+        
         private Mock<IResourceRepository> _repository;
         private IResourceService _service;
+
+        private readonly DateTime _prepareTime = DateTime.Now.AddSeconds(-1);
+        private Resource _resource = new Resource()
+                                                  {
+                                                      Id = DOCUMENT_ID,
+                                                      Title = TITLE,
+                                                      Content = CONTENT,
+                                                  };
 
         public ResourceServiceTest()
         {
             _repository = new Mock<IResourceRepository>();
             _service = new ResourceService(_repository.Object);
+
+            _resource.CreateTime = _prepareTime;
+            _resource.LastUpdateTime = _prepareTime;
         }
 
         [Fact]
         public void Can_add_resource()
         {
             //Arrange
-            const string TITLE = "title";
-            const string CONTENT = "content";
             _repository.Setup(r => r.Add(TITLE, CONTENT)).Verifiable();
+            _repository.Setup(r => r.Save()).Verifiable();
             
             //Act
             _service.AddResource(TITLE, CONTENT);
@@ -37,7 +53,6 @@ namespace AgileWizard.Domain.Tests.Services
         public void Given_an_id_should_return_a_resource()
         {
             //Arrange
-            const string ID = "1";
             _repository.Setup(r => r.GetResourceById(ID)).Verifiable();
             
             //Act
@@ -59,7 +74,30 @@ namespace AgileWizard.Domain.Tests.Services
 
             //Assert
             Assert.Equal(expectedResources, actualResources);
+        }
 
+        [Fact]
+        public void Can_update_resource()
+        {
+            //Arrange
+            var resourceToUpdate = new Resource() {Title = "Title to update", Content = "Content to update"};
+            _repository.Setup(r => r.GetResourceById(ID)).Returns(_resource);
+            _repository.Setup(r => r.Save()).Verifiable();
+
+            //Act
+            _service.UpdateResource(ID, resourceToUpdate);
+
+            //Assert
+            _repository.VerifyAll();
+            ResourceShouldBeUpdated(_resource, resourceToUpdate);
+        }
+
+        private void ResourceShouldBeUpdated(Resource resource, Resource resourceToUpdate)
+        {
+            Assert.Equal(resourceToUpdate.Title, resource.Title);
+            Assert.Equal(resourceToUpdate.Content, resource.Content);
+            Assert.Equal(_prepareTime, resource.CreateTime);
+            Assert.True(resource.LastUpdateTime > _prepareTime);
         }
     }
 }

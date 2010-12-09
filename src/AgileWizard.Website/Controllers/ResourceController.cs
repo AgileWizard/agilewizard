@@ -80,8 +80,9 @@ namespace AgileWizard.Website.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(ResourceModel model)
+        public ActionResult Edit(string id, ResourceModel model)
         {
+            _resourceService.UpdateResource(id, new Resource(){Title = model.Title, Content = model.Content});
             return RedirectToAction("Index");
         }
     }

@@ -9,5 +9,6 @@ namespace AgileWizard.Domain.Services
         Resource GetResourceById(string id);
         IList<Resource> GetResourceList();
         int GetResourcesTotalCount();
+        void UpdateResource(string id, Resource resource);
     }
 }
