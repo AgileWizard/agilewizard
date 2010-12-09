@@ -29,5 +29,27 @@ namespace AgileWizard.Locale.Tests
             string actualLabelName = LocaleHelper.GetLocaleString(stringId);
             Assert.Equal(expectedLabelName, actualLabelName);
         }
+
+        [Fact]
+        public void choose_China_should_display_password_label_in_Chinese()
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("zh-CN");
+            string stringId = "Password";
+
+            string expectedLabelName = "密 码";
+            string actualLabelName = LocaleHelper.GetLocaleString(stringId);
+            Assert.Equal(expectedLabelName, actualLabelName);
+        }
+
+        [Fact]
+        public void choose_China_should_display_rememberme_label_in_Chinese()
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("zh-CN");
+            string stringId = "RememberMe";
+
+            string expectedLabelName = "记住我?";
+            string actualLabelName = LocaleHelper.GetLocaleString(stringId);
+            Assert.Equal(expectedLabelName, actualLabelName);
+        }
     }
 }

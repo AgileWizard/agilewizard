@@ -9,16 +9,33 @@ namespace AgileWizard.Website.Tests
 {
     public class LogOnModelsTest
     {
-        [Fact]
-        public void should_define_username_property_with_GlobalizedDisplayNameAttribute()
+        private string GetNameValueOfGlobalizedDisplayNameAttribute(string propertyName)
         {
             var logonModelType = typeof(LogOnModel);
-            var userNameProp = logonModelType.GetProperty("UserName");
-            
+            var userNameProp = logonModelType.GetProperty(propertyName);
+
             var attributes = userNameProp.GetCustomAttributes(typeof(GlobalizedDisplayAttribute), false);
             var globalizedDisplayNameAttr = attributes[0] as GlobalizedDisplayAttribute;
 
-            Assert.Equal("UserName", globalizedDisplayNameAttr.Name);
+            return globalizedDisplayNameAttr.Name;
+        }
+
+        [Fact]
+        public void should_define_username_property_with_GlobalizedDisplayNameAttribute()
+        {
+            Assert.Equal("UserName", GetNameValueOfGlobalizedDisplayNameAttribute("UserName"));
+        }
+
+        [Fact]
+        public void should_define_password_property_with_GlobalizedDisplayNameAttribute()
+        {
+            Assert.Equal("Password", GetNameValueOfGlobalizedDisplayNameAttribute("Password"));
+        }
+
+        [Fact]
+        public void should_define_rememberme_property_with_GlobalizedDisplayNameAttribute()
+        {
+            Assert.Equal("RememberMe", GetNameValueOfGlobalizedDisplayNameAttribute("RememberMe"));
         }
     }
 }

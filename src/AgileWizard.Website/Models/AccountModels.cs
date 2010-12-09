@@ -20,10 +20,10 @@ namespace AgileWizard.Website.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [DisplayName("Password")]
+        [GlobalizedDisplay(Name = "Password")]
         public string Password { get; set; }
 
-        [DisplayName("Remember me?")]
+        [GlobalizedDisplay(Name = "RememberMe")]
         public bool RememberMe { get; set; }
     }
     #endregion

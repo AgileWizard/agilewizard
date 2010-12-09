@@ -129,6 +129,12 @@
   <data name="Edit a resource" xml:space="preserve">
     <value>编辑资源</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>密 码</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>记住我?</value>
+  </data>
   <data name="Resources" xml:space="preserve">
     <value>资源列表</value>
   </data>

@@ -31,5 +31,7 @@ namespace AgileWizard.Locale.Tests
             
             Assert.Equal("User Name", lable);
         }
+
+        
     }
 }
