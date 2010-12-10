@@ -16,12 +16,13 @@ namespace AgileWizard.Domain.Repositories
             _documentSession = documentSession;
         }
 
-        public void Add(string title, string content)
+        public void Add(string title, string content, string author)
         {
             var resource = new Resource
                                {
                                    Title = title,
                                    Content = content,
+                                   Author = author,
                                    CreateTime = DateTime.Now,
                                    LastUpdateTime = DateTime.Now
                                };

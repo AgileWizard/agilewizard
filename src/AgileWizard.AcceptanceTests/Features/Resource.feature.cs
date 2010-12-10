@@ -71,7 +71,8 @@ this.ScenarioSetup(scenarioInfo);
 #line 9
  testRunner.And("open adding-resource page");
 #line 10
- testRunner.And("enter title - \'simple Resource\' and content - \'simple Content\'");
+ testRunner.And("enter title - \'simple Resource\' and content - \'simple Content\' and author - \'Dani" +
+                    "el\'");
 #line 11
  testRunner.When("press button - \'Save\'");
 #line 12

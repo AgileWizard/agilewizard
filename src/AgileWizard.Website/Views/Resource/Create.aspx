@@ -19,6 +19,13 @@
             <%: Html.ValidationMessageFor(m => m.Title) %>
         </div>
         <div class="editor-label">
+            <%: Html.LabelFor(m => m.Author) %>
+        </div>
+        <div class="editor-field">
+            <%: Html.TextBoxFor(m => m.Author)%>
+            <%: Html.ValidationMessageFor(m => m.Author)%>
+        </div>
+        <div class="editor-label">
             <%: Html.LabelFor(m => m.Content) %>
         </div>
         <div class="editor-field">

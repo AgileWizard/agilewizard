@@ -14,6 +14,7 @@ namespace AgileWizard.Domain.Tests.Services
         private const string DOCUMENT_ID = "resources/1";
         private const string TITLE = "title";
         private const string CONTENT = "content";
+        private const string AUTHOR = "author";
         
         private Mock<IResourceRepository> _repository;
         private IResourceService _service;
@@ -39,11 +40,11 @@ namespace AgileWizard.Domain.Tests.Services
         public void Can_add_resource()
         {
             //Arrange
-            _repository.Setup(r => r.Add(TITLE, CONTENT)).Verifiable();
+            _repository.Setup(r => r.Add(TITLE, CONTENT, AUTHOR)).Verifiable();
             _repository.Setup(r => r.Save()).Verifiable();
             
             //Act
-            _service.AddResource(TITLE, CONTENT);
+            _service.AddResource(TITLE, CONTENT, AUTHOR);
             
             //Assert
             _repository.VerifyAll();

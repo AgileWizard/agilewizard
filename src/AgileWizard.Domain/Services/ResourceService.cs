@@ -14,9 +14,9 @@ namespace AgileWizard.Domain.Services
             _repository = repository;
         }
 
-        public void AddResource(string title, string content)
+        public void AddResource(string title, string content, string author)
         {
-            _repository.Add(title, content);
+            _repository.Add(title, content, author);
             _repository.Save();
         }
 

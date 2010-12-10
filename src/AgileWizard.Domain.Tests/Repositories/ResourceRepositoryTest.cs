@@ -22,10 +22,11 @@ namespace AgileWizard.Domain.Tests.Repositories
             //Arrange
             const string TITLE = "title";
             const string CONTENT = "content";
-            _session.SetupStoreExpectation<Resource>(r => r.Title == TITLE && r.Content == CONTENT);
+            const string AUTHOR = "author";
+            _session.SetupStoreExpectation<Resource>(r => r.Title == TITLE && r.Content == CONTENT&&r.Author == AUTHOR);
             
             //Act
-            _resourceRepositorySUT.Add(TITLE, CONTENT);
+            _resourceRepositorySUT.Add(TITLE, CONTENT, AUTHOR);
 
             //Assert
             _session.VerifyAll();

@@ -7,7 +7,7 @@
 Scenario: Add Simple Resource
 	Given login already
 	And open adding-resource page
-	And enter title - 'simple Resource' and content - 'simple Content'
+	And enter title - 'simple Resource' and content - 'simple Content' and author - 'Daniel'
 	When press button - 'Save'
 	Then should be redirected to list page
 

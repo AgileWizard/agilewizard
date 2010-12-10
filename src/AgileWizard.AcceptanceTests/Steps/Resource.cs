@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using TechTalk.SpecFlow;
+﻿using TechTalk.SpecFlow;
 using AgileWizard.AcceptanceTests.Helper;
 using Xunit;
 using AgileWizard.Locale;
@@ -15,11 +14,12 @@ namespace AgileWizard.AcceptanceTests.Steps
             BrowserHelper.OpenPage("Resource/Create");
         }
 
-        [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)'")]
-        public void GivenEnterTitleAndContent(string title, string content)
+        [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)'")]
+        public void GivenEnterTitleAndContentAndAuthor(string title, string content, string author)
         {
             BrowserHelper.InputText("Title", title);
             BrowserHelper.InputText("Content", content);
+            BrowserHelper.InputText("Author", author);
         }
 
         [Then(@"should be redirected to list page")]

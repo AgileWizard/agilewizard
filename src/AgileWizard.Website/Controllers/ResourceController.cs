@@ -41,7 +41,7 @@ namespace AgileWizard.Website.Controllers
         [ValidateInput(false)]
         public ActionResult Create(ResourceModel model)
         {
-            _resourceService.AddResource(model.Title, model.Content);
+            _resourceService.AddResource(model.Title, model.Content, model.Author);
 
             return RedirectToAction("Index");
         }
