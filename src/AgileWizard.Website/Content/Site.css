@@ -342,3 +342,30 @@ div#title
 {
     width: 6em;
 }
+
+
+/*
+    stylesheet for resource detail list (temporary solution)
+*/
+.link
+{
+    width: 25px;
+    text-align:center;
+}
+    
+.title
+{
+    width: 200px;
+    overflow: hidden;
+}
+    
+.content
+{
+    line-height:normal;
+}
+    
+table.contentList
+{
+    width: 100%;
+    padding: 2px;
+}

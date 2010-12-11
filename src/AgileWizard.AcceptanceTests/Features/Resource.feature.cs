@@ -114,12 +114,14 @@ this.ScenarioSetup(scenarioInfo);
 #line 23
  testRunner.And("open resource list page");
 #line 24
- testRunner.Then("I can see the total resouce count");
+ testRunner.Then("I can see the page title in current culture");
 #line 25
- testRunner.And("I can see the create resource entry in current culture");
+ testRunner.And("I can see the total resouce count");
 #line 26
- testRunner.And("I can see the total resource count in current culture");
+ testRunner.And("I can see the create resource entry in current culture");
 #line 27
+ testRunner.And("I can see the total resource count in current culture");
+#line 28
  testRunner.And("I can see the List in current culture");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -132,19 +134,19 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit A Resource", new string[] {
                         "UI"});
-#line 30
-this.ScenarioSetup(scenarioInfo);
 #line 31
- testRunner.Given("login already");
+this.ScenarioSetup(scenarioInfo);
 #line 32
- testRunner.And("open resource list page");
+ testRunner.Given("login already");
 #line 33
- testRunner.And("edit a resource titled with \'Embeded Video\'");
+ testRunner.And("open resource list page");
 #line 34
- testRunner.And("enter title - \'Embeded Video\' and content - \'Modified Content\'");
+ testRunner.And("edit a resource titled with \'Embeded Video\'");
 #line 35
- testRunner.When("press button - \'Save\'");
+ testRunner.And("enter title - \'Embeded Video\' and content - \'Modified Content\'");
 #line 36
+ testRunner.When("press button - \'Save\'");
+#line 37
  testRunner.Then("should be redirected to details page");
 #line hidden
             testRunner.CollectScenarioErrors();

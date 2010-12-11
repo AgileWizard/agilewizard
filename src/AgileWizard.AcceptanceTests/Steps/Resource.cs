@@ -14,12 +14,13 @@ namespace AgileWizard.AcceptanceTests.Steps
             BrowserHelper.OpenPage("Resource/Create");
         }
 
+        #region Add resource
         [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)'")]
         public void GivenEnterTitleAndContentAndAuthor(string title, string content, string author)
         {
             BrowserHelper.InputText("Title", title);
-            BrowserHelper.InputText("Content", content);
             BrowserHelper.InputText("Author", author);
+            BrowserHelper.InputText("Content", content);
         }
 
         [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)'")]
@@ -36,6 +37,7 @@ namespace AgileWizard.AcceptanceTests.Steps
             var suffix = "Resource/Details";
             Assert.True(browser.Url.StartsWith(BrowserHelper.WebsiteUrl + suffix));
         }
+        #endregion
 
         [Given(@"open resource list page")]
         public void GivenOpenResourceListPage()
@@ -54,7 +56,7 @@ namespace AgileWizard.AcceptanceTests.Steps
         public void GivenEditAResourceTitledWithEmbededVideo(string title)
         {
             var browser = BrowserHelper.Browser;
-            browser.Link(l => l.Text == "编辑" && l.Parent.NextSibling.Text == title).Click();
+            browser.Link(l => l.Text == LocaleHelper.GetLocaleString("Edit").Trim() && l.Parent.NextSibling.Text == title).Click();
         }
 
 
@@ -66,7 +68,7 @@ namespace AgileWizard.AcceptanceTests.Steps
             var head = browser.Element(e => e.ClassName == "Title");
             Assert.Equal(title, head.Text);
         }
-        
+
         [Then(@"I can see the total resouce count")]
         public void ThenICanSeeTheTotalResouceCount()
         {
@@ -75,6 +77,13 @@ namespace AgileWizard.AcceptanceTests.Steps
         }
 
         #region Resource List Culture
+        [Then(@"I can see the page title in current culture")]
+        public void ThenICanSeeThePageTitleinCurrentCulture()
+        {
+            var expect = LocaleHelper.GetLocaleString("Resources");
+            Assert.Equal(BrowserHelper.Browser.Title, expect);
+        }
+
         [Then(@"I can see the create resource entry in current culture")]
         public void ThenICanSeeTheCreateResourceEntryInCurrentCulture()
         {
@@ -92,7 +101,11 @@ namespace AgileWizard.AcceptanceTests.Steps
         [Then(@"I can see the List in current culture")]
         public void ThenICanSeeTheListInCurrentCulture()
         {
-          //toto
+            var title = LocaleHelper.GetLocaleString("Title");
+            Assert.Equal(title, BrowserHelper.Browser.Element(s => s.IdOrName == "listTitle").Text.Trim());
+
+            var content = LocaleHelper.GetLocaleString("Content");
+            Assert.Equal(content, BrowserHelper.Browser.Element(s => s.IdOrName == "listContent").Text.Trim());
         }
         #endregion
     }
