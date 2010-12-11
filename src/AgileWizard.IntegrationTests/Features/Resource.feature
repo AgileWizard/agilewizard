@@ -6,4 +6,4 @@ Scenario: Add simple resources
 	Given new resource with  title - 'simple Resource' and content - 'simple Content' and author - 'Test Author'
 	When submit resource to system
 	Then resource will be persisted
-	And navigate to index page
+	And navigate to details page

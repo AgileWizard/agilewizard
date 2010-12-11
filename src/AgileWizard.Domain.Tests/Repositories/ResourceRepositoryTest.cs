@@ -26,10 +26,13 @@ namespace AgileWizard.Domain.Tests.Repositories
             _session.SetupStoreExpectation<Resource>(r => r.Title == TITLE && r.Content == CONTENT&&r.Author == AUTHOR);
             
             //Act
-            _resourceRepositorySUT.Add(TITLE, CONTENT, AUTHOR);
+            var resource = _resourceRepositorySUT.Add(TITLE, CONTENT, AUTHOR);
 
             //Assert
             _session.VerifyAll();
+            Assert.Equal(TITLE, resource.Title);
+            Assert.Equal(CONTENT, resource.Content);
+            Assert.Equal(AUTHOR, resource.Author);
         }
 
         [Fact]

@@ -76,7 +76,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 11
  testRunner.When("press button - \'Save\'");
 #line 12
- testRunner.Then("should be redirected to list page");
+ testRunner.Then("should be redirected to details page");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -121,6 +121,31 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("I can see the total resource count in current culture");
 #line 27
  testRunner.And("I can see the List in current culture");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "Resource")]
+        [Xunit.TraitAttribute("Description", "Edit A Resource")]
+        public virtual void EditAResource()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit A Resource", new string[] {
+                        "UI"});
+#line 30
+this.ScenarioSetup(scenarioInfo);
+#line 31
+ testRunner.Given("login already");
+#line 32
+ testRunner.And("open resource list page");
+#line 33
+ testRunner.And("edit a resource titled with \'Embeded Video\'");
+#line 34
+ testRunner.And("enter title - \'Embeded Video\' and content - \'Modified Content\'");
+#line 35
+ testRunner.When("press button - \'Save\'");
+#line 36
+ testRunner.Then("should be redirected to details page");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

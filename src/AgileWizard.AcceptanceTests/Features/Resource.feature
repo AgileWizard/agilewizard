@@ -9,7 +9,7 @@ Scenario: Add Simple Resource
 	And open adding-resource page
 	And enter title - 'simple Resource' and content - 'simple Content' and author - 'Daniel'
 	When press button - 'Save'
-	Then should be redirected to list page
+	Then should be redirected to details page
 
 @UI
 Scenario: View Resource Detail
@@ -25,3 +25,12 @@ Scenario: View Resource List
 	And I can see the create resource entry in current culture
 	And I can see the total resource count in current culture
 	And I can see the List in current culture
+
+@UI
+Scenario: Edit A Resource
+	Given login already
+	And open resource list page
+	And edit a resource titled with 'Embeded Video'
+	And enter title - 'Embeded Video' and content - 'Modified Content'
+	When press button - 'Save'
+	Then should be redirected to details page

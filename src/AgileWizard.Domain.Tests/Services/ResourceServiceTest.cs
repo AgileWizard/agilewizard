@@ -40,14 +40,15 @@ namespace AgileWizard.Domain.Tests.Services
         public void Can_add_resource()
         {
             //Arrange
-            _repository.Setup(r => r.Add(TITLE, CONTENT, AUTHOR)).Verifiable();
+            _repository.Setup(r => r.Add(TITLE, CONTENT, AUTHOR)).Returns(_resource).Verifiable();
             _repository.Setup(r => r.Save()).Verifiable();
             
             //Act
-            _service.AddResource(TITLE, CONTENT, AUTHOR);
+            var resource = _service.AddResource(TITLE, CONTENT, AUTHOR);
             
             //Assert
             _repository.VerifyAll();
+            Assert.Equal(_resource, resource);
         }
 
         [Fact]

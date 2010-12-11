@@ -41,9 +41,9 @@ namespace AgileWizard.Website.Controllers
         [ValidateInput(false)]
         public ActionResult Create(ResourceModel model)
         {
-            _resourceService.AddResource(model.Title, model.Content, model.Author);
+            var resource = _resourceService.AddResource(model.Title, model.Content, model.Author);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", new {id = resource.Id.Substring(10)});
         }
 
         public ActionResult Create()
@@ -80,10 +80,11 @@ namespace AgileWizard.Website.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(string id, ResourceModel model)
         {
             _resourceService.UpdateResource(id, new Resource(){Title = model.Title, Content = model.Content});
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", new {id});
         }
     }
 }

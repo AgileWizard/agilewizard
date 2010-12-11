@@ -38,10 +38,10 @@ namespace AgileWizard.IntegrationTests.Steps
                 _actionResult = _resourceController.Create(_resourceModel) as RedirectToRouteResult;
             }
 
-            [Then(@"navigate to index page")]
-            public void ThenNavigateToIndexPage()
+            [Then(@"navigate to details page")]
+            public void ThenNavigateToDetailsPage()
             {
-                Assert.Equal("index", (string)_actionResult.RouteValues["action"], StringComparer.OrdinalIgnoreCase);
+                Assert.Equal("details", (string)_actionResult.RouteValues["action"], StringComparer.OrdinalIgnoreCase);
             }
 
             [Then(@"resource will be persisted")]

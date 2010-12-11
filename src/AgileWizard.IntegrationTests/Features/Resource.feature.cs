@@ -27,7 +27,7 @@ namespace AgileWizard.IntegrationTests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Add Resource", "As a admin,\nI should be able to record the title, content and author", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Add Resource", "As a admin,\r\nI should be able to record the title, content and author", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -72,7 +72,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Then("resource will be persisted");
 #line 9
- testRunner.And("navigate to index page");
+ testRunner.And("navigate to details page");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

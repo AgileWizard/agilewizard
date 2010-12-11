@@ -16,7 +16,7 @@ namespace AgileWizard.Domain.Repositories
             _documentSession = documentSession;
         }
 
-        public void Add(string title, string content, string author)
+        public Resource Add(string title, string content, string author)
         {
             var resource = new Resource
                                {
@@ -28,6 +28,7 @@ namespace AgileWizard.Domain.Repositories
                                };
 
             _documentSession.Store(resource);
+            return resource;
 
         }
 

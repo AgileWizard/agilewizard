@@ -56,7 +56,7 @@ namespace AgileWizard.Website.Tests
 
             //Assert
             _resourceService.VerifyAll();
-            ShouldRedirectToActionIndex(actionResult);
+            ShouldRedirectToActionDetails(actionResult, ID);
         }
 
         [Fact]
@@ -113,7 +113,7 @@ namespace AgileWizard.Website.Tests
 
             //Assert
             _resourceService.VerifyAll();
-            ShouldRedirectToActionIndex(actionResult);
+            ShouldRedirectToActionDetails(actionResult, ID);
         }
 
         private void ShouldShowDefaultViewWithModel(string title, ActionResult actionResult)
@@ -136,15 +136,16 @@ namespace AgileWizard.Website.Tests
             Assert.Equal("1", viewModel.First().Id);
         }
 
-        private void ShouldRedirectToActionIndex(ActionResult actionResult)
+        private void ShouldRedirectToActionDetails(ActionResult actionResult, string id)
         {
             Assert.IsType<RedirectToRouteResult>(actionResult);
-            Assert.Equal("Index", ((RedirectToRouteResult)actionResult).RouteValues["action"].ToString());
+            Assert.Equal("Details", ((RedirectToRouteResult)actionResult).RouteValues["action"].ToString());
+            Assert.Equal(id, ((RedirectToRouteResult)actionResult).RouteValues["id"].ToString());
         }
 
         private void ResourceRepositoryWillBeCalled()
         {
-            _resourceService.Setup(x => x.AddResource(_resourceModel.Title, _resourceModel.Content, _resourceModel.Author)).Verifiable();
+            _resourceService.Setup(x => x.AddResource(_resourceModel.Title, _resourceModel.Content, _resourceModel.Author)).Returns(_resource).Verifiable();
         }
     }
 }

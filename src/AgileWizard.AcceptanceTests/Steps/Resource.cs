@@ -22,13 +22,19 @@ namespace AgileWizard.AcceptanceTests.Steps
             BrowserHelper.InputText("Author", author);
         }
 
-        [Then(@"should be redirected to list page")]
-        public void ThenShouldBeRedirectedToListPage()
+        [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)'")]
+        public void GivenEnterTitleAndContent(string title, string content)
+        {
+            BrowserHelper.InputText("Title", title);
+            BrowserHelper.InputText("Content", content);
+        }
+
+        [Then(@"should be redirected to details page")]
+        public void ThenShouldBeRedirectedToDetailsPage()
         {
             var browser = BrowserHelper.Browser;
-            var suffix = "Resource";
-
-            Assert.Equal(BrowserHelper.WebsiteUrl + suffix, browser.Url);
+            var suffix = "Resource/Details";
+            Assert.True(browser.Url.StartsWith(BrowserHelper.WebsiteUrl + suffix));
         }
 
         [Given(@"open resource list page")]
@@ -43,6 +49,14 @@ namespace AgileWizard.AcceptanceTests.Steps
             var browser = BrowserHelper.Browser;
             browser.Link(l => l.Text == title).Click();
         }
+
+        [Given(@"edit a resource titled with '([\w\s]+)'")]
+        public void GivenEditAResourceTitledWithEmbededVideo(string title)
+        {
+            var browser = BrowserHelper.Browser;
+            browser.Link(l => l.Text == "编辑" && l.Parent.NextSibling.Text == title).Click();
+        }
+
 
         [Then(@"'([\w\s]+)' resource details page should be open")]
         public void ResourceDetailsPageShouldBeOpen(string title)

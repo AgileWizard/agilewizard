@@ -14,10 +14,11 @@ namespace AgileWizard.Domain.Services
             _repository = repository;
         }
 
-        public void AddResource(string title, string content, string author)
+        public Resource AddResource(string title, string content, string author)
         {
-            _repository.Add(title, content, author);
+            var resource = _repository.Add(title, content, author);
             _repository.Save();
+            return resource;
         }
 
         public Resource GetResourceById(string id)
