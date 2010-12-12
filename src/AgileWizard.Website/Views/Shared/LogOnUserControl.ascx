@@ -2,8 +2,8 @@
 <%
     if (Request.IsAuthenticated) {
 %>
-        Welcome <b><%: Page.User.Identity.Name %></b>!
-        [ <%: Html.ActionLink(SharedString.LogOnLink, "LogOff", "Account") %> ]
+        <%: SharedString.Welcome %> <b><%: Page.User.Identity.Name %></b>!
+        [ <%: Html.ActionLink(SharedString.LogOffLink, "LogOff", "Account") %> ]
 <%
     }
     else {

@@ -70,6 +70,24 @@ namespace AgileWizard.Locale.Resources.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 错误.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 处理请求出错.
+        /// </summary>
+        public static string ErrorOccuredWhileProcessingRequest {
+            get {
+                return ResourceManager.GetString("ErrorOccuredWhileProcessingRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 首页.
         /// </summary>
         public static string HomeLink {
@@ -102,6 +120,15 @@ namespace AgileWizard.Locale.Resources.Views {
         public static string ResourceLink {
             get {
                 return ResourceManager.GetString("ResourceLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 欢迎.
+        /// </summary>
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
             }
         }
     }

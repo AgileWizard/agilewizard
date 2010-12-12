@@ -74,7 +74,7 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("enter title - \'simple Resource\' and content - \'simple Content\' and author - \'Dani" +
                     "el\'");
 #line 11
- testRunner.When("press button - \'Save\'");
+ testRunner.When("press login button");
 #line 12
  testRunner.Then("\'simple Resource\' resource details page should be open");
 #line hidden
@@ -145,7 +145,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 35
  testRunner.And("enter title - \'Embeded Video\' and content - \'Modified Content\'");
 #line 36
- testRunner.When("press button - \'Save\'");
+ testRunner.When("press login button");
 #line 37
  testRunner.Then("\'Embeded Video\' resource details page should be open");
 #line hidden

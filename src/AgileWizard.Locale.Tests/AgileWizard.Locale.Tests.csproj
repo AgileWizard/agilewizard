@@ -44,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LocalizedDisplayNameAttributeTest.cs" />
-    <Compile Include="LocaleHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\TempString.Designer.cs">
       <AutoGen>True</AutoGen>

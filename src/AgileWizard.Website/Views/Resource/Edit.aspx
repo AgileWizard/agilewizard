@@ -1,19 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<AgileWizard.Website.Models.ResourceModel>" %>
-<%@ Import Namespace="AgileWizard.Locale" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Edit
+	<%: ResourceString.EditResourceTitle %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-	<h2><%:  LocaleHelper.GetLocaleString("Edit") %></h2>
+	<h2><%: ResourceString.EditResourceTitle %></h2>
 	<% Html.EnableClientValidation(); %>
 	<% using (Html.BeginForm()) {%>
 		
 		<fieldset>
-			<legend><%:  LocaleHelper.GetLocaleString("Edit a resource") %></legend>
-			
+			<legend><%: ResourceString.EditResourceTitle %></legend>
 		   
 			<div class="editor-label">
 				<%: Html.LabelFor(m => m.Title) %>
@@ -31,14 +29,14 @@
 			</div>
 			
 			<p>
-				<input type="submit" value="Save" />
+                <input type="submit" value="<%: ResourceString.Save %>" />
 			</p>
 		</fieldset>
 
 	<% } %>
 
 	<div>
-		<%: Html.ActionLink("Back to List", "Index") %>
+		<%: Html.ActionLink(ResourceString.BackToResources, "Index") %>
 	</div>
 
 </asp:Content>

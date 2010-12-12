@@ -41,12 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GlobalizedDisplayAttribute.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="LocaleHelper.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="LocalizedDisplayNameAttribute.cs" />
     <Compile Include="LocalizedRequiredAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,6 +48,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AccountName.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Models\ResourceName.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceName.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\Models\ValidationString.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -85,6 +84,10 @@
     <EmbeddedResource Include="Resources\Models\AccountName.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AccountName.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Models\ResourceName.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceName.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Models\ValidationString.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

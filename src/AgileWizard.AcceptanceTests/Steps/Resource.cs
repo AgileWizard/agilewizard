@@ -1,7 +1,8 @@
 ﻿using TechTalk.SpecFlow;
 using AgileWizard.AcceptanceTests.Helper;
 using Xunit;
-using AgileWizard.Locale;
+using AgileWizard.Locale.Resources.Views;
+using AgileWizard.Locale.Resources.Models;
 
 namespace AgileWizard.AcceptanceTests.Steps
 {
@@ -49,7 +50,7 @@ namespace AgileWizard.AcceptanceTests.Steps
         public void GivenEditAResourceTitledWithEmbededVideo(string title)
         {
             var browser = BrowserHelper.Browser;
-            browser.Link(l => l.Text == LocaleHelper.GetLocaleString("Edit").Trim() && l.Parent.NextSibling.Text == title).Click();
+            browser.Link(l => l.Text == ResourceString.Edit.Trim() && l.Parent.NextSibling.Text == title).Click();
         }
 
         [Then(@"I can see the total resouce count")]
@@ -75,31 +76,31 @@ namespace AgileWizard.AcceptanceTests.Steps
         [Then(@"I can see the page title in current culture")]
         public void ThenICanSeeThePageTitleinCurrentCulture()
         {
-            var expect = LocaleHelper.GetLocaleString("Resources");
+            var expect = ResourceString.Resources;
             Assert.Equal(BrowserHelper.Browser.Title, expect);
         }
 
         [Then(@"I can see the create resource entry in current culture")]
         public void ThenICanSeeTheCreateResourceEntryInCurrentCulture()
         {
-            var expect = LocaleHelper.GetLocaleString("Create New Resource");
+            var expect = ResourceString.CreateResourceLink;
             Assert.Equal(BrowserHelper.Browser.Element(x => x.ClassName == "createNewResource").Text, expect);
         }
 
         [Then(@"I can see the total resource count in current culture")]
         public void ThenICanSeeTheTotalResourceCountInCurrentCulture()
         {
-            var expect = LocaleHelper.GetLocaleString("Total resource count:");
+            var expect = ResourceString.TotalResourceCount;
             Assert.Equal(BrowserHelper.Browser.Element(x => x.ClassName == "display-label").Text, expect);
         }
 
         [Then(@"I can see the List in current culture")]
         public void ThenICanSeeTheListInCurrentCulture()
         {
-            var title = LocaleHelper.GetLocaleString("Title");
+            var title = ResourceName.Title;
             Assert.Equal(title, BrowserHelper.Browser.Element(s => s.IdOrName == "listTitle").Text.Trim());
 
-            var content = LocaleHelper.GetLocaleString("Content");
+            var content = ResourceName.Content;
             Assert.Equal(content, BrowserHelper.Browser.Element(s => s.IdOrName == "listContent").Text.Trim());
         }
         #endregion

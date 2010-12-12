@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AgileWizard.Locale.Resources.Views {
+namespace AgileWizard.Locale.Resources.Models {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace AgileWizard.Locale.Resources.Views {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ResourceString {
+    public class ResourceName {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ResourceString() {
+        internal ResourceName() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace AgileWizard.Locale.Resources.Views {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AgileWizard.Locale.Resources.Views.ResourceString", typeof(ResourceString).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AgileWizard.Locale.Resources.Models.ResourceName", typeof(ResourceName).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,83 +61,47 @@ namespace AgileWizard.Locale.Resources.Views {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 返回到资源列表.
+        ///   Looks up a localized string similar to 原创者.
         /// </summary>
-        public static string BackToResources {
+        public static string Author {
             get {
-                return ResourceManager.GetString("BackToResources", resourceCulture);
+                return ResourceManager.GetString("Author", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 创建.
+        ///   Looks up a localized string similar to 内容.
         /// </summary>
-        public static string Create {
+        public static string Content {
             get {
-                return ResourceManager.GetString("Create", resourceCulture);
+                return ResourceManager.GetString("Content", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 创建资源.
+        ///   Looks up a localized string similar to 创建时间.
         /// </summary>
-        public static string CreateResourceLink {
+        public static string CreateTime {
             get {
-                return ResourceManager.GetString("CreateResourceLink", resourceCulture);
+                return ResourceManager.GetString("CreateTime", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 创建资源.
+        ///   Looks up a localized string similar to 编号.
         /// </summary>
-        public static string CreateResourceTitle {
+        public static string Id {
             get {
-                return ResourceManager.GetString("CreateResourceTitle", resourceCulture);
+                return ResourceManager.GetString("Id", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 编辑.
+        ///   Looks up a localized string similar to 标题.
         /// </summary>
-        public static string Edit {
+        public static string Title {
             get {
-                return ResourceManager.GetString("Edit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 编辑资源.
-        /// </summary>
-        public static string EditResourceTitle {
-            get {
-                return ResourceManager.GetString("EditResourceTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 资源列表.
-        /// </summary>
-        public static string Resources {
-            get {
-                return ResourceManager.GetString("Resources", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 保存.
-        /// </summary>
-        public static string Save {
-            get {
-                return ResourceManager.GetString("Save", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 资源总数.
-        /// </summary>
-        public static string TotalResourceCount {
-            get {
-                return ResourceManager.GetString("TotalResourceCount", resourceCulture);
+                return ResourceManager.GetString("Title", resourceCulture);
             }
         }
     }
