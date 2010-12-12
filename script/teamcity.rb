@@ -22,8 +22,8 @@ WEB_PORT = "1984"
 desc "initialize the server environment"
 task :init do
   puts "delete the bin directory before building"
-  if FileTest::directory?(OUTPUT_DIRECTORY) then
-		FileUtils.rm_rf OUTPUT_DIRECTORY
+  if FileTest::directory?(OUTPUT_DLL_DIR) then
+		FileUtils.rm_rf OUTPUT_DLL_DIR
 	end
 end
 
