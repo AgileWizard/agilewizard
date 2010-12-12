@@ -27,5 +27,11 @@ namespace AgileWizard.AcceptanceTests.Steps
             BrowserHelper.PressSubmitButton();
         }
 
+        [Given("no login")]
+        public void GivenNoLogin()
+        {
+            BrowserHelper.OpenPage("Account/Logoff");
+        }
+
     }
 }

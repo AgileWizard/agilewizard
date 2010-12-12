@@ -46,6 +46,7 @@ namespace AgileWizard.Website.Controllers
             return RedirectToAction("Details", new {id = resource.Id.Substring(10)});
         }
 
+        [RequireAuthentication]
         public ActionResult Create()
         {
             var viewModel = new ResourceModel();
@@ -66,6 +67,7 @@ namespace AgileWizard.Website.Controllers
                             });
         }
 
+        [RequireAuthentication]
         public ActionResult Edit(string id)
         {
             var resource = _resourceService.GetResourceById(id);

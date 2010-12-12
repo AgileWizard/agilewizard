@@ -9,7 +9,7 @@ namespace AgileWizard.AcceptanceTests.Steps
     [Binding]
     public class Resource
     {
-       #region Add resource
+        #region Add resource
         [Given(@"open adding-resource page")]
         public void GivenOpenAddingResourcePage()
         {
@@ -29,6 +29,16 @@ namespace AgileWizard.AcceptanceTests.Steps
         {
             BrowserHelper.InputText("Title", title);
             BrowserHelper.InputText("Content", content);
+        }
+        #endregion
+
+        #region Add Resource require login
+        [Then("login page should be open")]
+        public void AddResource_RequireLogin_RedirectToLoginPage()
+        {
+            var currentUrl = BrowserHelper.Browser.Url;
+            var expect = "Account/Logon";
+            Assert.True(currentUrl.EndsWith(expect));
         }
         #endregion
 
@@ -59,7 +69,7 @@ namespace AgileWizard.AcceptanceTests.Steps
             var browser = BrowserHelper.Browser;
             Assert.True(int.Parse(browser.Element(x => x.ClassName == "totalResourceCount").Text) > 0);
         }
-        #endregion 
+        #endregion
 
         #region View Detail
         [Then(@"'([\w\s]+)' resource details page should be open")]

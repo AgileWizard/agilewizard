@@ -12,6 +12,12 @@ Scenario: Add Simple Resource
 	Then 'simple Resource' resource details page should be open
 
 @UI
+Scenario: Add Resource require login
+	Given no login
+	And open adding-resource page
+	Then login page should be open
+
+@UI
 Scenario: View Resource Detail
 	Given open resource list page
 	When open a resource titled with 'Embeded Video'
