@@ -8,6 +8,7 @@ Scenario: Add plain text resource
 	Then resource will be persisted
 	And navigate to details page
 
+@ignore
 Scenario: Add video resource
 	Given new resource with  title - 'embed video Resource'
 	And content -  @"<embed src=""http://player.youku.com/player.php/sid/XMjI2MjI2MTQw/v.swf"" quality=""high"" width=""480"" height=""400"" align=""middle"" allowScriptAccess=""sameDomain"" type=""application/x-shockwave-flash""></embed>" 
