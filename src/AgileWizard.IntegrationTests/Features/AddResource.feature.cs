@@ -21,7 +21,7 @@ namespace AgileWizard.IntegrationTests.Features
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "Resource.feature"
+#line 1 "AddResource.feature"
 #line hidden
         
         public static void FeatureSetup()
@@ -58,20 +58,46 @@ namespace AgileWizard.IntegrationTests.Features
         
         [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "Add Resource")]
-        [Xunit.TraitAttribute("Description", "Add simple resources")]
-        public virtual void AddSimpleResources()
+        [Xunit.TraitAttribute("Description", "Add plain text resource")]
+        public virtual void AddPlainTextResource()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add simple resources", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add plain text resource", ((string[])(null)));
 #line 5
 this.ScenarioSetup(scenarioInfo);
 #line 6
- testRunner.Given("new resource with  title - \'simple Resource\' and content - \'simple Content\' and a" +
-                    "uthor - \'Test Author\'");
+ testRunner.Given("new resource with  title - \'plain text Resource\' and content - \'simple Content\' a" +
+                    "nd author - \'Test Author\'");
 #line 7
  testRunner.When("submit resource to system");
 #line 8
  testRunner.Then("resource will be persisted");
 #line 9
+ testRunner.And("navigate to details page");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "Add Resource")]
+        [Xunit.TraitAttribute("Description", "Add video resource")]
+        public virtual void AddVideoResource()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add video resource", ((string[])(null)));
+#line 11
+this.ScenarioSetup(scenarioInfo);
+#line 12
+ testRunner.Given("new resource with  title - \'embed video Resource\'");
+#line 13
+ testRunner.And("content -  @\"<embed src=\"\"http://player.youku.com/player.php/sid/XMjI2MjI2MTQw/v." +
+                    "swf\"\" quality=\"\"high\"\" width=\"\"480\"\" height=\"\"400\"\" align=\"\"middle\"\" allowScript" +
+                    "Access=\"\"sameDomain\"\" type=\"\"application/x-shockwave-flash\"\"></embed>\"");
+#line 14
+ testRunner.And("author - \'Test Author\'");
+#line 15
+ testRunner.When("submit resource to system");
+#line 16
+ testRunner.Then("resource will be persisted");
+#line 17
  testRunner.And("navigate to details page");
 #line hidden
             testRunner.CollectScenarioErrors();

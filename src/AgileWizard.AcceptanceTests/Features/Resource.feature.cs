@@ -76,7 +76,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 11
  testRunner.When("press button - \'Save\'");
 #line 12
- testRunner.Then("should be redirected to details page");
+ testRunner.Then("\'simple Resource\' resource details page should be open");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -147,7 +147,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 36
  testRunner.When("press button - \'Save\'");
 #line 37
- testRunner.Then("should be redirected to details page");
+ testRunner.Then("\'Embeded Video\' resource details page should be open");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

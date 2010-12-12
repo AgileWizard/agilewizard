@@ -9,7 +9,7 @@ Scenario: Add Simple Resource
 	And open adding-resource page
 	And enter title - 'simple Resource' and content - 'simple Content' and author - 'Daniel'
 	When press button - 'Save'
-	Then should be redirected to details page
+	Then 'simple Resource' resource details page should be open
 
 @UI
 Scenario: View Resource Detail
@@ -34,4 +34,4 @@ Scenario: Edit A Resource
 	And edit a resource titled with 'Embeded Video'
 	And enter title - 'Embeded Video' and content - 'Modified Content'
 	When press button - 'Save'
-	Then should be redirected to details page
+	Then 'Embeded Video' resource details page should be open

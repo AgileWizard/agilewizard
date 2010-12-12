@@ -8,13 +8,13 @@ namespace AgileWizard.AcceptanceTests.Steps
     [Binding]
     public class Resource
     {
+       #region Add resource
         [Given(@"open adding-resource page")]
         public void GivenOpenAddingResourcePage()
         {
             BrowserHelper.OpenPage("Resource/Create");
         }
 
-        #region Add resource
         [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)'")]
         public void GivenEnterTitleAndContentAndAuthor(string title, string content, string author)
         {
@@ -29,16 +29,9 @@ namespace AgileWizard.AcceptanceTests.Steps
             BrowserHelper.InputText("Title", title);
             BrowserHelper.InputText("Content", content);
         }
-
-        [Then(@"should be redirected to details page")]
-        public void ThenShouldBeRedirectedToDetailsPage()
-        {
-            var browser = BrowserHelper.Browser;
-            var suffix = "Resource/Details";
-            Assert.True(browser.Url.StartsWith(BrowserHelper.WebsiteUrl + suffix));
-        }
         #endregion
 
+        #region Resource List
         [Given(@"open resource list page")]
         public void GivenOpenResourceListPage()
         {
@@ -59,7 +52,15 @@ namespace AgileWizard.AcceptanceTests.Steps
             browser.Link(l => l.Text == LocaleHelper.GetLocaleString("Edit").Trim() && l.Parent.NextSibling.Text == title).Click();
         }
 
+        [Then(@"I can see the total resouce count")]
+        public void ThenICanSeeTheTotalResouceCount()
+        {
+            var browser = BrowserHelper.Browser;
+            Assert.True(int.Parse(browser.Element(x => x.ClassName == "totalResourceCount").Text) > 0);
+        }
+        #endregion 
 
+        #region View Detail
         [Then(@"'([\w\s]+)' resource details page should be open")]
         public void ResourceDetailsPageShouldBeOpen(string title)
         {
@@ -68,13 +69,7 @@ namespace AgileWizard.AcceptanceTests.Steps
             var head = browser.Element(e => e.ClassName == "Title");
             Assert.Equal(title, head.Text);
         }
-
-        [Then(@"I can see the total resouce count")]
-        public void ThenICanSeeTheTotalResouceCount()
-        {
-            var browser = BrowserHelper.Browser;
-            Assert.True(int.Parse(browser.Element(x => x.ClassName == "totalResourceCount").Text) > 0);
-        }
+        #endregion
 
         #region Resource List Culture
         [Then(@"I can see the page title in current culture")]
