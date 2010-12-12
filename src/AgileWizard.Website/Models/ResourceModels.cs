@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.Collections.Generic;
+using AgileWizard.Locale;
 
 namespace AgileWizard.Website.Models
 {
@@ -10,11 +11,11 @@ namespace AgileWizard.Website.Models
         [DisplayName("Id")]
         public string Id { get; set; }
 
-        [Required]
+        [LocalizedRequiredAttribute]
         [DisplayName("Title")]
         public string Title { get; set; }
 
-        [Required]
+        [LocalizedRequiredAttribute]
         [DisplayName("Content")]
         public string Content { get; set; }
 

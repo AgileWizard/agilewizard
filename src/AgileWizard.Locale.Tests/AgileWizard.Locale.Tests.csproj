@@ -43,15 +43,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GlobalizedDisplayNameAttributeTest.cs" />
+    <Compile Include="LocalizedDisplayNameAttributeTest.cs" />
     <Compile Include="LocaleHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\TempString.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TempString.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AgileWizard.Locale\AgileWizard.Locale.csproj">
       <Project>{087C421B-B96C-41A9-9593-548913174FDA}</Project>
       <Name>AgileWizard.Locale</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\TempString.en.resx" />
+    <EmbeddedResource Include="Resources\TempString.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TempString.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TempString.zh.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

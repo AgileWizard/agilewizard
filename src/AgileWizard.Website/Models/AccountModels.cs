@@ -7,6 +7,7 @@ using System.Web.Security;
 using AgileWizard.Domain;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Locale;
+using AgileWizard.Locale.Resources.Models;
 
 namespace AgileWizard.Website.Models
 {
@@ -14,16 +15,16 @@ namespace AgileWizard.Website.Models
     #region Models
     public class LogOnModel
     {
-        [Required]
-        [GlobalizedDisplay(Name = "UserName")]
+        [LocalizedRequiredAttribute]
+        [LocalizedDisplayName("UserName", NameResourceType=typeof(AccountName))]
         public string UserName { get; set; }
 
-        [Required]
+        [LocalizedRequiredAttribute]
         [DataType(DataType.Password)]
-        [GlobalizedDisplay(Name = "Password")]
+        [LocalizedDisplayName("Password", NameResourceType = typeof(AccountName))]
         public string Password { get; set; }
 
-        [GlobalizedDisplay(Name = "RememberMe")]
+        [LocalizedDisplayName("RememberMe", NameResourceType = typeof(AccountName))]
         public bool RememberMe { get; set; }
     }
     #endregion

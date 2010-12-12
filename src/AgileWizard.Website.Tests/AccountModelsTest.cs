@@ -14,10 +14,10 @@ namespace AgileWizard.Website.Tests
             var logonModelType = typeof(LogOnModel);
             var userNameProp = logonModelType.GetProperty(propertyName);
 
-            var attributes = userNameProp.GetCustomAttributes(typeof(GlobalizedDisplayAttribute), false);
-            var globalizedDisplayNameAttr = attributes[0] as GlobalizedDisplayAttribute;
+            var attributes = userNameProp.GetCustomAttributes(typeof(LocalizedDisplayNameAttribute), false);
+            var localizedDisplayNameAttr = attributes[0] as LocalizedDisplayNameAttribute;
 
-            return globalizedDisplayNameAttr.Name;
+            return localizedDisplayNameAttr.DisplayNameKey;
         }
 
         [Fact]

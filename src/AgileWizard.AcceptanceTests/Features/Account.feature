@@ -7,5 +7,5 @@
 Scenario: Login
 	Given open login page
 	And enter username - 'agilewizard' and password - 'agilewizard'
-	When press button - 'Log On'
+	When press login button
 	Then should be redirected to main page

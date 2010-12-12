@@ -22,8 +22,9 @@
             <div id="menucontainer">
             
                 <ul id="menu">              
-                    <li><%: Html.ActionLink("Home", "Index", "Home")%></li>
-                    <li><%: Html.ActionLink("About", "About", "Home")%></li>
+                    <li><%: Html.ActionLink(SharedString.HomeLink, "Index", "Home")%></li>
+                    <li><%: Html.ActionLink(SharedString.ResourceLink, "Index", "Resource")%></li>
+                    <li><%: Html.ActionLink(SharedString.AboutLink, "About", "Home")%></li>
                 </ul>
             
             </div>

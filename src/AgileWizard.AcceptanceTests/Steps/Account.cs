@@ -20,7 +20,11 @@ namespace AgileWizard.AcceptanceTests.Steps
             BrowserHelper.InputText("Password", password);
         }
 
-        // when press button in shared steps
+        [When(@"press login button")]
+        public void WhenPressLoginButton()
+        {
+            BrowserHelper.PressSubmitButton();
+        }
 
         [Then(@"should be redirected to main page")]
         public void ThenShouldBeRedirectedToMainPage()

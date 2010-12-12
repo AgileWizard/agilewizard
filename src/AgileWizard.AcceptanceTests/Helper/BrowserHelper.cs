@@ -70,6 +70,11 @@ namespace AgileWizard.AcceptanceTests.Helper
             Browser.Button(x => x.Value == buttonText).Click();
         }
 
+        public static void PressSubmitButton()
+        {
+            Browser.Buttons.First(x => x.GetAttributeValue("type") == "submit").Click();
+        }
+
         public static void InputText(string field, string text)
         {
             Browser.TextFields.Single(t => t.Name == field).TypeText(text);

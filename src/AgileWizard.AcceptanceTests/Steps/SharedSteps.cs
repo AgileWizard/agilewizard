@@ -24,7 +24,7 @@ namespace AgileWizard.AcceptanceTests.Steps
             BrowserHelper.InputText("UserName", BrowserHelper.UserName);
             BrowserHelper.InputText("Password", BrowserHelper.Password);
 
-            BrowserHelper.PressButton("Log On");
+            BrowserHelper.PressSubmitButton();
         }
 
     }

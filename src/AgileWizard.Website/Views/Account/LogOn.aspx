@@ -1,20 +1,20 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<AgileWizard.Website.Models.LogOnModel>" %>
 
 <asp:Content ID="loginTitle" ContentPlaceHolderID="TitleContent" runat="server">
-    Log On
+    <%: AccountString.LogOnTitle%>
 </asp:Content>
 
 <asp:Content ID="loginContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>Log On</h2>
+    <h2><%: AccountString.LogOnTitle%></h2>
     <p>
-        Please enter your username and password. <%: Html.ActionLink("Register", "Register") %> if you don't have an account.
+        <%: AccountString.PleaseEnterUserNameAndPassword %> <%: AccountString.RegisterPleaseClick %><%: Html.ActionLink(AccountString.RegisterLink, "Register") %>
     </p>
 
     <% using (Html.BeginForm()) { %>
-        <%: Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.") %>
+        <%: Html.ValidationSummary(true, AccountString.LoginFailedAndTryAgain) %>
         <div>
             <fieldset>
-                <legend>Account Information</legend>
+                <legend><%: AccountString.AccountInformation %></legend>
                 
                 <div class="editor-label">
                     <%: Html.LabelFor(m => m.UserName) %>
@@ -38,7 +38,7 @@
                 </div>
                 
                 <p>
-                    <input type="submit" value="Log On" />
+                    <input type="submit" value="<%: AccountString.LogOnButtonText %>" />
                 </p>
             </fieldset>
         </div>
