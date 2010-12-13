@@ -16,7 +16,7 @@ namespace AgileWizard.Domain.Repositories
             _documentSession = documentSession;
         }
 
-        public Resource Add(string title, string content, string author)
+        public Resource Add(string title, string content, string author, string submitUser)
         {
             var resource = new Resource
                                {
@@ -24,7 +24,8 @@ namespace AgileWizard.Domain.Repositories
                                    Content = content,
                                    Author = author,
                                    CreateTime = DateTime.Now,
-                                   LastUpdateTime = DateTime.Now
+                                   LastUpdateTime = DateTime.Now,
+                                   SubmitUser = submitUser
                                };
 
             _documentSession.Store(resource);

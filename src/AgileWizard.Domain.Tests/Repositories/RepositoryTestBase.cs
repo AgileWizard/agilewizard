@@ -1,12 +1,14 @@
 ﻿using Moq;
 using Raven.Client;
+using AgileWizard.Domain.Repositories;
+using AgileWizard.Domain.Entities;
 
 namespace AgileWizard.Domain.Tests.Repositories
 {
     public abstract class RepositoryTestBase
     {
         protected Mock<IDocumentSession> _session;
-        
+
         protected RepositoryTestBase()
         {
             //_documentStore = new DocumentStore { Url = "http://localhost:8080/" };

@@ -4,6 +4,7 @@ using AgileWizard.Domain;
 using Moq;
 using AgileWizard.Website.Models;
 using AgileWizard.Website.Controllers;
+using AgileWizard.Domain.Repositories;
 
 namespace AgileWizard.Website.Tests
 {
@@ -13,6 +14,7 @@ namespace AgileWizard.Website.Tests
         private const string _password = "thepassword";
         private readonly Mock<IUserAuthenticationService> _userAuthenticationService;
         private readonly Mock<IFormsAuthenticationService> _formsService;
+        private readonly Mock<ISessionStateRepository> _sessionStateRepository;
         private readonly LogOnModel _logOnModel;
         private readonly AccountController _accountControllerSUT;
 
@@ -26,10 +28,11 @@ namespace AgileWizard.Website.Tests
                               };
 
             _userAuthenticationService = new Mock<IUserAuthenticationService>();
+            _sessionStateRepository = new Mock<ISessionStateRepository>();
 
             _formsService = new Mock<IFormsAuthenticationService>();
 
-            _accountControllerSUT = new AccountController(_userAuthenticationService.Object, _formsService.Object);
+            _accountControllerSUT = new AccountController(_userAuthenticationService.Object, _formsService.Object, _sessionStateRepository.Object);
         }
 
         [Fact]

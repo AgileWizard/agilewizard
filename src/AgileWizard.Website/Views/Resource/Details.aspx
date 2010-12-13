@@ -4,6 +4,8 @@
 </asp:Content>
 <asp:Content runat="server" ID="Main" ContentPlaceHolderID="MainContent">
     <h2 class="Title"><%: Model.Title %></h2>
-    <div><span><%: Model.Author %></span><span><%: Model.CreateTime.ToString() %></span></div>
+    <div><%:ResourceName.Author %>:<span class="Author"><%: Model.Author %></span>&nbsp;
+    <%:ResourceName.SubmitUser %>:<span class="SubmitUser"><%: Model.SubmitUser%></span>&nbsp;<span><%: Model.CreateTime.ToString() %></span></div>
+    <br />
     <span class="Content"><%=Model.Content %></span>
 </asp:Content>

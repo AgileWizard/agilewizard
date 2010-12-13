@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RavenDBHelper.cs" />
+    <Compile Include="Repositories\StateRepositoryTest.cs" />
     <Compile Include="Repositories\UserRepositoryTest.cs" />
     <Compile Include="Repositories\RepositoryTestBase.cs" />
     <Compile Include="Repositories\ResourceRepositoryTest.cs" />

@@ -12,7 +12,7 @@ namespace AgileWizard.Website
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             //redirect if not authenticated
-            if (StateRepository.Instance.IsLoggedIn == false)
+            if (SessionStateRepository.Instance.IsLoggedIn == false)
             {
                 const string loginUrl = "/Account/Logon";
                 filterContext.HttpContext.Response.Write(string.Format("<script>top.location.href='{0}';</script>"

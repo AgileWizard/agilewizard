@@ -70,9 +70,9 @@ this.ScenarioSetup(scenarioInfo);
 #line 7
  testRunner.When("submit resource to system");
 #line 8
- testRunner.Then("resource will be persisted");
+ testRunner.Then("navigate to details page");
 #line 9
- testRunner.And("navigate to details page");
+ testRunner.And("display the title, content, author and submit user");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -84,21 +84,21 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add video resource", new string[] {
                         "ignore"});
-#line 12
-this.ScenarioSetup(scenarioInfo);
 #line 13
- testRunner.Given("new resource with  title - \'embed video Resource\'");
+this.ScenarioSetup(scenarioInfo);
 #line 14
+ testRunner.Given("new resource with  title - \'embed video Resource\'");
+#line 15
  testRunner.And("content -  @\"<embed src=\"\"http://player.youku.com/player.php/sid/XMjI2MjI2MTQw/v." +
                     "swf\"\" quality=\"\"high\"\" width=\"\"480\"\" height=\"\"400\"\" align=\"\"middle\"\" allowScript" +
                     "Access=\"\"sameDomain\"\" type=\"\"application/x-shockwave-flash\"\"></embed>\"");
-#line 15
- testRunner.And("author - \'Test Author\'");
 #line 16
- testRunner.When("submit resource to system");
+ testRunner.And("author - \'Test Author\'");
 #line 17
- testRunner.Then("resource will be persisted");
+ testRunner.When("submit resource to system");
 #line 18
+ testRunner.Then("resource will be persisted");
+#line 19
  testRunner.And("navigate to details page");
 #line hidden
             testRunner.CollectScenarioErrors();

@@ -97,6 +97,15 @@ namespace AgileWizard.Locale.Resources.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 提交者.
+        /// </summary>
+        public static string SubmitUser {
+            get {
+                return ResourceManager.GetString("SubmitUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 标题.
         /// </summary>
         public static string Title {

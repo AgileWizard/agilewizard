@@ -22,6 +22,8 @@ namespace AgileWizard.AcceptanceTests.Steps
             BrowserHelper.InputText("Title", title);
             BrowserHelper.InputText("Author", author);
             BrowserHelper.InputText("Content", content);
+
+            ScenarioContext.Current["Author"] = author;
         }
 
         [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)'")]
@@ -30,6 +32,28 @@ namespace AgileWizard.AcceptanceTests.Steps
             BrowserHelper.InputText("Title", title);
             BrowserHelper.InputText("Content", content);
         }
+
+        #region View Detail
+        [Then(@"'([\w\s]+)' resource details page should be open")]
+        public void ResourceDetailsPageShouldBeOpen(string title)
+        {
+            var browser = BrowserHelper.Browser;
+            Assert.Equal(title, browser.Title);
+            var head = browser.Element(e => e.ClassName == "Title");
+            Assert.Equal(title, head.Text);
+        }
+
+        [Then(@"Author and SubmitUser are displayed")]
+        public void AuthorAndSubmitUserAreDisplayed()
+        {
+            // submit user
+            Assert.Equal(BrowserHelper.UserName, BrowserHelper.Browser.Element(e => e.ClassName == "SubmitUser").Text);
+            // Author
+            Assert.Equal(ScenarioContext.Current["Author"], BrowserHelper.Browser.Element(e => e.ClassName == "Author").Text);
+
+        }
+        #endregion
+
         #endregion
 
         #region Add Resource require login
@@ -71,16 +95,6 @@ namespace AgileWizard.AcceptanceTests.Steps
         }
         #endregion
 
-        #region View Detail
-        [Then(@"'([\w\s]+)' resource details page should be open")]
-        public void ResourceDetailsPageShouldBeOpen(string title)
-        {
-            var browser = BrowserHelper.Browser;
-            Assert.Equal(title, browser.Title);
-            var head = browser.Element(e => e.ClassName == "Title");
-            Assert.Equal(title, head.Text);
-        }
-        #endregion
 
         #region Resource List Culture
         [Then(@"I can see the page title in current culture")]

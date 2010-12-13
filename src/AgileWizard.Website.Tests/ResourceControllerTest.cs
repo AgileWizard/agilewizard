@@ -18,30 +18,37 @@ namespace AgileWizard.Website.Tests
         private const string DOCUMENT_ID = "resources/1";
         private const string TITLE = "title";
         private const string CONTENT = "content";
+        private const string AUTHOR = "author";
+        private const string SUBMITUSER = "submitUser";
 
         private readonly Mock<IResourceService> _resourceService;
         private readonly Mock<IDocumentSession> _documentSession;
+        private readonly Mock<ISessionStateRepository> _sessionStateRepository;
         private readonly ResourceController resourceControllerSUT;
 
         private readonly Resource _resource = new Resource()
                                          {
                                              Id = DOCUMENT_ID,
                                              Title = TITLE,
-                                             Content = CONTENT
+                                             Content = CONTENT,
+                                             Author = AUTHOR,
+                                             SubmitUser = SUBMITUSER
                                          };
         private readonly ResourceModel _resourceModel = new ResourceModel()
                                                   {
                                                       Id = ID,
                                                       Title = TITLE,
-                                                      Content = CONTENT
+                                                      Content = CONTENT,
+                                                      Author = AUTHOR
                                                   };
 
         public ResourceControllerTest()
         {
             _resourceService = new Mock<IResourceService>();
             _documentSession = new Mock<IDocumentSession>();
+            _sessionStateRepository = new Mock<ISessionStateRepository>();
 
-            resourceControllerSUT = new ResourceController(_documentSession.Object, _resourceService.Object);
+            resourceControllerSUT = new ResourceController(_resourceService.Object, _documentSession.Object, _sessionStateRepository.Object);
         }
 
 
@@ -49,7 +56,10 @@ namespace AgileWizard.Website.Tests
         public void when_add_resource()
         {
             //Arrange
+            _sessionStateRepository.Setup(s => s.CurrentUser).Returns(User.EmptyUser());
+
             ResourceRepositoryWillBeCalled();
+
 
             //Act
             var actionResult = resourceControllerSUT.Create(_resourceModel);
@@ -119,7 +129,7 @@ namespace AgileWizard.Website.Tests
         private void ShouldShowDefaultViewWithModel(string title, ActionResult actionResult)
         {
             Assert.IsType<ViewResult>(actionResult);
-            var viewResult = (ViewResult) actionResult;
+            var viewResult = (ViewResult)actionResult;
             Assert.Empty(viewResult.ViewName);
             Assert.IsAssignableFrom<ResourceModel>(viewResult.ViewData.Model);
             var viewModel = (ResourceModel)viewResult.ViewData.Model;
@@ -145,7 +155,7 @@ namespace AgileWizard.Website.Tests
 
         private void ResourceRepositoryWillBeCalled()
         {
-            _resourceService.Setup(x => x.AddResource(_resourceModel.Title, _resourceModel.Content, _resourceModel.Author)).Returns(_resource).Verifiable();
+            _resourceService.Setup(x => x.AddResource(_resourceModel.Title, _resourceModel.Content, _resourceModel.Author, _sessionStateRepository.Object.CurrentUser.UserName)).Returns(_resource).Verifiable();
         }
     }
 }

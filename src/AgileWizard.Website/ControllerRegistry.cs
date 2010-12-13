@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using StructureMap.Configuration.DSL;
 using AgileWizard.Website.Models;
+using AgileWizard.Domain.Repositories;
 
 namespace AgileWizard.Website
 {
@@ -12,6 +13,7 @@ namespace AgileWizard.Website
         public ControllerRegistry()
         {
             For<IFormsAuthenticationService>().Use<FormsAuthenticationService>();
+            For<ISessionStateRepository>().Use<SessionStateRepository>();
         }
     }
 }

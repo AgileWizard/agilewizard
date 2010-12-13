@@ -23,16 +23,18 @@ namespace AgileWizard.Domain.Tests.Repositories
             const string TITLE = "title";
             const string CONTENT = "content";
             const string AUTHOR = "author";
-            _session.SetupStoreExpectation<Resource>(r => r.Title == TITLE && r.Content == CONTENT&&r.Author == AUTHOR);
-            
+            const string SUBMITUSER = "submit user";
+            _session.SetupStoreExpectation<Resource>(r => r.Title == TITLE && r.Content == CONTENT && r.Author == AUTHOR && r.SubmitUser == SUBMITUSER);
+
             //Act
-            var resource = _resourceRepositorySUT.Add(TITLE, CONTENT, AUTHOR);
+            var resource = _resourceRepositorySUT.Add(TITLE, CONTENT, AUTHOR, SUBMITUSER);
 
             //Assert
             _session.VerifyAll();
             Assert.Equal(TITLE, resource.Title);
             Assert.Equal(CONTENT, resource.Content);
             Assert.Equal(AUTHOR, resource.Author);
+            Assert.Equal(SUBMITUSER, resource.SubmitUser);
         }
 
         [Fact]
@@ -53,9 +55,9 @@ namespace AgileWizard.Domain.Tests.Repositories
         public void can_get_first_100_list_of_resources()
         {
             _session.SetupQueryResult<Resource>(typeof(ResourceIndexByTitle).Name, 101.CountOfResouces());
-            
+
             var resources = _resourceRepositorySUT.GetResourceList();
-            
+
             Assert.Equal(resources.Count, 100);
             _session.VerifyAll();
         }
@@ -79,7 +81,7 @@ namespace AgileWizard.Domain.Tests.Repositories
             var resources = _resourceRepositorySUT.GetResourceList();
 
             AssertResourceOrderByLastupdateTimeDescending(resources);
-            
+
         }
 
         [Fact]
@@ -122,8 +124,17 @@ namespace AgileWizard.Domain.Tests.Repositories
     {
         internal static IEnumerable<Resource> CountOfResouces(this int totalCount)
         {
-            for(int i = 0;i<totalCount;i++)
-                yield return new Resource { Author = "agilewizard", Content = "agilewizard blog number" + i , CreateTime = DateTime.Now, LastUpdateTime = DateTime.Now, Title = "agilewizard", Id = (i+1).ToString() };
+            for (int i = 0; i < totalCount; i++)
+                yield return new Resource
+                {
+                    Author = "agilewizard",
+                    Content = "agilewizard blog number" + i,
+                    CreateTime = DateTime.Now,
+                    LastUpdateTime = DateTime.Now,
+                    Title = "agilewizard",
+                    Id = (i + 1).ToString(),
+                    SubmitUser = "user"
+                };
         }
     }
 }

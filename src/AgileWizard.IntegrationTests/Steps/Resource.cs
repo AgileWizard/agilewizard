@@ -6,6 +6,7 @@ using AgileWizard.Website.Models;
 using StructureMap;
 using TechTalk.SpecFlow;
 using Xunit;
+using Moq;
 
 namespace AgileWizard.IntegrationTests.Steps
 {
@@ -18,6 +19,9 @@ namespace AgileWizard.IntegrationTests.Steps
             private ResourceModel _resourceModel;
             private ResourceController _resourceController;
             private RedirectToRouteResult _actionResult;
+            private Mock<ISessionStateRepository> _sessionStateRepository;
+
+            const string SubmitUser = "agilewizard";
 
             [Given(@"new resource with  title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)'")]
             public void GivenNewResourceWithTitleAndContentAndAuthor(string title, string content, string author)
@@ -26,7 +30,8 @@ namespace AgileWizard.IntegrationTests.Steps
                                      {
                                          Title = title,
                                          Content = content,
-                                         Author = author
+                                         Author = author,
+                                         SubmitUser = SubmitUser
                                      };
 
                 _resourceController = ObjectFactory.GetInstance<ResourceController>();
@@ -44,17 +49,19 @@ namespace AgileWizard.IntegrationTests.Steps
                 Assert.Equal("details", (string)_actionResult.RouteValues["action"], StringComparer.OrdinalIgnoreCase);
             }
 
-            [Then(@"resource will be persisted")]
-            public void ThenResourceWillBePersisted()
+            [Then(@"display the title, content, author and submit user")]
+            public void ThenDisplayDetailInformation()
             {
                 var resourceRepository = ObjectFactory.GetInstance<IResourceRepository>();
 
                 var resources = resourceRepository.GetResourceList();
-                
+
                 const int firstIndex = 0;
                 Assert.Equal(resources[firstIndex].Title, _resourceModel.Title);
                 Assert.Equal(resources[firstIndex].Content, _resourceModel.Content);
                 Assert.Equal(resources[firstIndex].Author, _resourceModel.Author);
+                Assert.Equal(resources[firstIndex].SubmitUser, SubmitUser);
+
             }
         }
      }
