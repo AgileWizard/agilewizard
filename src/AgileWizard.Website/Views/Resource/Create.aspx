@@ -1,16 +1,16 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<AgileWizard.Website.Models.ResourceModel>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Create Resource
+    <%: ResourceString.CreateResourceTitle %>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
-        Create</h2>
+        <%: ResourceString.Create %></h2>
     <% Html.EnableClientValidation(); %>
     <% using (Html.BeginForm())
        {%>
     <fieldset>
-        <legend>Create Resource</legend>
+        <legend><%: ResourceString.CreateResourceTitle %></legend>
         <div class="editor-label">
             <%: Html.LabelFor(m => m.Title) %>
         </div>
@@ -33,11 +33,11 @@
             <%: Html.ValidationMessageFor(m => m.Content)%>
         </div>
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="<%: ResourceString.Save %>" />
         </p>
     </fieldset>
     <div>
-        <%:Html.ActionLink("Back to Resources", "Index") %>
+        <%:Html.ActionLink(ResourceString.BackToResources, "Index") %>
     </div>
     <% } %>
 </asp:Content>

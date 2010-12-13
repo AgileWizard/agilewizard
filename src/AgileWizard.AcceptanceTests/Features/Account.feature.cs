@@ -27,8 +27,8 @@ namespace AgileWizard.AcceptanceTests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Account", "In order to indentify user\nAs a website master\nI want user to login with username" +
-                    " and password", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Account", "In order to indentify user\r\nAs a website master\r\nI want user to login with userna" +
+                    "me and password", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -71,7 +71,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 9
  testRunner.And("enter username - \'agilewizard\' and password - \'agilewizard\'");
 #line 10
- testRunner.When("press button - \'Log On\'");
+ testRunner.When("press login button");
 #line 11
  testRunner.Then("should be redirected to main page");
 #line hidden

@@ -41,18 +41,79 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GlobalizedDisplayAttribute.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="LocaleHelper.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
+    <Compile Include="LocalizedDisplayNameAttribute.cs" />
+    <Compile Include="LocalizedRequiredAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Models\AccountName.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountName.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Models\ResourceName.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceName.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Models\ValidationString.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ValidationString.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Views\AccountString.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountString.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Views\HomeString.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HomeString.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Views\ResourceString.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceString.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Views\SharedString.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SharedString.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Models\AccountName.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccountName.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Models\ResourceName.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceName.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Models\ValidationString.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidationString.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\AccountString.en.resx" />
+    <EmbeddedResource Include="Resources\Views\AccountString.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccountString.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\HomeString.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>HomeString.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\ResourceString.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceString.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\SharedString.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SharedString.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="String.resx" />
     <EmbeddedResource Include="String.en-US.resx" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

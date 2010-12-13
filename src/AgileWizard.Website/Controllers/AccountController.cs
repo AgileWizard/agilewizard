@@ -2,6 +2,7 @@
 using AgileWizard.Domain.Services;
 using AgileWizard.Website.Models;
 using AgileWizard.Domain;
+using AgileWizard.Domain.Repositories;
 
 namespace AgileWizard.Website.Controllers
 {
@@ -31,7 +32,14 @@ namespace AgileWizard.Website.Controllers
                 if (UserAuthenticationService.IsMatch(model.UserName, model.Password))
                 {
                     FormsService.SignIn(model.UserName, model.RememberMe);
-                   
+
+                    StateRepository.Instance.CurrentUser = new Domain.Entities.User
+                    {
+                        UserName = model.UserName,
+                        Password = model.Password
+                    };
+
+
                     return RedirectToAction("Index", "Home");
                 }
                 ShowLoginError();
@@ -48,6 +56,8 @@ namespace AgileWizard.Website.Controllers
         public ActionResult LogOff()
         {
             FormsService.SignOut();
+
+            StateRepository.Instance.CurrentUser = null;
 
             return RedirectToAction("Index", "Home");
         }

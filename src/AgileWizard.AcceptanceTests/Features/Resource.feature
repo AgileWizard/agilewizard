@@ -8,8 +8,14 @@ Scenario: Add Simple Resource
 	Given login already
 	And open adding-resource page
 	And enter title - 'simple Resource' and content - 'simple Content' and author - 'Daniel'
-	When press button - 'Save'
+	When press login button
 	Then 'simple Resource' resource details page should be open
+
+@UI
+Scenario: Add Resource require login
+	Given no login
+	And open adding-resource page
+	Then login page should be open
 
 @UI
 Scenario: View Resource Detail
@@ -33,5 +39,5 @@ Scenario: Edit A Resource
 	And open resource list page
 	And edit a resource titled with 'Embeded Video'
 	And enter title - 'Embeded Video' and content - 'Modified Content'
-	When press button - 'Save'
+	When press login button
 	Then 'Embeded Video' resource details page should be open
