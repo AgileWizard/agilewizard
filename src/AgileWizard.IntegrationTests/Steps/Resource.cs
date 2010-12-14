@@ -6,7 +6,6 @@ using AgileWizard.Website.Models;
 using StructureMap;
 using TechTalk.SpecFlow;
 using Xunit;
-using Moq;
 
 namespace AgileWizard.IntegrationTests.Steps
 {
@@ -19,7 +18,6 @@ namespace AgileWizard.IntegrationTests.Steps
             private ResourceModel _resourceModel;
             private ResourceController _resourceController;
             private RedirectToRouteResult _actionResult;
-            private Mock<ISessionStateRepository> _sessionStateRepository;
 
             const string SubmitUser = "agilewizard";
 
@@ -54,13 +52,14 @@ namespace AgileWizard.IntegrationTests.Steps
             {
                 var resourceRepository = ObjectFactory.GetInstance<IResourceRepository>();
 
-                var resources = resourceRepository.GetResourceList();
+                var resourceId = _actionResult.RouteValues["id"].ToString();
 
-                const int firstIndex = 0;
-                Assert.Equal(resources[firstIndex].Title, _resourceModel.Title);
-                Assert.Equal(resources[firstIndex].Content, _resourceModel.Content);
-                Assert.Equal(resources[firstIndex].Author, _resourceModel.Author);
-                Assert.Equal(resources[firstIndex].SubmitUser, SubmitUser);
+                var actualResource = resourceRepository.GetResourceById(resourceId);
+
+                Assert.Equal(actualResource.Title, _resourceModel.Title);
+                Assert.Equal(actualResource.Content, _resourceModel.Content);
+                Assert.Equal(actualResource.Author, _resourceModel.Author);
+                Assert.Equal(actualResource.SubmitUser, SubmitUser);
 
             }
         }

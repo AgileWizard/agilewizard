@@ -5,7 +5,6 @@ using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
 using AgileWizard.Website.Models;
 using Raven.Client;
-using AgileWizard.Domain;
 
 namespace AgileWizard.Website.Controllers
 {
@@ -24,7 +23,7 @@ namespace AgileWizard.Website.Controllers
         public ActionResult Index()
         {
             var resources = ResourceService.GetResourceList();
-            ResourceList resourceList = new ResourceList();
+            var resourceList = new ResourceList();
 
             var t = from c in resources
                     select new ResourceModel
@@ -42,7 +41,7 @@ namespace AgileWizard.Website.Controllers
         [ValidateInput(false)]
         public ActionResult Create(ResourceModel model)
         {
-            var resource = ResourceService.AddResource(model.Title, model.Content, model.Author, this.SessionStateRepository.CurrentUser.UserName);
+            var resource = ResourceService.AddResource(model.Title, model.Content, model.Author, SessionStateRepository.CurrentUser.UserName);
 
             return RedirectToAction("Details", new { id = resource.Id.Substring(10) });
         }
@@ -87,7 +86,7 @@ namespace AgileWizard.Website.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(string id, ResourceModel model)
         {
-            ResourceService.UpdateResource(id, new Resource() { Title = model.Title, Content = model.Content });
+            ResourceService.UpdateResource(id, new Resource { Title = model.Title, Content = model.Content });
             return RedirectToAction("Details", new { id });
         }
     }

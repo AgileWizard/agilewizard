@@ -10,6 +10,7 @@ namespace AgileWizard.Domain.Repositories
     public class ResourceRepository : IResourceRepository
     {
         private readonly IDocumentSession _documentSession;
+        private const int _maxItemsInList = 100;
 
         public ResourceRepository(IDocumentSession documentSession)
         {
@@ -40,14 +41,14 @@ namespace AgileWizard.Domain.Repositories
 
         public List<Resource> GetResourceList()
         {
-            var query = (IEnumerable<Resource>)_documentSession.Query<Resource>(typeof(ResourceIndexByTitle).Name).Customize(x => x.WaitForNonStaleResults());
-            return query.OrderByDescending(x => x.LastUpdateTime).Take<Resource>(100).ToList();
+            var query = (IEnumerable<Resource>)_documentSession.Query<Resource>(typeof(ResourceIndexByTitle).Name);
+            return query.OrderByDescending(x => x.LastUpdateTime).Take(_maxItemsInList).ToList();
         }
 
         public int GetResourcesTotalCount()
         {
             var query = (IEnumerable<Resource>)_documentSession.Query<Resource>(typeof(ResourceIndexByTitle).Name);
-            return query.Count<Resource>();
+            return query.Count();
         }
 
         public void Save()
