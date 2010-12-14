@@ -78,6 +78,7 @@
     <Compile Include="ControllerRegistry.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MvcControllerBase.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -86,6 +87,7 @@
     <Compile Include="Models\ResourceModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\StructureMapControllerFactory.cs" />
+    <Compile Include="SessionStateRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />

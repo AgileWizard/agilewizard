@@ -5,9 +5,10 @@
 Scenario: Add plain text resource
 	Given new resource with  title - 'plain text Resource' and content - 'simple Content' and author - 'Test Author'
 	When submit resource to system
-	Then resource will be persisted
-	And navigate to details page
+	Then navigate to details page
+	And display the title, content, author and submit user
 
+# expect specFlow.Net table feature
 @ignore
 Scenario: Add video resource
 	Given new resource with  title - 'embed video Resource'

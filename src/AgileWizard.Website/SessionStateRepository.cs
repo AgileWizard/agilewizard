@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web;
 using AgileWizard.Domain.Entities;
-using System.Web.SessionState;
-using System.Collections;
+using AgileWizard.Domain.Repositories;
 
-namespace AgileWizard.Domain.Repositories
+namespace AgileWizard.Website
 {
-    public class StateRepository
+    public class SessionStateRepository : ISessionStateRepository
     {
         #region const
         public const string KEY_CURRENTUSER = "AgileWizard.Domain.CurrentUser";
         #endregion
 
         #region Properties
-        public static StateRepository Instance
+        public static SessionStateRepository Instance
         {
             get { return _instace; }
-        } private static StateRepository _instace = new StateRepository();
+        } private static SessionStateRepository _instace = new SessionStateRepository();
 
         public virtual object this[string name]
         {
@@ -37,7 +35,11 @@ namespace AgileWizard.Domain.Repositories
         {
             get
             {
-                return HttpContext.Current.Session[KEY_CURRENTUSER] as User;
+                var currentUser = default(User);
+                if (HttpContext.Current != null)
+                    currentUser = HttpContext.Current.Session[KEY_CURRENTUSER] as User;
+
+                return currentUser;
             }
             set
             {
@@ -49,7 +51,7 @@ namespace AgileWizard.Domain.Repositories
         }
 
 
-        public virtual Boolean IsLoggedIn
+        public Boolean IsLoggedIn
         {
             get
             {
@@ -60,7 +62,7 @@ namespace AgileWizard.Domain.Repositories
         #endregion
 
         #region Methods
-        public static void Initialize(StateRepository repository)
+        public static void Initialize(SessionStateRepository repository)
         {
             _instace = repository;
         }

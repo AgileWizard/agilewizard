@@ -9,20 +9,21 @@ using AgileWizard.Domain;
 
 namespace AgileWizard.Website.Controllers
 {
-    public class ResourceController : Controller
+    public class ResourceController : MvcControllerBase
     {
-        private IDocumentSession _documentSession { get; set; }
-        private IResourceService _resourceService { get; set; }
+        private IResourceService ResourceService { get; set; }
+        private IDocumentSession DocumentSession { get; set; }
 
-        public ResourceController(IDocumentSession documentSession, IResourceService resourceService)
+        public ResourceController(IResourceService resourceService, IDocumentSession documentSession, ISessionStateRepository sessionStateRepository)
+            : base(sessionStateRepository)
         {
-            _documentSession = documentSession;
-            _resourceService = resourceService;
+            ResourceService = resourceService;
+            DocumentSession = documentSession;
         }
 
         public ActionResult Index()
         {
-            var resources = _resourceService.GetResourceList();
+            var resources = ResourceService.GetResourceList();
             ResourceList resourceList = new ResourceList();
 
             var t = from c in resources
@@ -33,7 +34,7 @@ namespace AgileWizard.Website.Controllers
                             Content = c.Content
                         };
             resourceList.AddRange(t);
-            resourceList.TotalCount = _resourceService.GetResourcesTotalCount();
+            resourceList.TotalCount = ResourceService.GetResourcesTotalCount();
             return View(resourceList);
         }
 
@@ -41,9 +42,9 @@ namespace AgileWizard.Website.Controllers
         [ValidateInput(false)]
         public ActionResult Create(ResourceModel model)
         {
-            var resource = _resourceService.AddResource(model.Title, model.Content, model.Author);
+            var resource = ResourceService.AddResource(model.Title, model.Content, model.Author, this.SessionStateRepository.CurrentUser.UserName);
 
-            return RedirectToAction("Details", new {id = resource.Id.Substring(10)});
+            return RedirectToAction("Details", new { id = resource.Id.Substring(10) });
         }
 
         [RequireAuthentication]
@@ -56,21 +57,22 @@ namespace AgileWizard.Website.Controllers
 
         public ActionResult Details(string id)
         {
-            var resource = _resourceService.GetResourceById(id);
+            var resource = ResourceService.GetResourceById(id);
             return View(new ResourceModel
                             {
                                 Id = resource.Id,
                                 Title = resource.Title,
                                 Content = resource.Content,
                                 Author = resource.Author,
-                                CreateTime = resource.CreateTime
+                                CreateTime = resource.CreateTime,
+                                SubmitUser = resource.SubmitUser
                             });
         }
 
         [RequireAuthentication]
         public ActionResult Edit(string id)
         {
-            var resource = _resourceService.GetResourceById(id);
+            var resource = ResourceService.GetResourceById(id);
             return View(new ResourceModel
             {
                 Id = resource.Id,
@@ -85,8 +87,8 @@ namespace AgileWizard.Website.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(string id, ResourceModel model)
         {
-            _resourceService.UpdateResource(id, new Resource(){Title = model.Title, Content = model.Content});
-            return RedirectToAction("Details", new {id});
+            ResourceService.UpdateResource(id, new Resource() { Title = model.Title, Content = model.Content });
+            return RedirectToAction("Details", new { id });
         }
     }
 }

@@ -15,7 +15,8 @@ namespace AgileWizard.Domain.Tests.Services
         private const string TITLE = "title";
         private const string CONTENT = "content";
         private const string AUTHOR = "author";
-        
+        private const string SUBMITUSER = "submituser";
+
         private Mock<IResourceRepository> _repository;
         private IResourceService _service;
 
@@ -25,6 +26,8 @@ namespace AgileWizard.Domain.Tests.Services
                                                       Id = DOCUMENT_ID,
                                                       Title = TITLE,
                                                       Content = CONTENT,
+                                                      Author = AUTHOR,
+                                                      SubmitUser = SUBMITUSER
                                                   };
 
         public ResourceServiceTest()
@@ -40,12 +43,12 @@ namespace AgileWizard.Domain.Tests.Services
         public void Can_add_resource()
         {
             //Arrange
-            _repository.Setup(r => r.Add(TITLE, CONTENT, AUTHOR)).Returns(_resource).Verifiable();
+            _repository.Setup(r => r.Add(TITLE, CONTENT, AUTHOR, SUBMITUSER)).Returns(_resource).Verifiable();
             _repository.Setup(r => r.Save()).Verifiable();
-            
+
             //Act
-            var resource = _service.AddResource(TITLE, CONTENT, AUTHOR);
-            
+            var resource = _service.AddResource(TITLE, CONTENT, AUTHOR, SUBMITUSER);
+
             //Assert
             _repository.VerifyAll();
             Assert.Equal(_resource, resource);
@@ -56,10 +59,10 @@ namespace AgileWizard.Domain.Tests.Services
         {
             //Arrange
             _repository.Setup(r => r.GetResourceById(ID)).Verifiable();
-            
+
             //Act
             _service.GetResourceById(ID);
-            
+
             //Assert
             _repository.VerifyAll();
         }
@@ -82,7 +85,7 @@ namespace AgileWizard.Domain.Tests.Services
         public void Can_update_resource()
         {
             //Arrange
-            var resourceToUpdate = new Resource() {Title = "Title to update", Content = "Content to update"};
+            var resourceToUpdate = new Resource() { Title = "Title to update", Content = "Content to update" };
             _repository.Setup(r => r.GetResourceById(ID)).Returns(_resource);
             _repository.Setup(r => r.Save()).Verifiable();
 

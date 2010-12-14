@@ -10,6 +10,7 @@ Scenario: Add Simple Resource
 	And enter title - 'simple Resource' and content - 'simple Content' and author - 'Daniel'
 	When press login button
 	Then 'simple Resource' resource details page should be open
+	Then Author and SubmitUser are displayed
 
 @UI
 Scenario: Add Resource require login
@@ -17,7 +18,7 @@ Scenario: Add Resource require login
 	And open adding-resource page
 	Then login page should be open
 
-@UI
+@UI @ignore
 Scenario: View Resource Detail
 	Given open resource list page
 	When open a resource titled with 'Embeded Video'

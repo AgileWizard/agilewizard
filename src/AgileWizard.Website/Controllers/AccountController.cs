@@ -8,12 +8,13 @@ namespace AgileWizard.Website.Controllers
 {
 
     [HandleError]
-    public class AccountController : Controller
+    public class AccountController : MvcControllerBase
     {
         private IFormsAuthenticationService FormsService { get; set; }
         private IUserAuthenticationService UserAuthenticationService { get; set; }
 
-        public AccountController(IUserAuthenticationService uerAuthenticationService, IFormsAuthenticationService formsService)
+        public AccountController(IUserAuthenticationService uerAuthenticationService, IFormsAuthenticationService formsService, ISessionStateRepository sessionStateRepository)
+            : base(sessionStateRepository)
         {
             UserAuthenticationService = uerAuthenticationService;
             FormsService = formsService;
@@ -33,7 +34,7 @@ namespace AgileWizard.Website.Controllers
                 {
                     FormsService.SignIn(model.UserName, model.RememberMe);
 
-                    StateRepository.Instance.CurrentUser = new Domain.Entities.User
+                    this.SessionStateRepository.CurrentUser = new Domain.Entities.User
                     {
                         UserName = model.UserName,
                         Password = model.Password
@@ -57,7 +58,7 @@ namespace AgileWizard.Website.Controllers
         {
             FormsService.SignOut();
 
-            StateRepository.Instance.CurrentUser = null;
+            this.SessionStateRepository.CurrentUser = null;
 
             return RedirectToAction("Index", "Home");
         }
