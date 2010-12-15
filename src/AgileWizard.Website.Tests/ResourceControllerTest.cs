@@ -157,7 +157,7 @@ namespace AgileWizard.Website.Tests
 
         private void ResourceRepositoryWillBeCalled()
         {
-            _resourceService.Setup(x => x.AddResource(_resourceModel.Title, _resourceModel.Content, _resourceModel.Author, _sessionStateRepository.Object.CurrentUser.UserName)).Returns(_resource).Verifiable();
+            _resourceService.Setup(x => x.AddResource(_resourceModel.Title, _resourceModel.Content, _resourceModel.Author, _sessionStateRepository.Object.CurrentUser.UserName, new List<Tag>())).Returns(_resource).Verifiable();
         }
     }
 }

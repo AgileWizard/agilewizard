@@ -32,6 +32,13 @@
             <%: Html.TextAreaFor(m => m.Content, new {rows=15, cols=60 })%>
             <%: Html.ValidationMessageFor(m => m.Content)%>
         </div>
+        <div class="editor-label">
+            <%: Html.LabelFor(m => m.Tags) %>
+        </div>
+        <div class="editor-field">
+            <%: Html.TextBoxFor(m => m.Tags)%>
+            <%: Html.ValidationMessageFor(m => m.Tags)%>
+        </div>
         <p>
             <input type="submit" value="<%: ResourceString.Save %>" />
         </p>

@@ -59,6 +59,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AccountControllerTest.cs" />
     <Compile Include="ResourceControllerTest.cs" />
+    <Compile Include="TagsHelperTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AgileWizard.Domain\AgileWizard.Domain.csproj">

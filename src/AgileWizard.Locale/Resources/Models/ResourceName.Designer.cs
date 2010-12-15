@@ -106,6 +106,15 @@ namespace AgileWizard.Locale.Resources.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 标签.
+        /// </summary>
+        public static string Tags {
+            get {
+                return ResourceManager.GetString("Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 标题.
         /// </summary>
         public static string Title {

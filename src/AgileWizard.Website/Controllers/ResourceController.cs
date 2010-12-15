@@ -5,6 +5,7 @@ using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
 using AgileWizard.Website.Models;
 using Raven.Client;
+using AgileWizard.Website.Helper;
 
 namespace AgileWizard.Website.Controllers
 {
@@ -41,7 +42,7 @@ namespace AgileWizard.Website.Controllers
         [ValidateInput(false)]
         public ActionResult Create(ResourceModel model)
         {
-            var resource = ResourceService.AddResource(model.Title, model.Content, model.Author, SessionStateRepository.CurrentUser.UserName);
+            var resource = ResourceService.AddResource(model.Title, model.Content, model.Author, SessionStateRepository.CurrentUser.UserName, model.Tags.ToTagList());
 
             return RedirectToAction("Details", new { id = resource.Id.Substring(10) });
         }
@@ -64,7 +65,8 @@ namespace AgileWizard.Website.Controllers
                                 Content = resource.Content,
                                 Author = resource.Author,
                                 CreateTime = resource.CreateTime,
-                                SubmitUser = resource.SubmitUser
+                                SubmitUser = resource.SubmitUser,
+                                Tags = resource.Tags.ToTagString()
                             });
         }
 

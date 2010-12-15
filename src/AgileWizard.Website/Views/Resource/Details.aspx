@@ -8,4 +8,6 @@
     <%:ResourceName.SubmitUser %>:<span class="SubmitUser"><%: Model.SubmitUser%></span>&nbsp;<span><%: Model.CreateTime.ToString() %></span></div>
     <br />
     <span class="Content"><%=Model.Content %></span>
+    <br />
+    <%:ResourceName.Tags %>:<span class="Tags"><%:Model.Tags %></span>
 </asp:Content>

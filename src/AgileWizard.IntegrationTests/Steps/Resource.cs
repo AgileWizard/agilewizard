@@ -6,6 +6,7 @@ using AgileWizard.Website.Models;
 using StructureMap;
 using TechTalk.SpecFlow;
 using Xunit;
+using AgileWizard.Website.Helper;
 
 namespace AgileWizard.IntegrationTests.Steps
 {
@@ -21,15 +22,16 @@ namespace AgileWizard.IntegrationTests.Steps
 
             const string SubmitUser = "agilewizard";
 
-            [Given(@"new resource with  title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)'")]
-            public void GivenNewResourceWithTitleAndContentAndAuthor(string title, string content, string author)
+            [Given(@"new resource with  title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)' and tags - '(.+)'")]
+            public void GivenNewResourceWithTitleAndContentAndAuthor(string title, string content, string author, string tags)
             {
                 _resourceModel = new ResourceModel
                                      {
                                          Title = title,
                                          Content = content,
                                          Author = author,
-                                         SubmitUser = SubmitUser
+                                         SubmitUser = SubmitUser,
+                                         Tags = tags
                                      };
 
                 _resourceController = ObjectFactory.GetInstance<ResourceController>();
@@ -47,7 +49,7 @@ namespace AgileWizard.IntegrationTests.Steps
                 Assert.Equal("details", (string)_actionResult.RouteValues["action"], StringComparer.OrdinalIgnoreCase);
             }
 
-            [Then(@"display the title, content, author and submit user")]
+            [Then(@"display the title, content, author and submit user and tags")]
             public void ThenDisplayDetailInformation()
             {
                 var resourceRepository = ObjectFactory.GetInstance<IResourceRepository>();
@@ -60,8 +62,9 @@ namespace AgileWizard.IntegrationTests.Steps
                 Assert.Equal(actualResource.Content, _resourceModel.Content);
                 Assert.Equal(actualResource.Author, _resourceModel.Author);
                 Assert.Equal(actualResource.SubmitUser, SubmitUser);
-
+                Assert.Equal(actualResource.Tags.Count , _resourceModel.Tags.ToTagList().Count);
             }
+
         }
      }
 }

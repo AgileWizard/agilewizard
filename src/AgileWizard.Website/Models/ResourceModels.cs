@@ -28,6 +28,9 @@ namespace AgileWizard.Website.Models
 
         [LocalizedDisplayName("SubmitUser", NameResourceType = typeof(ResourceName))]
         public string SubmitUser { get; set; }
+
+        [LocalizedDisplayName("Tags", NameResourceType = typeof(ResourceName))]
+        public string Tags { get; set; }
     }
 
     public class ResourceList : List<ResourceModel>

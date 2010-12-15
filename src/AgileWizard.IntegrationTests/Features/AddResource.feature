@@ -3,10 +3,10 @@
 	I should be able to record the title, content and author
 
 Scenario: Add plain text resource
-	Given new resource with  title - 'plain text Resource' and content - 'simple Content' and author - 'Test Author'
+	Given new resource with  title - 'plain text Resource' and content - 'simple Content' and author - 'Test Author' and tags - 'Agilewizard,Shanghai'
 	When submit resource to system
 	Then navigate to details page
-	And display the title, content, author and submit user
+	And display the title, content, author and submit user and tags
 
 # expect specFlow.Net table feature
 @ignore

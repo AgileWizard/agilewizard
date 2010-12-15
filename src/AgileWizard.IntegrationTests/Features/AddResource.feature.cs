@@ -27,7 +27,7 @@ namespace AgileWizard.IntegrationTests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Add Resource", "As a admin,\r\nI should be able to record the title, content and author", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Add Resource", "As a admin,\nI should be able to record the title, content and author", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -66,13 +66,13 @@ namespace AgileWizard.IntegrationTests.Features
 this.ScenarioSetup(scenarioInfo);
 #line 6
  testRunner.Given("new resource with  title - \'plain text Resource\' and content - \'simple Content\' a" +
-                    "nd author - \'Test Author\'");
+                    "nd author - \'Test Author\' and tags - \'Agilewizard,Shanghai\'");
 #line 7
  testRunner.When("submit resource to system");
 #line 8
  testRunner.Then("navigate to details page");
 #line 9
- testRunner.And("display the title, content, author and submit user");
+ testRunner.And("display the title, content, author and submit user and tags");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

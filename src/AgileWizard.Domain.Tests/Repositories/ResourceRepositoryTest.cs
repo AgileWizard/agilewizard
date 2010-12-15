@@ -27,7 +27,7 @@ namespace AgileWizard.Domain.Tests.Repositories
             _session.SetupStoreExpectation<Resource>(r => r.Title == TITLE && r.Content == CONTENT && r.Author == AUTHOR && r.SubmitUser == SUBMITUSER);
 
             //Act
-            var resource = _resourceRepositorySUT.Add(TITLE, CONTENT, AUTHOR, SUBMITUSER);
+            var resource = _resourceRepositorySUT.Add(TITLE, CONTENT, AUTHOR, SUBMITUSER, new List<Tag>());
 
             //Assert
             _session.VerifyAll();

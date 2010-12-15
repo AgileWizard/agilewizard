@@ -12,6 +12,7 @@ namespace AgileWizard.AcceptanceTests.Steps
         private const string TitleText = "Title";
         private const string ContentText = "Content";
         private const string AuthorText = "Author";
+        private const string TagsText = "Tags";
         private const string SubmitUserText = "SubmitUser";
 
         private string Title
@@ -53,6 +54,19 @@ namespace AgileWizard.AcceptanceTests.Steps
             }
         }
 
+        private string Tags
+        {
+            get
+            {
+                return ScenarioContext.Current[TagsText].ToString();
+            }
+            set
+            {
+                ScenarioContext.Current[TagsText] = value;
+                BrowserHelper.InputText(TagsText, value);
+            }
+        }
+
         #region Add resource
         [Given(@"open adding-resource page")]
         public void GivenOpenAddingResourcePage()
@@ -66,6 +80,12 @@ namespace AgileWizard.AcceptanceTests.Steps
             Title = title;
             Author = author;
             Content = content;
+        }
+
+        [Given(@"tags - '(.+)'")]
+        public void GivenTags(string tags)
+        {
+            Tags = tags;
         }
 
         [When(@"press submit button")]
