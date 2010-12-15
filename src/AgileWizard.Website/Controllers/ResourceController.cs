@@ -78,7 +78,7 @@ namespace AgileWizard.Website.Controllers
                 Title = resource.Title,
                 Content = resource.Content,
                 Author = resource.Author,
-                CreateTime = resource.CreateTime
+                CreateTime = resource.CreateTime,
             });
         }
 
@@ -86,7 +86,7 @@ namespace AgileWizard.Website.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(string id, ResourceModel model)
         {
-            ResourceService.UpdateResource(id, new Resource { Title = model.Title, Content = model.Content });
+            ResourceService.UpdateResource(id, new Resource { Title = model.Title, Content = model.Content, Author = model.Author, SubmitUser = SessionStateRepository.CurrentUser.UserName });
             return RedirectToAction("Details", new { id });
         }
     }

@@ -42,6 +42,8 @@ namespace AgileWizard.Domain.Services
             resourceUpdate.Title = resource.Title;
             resourceUpdate.Content = resource.Content;
             resourceUpdate.LastUpdateTime = DateTime.Now;
+            resourceUpdate.Author = resource.Author;
+            resourceUpdate.SubmitUser = resource.SubmitUser;
             _repository.Save();
 
         }

@@ -116,7 +116,8 @@ namespace AgileWizard.Website.Tests
         public void post_edit_action_should_get_original_resource_and_update_it()
         {
             //Arrange
-            _resourceService.Setup(s => s.UpdateResource(ID, It.Is<Resource>(r => r.Title == TITLE && r.Content == CONTENT))).Verifiable();
+            _sessionStateRepository.Setup(s => s.CurrentUser).Returns(User.EmptyUser());
+            _resourceService.Setup(s => s.UpdateResource(ID, It.Is<Resource>(r => r.Title == TITLE && r.Content == CONTENT && r.Author == AUTHOR && r.SubmitUser == User.EmptyUser().UserName))).Verifiable();
 
             //Act
             var actionResult = resourceControllerSUT.Edit(ID, _resourceModel);

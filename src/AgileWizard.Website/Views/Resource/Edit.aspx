@@ -20,6 +20,13 @@
 				<%: Html.TextBoxFor(m => m.Title) %>
 				<%: Html.ValidationMessageFor(m => m.Title) %>
 			</div>
+            <div class="editor-label">
+                <%: Html.LabelFor(m => m.Author) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(m => m.Author)%>
+                <%: Html.ValidationMessageFor(m => m.Author)%>
+            </div>
 			<div class="editor-label">
 				<%: Html.LabelFor(m => m.Content) %>
 			</div>
@@ -27,10 +34,9 @@
 				<%: Html.TextAreaFor(m => m.Content, new {rows=15, cols=60 })%>
 				<%: Html.ValidationMessageFor(m => m.Content)%>
 			</div>
-			
-			<p>
+            <p>
                 <input type="submit" value="<%: ResourceString.Save %>" />
-			</p>
+            </p>
 		</fieldset>
 
 	<% } %>

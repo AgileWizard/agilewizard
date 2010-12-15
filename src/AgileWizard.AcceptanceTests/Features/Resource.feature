@@ -8,9 +8,17 @@ Scenario: Add Simple Resource
 	Given login already
 	And open adding-resource page
 	And enter title - 'simple Resource' and content - 'simple Content' and author - 'Daniel'
-	When press login button
-	Then 'simple Resource' resource details page should be open
-	Then Author and SubmitUser are displayed
+	When press submit button
+	Then resource details page should be shown
+
+	@UI
+Scenario: Edit A Resource
+	Given login already
+	And open resource list page
+	And edit a resource titled with 'Embeded Video'
+	And enter title - 'Embeded Video' and content - 'Modified Content' and author - 'Daniel'
+	When press submit button
+	Then resource details page should be shown
 
 @UI
 Scenario: Add Resource require login
@@ -34,11 +42,4 @@ Scenario: View Resource List
 	And I can see the total resource count in current culture
 	And I can see the List in current culture
 
-@UI
-Scenario: Edit A Resource
-	Given login already
-	And open resource list page
-	And edit a resource titled with 'Embeded Video'
-	And enter title - 'Embeded Video' and content - 'Modified Content'
-	When press login button
-	Then 'Embeded Video' resource details page should be open
+

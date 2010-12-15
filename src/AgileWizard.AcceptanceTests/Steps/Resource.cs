@@ -9,6 +9,50 @@ namespace AgileWizard.AcceptanceTests.Steps
     [Binding]
     public class Resource
     {
+        private const string TitleText = "Title";
+        private const string ContentText = "Content";
+        private const string AuthorText = "Author";
+        private const string SubmitUserText = "SubmitUser";
+
+        private string Title
+        {
+            get
+            {
+                return ScenarioContext.Current[TitleText].ToString();
+            } 
+            set
+            {
+                ScenarioContext.Current[TitleText] = value;
+                BrowserHelper.InputText(TitleText, value);
+            }
+        }
+
+        private string Content
+        {
+            get
+            {
+                return ScenarioContext.Current[ContentText].ToString();
+            }
+            set
+            {
+                ScenarioContext.Current[ContentText] = value;
+                BrowserHelper.InputText(ContentText, value);
+            }
+        }
+
+        private string Author
+        {
+            get
+            {
+                return ScenarioContext.Current[AuthorText].ToString();
+            }
+            set
+            {
+                ScenarioContext.Current[AuthorText] = value;
+                BrowserHelper.InputText(AuthorText, value);
+            }
+        }
+
         #region Add resource
         [Given(@"open adding-resource page")]
         public void GivenOpenAddingResourcePage()
@@ -19,41 +63,31 @@ namespace AgileWizard.AcceptanceTests.Steps
         [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)'")]
         public void GivenEnterTitleAndContentAndAuthor(string title, string content, string author)
         {
-            BrowserHelper.InputText("Title", title);
-            BrowserHelper.InputText("Author", author);
-            BrowserHelper.InputText("Content", content);
-
-            ScenarioContext.Current["Author"] = author;
+            Title = title;
+            Author = author;
+            Content = content;
         }
 
-        [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)'")]
-        public void GivenEnterTitleAndContent(string title, string content)
+        [When(@"press submit button")]
+        public void WhenPressSubmitButton()
         {
-            BrowserHelper.InputText("Title", title);
-            BrowserHelper.InputText("Content", content);
-        }
-
-        #region View Detail
-        [Then(@"'([\w\s]+)' resource details page should be open")]
-        public void ResourceDetailsPageShouldBeOpen(string title)
-        {
-            var browser = BrowserHelper.Browser;
-            Assert.Equal(title, browser.Title);
-            var head = browser.Element(e => e.ClassName == "Title");
-            Assert.Equal(title, head.Text);
-        }
-
-        [Then(@"Author and SubmitUser are displayed")]
-        public void AuthorAndSubmitUserAreDisplayed()
-        {
-            // submit user
-            Assert.Equal(BrowserHelper.UserName, BrowserHelper.Browser.Element(e => e.ClassName == "SubmitUser").Text);
-            // Author
-            Assert.Equal(ScenarioContext.Current["Author"], BrowserHelper.Browser.Element(e => e.ClassName == "Author").Text);
-
+            BrowserHelper.PressSubmitButton();
         }
         #endregion
 
+        #region View Detail
+        [Then(@"resource details page should be shown")]
+        public void ThenResourceDetailsPageShouldBeShown()
+        {
+            var browser = BrowserHelper.Browser;
+            Assert.Equal(Title, browser.Title);
+            var head = browser.Element(e => e.ClassName == TitleText);
+            Assert.Equal(Title, head.Text);
+
+            Assert.Equal(Content, BrowserHelper.Browser.Element(e => e.ClassName == ContentText).Text);
+            Assert.Equal(BrowserHelper.UserName, BrowserHelper.Browser.Element(e => e.ClassName == SubmitUserText).Text);
+            Assert.Equal(Author, BrowserHelper.Browser.Element(e => e.ClassName == AuthorText).Text);
+        }
         #endregion
 
         #region Add Resource require login
@@ -81,7 +115,7 @@ namespace AgileWizard.AcceptanceTests.Steps
         }
 
         [Given(@"edit a resource titled with '([\w\s]+)'")]
-        public void GivenEditAResourceTitledWithEmbededVideo(string title)
+        public void GivenEditAResource(string title)
         {
             var browser = BrowserHelper.Browser;
             browser.Link(l => l.Text == ResourceString.Edit.Trim() && l.Parent.NextSibling.Text == title).Click();
@@ -94,7 +128,6 @@ namespace AgileWizard.AcceptanceTests.Steps
             Assert.True(int.Parse(browser.Element(x => x.ClassName == "totalResourceCount").Text) > 0);
         }
         #endregion
-
 
         #region Resource List Culture
         [Then(@"I can see the page title in current culture")]
@@ -128,5 +161,6 @@ namespace AgileWizard.AcceptanceTests.Steps
             Assert.Equal(content, BrowserHelper.Browser.Element(s => s.IdOrName == "listContent").Text.Trim());
         }
         #endregion
+
     }
 }
