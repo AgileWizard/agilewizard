@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace AgileWizard.Domain.Entities
+namespace AgileWizard.Domain.Resources
 {
     public class Resource
     {
@@ -17,5 +18,7 @@ namespace AgileWizard.Domain.Entities
         public DateTime LastUpdateTime { get; set; }
 
         public string SubmitUser { get; set; }
+
+        public List<Tag> Tags { get; set; }
     }
 }

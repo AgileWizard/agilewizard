@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using AgileWizard.Domain.Entities;
+using AgileWizard.Domain.Users;
 using AgileWizard.Domain.QueryIndexes;
 using AgileWizard.Domain.Repositories;
 using Xunit;

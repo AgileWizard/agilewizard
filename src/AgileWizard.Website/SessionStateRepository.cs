@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using AgileWizard.Domain.Entities;
+using AgileWizard.Domain.Users;
 using AgileWizard.Domain.Repositories;
 
 namespace AgileWizard.Website

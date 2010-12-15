@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using AgileWizard.Domain.Entities;
+using AgileWizard.Domain.Resources;
 
 namespace AgileWizard.Domain.Services
 {

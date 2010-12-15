@@ -34,7 +34,7 @@ namespace AgileWizard.Website.Controllers
                 {
                     FormsService.SignIn(model.UserName, model.RememberMe);
 
-                    this.SessionStateRepository.CurrentUser = new Domain.Entities.User
+                    this.SessionStateRepository.CurrentUser = new Domain.Users.User
                     {
                         UserName = model.UserName,
                         Password = model.Password

@@ -1,4 +1,4 @@
-﻿using AgileWizard.Domain.Entities;
+﻿using AgileWizard.Domain.Users;
 using Xunit;
 
 namespace AgileWizard.Domain.Tests.Entities

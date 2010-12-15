@@ -5,7 +5,7 @@ using System.Text;
 using StructureMap.Configuration.DSL;
 using AgileWizard.Website.Models;
 using AgileWizard.Domain.Repositories;
-using AgileWizard.Domain.Entities;
+using AgileWizard.Domain.Users;
 
 namespace AgileWizard.IntegrationTests
 {

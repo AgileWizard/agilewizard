@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AgileWizard.Domain.Entities;
+using AgileWizard.Domain.Users;
 using AgileWizard.Domain.QueryIndexes;
 using Raven.Client;
 

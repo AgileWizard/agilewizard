@@ -1,4 +1,4 @@
-﻿using AgileWizard.Domain.Entities;
+﻿using AgileWizard.Domain.Users;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
 using Moq;

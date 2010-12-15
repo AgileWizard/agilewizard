@@ -1,4 +1,4 @@
-﻿namespace AgileWizard.Domain.Entities
+﻿namespace AgileWizard.Domain.Users
 {
     public class User
     {

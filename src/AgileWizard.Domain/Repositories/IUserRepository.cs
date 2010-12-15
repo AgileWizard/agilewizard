@@ -1,4 +1,4 @@
-using AgileWizard.Domain.Entities;
+using AgileWizard.Domain.Users;
 
 namespace AgileWizard.Domain.Repositories
 {

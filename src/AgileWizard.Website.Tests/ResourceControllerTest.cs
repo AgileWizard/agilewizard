@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using AgileWizard.Domain.Entities;
+using AgileWizard.Domain.Resources;
+using AgileWizard.Domain.Users;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
 using AgileWizard.Website.Controllers;
