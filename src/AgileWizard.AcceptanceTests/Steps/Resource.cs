@@ -1,4 +1,5 @@
-﻿using TechTalk.SpecFlow;
+﻿using AgileWizard.AcceptanceTests.PageObject;
+using TechTalk.SpecFlow;
 using AgileWizard.AcceptanceTests.Helper;
 using Xunit;
 using AgileWizard.Locale.Resources.Views;
@@ -6,52 +7,11 @@ using AgileWizard.Locale.Resources.Models;
 
 namespace AgileWizard.AcceptanceTests.Steps
 {
+  
     [Binding]
     public class Resource
     {
-        private const string TitleText = "Title";
-        private const string ContentText = "Content";
-        private const string AuthorText = "Author";
-        private const string SubmitUserText = "SubmitUser";
-
-        private string Title
-        {
-            get
-            {
-                return ScenarioContext.Current[TitleText].ToString();
-            } 
-            set
-            {
-                ScenarioContext.Current[TitleText] = value;
-                BrowserHelper.InputText(TitleText, value);
-            }
-        }
-
-        private string Content
-        {
-            get
-            {
-                return ScenarioContext.Current[ContentText].ToString();
-            }
-            set
-            {
-                ScenarioContext.Current[ContentText] = value;
-                BrowserHelper.InputText(ContentText, value);
-            }
-        }
-
-        private string Author
-        {
-            get
-            {
-                return ScenarioContext.Current[AuthorText].ToString();
-            }
-            set
-            {
-                ScenarioContext.Current[AuthorText] = value;
-                BrowserHelper.InputText(AuthorText, value);
-            }
-        }
+        private ResoucePage _resourcePage;
 
         #region Add resource
         [Given(@"open adding-resource page")]
@@ -63,9 +23,7 @@ namespace AgileWizard.AcceptanceTests.Steps
         [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)'")]
         public void GivenEnterTitleAndContentAndAuthor(string title, string content, string author)
         {
-            Title = title;
-            Author = author;
-            Content = content;
+            _resourcePage = new ResoucePage(title, author, content);
         }
 
         [When(@"press submit button")]
@@ -79,14 +37,7 @@ namespace AgileWizard.AcceptanceTests.Steps
         [Then(@"resource details page should be shown")]
         public void ThenResourceDetailsPageShouldBeShown()
         {
-            var browser = BrowserHelper.Browser;
-            Assert.Equal(Title, browser.Title);
-            var head = browser.Element(e => e.ClassName == TitleText);
-            Assert.Equal(Title, head.Text);
-
-            Assert.Equal(Content, BrowserHelper.Browser.Element(e => e.ClassName == ContentText).Text);
-            Assert.Equal(BrowserHelper.UserName, BrowserHelper.Browser.Element(e => e.ClassName == SubmitUserText).Text);
-            Assert.Equal(Author, BrowserHelper.Browser.Element(e => e.ClassName == AuthorText).Text);
+            _resourcePage.AssertPage();
         }
         #endregion
 
