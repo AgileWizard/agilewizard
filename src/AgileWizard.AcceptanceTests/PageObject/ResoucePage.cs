@@ -1,6 +1,8 @@
 ﻿using AgileWizard.AcceptanceTests.Helper;
 using TechTalk.SpecFlow;
 using Xunit;
+using System.Reflection;
+using System;
 
 namespace AgileWizard.AcceptanceTests.PageObject
 {
@@ -9,52 +11,43 @@ namespace AgileWizard.AcceptanceTests.PageObject
         public ResoucePage(string title, string author, string content)
         {
             Title = title;
-            Content = content;
             Author = author;
+            Content = content;
         }
-
-        public const string TitleText = "Title";
 
         public string Title
         {
             get
             {
-                return ScenarioContext.Current[TitleText].ToString();
+                return GetContext(MethodBase.GetCurrentMethod().GetPropertyName());
             }
             private set
             {
-                ScenarioContext.Current[TitleText] = value;
-                BrowserHelper.InputText(TitleText, value);
+                SetContext(MethodBase.GetCurrentMethod().GetPropertyName(), value);
             }
         }
-
-        public const string ContentText = "Content";
 
         public string Content
         {
             get
             {
-                return ScenarioContext.Current[ContentText].ToString();
+                return GetContext(MethodBase.GetCurrentMethod().GetPropertyName());
             }
             private set
             {
-                ScenarioContext.Current[ContentText] = value;
-                BrowserHelper.InputText(ContentText, value);
+                SetContext(MethodBase.GetCurrentMethod().GetPropertyName(), value);
             }
         }
-
-        public const string AuthorText = "Author";
 
         public string Author
         {
             get
             {
-                return ScenarioContext.Current[AuthorText].ToString();
+                return GetContext(MethodBase.GetCurrentMethod().GetPropertyName());
             }
             private set
             {
-                ScenarioContext.Current[AuthorText] = value;
-                BrowserHelper.InputText(AuthorText, value);
+                SetContext(MethodBase.GetCurrentMethod().GetPropertyName(), value);
             }
         }
 
@@ -63,11 +56,26 @@ namespace AgileWizard.AcceptanceTests.PageObject
         public void AssertPage()
         {
             Assert.Equal(Title, BrowserHelper.Browser.Title);
-            Assert.Equal(Title, BrowserHelper.Browser.Element(e => e.ClassName == TitleText).Text);
-            Assert.Equal(Content, BrowserHelper.Browser.Element(e => e.ClassName == ContentText).Text);
+            Assert.Equal(Title, BrowserHelper.Browser.Element(e => e.ClassName == "Title").Text);
+            Assert.Equal(Content, BrowserHelper.Browser.Element(e => e.ClassName == "Content").Text);
             Assert.Equal(BrowserHelper.UserName, BrowserHelper.Browser.Element(e => e.ClassName == SubmitUserText).Text);
-            Assert.Equal(Author, BrowserHelper.Browser.Element(e => e.ClassName == AuthorText).Text);
+            Assert.Equal(Author, BrowserHelper.Browser.Element(e => e.ClassName == "Author").Text);
         }
+
+        #region CommonMethod
+        private string GetContext(string key)
+        {
+            return ScenarioContext.Current[key].ToString();
+        }
+
+        private void SetContext(string key, string value)
+        {
+            ScenarioContext.Current[key] = value;
+            BrowserHelper.InputText(key, value);
+        }
+        #endregion
     }
+
+    
 
 }
