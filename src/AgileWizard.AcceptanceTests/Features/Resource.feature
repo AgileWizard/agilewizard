@@ -27,12 +27,6 @@ Scenario: Add Resource require login
 	And open adding-resource page
 	Then login page should be open
 
-@UI @ignore
-Scenario: View Resource Detail
-	Given open resource list page
-	When open a resource titled with 'Embeded Video'
-	Then 'Embeded Video' resource details page should be open
-
 @UI
 Scenario: View Resource List
 	Given login already

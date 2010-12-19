@@ -1,7 +1,7 @@
-﻿using TechTalk.SpecFlow;
-using Raven.Client.Document;
-using AgileWizard.AcceptanceTests.Helper;
+﻿using AgileWizard.AcceptanceTests.Helper;
 using AgileWizard.Data;
+using Raven.Client.Document;
+using TechTalk.SpecFlow;
 
 namespace AgileWizard.AcceptanceTests
 {

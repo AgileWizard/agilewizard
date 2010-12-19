@@ -1,9 +1,9 @@
-﻿using AgileWizard.AcceptanceTests.PageObject;
-using TechTalk.SpecFlow;
-using AgileWizard.AcceptanceTests.Helper;
-using Xunit;
-using AgileWizard.Locale.Resources.Views;
+﻿using AgileWizard.AcceptanceTests.Helper;
+using AgileWizard.AcceptanceTests.PageObject;
 using AgileWizard.Locale.Resources.Models;
+using AgileWizard.Locale.Resources.Views;
+using TechTalk.SpecFlow;
+using Xunit;
 
 namespace AgileWizard.AcceptanceTests.Steps
 {
@@ -11,21 +11,7 @@ namespace AgileWizard.AcceptanceTests.Steps
     [Binding]
     public class Resource
     {
-        private const string TagsText = "Tags";
         private ResoucePage _resourcePage;
-
-        private string Tags
-        {
-            get
-            {
-                return ScenarioContext.Current[TagsText].ToString();
-            }
-            set
-            {
-                ScenarioContext.Current[TagsText] = value;
-                BrowserHelper.InputText(TagsText, value);
-            }
-        }
 
         #region Add resource
         [Given(@"open adding-resource page")]
@@ -43,7 +29,7 @@ namespace AgileWizard.AcceptanceTests.Steps
         [Given(@"tags - '(.+)'")]
         public void GivenTags(string tags)
         {
-            Tags = tags;
+            _resourcePage.Tags = tags;
         }
 
         [When(@"press submit button")]
@@ -61,7 +47,7 @@ namespace AgileWizard.AcceptanceTests.Steps
         }
         #endregion
 
-        #region Add Resource require login
+        #region Adding Resource require login
         [Then("login page should be open")]
         public void AddResource_RequireLogin_RedirectToLoginPage()
         {

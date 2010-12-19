@@ -27,8 +27,8 @@ namespace AgileWizard.AcceptanceTests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Resource", "In order to manage resources\nAs a admin\nI should be able to add/edit a resource o" +
-                    "nto website", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Resource", "In order to manage resources\r\nAs a admin\r\nI should be able to add/edit a resource" +
+                    " onto website", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -128,26 +128,6 @@ this.ScenarioSetup(scenarioInfo);
             testRunner.CollectScenarioErrors();
         }
         
-        [Xunit.FactAttribute(Skip="Ignored")]
-        [Xunit.TraitAttribute("FeatureTitle", "Resource")]
-        [Xunit.TraitAttribute("Description", "View Resource Detail")]
-        public virtual void ViewResourceDetail()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View Resource Detail", new string[] {
-                        "UI",
-                        "ignore"});
-#line 31
-this.ScenarioSetup(scenarioInfo);
-#line 32
- testRunner.Given("open resource list page");
-#line 33
- testRunner.When("open a resource titled with \'Embeded Video\'");
-#line 34
- testRunner.Then("\'Embeded Video\' resource details page should be open");
-#line hidden
-            testRunner.CollectScenarioErrors();
-        }
-        
         [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "Resource")]
         [Xunit.TraitAttribute("Description", "View Resource List")]
@@ -155,21 +135,21 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View Resource List", new string[] {
                         "UI"});
-#line 37
+#line 31
 this.ScenarioSetup(scenarioInfo);
-#line 38
+#line 32
  testRunner.Given("login already");
-#line 39
+#line 33
  testRunner.And("open resource list page");
-#line 40
+#line 34
  testRunner.Then("I can see the page title in current culture");
-#line 41
+#line 35
  testRunner.And("I can see the total resouce count");
-#line 42
+#line 36
  testRunner.And("I can see the create resource entry in current culture");
-#line 43
+#line 37
  testRunner.And("I can see the total resource count in current culture");
-#line 44
+#line 38
  testRunner.And("I can see the List in current culture");
 #line hidden
             testRunner.CollectScenarioErrors();

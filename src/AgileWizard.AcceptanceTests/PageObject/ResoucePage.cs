@@ -1,8 +1,7 @@
-﻿using AgileWizard.AcceptanceTests.Helper;
+﻿using System.Reflection;
+using AgileWizard.AcceptanceTests.Helper;
 using TechTalk.SpecFlow;
 using Xunit;
-using System.Reflection;
-using System;
 
 namespace AgileWizard.AcceptanceTests.PageObject
 {
@@ -15,6 +14,13 @@ namespace AgileWizard.AcceptanceTests.PageObject
             Content = content;
         }
 
+        public ResoucePage(string title, string author, string content, string tags)
+            : this(title, author, content)
+        {
+            Tags = tags;
+        }
+
+        #region Properties
         public string Title
         {
             get
@@ -51,6 +57,19 @@ namespace AgileWizard.AcceptanceTests.PageObject
             }
         }
 
+        public string Tags
+        {
+            get
+            {
+                return GetContext(MethodBase.GetCurrentMethod().GetPropertyName());
+            }
+            set
+            {
+                SetContext(MethodBase.GetCurrentMethod().GetPropertyName(), value);
+            }
+        }
+        #endregion
+
         private const string SubmitUserText = "SubmitUser";
 
         public void AssertPage()
@@ -76,6 +95,6 @@ namespace AgileWizard.AcceptanceTests.PageObject
         #endregion
     }
 
-    
+
 
 }

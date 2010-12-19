@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Configuration;
 using System.Linq;
-using System.Text;
-using WatiN.Core;
-using System.Configuration;
 using TechTalk.SpecFlow;
+using WatiN.Core;
 
 namespace AgileWizard.AcceptanceTests.Helper
 {

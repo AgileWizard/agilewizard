@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using AgileWizard.AcceptanceTests.Helper;
 using TechTalk.SpecFlow;
-using AgileWizard.AcceptanceTests.Helper;
 
 namespace AgileWizard.AcceptanceTests.Steps
 {

@@ -1,5 +1,5 @@
-﻿using TechTalk.SpecFlow;
-using AgileWizard.AcceptanceTests.Helper;
+﻿using AgileWizard.AcceptanceTests.Helper;
+using TechTalk.SpecFlow;
 using Xunit;
 
 namespace AgileWizard.AcceptanceTests.Steps
