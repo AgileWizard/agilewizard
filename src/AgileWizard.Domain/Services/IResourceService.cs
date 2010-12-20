@@ -5,7 +5,7 @@ namespace AgileWizard.Domain.Services
 {
     public interface IResourceService
     {
-        Resource AddResource(string title, string content, string author, string submitUser, List<Tag> tags);
+        Resource AddResource(Resource resource);
         Resource GetResourceById(string id);
         IList<Resource> GetResourceList();
         int GetResourcesTotalCount();

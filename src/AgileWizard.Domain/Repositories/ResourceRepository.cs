@@ -17,17 +17,18 @@ namespace AgileWizard.Domain.Repositories
             _documentSession = documentSession;
         }
 
-        public Resource Add(string title, string content, string author, string submitUser, List<Tag> tags)
+        public Resource Add(Resource source)
         {
             var resource = new Resource
                                {
-                                   Title = title,
-                                   Content = content,
-                                   Author = author,
+                                   Title = source.Title,
+                                   Content = source.Content,
+                                   Author = source.Author,
                                    CreateTime = DateTime.Now,
                                    LastUpdateTime = DateTime.Now,
-                                   SubmitUser = submitUser,
-                                   Tags = tags
+                                   SubmitUser = source.SubmitUser,
+                                   Tags = source.Tags,
+                                   ReferenceUrl = source.ReferenceUrl
                                };
 
             _documentSession.Store(resource);

@@ -23,7 +23,7 @@ namespace AgileWizard.IntegrationTests.Steps
             const string SubmitUser = "agilewizard";
 
             [Given(@"new resource with  title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)' and tags - '(.+)'")]
-            public void GivenNewResourceWithTitleAndContentAndAuthor(string title, string content, string author, string tags)
+            public void GivenNewResourceWithTitleContentAuthorAndTags(string title, string content, string author, string tags)
             {
                 _resourceModel = new ResourceModel
                                      {
@@ -35,6 +35,12 @@ namespace AgileWizard.IntegrationTests.Steps
                                      };
 
                 _resourceController = ObjectFactory.GetInstance<ResourceController>();
+            }
+
+            [Given(@"reference url - '(\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])'")]
+            public void GivenRefereceUrl(string referenceUrl)
+            {
+                _resourceModel.ReferenceUrl = referenceUrl;
             }
 
             [When(@"submit resource to system")]
@@ -62,9 +68,10 @@ namespace AgileWizard.IntegrationTests.Steps
                 Assert.Equal(actualResource.Content, _resourceModel.Content);
                 Assert.Equal(actualResource.Author, _resourceModel.Author);
                 Assert.Equal(actualResource.SubmitUser, SubmitUser);
-                Assert.Equal(actualResource.Tags.Count , _resourceModel.Tags.ToTagList().Count);
+                Assert.Equal(actualResource.ReferenceUrl, _resourceModel.ReferenceUrl);
+                Assert.Equal(actualResource.Tags.Count, _resourceModel.Tags.ToTagList().Count);
             }
 
         }
-     }
+    }
 }

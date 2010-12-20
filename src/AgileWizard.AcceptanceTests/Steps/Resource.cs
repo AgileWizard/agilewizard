@@ -32,14 +32,21 @@ namespace AgileWizard.AcceptanceTests.Steps
             _resourcePage.Tags = tags;
         }
 
+        [Given(@"reference url - '(\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])'")]
+        public void GivenReferenceUrl(string referenceUrl)
+        {
+            _resourcePage.ReferenceUrl = referenceUrl;
+        }
+
         [When(@"press submit button")]
         public void WhenPressSubmitButton()
         {
             BrowserHelper.PressSubmitButton();
         }
-        #endregion
 
-        #region View Detail
+        /// <summary>
+        /// View resource detail
+        /// </summary>
         [Then(@"resource details page should be shown")]
         public void ThenResourceDetailsPageShouldBeShown()
         {

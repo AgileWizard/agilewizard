@@ -23,51 +23,34 @@ namespace AgileWizard.AcceptanceTests.PageObject
         #region Properties
         public string Title
         {
-            get
-            {
-                return GetContext(MethodBase.GetCurrentMethod().GetPropertyName());
-            }
-            private set
-            {
-                SetContext(MethodBase.GetCurrentMethod().GetPropertyName(), value);
-            }
+            get { return GetContext(MethodBase.GetCurrentMethod().GetPropertyName()); }
+            set { SetContext(MethodBase.GetCurrentMethod().GetPropertyName(), value); }
         }
 
         public string Content
         {
-            get
-            {
-                return GetContext(MethodBase.GetCurrentMethod().GetPropertyName());
-            }
-            private set
-            {
-                SetContext(MethodBase.GetCurrentMethod().GetPropertyName(), value);
-            }
+            get { return GetContext(MethodBase.GetCurrentMethod().GetPropertyName()); }
+            set { SetContext(MethodBase.GetCurrentMethod().GetPropertyName(), value); }
         }
 
         public string Author
         {
-            get
-            {
-                return GetContext(MethodBase.GetCurrentMethod().GetPropertyName());
-            }
-            private set
-            {
-                SetContext(MethodBase.GetCurrentMethod().GetPropertyName(), value);
-            }
+            get { return GetContext(MethodBase.GetCurrentMethod().GetPropertyName()); }
+            set { SetContext(MethodBase.GetCurrentMethod().GetPropertyName(), value); }
         }
 
         public string Tags
         {
-            get
-            {
-                return GetContext(MethodBase.GetCurrentMethod().GetPropertyName());
-            }
-            set
-            {
-                SetContext(MethodBase.GetCurrentMethod().GetPropertyName(), value);
-            }
+            get { return GetContext(MethodBase.GetCurrentMethod().GetPropertyName()); }
+            set { SetContext(MethodBase.GetCurrentMethod().GetPropertyName(), value); }
         }
+
+        public string ReferenceUrl
+        {
+            get { return GetContext(MethodBase.GetCurrentMethod().GetPropertyName()); }
+            set { SetContext(MethodBase.GetCurrentMethod().GetPropertyName(), value); }
+        }
+
         #endregion
 
         private const string SubmitUserText = "SubmitUser";
@@ -79,6 +62,7 @@ namespace AgileWizard.AcceptanceTests.PageObject
             Assert.Equal(Content, BrowserHelper.Browser.Element(e => e.ClassName == "Content").Text);
             Assert.Equal(BrowserHelper.UserName, BrowserHelper.Browser.Element(e => e.ClassName == SubmitUserText).Text);
             Assert.Equal(Author, BrowserHelper.Browser.Element(e => e.ClassName == "Author").Text);
+            // reference url todo:
         }
 
         #region CommonMethod
@@ -93,6 +77,7 @@ namespace AgileWizard.AcceptanceTests.PageObject
             BrowserHelper.InputText(key, value);
         }
         #endregion
+
     }
 
 

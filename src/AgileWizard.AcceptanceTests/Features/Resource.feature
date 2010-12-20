@@ -9,6 +9,7 @@ Scenario: Add Simple Resource
 	And open adding-resource page
 	And enter title - 'simple Resource' and content - 'simple Content' and author - 'Daniel' 
 	And tags - 'Agile,Shanghai'
+	And reference url - 'http://www.cnblogs.com/tengzy/'
 	When press submit button
 	Then resource details page should be shown
 

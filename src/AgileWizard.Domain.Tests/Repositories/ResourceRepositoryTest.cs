@@ -24,10 +24,21 @@ namespace AgileWizard.Domain.Tests.Repositories
             const string CONTENT = "content";
             const string AUTHOR = "author";
             const string SUBMITUSER = "submit user";
+            const string REFERENCEURL = "http://a.b.com";
             _session.SetupStoreExpectation<Resource>(r => r.Title == TITLE && r.Content == CONTENT && r.Author == AUTHOR && r.SubmitUser == SUBMITUSER);
 
+            var source = new Resource
+            {
+                Title = TITLE,
+                Content = CONTENT,
+                Author = AUTHOR,
+                SubmitUser = SUBMITUSER,
+                Tags = new List<Tag>(),
+                ReferenceUrl = REFERENCEURL
+            };
+
             //Act
-            var resource = _resourceRepositorySUT.Add(TITLE, CONTENT, AUTHOR, SUBMITUSER, new List<Tag>());
+            var resource = _resourceRepositorySUT.Add(source);
 
             //Assert
             _session.VerifyAll();

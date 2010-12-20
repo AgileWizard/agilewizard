@@ -42,7 +42,15 @@ namespace AgileWizard.Website.Controllers
         [ValidateInput(false)]
         public ActionResult Create(ResourceModel model)
         {
-            var resource = ResourceService.AddResource(model.Title, model.Content, model.Author, SessionStateRepository.CurrentUser.UserName, model.Tags.ToTagList());
+            var resource = ResourceService.AddResource(new Resource
+                {
+                    Title = model.Title,
+                    Content = model.Content,
+                    Author = model.Author,
+                    SubmitUser = SessionStateRepository.CurrentUser.UserName,
+                    Tags = model.Tags.ToTagList(),
+                    ReferenceUrl = model.ReferenceUrl
+                });
 
             return RedirectToAction("Details", new { id = resource.Id.Substring(10) });
         }
@@ -66,7 +74,8 @@ namespace AgileWizard.Website.Controllers
                                 Author = resource.Author,
                                 CreateTime = resource.CreateTime,
                                 SubmitUser = resource.SubmitUser,
-                                Tags = resource.Tags.ToTagString()
+                                Tags = resource.Tags.ToTagString(),
+                                ReferenceUrl = resource.ReferenceUrl
                             });
         }
 
@@ -81,6 +90,7 @@ namespace AgileWizard.Website.Controllers
                 Content = resource.Content,
                 Author = resource.Author,
                 CreateTime = resource.CreateTime,
+                ReferenceUrl = resource.ReferenceUrl
             });
         }
 
@@ -88,7 +98,16 @@ namespace AgileWizard.Website.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(string id, ResourceModel model)
         {
-            ResourceService.UpdateResource(id, new Resource { Title = model.Title, Content = model.Content, Author = model.Author, SubmitUser = SessionStateRepository.CurrentUser.UserName });
+            ResourceService.UpdateResource(id, new Resource
+            {
+                Title = model.Title,
+                Content = model.Content,
+                Author = model.Author,
+                SubmitUser = SessionStateRepository.CurrentUser.UserName,
+                ReferenceUrl = model.ReferenceUrl,
+                Tags = model.Tags.ToTagList()
+            });
+
             return RedirectToAction("Details", new { id });
         }
     }
