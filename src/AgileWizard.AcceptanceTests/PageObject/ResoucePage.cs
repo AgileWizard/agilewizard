@@ -62,7 +62,8 @@ namespace AgileWizard.AcceptanceTests.PageObject
             Assert.Equal(Content, BrowserHelper.Browser.Element(e => e.ClassName == "Content").Text);
             Assert.Equal(BrowserHelper.UserName, BrowserHelper.Browser.Element(e => e.ClassName == SubmitUserText).Text);
             Assert.Equal(Author, BrowserHelper.Browser.Element(e => e.ClassName == "Author").Text);
-            // reference url todo:
+            Assert.Equal(ReferenceUrl, BrowserHelper.Browser.Element(e => e.ClassName == "ReferenceUrl").Text);
+            
         }
 
         #region CommonMethod

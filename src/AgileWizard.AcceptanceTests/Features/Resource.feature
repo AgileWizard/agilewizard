@@ -19,6 +19,7 @@ Scenario: Edit A Resource
 	And open resource list page
 	And edit a resource titled with 'Embeded Video'
 	And enter title - 'Embeded Video' and content - 'Modified Content' and author - 'Daniel'
+	And reference url - 'http://www.cnblogs.com/tengzy/'
 	When press submit button
 	Then resource details page should be shown
 

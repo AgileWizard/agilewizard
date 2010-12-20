@@ -6,6 +6,8 @@
     <h2 class="Title"><%: Model.Title %></h2>
     <div><%:ResourceName.Author %>:<span class="Author"><%: Model.Author %></span>&nbsp;
     <%:ResourceName.SubmitUser %>:<span class="SubmitUser"><%: Model.SubmitUser%></span>&nbsp;<span><%: Model.CreateTime.ToString() %></span></div>
+    <%:ResourceName.ReferenceUrl %>: <span class="ReferenceUrl"><%=Model.ReferenceUrl %></span>
+    <br />
     <br />
     <span class="Content"><%=Model.Content %></span>
     <br />

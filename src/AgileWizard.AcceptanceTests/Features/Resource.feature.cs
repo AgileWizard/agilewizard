@@ -104,8 +104,10 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("enter title - \'Embeded Video\' and content - \'Modified Content\' and author - \'Dani" +
                     "el\'");
 #line 22
- testRunner.When("press submit button");
+ testRunner.And("reference url - \'http://www.cnblogs.com/tengzy/\'");
 #line 23
+ testRunner.When("press submit button");
+#line 24
  testRunner.Then("resource details page should be shown");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -118,13 +120,13 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Resource require login", new string[] {
                         "UI"});
-#line 26
-this.ScenarioSetup(scenarioInfo);
 #line 27
- testRunner.Given("no login");
+this.ScenarioSetup(scenarioInfo);
 #line 28
- testRunner.And("open adding-resource page");
+ testRunner.Given("no login");
 #line 29
+ testRunner.And("open adding-resource page");
+#line 30
  testRunner.Then("login page should be open");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -137,21 +139,21 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View Resource List", new string[] {
                         "UI"});
-#line 32
-this.ScenarioSetup(scenarioInfo);
 #line 33
- testRunner.Given("login already");
+this.ScenarioSetup(scenarioInfo);
 #line 34
- testRunner.And("open resource list page");
+ testRunner.Given("login already");
 #line 35
- testRunner.Then("I can see the page title in current culture");
+ testRunner.And("open resource list page");
 #line 36
- testRunner.And("I can see the total resouce count");
+ testRunner.Then("I can see the page title in current culture");
 #line 37
- testRunner.And("I can see the create resource entry in current culture");
+ testRunner.And("I can see the total resouce count");
 #line 38
- testRunner.And("I can see the total resource count in current culture");
+ testRunner.And("I can see the create resource entry in current culture");
 #line 39
+ testRunner.And("I can see the total resource count in current culture");
+#line 40
  testRunner.And("I can see the List in current culture");
 #line hidden
             testRunner.CollectScenarioErrors();

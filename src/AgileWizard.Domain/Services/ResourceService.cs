@@ -44,6 +44,7 @@ namespace AgileWizard.Domain.Services
             resourceUpdate.LastUpdateTime = DateTime.Now;
             resourceUpdate.Author = resource.Author;
             resourceUpdate.SubmitUser = resource.SubmitUser;
+            resourceUpdate.ReferenceUrl = resource.ReferenceUrl;
             _repository.Save();
 
         }

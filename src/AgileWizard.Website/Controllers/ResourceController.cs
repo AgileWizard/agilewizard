@@ -104,8 +104,7 @@ namespace AgileWizard.Website.Controllers
                 Content = model.Content,
                 Author = model.Author,
                 SubmitUser = SessionStateRepository.CurrentUser.UserName,
-                ReferenceUrl = model.ReferenceUrl,
-                Tags = model.Tags.ToTagList()
+                ReferenceUrl = model.ReferenceUrl
             });
 
             return RedirectToAction("Details", new { id });

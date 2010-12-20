@@ -27,6 +27,13 @@
                 <%: Html.TextBoxFor(m => m.Author)%>
                 <%: Html.ValidationMessageFor(m => m.Author)%>
             </div>
+             <div class="editor-label">
+            <%: Html.LabelFor(m => m.ReferenceUrl) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(m => m.ReferenceUrl) %>
+                <%: Html.ValidationMessageFor(m => m.ReferenceUrl) %>
+            </div>
 			<div class="editor-label">
 				<%: Html.LabelFor(m => m.Content) %>
 			</div>
