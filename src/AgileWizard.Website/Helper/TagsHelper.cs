@@ -31,7 +31,7 @@ namespace AgileWizard.Website.Helper
 
             var tagNames = tags.Select<Tag, string>(s => s.Name)
                 .Distinct(StringComparer.OrdinalIgnoreCase); ;
-            return string.Join(" ", tagNames);
+            return string.Join(",", tagNames);
         }
     }
 }

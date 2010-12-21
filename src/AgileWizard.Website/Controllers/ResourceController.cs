@@ -90,7 +90,8 @@ namespace AgileWizard.Website.Controllers
                 Content = resource.Content,
                 Author = resource.Author,
                 CreateTime = resource.CreateTime,
-                ReferenceUrl = resource.ReferenceUrl
+                ReferenceUrl = resource.ReferenceUrl,
+                Tags = resource.Tags == null ? string.Empty : resource.Tags.ToTagString()
             });
         }
 
@@ -104,7 +105,8 @@ namespace AgileWizard.Website.Controllers
                 Content = model.Content,
                 Author = model.Author,
                 SubmitUser = SessionStateRepository.CurrentUser.UserName,
-                ReferenceUrl = model.ReferenceUrl
+                ReferenceUrl = model.ReferenceUrl,
+                Tags = model.Tags.ToTagList()
             });
 
             return RedirectToAction("Details", new { id });

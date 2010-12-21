@@ -45,6 +45,7 @@ namespace AgileWizard.Domain.Services
             resourceUpdate.Author = resource.Author;
             resourceUpdate.SubmitUser = resource.SubmitUser;
             resourceUpdate.ReferenceUrl = resource.ReferenceUrl;
+            resourceUpdate.Tags = resource.Tags;
             _repository.Save();
 
         }

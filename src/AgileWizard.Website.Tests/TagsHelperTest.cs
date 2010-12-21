@@ -26,7 +26,7 @@ namespace AgileWizard.Website.Tests
         {
             var tagList = new List<Tag> { new Tag { Name = "Agile" }, new Tag { Name = "Shanghai" }, new Tag { Name = "Wen" } };
             var tagString = tagList.ToTagString();
-            Assert.Equal("Agile Shanghai Wen", tagString);
+            Assert.Equal("Agile,Shanghai,Wen", tagString);
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace AgileWizard.Website.Tests
         {
             var tagList = new List<Tag> { new Tag { Name = "Agile" }, new Tag { Name = "agile" }, new Tag { Name = "Wen" } };
             var tagString = tagList.ToTagString();
-            Assert.Equal("Agile Wen", tagString);
+            Assert.Equal("Agile,Wen", tagString);
         }
     }
 }
