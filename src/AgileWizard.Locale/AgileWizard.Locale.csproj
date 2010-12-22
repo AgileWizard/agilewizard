@@ -105,6 +105,7 @@
     <EmbeddedResource Include="Resources\Views\ResourceString.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ResourceString.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\SharedString.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using WatiN.Core;
 using System.Configuration;
 using TechTalk.SpecFlow;
+using Xunit;
 
 namespace AgileWizard.AcceptanceTests.Helper
 {
@@ -87,5 +85,29 @@ namespace AgileWizard.AcceptanceTests.Helper
             Browser.GoTo(url);
         }
 
+        public static void ClickByText(string text)
+        {
+            Browser.Link(l => l.Text == text).Click();
+        }
+
+        public static string GetElementTextByClassName(string elementClassName)
+        {
+            return Browser.Element(x => x.ClassName == elementClassName).Text;
+        }
+
+        public static void AssertPageTitle(string title)
+        {
+            Assert.Equal(title, Browser.Title);
+        }
+
+        public static void AssertElementByIDOrName(string expected, string idOrName)
+        {
+            Assert.Equal(expected, Browser.Element(s => s.IdOrName == idOrName).Text.Trim());
+        }
+
+        public static void AssertElementByClassName(string expected, string elementClassName)
+        {
+            Assert.Equal(expected, Browser.Element(x => x.ClassName == elementClassName).Text.Trim());
+        }
     }
 }

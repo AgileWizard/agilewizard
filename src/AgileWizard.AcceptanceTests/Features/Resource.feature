@@ -7,8 +7,7 @@
 Scenario: Add Simple Resource
 	Given login already
 	And open adding-resource page
-	And enter title - 'simple Resource' and content - 'simple Content' and author - 'Daniel' 
-	And tags - 'Agile,Shanghai'
+	And enter title - 'simple Resource' and content - 'simple Content' and author - 'Daniel' and tags - 'Agile,Shanghai'
 	When press submit button
 	Then resource details page should be shown
 
@@ -27,20 +26,16 @@ Scenario: Add Resource require login
 	And open adding-resource page
 	Then login page should be open
 
-@UI @ignore
+@UI
 Scenario: View Resource Detail
 	Given open resource list page
 	When open a resource titled with 'Embeded Video'
-	Then 'Embeded Video' resource details page should be open
+	Then resource details page title with - 'Embeded Video' should be shown
 
 @UI
 Scenario: View Resource List
 	Given login already
 	And open resource list page
-	Then I can see the page title in current culture 
-	And I can see the total resouce count
-	And I can see the create resource entry in current culture
-	And I can see the total resource count in current culture
-	And I can see the List in current culture
+	Then resoure list page should be in current culture
 
 

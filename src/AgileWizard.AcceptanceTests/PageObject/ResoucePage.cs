@@ -6,14 +6,19 @@ namespace AgileWizard.AcceptanceTests.PageObject
 {
     public class ResoucePage
     {
-        public ResoucePage(string title, string author, string content)
+        public ResoucePage(string title, string author, string content, string tags)
         {
-            Title = title;
-            Content = content;
-            Author = author;
+            AddResourceBody(title, content, author);
+            AddResoureTag(tags);
         }
 
-        public const string TitleText = "Title";
+        public ResoucePage(string title, string author, string content)
+        {
+            AddResourceBody(title, content, author);
+        }
+
+        #region resource page elements
+        private const string TitleText = "Title";
 
         public string Title
         {
@@ -28,7 +33,7 @@ namespace AgileWizard.AcceptanceTests.PageObject
             }
         }
 
-        public const string ContentText = "Content";
+        private const string ContentText = "Content";
 
         public string Content
         {
@@ -43,7 +48,7 @@ namespace AgileWizard.AcceptanceTests.PageObject
             }
         }
 
-        public const string AuthorText = "Author";
+        private const string AuthorText = "Author";
 
         public string Author
         {
@@ -60,14 +65,57 @@ namespace AgileWizard.AcceptanceTests.PageObject
 
         private const string SubmitUserText = "SubmitUser";
 
+        private const string TagsText = "Tags";
+
+        public string Tags
+        {
+            get
+            {
+                return ScenarioContext.Current[TagsText].ToString();
+            }
+            private set
+            {
+                ScenarioContext.Current[TagsText] = value;
+                BrowserHelper.InputText(TagsText, value);
+            }
+        }
+
+        #endregion 
+
         public void AssertPage()
         {
             Assert.Equal(Title, BrowserHelper.Browser.Title);
-            Assert.Equal(Title, BrowserHelper.Browser.Element(e => e.ClassName == TitleText).Text);
-            Assert.Equal(Content, BrowserHelper.Browser.Element(e => e.ClassName == ContentText).Text);
-            Assert.Equal(BrowserHelper.UserName, BrowserHelper.Browser.Element(e => e.ClassName == SubmitUserText).Text);
-            Assert.Equal(Author, BrowserHelper.Browser.Element(e => e.ClassName == AuthorText).Text);
+            BrowserHelper.AssertElementByClassName(Title, TitleText);
+            BrowserHelper.AssertElementByClassName(Content, ContentText);
+            BrowserHelper.AssertElementByClassName(BrowserHelper.UserName, SubmitUserText);
+            BrowserHelper.AssertElementByClassName(Author, AuthorText);
         }
+
+        public static void GoToCreate()
+        {
+            const string resourceCreateUrl = "Resource/Create";
+            BrowserHelper.OpenPage(resourceCreateUrl);
+        }
+
+        public static void Submit()
+        {
+            BrowserHelper.PressSubmitButton();
+        }
+
+        private void AddResourceBody(string title, string content, string author)
+        {
+            Title = title;
+            Content = content;
+            Author = author;
+        }
+
+        private void AddResoureTag(string tags)
+        {
+            Tags = tags;
+        }
+
+    
+    
     }
 
 }

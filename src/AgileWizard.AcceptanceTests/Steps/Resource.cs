@@ -1,9 +1,6 @@
-﻿using AgileWizard.AcceptanceTests.PageObject;
+﻿using AgileWizard.AcceptanceTests.Helper;
+using AgileWizard.AcceptanceTests.PageObject;
 using TechTalk.SpecFlow;
-using AgileWizard.AcceptanceTests.Helper;
-using Xunit;
-using AgileWizard.Locale.Resources.Views;
-using AgileWizard.Locale.Resources.Models;
 
 namespace AgileWizard.AcceptanceTests.Steps
 {
@@ -11,27 +8,19 @@ namespace AgileWizard.AcceptanceTests.Steps
     [Binding]
     public class Resource
     {
-        private const string TagsText = "Tags";
         private ResoucePage _resourcePage;
-
-        private string Tags
-        {
-            get
-            {
-                return ScenarioContext.Current[TagsText].ToString();
-            }
-            set
-            {
-                ScenarioContext.Current[TagsText] = value;
-                BrowserHelper.InputText(TagsText, value);
-            }
-        }
 
         #region Add resource
         [Given(@"open adding-resource page")]
         public void GivenOpenAddingResourcePage()
         {
-            BrowserHelper.OpenPage("Resource/Create");
+           ResoucePage.GoToCreate();
+        }
+
+        [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)' and tags - '(.+)'")]
+        public void GivenEnterTitleAndContentAndAuthorAndTags(string title, string content, string author, string tags)
+        {
+            _resourcePage = new ResoucePage(title, author, content, tags);
         }
 
         [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)'")]
@@ -40,16 +29,10 @@ namespace AgileWizard.AcceptanceTests.Steps
             _resourcePage = new ResoucePage(title, author, content);
         }
 
-        [Given(@"tags - '(.+)'")]
-        public void GivenTags(string tags)
-        {
-            Tags = tags;
-        }
-
         [When(@"press submit button")]
         public void WhenPressSubmitButton()
         {
-            BrowserHelper.PressSubmitButton();
+            ResoucePage.Submit();
         }
         #endregion
 
@@ -59,78 +42,56 @@ namespace AgileWizard.AcceptanceTests.Steps
         {
             _resourcePage.AssertPage();
         }
+
+        [Then(@"resource details page title with - '([\w\s]+)' should be shown")]
+        public void ThenResourceDetailsPageTitleWithDetailTitleShouldBeShown(string title)
+        {
+            BrowserHelper.AssertPageTitle(title);
+        }
         #endregion
 
         #region Add Resource require login
         [Then("login page should be open")]
         public void AddResource_RequireLogin_RedirectToLoginPage()
         {
-            var currentUrl = BrowserHelper.Browser.Url;
-            var expect = "Account/Logon";
-            Assert.True(currentUrl.EndsWith(expect));
+            AccountPage.AssertUrl();
         }
+
         #endregion
 
         #region Resource List
         [Given(@"open resource list page")]
         public void GivenOpenResourceListPage()
         {
-            BrowserHelper.OpenPage("Resource");
+            ResourceListPage.GoToPage();
         }
 
         [When(@"open a resource titled with '([\w\s]+)'")]
         public void ClickOnATitleOfAResource(string title)
         {
-            var browser = BrowserHelper.Browser;
-            browser.Link(l => l.Text == title).Click();
+            ResourceListPage.GoToResourceDetail(title);
         }
 
         [Given(@"edit a resource titled with '([\w\s]+)'")]
         public void GivenEditAResource(string title)
         {
-            var browser = BrowserHelper.Browser;
-            browser.Link(l => l.Text == ResourceString.Edit.Trim() && l.Parent.NextSibling.Text == title).Click();
+            ResourceListPage.GoToResourceEdit(title);
         }
 
         [Then(@"I can see the total resouce count")]
         public void ThenICanSeeTheTotalResouceCount()
         {
-            var browser = BrowserHelper.Browser;
-            Assert.True(int.Parse(browser.Element(x => x.ClassName == "totalResourceCount").Text) > 0);
+            ResourceListPage.AssertTotalResourceCount();
         }
         #endregion
 
         #region Resource List Culture
-        [Then(@"I can see the page title in current culture")]
-        public void ThenICanSeeThePageTitleinCurrentCulture()
+        [Then(@"resoure list page should be in current culture")]
+        public void ThenICanSeeThePageinCurrentCulture()
         {
-            var expect = ResourceString.Resources;
-            Assert.Equal(BrowserHelper.Browser.Title, expect);
+            ResourceListPage.AssertCulture();
         }
-
-        [Then(@"I can see the create resource entry in current culture")]
-        public void ThenICanSeeTheCreateResourceEntryInCurrentCulture()
-        {
-            var expect = ResourceString.CreateResourceLink;
-            Assert.Equal(BrowserHelper.Browser.Element(x => x.ClassName == "createNewResource").Text, expect);
-        }
-
-        [Then(@"I can see the total resource count in current culture")]
-        public void ThenICanSeeTheTotalResourceCountInCurrentCulture()
-        {
-            var expect = ResourceString.TotalResourceCount;
-            Assert.Equal(BrowserHelper.Browser.Element(x => x.ClassName == "display-label").Text, expect);
-        }
-
-        [Then(@"I can see the List in current culture")]
-        public void ThenICanSeeTheListInCurrentCulture()
-        {
-            var title = ResourceName.Title;
-            Assert.Equal(title, BrowserHelper.Browser.Element(s => s.IdOrName == "listTitle").Text.Trim());
-
-            var content = ResourceName.Content;
-            Assert.Equal(content, BrowserHelper.Browser.Element(s => s.IdOrName == "listContent").Text.Trim());
-        }
+   
         #endregion
 
     }
