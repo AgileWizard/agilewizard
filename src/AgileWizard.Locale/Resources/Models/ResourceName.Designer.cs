@@ -97,6 +97,15 @@ namespace AgileWizard.Locale.Resources.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 原文地址.
+        /// </summary>
+        public static string ReferenceUrl {
+            get {
+                return ResourceManager.GetString("ReferenceUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 提交者.
         /// </summary>
         public static string SubmitUser {

@@ -27,7 +27,7 @@ namespace AgileWizard.IntegrationTests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Add Resource", "As a admin,\nI should be able to record the title, content and author", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Add Resource", "As a admin,\r\nI should be able to record the title, content and author", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -68,10 +68,12 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.Given("new resource with  title - \'plain text Resource\' and content - \'simple Content\' a" +
                     "nd author - \'Test Author\' and tags - \'Agilewizard,Shanghai\'");
 #line 7
- testRunner.When("submit resource to system");
+ testRunner.And("reference url - \'http://www.cnblogs.com/tengzy/\'");
 #line 8
- testRunner.Then("navigate to details page");
+ testRunner.When("submit resource to system");
 #line 9
+ testRunner.Then("navigate to details page");
+#line 10
  testRunner.And("display the title, content, author and submit user and tags");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -84,21 +86,21 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add video resource", new string[] {
                         "ignore"});
-#line 13
-this.ScenarioSetup(scenarioInfo);
 #line 14
- testRunner.Given("new resource with  title - \'embed video Resource\'");
+this.ScenarioSetup(scenarioInfo);
 #line 15
+ testRunner.Given("new resource with  title - \'embed video Resource\'");
+#line 16
  testRunner.And("content -  @\"<embed src=\"\"http://player.youku.com/player.php/sid/XMjI2MjI2MTQw/v." +
                     "swf\"\" quality=\"\"high\"\" width=\"\"480\"\" height=\"\"400\"\" align=\"\"middle\"\" allowScript" +
                     "Access=\"\"sameDomain\"\" type=\"\"application/x-shockwave-flash\"\"></embed>\"");
-#line 16
- testRunner.And("author - \'Test Author\'");
 #line 17
- testRunner.When("submit resource to system");
+ testRunner.And("author - \'Test Author\'");
 #line 18
- testRunner.Then("resource will be persisted");
+ testRunner.When("submit resource to system");
 #line 19
+ testRunner.Then("resource will be persisted");
+#line 20
  testRunner.And("navigate to details page");
 #line hidden
             testRunner.CollectScenarioErrors();

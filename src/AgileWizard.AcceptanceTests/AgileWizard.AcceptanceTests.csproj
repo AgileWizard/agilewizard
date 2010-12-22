@@ -69,6 +69,7 @@
     </Compile>
     <Compile Include="Helper\BrowserHelper.cs" />
     <Compile Include="PageObject\AccountPage.cs" />
+    <Compile Include="Helper\RuntimeHelper.cs" />
     <Compile Include="PageObject\ResoucePage.cs" />
     <Compile Include="PageObject\ResourceListPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

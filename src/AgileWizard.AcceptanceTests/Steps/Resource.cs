@@ -17,16 +17,16 @@ namespace AgileWizard.AcceptanceTests.Steps
            ResoucePage.GoToCreate();
         }
 
-        [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)' and tags - '(.+)'")]
-        public void GivenEnterTitleAndContentAndAuthorAndTags(string title, string content, string author, string tags)
+        [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)' and reference url - '(\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])' and tags - '(.+)'")]
+        public void GivenEnterTitleAndContentAndAuthorAndReferenceUrlAndTags(string title, string content, string author, string refereneUrl, string tags)
         {
-            _resourcePage = new ResoucePage(title, author, content, tags);
+            _resourcePage = new ResoucePage(title, author, content, refereneUrl, tags);
         }
 
-        [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)'")]
-        public void GivenEnterTitleAndContentAndAuthor(string title, string content, string author)
+        [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)' and reference url - '(\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])'")]
+        public void GivenEnterTitleAndContentAndAuthorAndReferenceUrl(string title, string content, string author, string refereneUrl)
         {
-            _resourcePage = new ResoucePage(title, author, content);
+            _resourcePage = new ResoucePage(title, author, content, refereneUrl);
         }
 
         [When(@"press submit button")]
@@ -34,9 +34,10 @@ namespace AgileWizard.AcceptanceTests.Steps
         {
             ResoucePage.Submit();
         }
-        #endregion
 
-        #region View Detail
+        /// <summary>
+        /// View resource detail
+        /// </summary>
         [Then(@"resource details page should be shown")]
         public void ThenResourceDetailsPageShouldBeShown()
         {
@@ -50,7 +51,7 @@ namespace AgileWizard.AcceptanceTests.Steps
         }
         #endregion
 
-        #region Add Resource require login
+        #region Adding Resource require login
         [Then("login page should be open")]
         public void AddResource_RequireLogin_RedirectToLoginPage()
         {

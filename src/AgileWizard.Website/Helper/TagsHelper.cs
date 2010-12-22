@@ -14,10 +14,11 @@ namespace AgileWizard.Website.Helper
         {
             var tagList = new List<Tag>();
             if (string.IsNullOrEmpty(tags)) return tagList;
+
             var tagNames = tags.Split(COMMA);
             foreach (var name in tagNames)
             {
-                tagList.Add(new Tag { Name = name });
+                tagList.Add(new Tag { Name = name.Trim() });
             }
 
             return tagList;
@@ -25,13 +26,12 @@ namespace AgileWizard.Website.Helper
 
         public static string ToTagString(this List<Tag> tags)
         {
-            if(tags == null)
+            if (tags == null)
                 return string.Empty;
-            var sb = new StringBuilder();
-            tags.ForEach(x => sb.AppendFormat("{0} ", x.Name));
-            if(sb.Length > 0)
-                sb = sb.Remove(sb.Length - 1, 1);
-            return sb.ToString();
+
+            var tagNames = tags.Select<Tag, string>(s => s.Name)
+                .Distinct(StringComparer.OrdinalIgnoreCase); ;
+            return string.Join(",", tagNames);
         }
     }
 }

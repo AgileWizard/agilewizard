@@ -6,20 +6,21 @@ namespace AgileWizard.AcceptanceTests.PageObject
 {
     public class ResoucePage
     {
-        public ResoucePage(string title, string author, string content, string tags)
+
+
+        public ResoucePage(string title, string author, string content, string refereneUrl, string tags)
         {
-            AddResourceBody(title, content, author);
+            AddResourceBody(title, content, author, refereneUrl);
             AddResoureTag(tags);
         }
 
-        public ResoucePage(string title, string author, string content)
+        public ResoucePage(string title, string author, string content, string refereneUrl)
         {
-            AddResourceBody(title, content, author);
+            AddResourceBody(title, content, author, refereneUrl);
         }
 
-        #region resource page elements
+        #region Properties
         private const string TitleText = "Title";
-
         public string Title
         {
             get
@@ -34,7 +35,6 @@ namespace AgileWizard.AcceptanceTests.PageObject
         }
 
         private const string ContentText = "Content";
-
         public string Content
         {
             get
@@ -49,7 +49,6 @@ namespace AgileWizard.AcceptanceTests.PageObject
         }
 
         private const string AuthorText = "Author";
-
         public string Author
         {
             get
@@ -62,11 +61,7 @@ namespace AgileWizard.AcceptanceTests.PageObject
                 BrowserHelper.InputText(AuthorText, value);
             }
         }
-
-        private const string SubmitUserText = "SubmitUser";
-
         private const string TagsText = "Tags";
-
         public string Tags
         {
             get
@@ -80,7 +75,22 @@ namespace AgileWizard.AcceptanceTests.PageObject
             }
         }
 
-        #endregion 
+        private const string ReferenceUrlText = "ReferenceUrl";
+        public string ReferenceUrl
+        {
+            get
+            {
+                return ScenarioContext.Current[ReferenceUrlText].ToString();
+            }
+            private set
+            {
+                ScenarioContext.Current[ReferenceUrlText] = value;
+                BrowserHelper.InputText(ReferenceUrlText, value);
+            }
+        }
+
+        private const string SubmitUserText = "SubmitUser";
+        #endregion
 
         public void AssertPage()
         {
@@ -102,20 +112,17 @@ namespace AgileWizard.AcceptanceTests.PageObject
             BrowserHelper.PressSubmitButton();
         }
 
-        private void AddResourceBody(string title, string content, string author)
+        private void AddResourceBody(string title, string content, string author, string referenceUrl)
         {
             Title = title;
             Content = content;
             Author = author;
+            ReferenceUrl = referenceUrl;
         }
 
         private void AddResoureTag(string tags)
         {
             Tags = tags;
         }
-
-    
-    
     }
-
 }

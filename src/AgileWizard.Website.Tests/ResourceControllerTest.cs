@@ -21,6 +21,7 @@ namespace AgileWizard.Website.Tests
         private const string CONTENT = "content";
         private const string AUTHOR = "author";
         private const string SUBMITUSER = "submitUser";
+        private const string REFERENCE_URL = "http://www.cnblogs.com/tengzy/";
 
         private readonly Mock<IResourceService> _resourceService;
         private readonly Mock<IDocumentSession> _documentSession;
@@ -33,6 +34,7 @@ namespace AgileWizard.Website.Tests
                                              Title = TITLE,
                                              Content = CONTENT,
                                              Author = AUTHOR,
+                                             ReferenceUrl = REFERENCE_URL,
                                              SubmitUser = SUBMITUSER
                                          };
         private readonly ResourceModel _resourceModel = new ResourceModel()
@@ -40,7 +42,8 @@ namespace AgileWizard.Website.Tests
                                                       Id = ID,
                                                       Title = TITLE,
                                                       Content = CONTENT,
-                                                      Author = AUTHOR
+                                                      Author = AUTHOR,
+                                                      ReferenceUrl = REFERENCE_URL
                                                   };
 
         public ResourceControllerTest()
@@ -118,7 +121,7 @@ namespace AgileWizard.Website.Tests
         {
             //Arrange
             _sessionStateRepository.Setup(s => s.CurrentUser).Returns(User.EmptyUser());
-            _resourceService.Setup(s => s.UpdateResource(ID, It.Is<Resource>(r => r.Title == TITLE && r.Content == CONTENT && r.Author == AUTHOR && r.SubmitUser == User.EmptyUser().UserName))).Verifiable();
+            _resourceService.Setup(s => s.UpdateResource(ID, It.Is<Resource>(r => r.Title == TITLE && r.Content == CONTENT && r.Author == AUTHOR && r.ReferenceUrl == REFERENCE_URL && r.SubmitUser == User.EmptyUser().UserName))).Verifiable();
 
             //Act
             var actionResult = resourceControllerSUT.Edit(ID, _resourceModel);
@@ -157,7 +160,12 @@ namespace AgileWizard.Website.Tests
 
         private void ResourceRepositoryWillBeCalled()
         {
-            _resourceService.Setup(x => x.AddResource(_resourceModel.Title, _resourceModel.Content, _resourceModel.Author, _sessionStateRepository.Object.CurrentUser.UserName, new List<Tag>())).Returns(_resource).Verifiable();
+            _resourceService.Setup(x => x.AddResource(It.Is<Resource>(r => r.Title == _resourceModel.Title
+                && r.Author == _resourceModel.Author
+                && r.Content == _resourceModel.Content
+                && r.ReferenceUrl == _resourceModel.ReferenceUrl
+                && r.SubmitUser == _sessionStateRepository.Object.CurrentUser.UserName
+                && r.Tags.Count == 0))).Returns(_resource).Verifiable();
         }
     }
 }

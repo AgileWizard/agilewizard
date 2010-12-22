@@ -4,6 +4,7 @@
 
 Scenario: Add plain text resource
 	Given new resource with  title - 'plain text Resource' and content - 'simple Content' and author - 'Test Author' and tags - 'Agilewizard,Shanghai'
+	And reference url - 'http://www.cnblogs.com/tengzy/'
 	When submit resource to system
 	Then navigate to details page
 	And display the title, content, author and submit user and tags

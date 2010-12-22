@@ -12,6 +12,8 @@ namespace AgileWizard.Domain.Resources
         public string Content { get; set; }
 
         public string Author { get; set; }
+       
+        public string ReferenceUrl { get; set; }
 
         public DateTime CreateTime { get; set; }
 
@@ -20,5 +22,6 @@ namespace AgileWizard.Domain.Resources
         public string SubmitUser { get; set; }
 
         public List<Tag> Tags { get; set; }
+
     }
 }

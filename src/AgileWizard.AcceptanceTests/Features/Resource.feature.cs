@@ -72,7 +72,8 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("open adding-resource page");
 #line 10
  testRunner.And("enter title - \'simple Resource\' and content - \'simple Content\' and author - \'Dani" +
-                    "el\' and tags - \'Agile,Shanghai\'");
+                    "el\' and reference url - \'http://www.cnblogs.com/tengzy/\' and tags - \'Agile,Shang" +
+                    "hai\'");
 #line 11
  testRunner.When("press submit button");
 #line 12
@@ -98,7 +99,7 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("edit a resource titled with \'Embeded Video\'");
 #line 19
  testRunner.And("enter title - \'Embeded Video\' and content - \'Modified Content\' and author - \'Dani" +
-                    "el\'");
+                    "el\' and reference url - \'http://www.cnblogs.com/tengzy/\'");
 #line 20
  testRunner.When("press submit button");
 #line 21

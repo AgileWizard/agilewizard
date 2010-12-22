@@ -31,6 +31,10 @@ namespace AgileWizard.Website.Models
 
         [LocalizedDisplayName("Tags", NameResourceType = typeof(ResourceName))]
         public string Tags { get; set; }
+
+        [LocalizedDisplayName("ReferenceUrl", NameResourceType = typeof(ResourceName))]
+        [RegularExpression(@"\b(\w*)://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|]")]
+        public string ReferenceUrl { get; set; }
     }
 
     public class ResourceList : List<ResourceModel>
