@@ -62,21 +62,20 @@ namespace AgileWizard.AcceptanceTests.Features
         [Xunit.TraitAttribute("Description", "Add Simple Resource")]
         public virtual void AddSimpleResource()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Simple Resource", new string[] {
-                        "UI"});
-#line 7
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Simple Resource", ((string[])(null)));
+#line 6
 this.ScenarioSetup(scenarioInfo);
-#line 8
+#line 7
  testRunner.Given("login already");
-#line 9
+#line 8
  testRunner.And("open adding-resource page");
-#line 10
+#line 9
  testRunner.And("enter title - \'simple Resource\' and content - \'simple Content\' and author - \'Dani" +
                     "el\' and reference url - \'http://www.cnblogs.com/tengzy/\' and tags - \'Agile,Shang" +
                     "hai\'");
-#line 11
+#line 10
  testRunner.When("press submit button");
-#line 12
+#line 11
  testRunner.Then("resource details page should be shown");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -87,22 +86,21 @@ this.ScenarioSetup(scenarioInfo);
         [Xunit.TraitAttribute("Description", "Edit A Resource")]
         public virtual void EditAResource()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit A Resource", new string[] {
-                        "UI"});
-#line 15
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit A Resource", ((string[])(null)));
+#line 13
 this.ScenarioSetup(scenarioInfo);
-#line 16
+#line 14
  testRunner.Given("login already");
-#line 17
+#line 15
  testRunner.And("open resource list page");
-#line 18
+#line 16
  testRunner.And("edit a resource titled with \'Embeded Video\'");
-#line 19
+#line 17
  testRunner.And("enter title - \'Embeded Video\' and content - \'Modified Content\' and author - \'Dani" +
                     "el\' and reference url - \'http://www.cnblogs.com/tengzy/\'");
-#line 20
+#line 18
  testRunner.When("press submit button");
-#line 21
+#line 19
  testRunner.Then("resource details page should be shown");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -113,15 +111,14 @@ this.ScenarioSetup(scenarioInfo);
         [Xunit.TraitAttribute("Description", "Add Resource require login")]
         public virtual void AddResourceRequireLogin()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Resource require login", new string[] {
-                        "UI"});
-#line 24
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Resource require login", ((string[])(null)));
+#line 21
 this.ScenarioSetup(scenarioInfo);
-#line 25
+#line 22
  testRunner.Given("no login");
-#line 26
+#line 23
  testRunner.And("open adding-resource page");
-#line 27
+#line 24
  testRunner.Then("login page should be open");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -132,15 +129,14 @@ this.ScenarioSetup(scenarioInfo);
         [Xunit.TraitAttribute("Description", "View Resource Detail")]
         public virtual void ViewResourceDetail()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View Resource Detail", new string[] {
-                        "UI"});
-#line 30
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View Resource Detail", ((string[])(null)));
+#line 26
 this.ScenarioSetup(scenarioInfo);
-#line 31
+#line 27
  testRunner.Given("open resource list page");
-#line 32
+#line 28
  testRunner.When("open a resource titled with \'Embeded Video\'");
-#line 33
+#line 29
  testRunner.Then("resource details page title with - \'Embeded Video\' should be shown");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -151,15 +147,14 @@ this.ScenarioSetup(scenarioInfo);
         [Xunit.TraitAttribute("Description", "View Resource List")]
         public virtual void ViewResourceList()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View Resource List", new string[] {
-                        "UI"});
-#line 36
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View Resource List", ((string[])(null)));
+#line 31
 this.ScenarioSetup(scenarioInfo);
-#line 37
+#line 32
  testRunner.Given("login already");
-#line 38
+#line 33
  testRunner.And("open resource list page");
-#line 39
+#line 34
  testRunner.Then("resoure list page should be in current culture");
 #line hidden
             testRunner.CollectScenarioErrors();

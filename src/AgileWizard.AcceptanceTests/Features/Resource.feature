@@ -3,7 +3,6 @@
 	As a admin
 	I should be able to add/edit a resource onto website
 
-@UI
 Scenario: Add Simple Resource
 	Given login already
 	And open adding-resource page
@@ -11,7 +10,6 @@ Scenario: Add Simple Resource
 	When press submit button
 	Then resource details page should be shown
 
-	@UI
 Scenario: Edit A Resource
 	Given login already
 	And open resource list page
@@ -20,19 +18,16 @@ Scenario: Edit A Resource
 	When press submit button
 	Then resource details page should be shown
 
-@UI
 Scenario: Add Resource require login
 	Given no login
 	And open adding-resource page
 	Then login page should be open
 
-@UI
 Scenario: View Resource Detail
 	Given open resource list page
 	When open a resource titled with 'Embeded Video'
 	Then resource details page title with - 'Embeded Video' should be shown
 
-@UI
 Scenario: View Resource List
 	Given login already
 	And open resource list page

@@ -8,13 +8,13 @@ namespace AgileWizard.AcceptanceTests
     [Binding]
     public class EventDefinition
     {
-        [BeforeScenario("UI")]
+        [BeforeScenario]
         public void OpenBrowser()
         {
             BrowserHelper.OpenBrowser();
         }
 
-        [AfterScenario("UI")]
+        [AfterScenario]
         public void CloseBrowser()
         {
             BrowserHelper.CloseBrowser();
