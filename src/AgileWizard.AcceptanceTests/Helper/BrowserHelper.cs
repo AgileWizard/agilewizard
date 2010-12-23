@@ -75,6 +75,8 @@ namespace AgileWizard.AcceptanceTests.Helper
 
         public static void InputText(string field, string text)
         {
+            if (text == null) return;
+
             Browser.TextFields.Single(t => t.Name == field).TypeText(text);
         }
 

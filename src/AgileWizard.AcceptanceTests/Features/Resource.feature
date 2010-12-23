@@ -6,7 +6,14 @@
 Scenario: Add Simple Resource
 	Given login already
 	And open adding-resource page
-	And enter title - 'simple Resource' and content - 'simple Content' and author - 'Daniel' and reference url - 'http://www.cnblogs.com/tengzy/' and tags - 'Agile,Shanghai'
+	And enter data in resource page
+		| Field			| Value								|
+		| Title			| Embeded Video						|
+		| Content		| Modified Content					|
+		| Author		| Daniel							|
+		| ReferenceUrl	| http://www.cnblogs.com/tengzy/	|
+		| Tags 			| Agile,Shanghai					|
+
 	When press submit button
 	Then resource details page should be shown
 
@@ -14,7 +21,13 @@ Scenario: Edit A Resource
 	Given login already
 	And open resource list page
 	And edit a resource titled with 'Embeded Video'
-	And enter title - 'Embeded Video' and content - 'Modified Content' and author - 'Daniel' and reference url - 'http://www.cnblogs.com/tengzy/'
+	And enter data in resource page
+		| Field			| Value								|
+		| Title			| Embeded Video						|
+		| Content		| Modified Content					|
+		| Author		| Daniel							|
+		| ReferenceUrl	| http://www.cnblogs.com/tengzy/	|
+
 	When press submit button
 	Then resource details page should be shown
 

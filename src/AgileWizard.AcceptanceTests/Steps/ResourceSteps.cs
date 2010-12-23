@@ -1,6 +1,8 @@
 ﻿using AgileWizard.AcceptanceTests.Helper;
 using AgileWizard.AcceptanceTests.PageObject;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
+using AgileWizard.AcceptanceTests.Data;
 
 namespace AgileWizard.AcceptanceTests.Steps
 {
@@ -17,16 +19,12 @@ namespace AgileWizard.AcceptanceTests.Steps
            ResourcePage.GoToCreate();
         }
 
-        [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)' and reference url - '(\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])' and tags - '(.+)'")]
-        public void GivenEnterTitleAndContentAndAuthorAndReferenceUrlAndTags(string title, string content, string author, string refereneUrl, string tags)
+        [Given(@"enter data in resource page")]
+        public void GivenEnterDataInResourcePage(Table table)
         {
-            _resourcePage = new ResourcePage(title, author, content, refereneUrl, tags);
-        }
+            var data = table.CreateInstance<ResourceData>();
 
-        [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)' and reference url - '(\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])'")]
-        public void GivenEnterTitleAndContentAndAuthorAndReferenceUrl(string title, string content, string author, string refereneUrl)
-        {
-            _resourcePage = new ResourcePage(title, author, content, refereneUrl);
+            _resourcePage = new ResourcePage(data);
         }
 
         [When(@"press submit button")]

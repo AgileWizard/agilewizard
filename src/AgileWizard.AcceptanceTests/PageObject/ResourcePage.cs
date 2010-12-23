@@ -1,22 +1,19 @@
 ﻿using AgileWizard.AcceptanceTests.Helper;
 using TechTalk.SpecFlow;
 using Xunit;
+using AgileWizard.AcceptanceTests.Data;
 
 namespace AgileWizard.AcceptanceTests.PageObject
 {
     public class ResourcePage
     {
-
-
-        public ResourcePage(string title, string author, string content, string refereneUrl, string tags)
+        public ResourcePage(ResourceData data)
         {
-            AddResourceBody(title, content, author, refereneUrl);
-            AddResoureTag(tags);
-        }
-
-        public ResourcePage(string title, string author, string content, string refereneUrl)
-        {
-            AddResourceBody(title, content, author, refereneUrl);
+            this.Title = data.Title;
+            this.Content = data.Content;
+            this.Author = data.Author;
+            this.ReferenceUrl = data.ReferenceUrl;
+            this.Tags = data.Tags;
         }
 
         #region Properties
@@ -110,19 +107,6 @@ namespace AgileWizard.AcceptanceTests.PageObject
         public static void Submit()
         {
             BrowserHelper.PressSubmitButton();
-        }
-
-        private void AddResourceBody(string title, string content, string author, string referenceUrl)
-        {
-            Title = title;
-            Content = content;
-            Author = author;
-            ReferenceUrl = referenceUrl;
-        }
-
-        private void AddResoureTag(string tags)
-        {
-            Tags = tags;
         }
     }
 }
