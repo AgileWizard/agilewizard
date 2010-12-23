@@ -73,9 +73,9 @@
     <Compile Include="PageObject\ResoucePage.cs" />
     <Compile Include="PageObject\ResourceListPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Steps\Resource.cs" />
+    <Compile Include="Steps\ResourceSteps.cs" />
     <Compile Include="Steps\SharedSteps.cs" />
-    <Compile Include="Steps\Account.cs" />
+    <Compile Include="Steps\AccountSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AgileWizard.Data\AgileWizard.Data.csproj">
