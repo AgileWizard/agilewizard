@@ -80,6 +80,11 @@ namespace AgileWizard.AcceptanceTests.Helper
             Browser.TextFields.Single(t => t.Name == field).TypeText(text);
         }
 
+        public static string ReadText(string field)
+        {
+            return Browser.TextFields.Single(t => t.Name == field).Value;
+        }
+
         public static void OpenPage(string pageUrl)
         {
             var url = ConstructUrl(pageUrl);

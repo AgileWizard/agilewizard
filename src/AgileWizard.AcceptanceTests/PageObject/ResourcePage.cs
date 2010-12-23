@@ -7,6 +7,8 @@ namespace AgileWizard.AcceptanceTests.PageObject
 {
     public class ResourcePage
     {
+        public ResourcePage() { }
+
         public ResourcePage(ResourceData data)
         {
             this.Title = data.Title;
@@ -22,11 +24,10 @@ namespace AgileWizard.AcceptanceTests.PageObject
         {
             get
             {
-                return ScenarioContext.Current[TitleText].ToString();
+                return BrowserHelper.ReadText(TitleText);
             }
             private set
             {
-                ScenarioContext.Current[TitleText] = value;
                 BrowserHelper.InputText(TitleText, value);
             }
         }
@@ -36,11 +37,10 @@ namespace AgileWizard.AcceptanceTests.PageObject
         {
             get
             {
-                return ScenarioContext.Current[ContentText].ToString();
+                return BrowserHelper.ReadText(ContentText);
             }
             private set
             {
-                ScenarioContext.Current[ContentText] = value;
                 BrowserHelper.InputText(ContentText, value);
             }
         }
@@ -50,11 +50,10 @@ namespace AgileWizard.AcceptanceTests.PageObject
         {
             get
             {
-                return ScenarioContext.Current[AuthorText].ToString();
+                return BrowserHelper.ReadText(AuthorText);
             }
             private set
             {
-                ScenarioContext.Current[AuthorText] = value;
                 BrowserHelper.InputText(AuthorText, value);
             }
         }
@@ -63,11 +62,10 @@ namespace AgileWizard.AcceptanceTests.PageObject
         {
             get
             {
-                return ScenarioContext.Current[TagsText].ToString();
+                return BrowserHelper.ReadText(TagsText);
             }
             private set
             {
-                ScenarioContext.Current[TagsText] = value;
                 BrowserHelper.InputText(TagsText, value);
             }
         }
@@ -77,26 +75,16 @@ namespace AgileWizard.AcceptanceTests.PageObject
         {
             get
             {
-                return ScenarioContext.Current[ReferenceUrlText].ToString();
+                return BrowserHelper.ReadText(ReferenceUrlText);
             }
             private set
             {
-                ScenarioContext.Current[ReferenceUrlText] = value;
                 BrowserHelper.InputText(ReferenceUrlText, value);
             }
         }
 
         private const string SubmitUserText = "SubmitUser";
         #endregion
-
-        public void AssertPage()
-        {
-            Assert.Equal(Title, BrowserHelper.Browser.Title);
-            BrowserHelper.AssertElementByClassName(Title, TitleText);
-            BrowserHelper.AssertElementByClassName(Content, ContentText);
-            BrowserHelper.AssertElementByClassName(BrowserHelper.UserName, SubmitUserText);
-            BrowserHelper.AssertElementByClassName(Author, AuthorText);
-        }
 
         public static void GoToCreate()
         {

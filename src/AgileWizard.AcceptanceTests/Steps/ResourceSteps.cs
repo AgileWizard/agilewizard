@@ -3,6 +3,7 @@ using AgileWizard.AcceptanceTests.PageObject;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using AgileWizard.AcceptanceTests.Data;
+using Xunit;
 
 namespace AgileWizard.AcceptanceTests.Steps
 {
@@ -33,13 +34,20 @@ namespace AgileWizard.AcceptanceTests.Steps
             ResourcePage.Submit();
         }
 
-        /// <summary>
-        /// View resource detail
-        /// </summary>
-        [Then(@"resource details page should be shown")]
-        public void ThenResourceDetailsPageShouldBeShown()
+        [Then(@"current page should be resource details page")]
+        public void ThenCurrentPageShouldBeResourceDetailsPage(Table table)
         {
-            _resourcePage.AssertPage();
+            using (var page = new ResourceDetailsPage())
+            {
+                var data = table.CreateInstance<ResourceData>();
+
+                Assert.True(page.IsCurrentPage());
+                AssertHelper.EqualOrIgnore(data.Title, page.Title);
+                AssertHelper.EqualOrIgnore(data.Author, page.Author);
+                AssertHelper.EqualOrIgnore(data.Content, page.Content);
+                AssertHelper.EqualOrIgnore(data.ReferenceUrl, page.ReferenceUrl);
+                AssertHelper.EqualOrIgnore(data.Tags, page.Tags);
+            }
         }
 
         [Then(@"resource details page title with - '([\w\s]+)' should be shown")]

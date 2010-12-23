@@ -15,7 +15,13 @@ Scenario: Add Simple Resource
 		| Tags 			| Agile,Shanghai					|
 
 	When press submit button
-	Then resource details page should be shown
+	Then current page should be resource details page
+		| Field			| Value								|
+		| Title			| Embeded Video						|
+		| Content		| Modified Content					|
+		| Author		| Daniel							|
+		| ReferenceUrl	| http://www.cnblogs.com/tengzy/	|
+		| Tags 			| Agile,Shanghai					|
 
 Scenario: Edit A Resource
 	Given login already
@@ -29,7 +35,12 @@ Scenario: Edit A Resource
 		| ReferenceUrl	| http://www.cnblogs.com/tengzy/	|
 
 	When press submit button
-	Then resource details page should be shown
+	Then current page should be resource details page
+		| Field			| Value								|
+		| Title			| Embeded Video						|
+		| Content		| Modified Content					|
+		| Author		| Daniel							|
+		| ReferenceUrl	| http://www.cnblogs.com/tengzy/	|
 
 Scenario: Add Resource require login
 	Given no login

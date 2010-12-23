@@ -68,9 +68,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Account.feature</DependentUpon>
     </Compile>
+    <Compile Include="Helper\AssertHelper.cs" />
     <Compile Include="Helper\BrowserHelper.cs" />
     <Compile Include="PageObject\AccountPage.cs" />
     <Compile Include="Helper\RuntimeHelper.cs" />
+    <Compile Include="PageObject\ResourceDetailsPage.cs" />
     <Compile Include="PageObject\ResourcePage.cs" />
     <Compile Include="PageObject\ResourceListPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
