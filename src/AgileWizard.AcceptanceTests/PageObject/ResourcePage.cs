@@ -4,17 +4,17 @@ using Xunit;
 
 namespace AgileWizard.AcceptanceTests.PageObject
 {
-    public class ResoucePage
+    public class ResourcePage
     {
 
 
-        public ResoucePage(string title, string author, string content, string refereneUrl, string tags)
+        public ResourcePage(string title, string author, string content, string refereneUrl, string tags)
         {
             AddResourceBody(title, content, author, refereneUrl);
             AddResoureTag(tags);
         }
 
-        public ResoucePage(string title, string author, string content, string refereneUrl)
+        public ResourcePage(string title, string author, string content, string refereneUrl)
         {
             AddResourceBody(title, content, author, refereneUrl);
         }

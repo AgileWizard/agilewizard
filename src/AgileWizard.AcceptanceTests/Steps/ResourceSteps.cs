@@ -8,31 +8,31 @@ namespace AgileWizard.AcceptanceTests.Steps
     [Binding]
     public class ResourceSteps
     {
-        private ResoucePage _resourcePage;
+        private ResourcePage _resourcePage;
 
         #region Add resource
         [Given(@"open adding-resource page")]
         public void GivenOpenAddingResourcePage()
         {
-           ResoucePage.GoToCreate();
+           ResourcePage.GoToCreate();
         }
 
         [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)' and reference url - '(\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])' and tags - '(.+)'")]
         public void GivenEnterTitleAndContentAndAuthorAndReferenceUrlAndTags(string title, string content, string author, string refereneUrl, string tags)
         {
-            _resourcePage = new ResoucePage(title, author, content, refereneUrl, tags);
+            _resourcePage = new ResourcePage(title, author, content, refereneUrl, tags);
         }
 
         [Given(@"enter title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)' and reference url - '(\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])'")]
         public void GivenEnterTitleAndContentAndAuthorAndReferenceUrl(string title, string content, string author, string refereneUrl)
         {
-            _resourcePage = new ResoucePage(title, author, content, refereneUrl);
+            _resourcePage = new ResourcePage(title, author, content, refereneUrl);
         }
 
         [When(@"press submit button")]
         public void WhenPressSubmitButton()
         {
-            ResoucePage.Submit();
+            ResourcePage.Submit();
         }
 
         /// <summary>
