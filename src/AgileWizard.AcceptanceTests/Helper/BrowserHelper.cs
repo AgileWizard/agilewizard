@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using WatiN.Core;
 using System.Configuration;
 using TechTalk.SpecFlow;
@@ -78,6 +79,14 @@ namespace AgileWizard.AcceptanceTests.Helper
             if (text == null) return;
 
             Browser.TextFields.Single(t => t.Name == field).TypeText(text);
+        }
+
+        public static void InputHtml(string field, string text)
+        {
+            if (text == null) return;
+
+            var id = string.Format("{0}_ifr", field);
+            Browser.Frame(id).Body.SetAttributeValue("innerHTML", text);
         }
 
         public static string ReadText(string field)

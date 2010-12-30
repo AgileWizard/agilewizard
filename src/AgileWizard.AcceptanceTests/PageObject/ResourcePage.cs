@@ -41,7 +41,8 @@ namespace AgileWizard.AcceptanceTests.PageObject
             }
             private set
             {
-                BrowserHelper.InputText(ContentText, value);
+                //BrowserHelper.InputText(ContentText, value);
+                BrowserHelper.InputHtml(ContentText, value);
             }
         }
 

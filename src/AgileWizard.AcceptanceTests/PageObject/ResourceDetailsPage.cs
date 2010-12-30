@@ -29,7 +29,7 @@ namespace AgileWizard.AcceptanceTests.PageObject
         {
             get
             {
-                return BrowserHelper.Browser.Span(x => x.ClassName == "Content").InnerHtml;
+                return BrowserHelper.Browser.Div(x => x.ClassName == "Content").Text;
             }
         }
 
