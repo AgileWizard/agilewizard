@@ -13,22 +13,21 @@
 
         <div id="header">
             <div id="title">
-                <h1>Agile Wizard</h1>
+                <h3>Agile Wizard</h3>
             </div>
               
             <div id="logindisplay">
                 <% Html.RenderPartial("LogOnUserControl"); %>
             </div> 
+        </div>
+        <div id="menucontainer">
             
-            <div id="menucontainer">
+            <ul id="menu">              
+                <li><%: Html.ActionLink(SharedString.HomeLink, "Index", "Home")%></li>
+                <li><%: Html.ActionLink(SharedString.ResourceLink, "Index", "Resource")%></li>
+                <li><%: Html.ActionLink(SharedString.AboutLink, "About", "Home")%></li>
+            </ul>
             
-                <ul id="menu">              
-                    <li><%: Html.ActionLink(SharedString.HomeLink, "Index", "Home")%></li>
-                    <li><%: Html.ActionLink(SharedString.ResourceLink, "Index", "Resource")%></li>
-                    <li><%: Html.ActionLink(SharedString.AboutLink, "About", "Home")%></li>
-                </ul>
-            
-            </div>
         </div>
 
         <div id="main">
