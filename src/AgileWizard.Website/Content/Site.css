@@ -128,6 +128,28 @@ page width. Or, you can specify an exact pixel width. */
     font-size: .9em;
 }
 
+#footertop
+{
+  background-color: #00368F;
+  height: 7px;
+  border-width: 0 0 1px 0;
+  border-color: #FFF;
+  border-style: solid;
+}
+
+#footerbar
+{
+  background-color: #7F7F7F;
+  height: 58px;
+}
+
+#copyrights
+{
+  padding: 17px 0;
+  color: #FFF;
+  font-size: 14px;
+}
+
 /* TAB MENU   
 ----------------------------------------------------------*/
 ul#menu

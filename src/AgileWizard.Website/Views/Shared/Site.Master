@@ -33,7 +33,13 @@
         <div id="main">
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
 
-            <div id="footer">
+        </div>
+
+        <div id="footer">
+            <div id="footertop"></div>
+            <div id="footerbar">
+              <div id="footerlogo"></div>
+              <div id="copyrights">&copy;2011 Agile Wizard. All rights reserved. </div>
             </div>
         </div>
     </div>
