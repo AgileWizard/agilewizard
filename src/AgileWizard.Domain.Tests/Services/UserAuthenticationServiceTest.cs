@@ -18,7 +18,6 @@ namespace AgileWizard.Domain.Tests.Services
         private readonly Mock<IFormsAuthenticationService> _formAuthenticationServiceMock;
 
         private readonly UserAuthenticationService _userAuthenticationServiceSUT;
-        
 
         public UserAuthenticationServiceTest()
         {

@@ -6,9 +6,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
         <%: ResourceString.Resources%></h2>
-    <p>
+        <%if (Request.IsAuthenticated) {%>
+        <p>
         <%: Html.ActionLink(ResourceString.CreateResourceLink, "Create", null, new { @class="link"})%>
-    </p>
+        </p>
+        <%}%>
+
     <p>
         <span class="display-label">
             <%: ResourceString.TotalResourceCount %></span> <span class="totalResourceCount">
@@ -24,7 +27,9 @@
         <% foreach (var item in Model)
            { %>
         <tr>
+        <%if (Request.IsAuthenticated) {%>
             <td class="link"><%: Html.ActionLink(ResourceString.Edit, "Edit", new { id=item.Id }) %></td>
+        <%}%>
             <td class="title"><%: Html.ActionLink(item.Title, "Details", new { id = item.Id })%></td>
             <td class="content"><%: item.Content %></td>
         </tr>
