@@ -10,32 +10,35 @@
 
 <body>
     <div class="page">
-
         <div id="header">
-            <div id="title">
-                <h1>Agile Wizard</h1>
+            <div id="top">
+                <div id="logo"></div>
+                <div id="top_action">
+                    <% Html.RenderPartial("LogOnUserControl"); %>
+                </div>
             </div>
-              
-            <div id="logindisplay">
-                <% Html.RenderPartial("LogOnUserControl"); %>
-            </div> 
-            
-            <div id="menucontainer">
-            
-                <ul id="menu">              
-                    <li><%: Html.ActionLink(SharedString.HomeLink, "Index", "Home")%></li>
-                    <li><%: Html.ActionLink(SharedString.ResourceLink, "Index", "Resource")%></li>
-                    <li><%: Html.ActionLink(SharedString.AboutLink, "About", "Home")%></li>
-                </ul>
-            
+            <div id="header_b">
+                <div id="menu">
+                    <ul id="menulist">              
+                        <li><%: Html.ActionLink(SharedString.HomeLink, "Index", "Home")%></li>
+                        <li><%: Html.ActionLink(SharedString.ResourceLink, "Index", "Resource")%></li>
+                        <li><%: Html.ActionLink(SharedString.AboutLink, "About", "Home")%></li>
+                    </ul>
+                </div>
+                <div id="search"></div>
             </div>
         </div>
 
         <div id="main">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-
-            <div id="footer">
+            <div id="main_left">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
             </div>
+            <div id="main_right">
+                <% Html.RenderPartial("Right"); %>
+            </div>
+        </div>  
+        <div id="footer">
+            <% Html.RenderPartial("Footer"); %>
         </div>
     </div>
 </body>

@@ -92,6 +92,11 @@
     <Compile Include="SessionStateRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\footer_bg.png" />
+    <Content Include="Content\Images\header_bg.png" />
+    <Content Include="Content\Images\home_pic.png" />
+    <Content Include="Content\Images\logo_f.png" />
+    <Content Include="Content\Images\logo_t.png" />
     <Content Include="Content\Resource.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\tiny_mce\jquery.tinymce.js" />
@@ -359,6 +364,8 @@
     <Content Include="Views\Resource\Details.aspx" />
     <Content Include="Views\Resource\Edit.aspx" />
     <Content Include="Views\Resource\Index.aspx" />
+    <Content Include="Views\Shared\Footer.ascx" />
+    <Content Include="Views\Shared\Right.ascx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

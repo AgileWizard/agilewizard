@@ -5,18 +5,18 @@ to use a different color start by replacing all instances of
 ----------------------------------------------------------*/
 body
 {
-    background-color: #5c87b2;
-    font-size: .75em;
-    font-family: Verdana, Helvetica, Sans-Serif;
+    background-color: #ffffff;
+    font-size: 12px;
+    font-family: 微软雅黑, Verdana, 宋体, sans-serif;    
     margin: 0;
     padding: 0;
-    color: #696969;
+    color: #333333;
 }
 
 a:link
 {
-    color: #034af3;
-    text-decoration: underline;
+    color: #2e55a7;
+    text-decoration: none;
 }
 a:visited
 {
@@ -25,7 +25,7 @@ a:visited
 a:hover
 {
     color: #1d60ff;
-    text-decoration: none;
+    text-decoration: underline;
 }
 a:active
 {
@@ -43,8 +43,8 @@ p, ul
 h1, h2, h3, h4, h5, h6
 {
     font-size: 1.5em;
-    color: #000;
-    font-family: Arial, Helvetica, sans-serif;
+    color: #00f;
+    font-family: Arial, 宋体, sans-serif;
 }
 
 h1
@@ -84,98 +84,90 @@ first child of the left and right table columns */
 page width. Or, you can specify an exact pixel width. */
 .page
 {
-    width: 90%;
+    width:100%;
     margin-left: auto;
     margin-right: auto;
 }
 
 #header
 {
+    background-image:url(Images/header_bg.png);
+    background-repeat:repeat-x;
+    height:64px;
     position: relative;
     margin-bottom: 0px;
     color: #000;
     padding: 0;
 }
 
-#header h1
-{
-    font-weight: bold;
-    padding: 5px 0;
-    margin: 0;
-    color: #fff;
-    border: none;
-    line-height: 2em;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 32px !important;
-}
-
 #main
 {
-    padding: 30px 30px 15px 30px;
     background-color: #fff;
-    margin-bottom: 30px;
+    margin:auto;
+    width:1000px;
+    height:100%;
+    overflow:hidden;
     _height: 1px; /* only IE6 applies CSS properties starting with an underscore */
 }
 
 #footer
 {
-    color: #999;
-    padding: 10px 0;
-    text-align: center;
+    color: #fff;
+    padding: 2px 0;
     line-height: normal;
     margin: 0;
     font-size: .9em;
+    background-image:url(Images/footer_bg.png);
+    background-repeat:repeat-x;
+    height:68px;    
 }
 
 /* TAB MENU   
 ----------------------------------------------------------*/
-ul#menu
+ul#menulist
 {
-    border-bottom: 1px #5C87B2 solid;
     padding: 0 0 2px;
     position: relative;
     margin: 0;
-    text-align: right;
+    text-align: left;
 }
 
-ul#menu li
+ul#menulist li
 {
     display: inline;
     list-style: none;
 }
 
-ul#menu li#greeting
+ul#menulist li#greeting
 {
-    padding: 10px 20px;
+    padding: 0px 20px;
     font-weight: bold;
     text-decoration: none;
     line-height: 2.8em;
     color: #fff;
 }
 
-ul#menu li a
+ul#menulist li a
 {
-    padding: 10px 20px;
+    padding: 5px 20px;
     font-weight: bold;
     text-decoration: none;
     line-height: 2.8em;
-    background-color: #e8eef4;
-    color: #034af3;
 }
 
-ul#menu li a:hover
+ul#menulist li a:hover
 {
-    background-color: #fff;
+    background-color: #efefef;
     text-decoration: none;
 }
 
-ul#menu li a:active
+ul#menulist li a:active
 {
     background-color: #a6e2a6;
     text-decoration: none;
 }
 
-ul#menu li.selected a
+ul#menulist li.selected a
 {
     background-color: #fff;
     color: #000;
@@ -250,16 +242,90 @@ table th
     color:Red;
 }
 
-#menucontainer
+div#top
 {
-    margin-top:40px;
+    width:1000px;
+    height:35px;
+    margin:auto;
+}
+div#header_b
+{  
+    width:1000px;
+    height:34px;
+    line-height:34px;
+    vertical-align:middle;
+    margin:auto;
 }
 
-div#title
+div#logo
 {
     display:block;
+    width:131px;
+    height:35px;
     float:left;
+    background-image:url(images/logo_t.png);
+    background-repeat:no-repeat;
+}
+div#top_action
+{
+    float:right;
     text-align:left;
+    vertical-align:middle;
+    line-height:30px;
+}
+div#menu
+{
+    float:none;
+}
+
+div#search
+{
+        
+}
+
+div#main_left
+{
+    float:left;
+    width:702px;
+    margin:3px 3px;
+    height:100%;
+    overflow:hidden;
+}
+
+div#main_right
+{
+    float:right;
+    background-color:#d9d9d9;
+    width:292px;
+    overflow:hidden;
+    height:540px;
+}
+
+div#footer_container
+{
+    width:1000px;
+    height:26px;
+    margin:auto;
+    line-height:26px;
+    margin-top:20px;
+    clear:both;
+}
+
+div#footer_logo
+{
+    background-image:url(images/logo_f.png);
+    background-repeat:no-repeat;
+    width:110px;
+    height:26px;
+    float:left;
+}
+
+div#copyright
+{
+    background-repeat:no-repeat;
+    float:right;
+    padding-right:15px;
+    margin-right:15px;
 }
 
 #logindisplay

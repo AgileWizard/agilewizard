@@ -3,10 +3,12 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     <%: HomeString.IndexTitle %>
 </asp:Content>
-
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2><%: HomeString.Welecome %></h2>
+    <div style="margin-left:8px;">
+        <img src="../../Content/Images/home_pic.png" alt="" align=middle />
+    </div>
+    <h2>
+        <%: HomeString.Welecome %></h2>
     <p>
-        
     </p>
 </asp:Content>
