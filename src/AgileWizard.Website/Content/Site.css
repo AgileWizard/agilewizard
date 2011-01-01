@@ -1,76 +1,80 @@
-﻿
+﻿*
+{
+	padding: 0;
+	margin: 0;
+}
 body
 {
-    background-color: White;
-    font-size: .75em;
-    font-family: 微软雅黑, arial, 宋体, sans-serif;
-    margin: 0;
-    padding: 0;
-    color: #696969;
+	background-color: White;
+	font-size: .75em;
+	font-family: 微软雅黑, arial, 宋体, sans-serif;
+	margin: 0;
+	padding: 0;
+	color: #696969;
 }
 
 a:link
 {
-    color: #034af3;
-    text-decoration: underline;
+	color: #034af3;
+	text-decoration: underline;
 }
 a:visited
 {
-    color: #505abc;
+	color: #505abc;
 }
 a:hover
 {
-    color: #1d60ff;
-    text-decoration: none;
+	color: #1d60ff;
+	text-decoration: none;
 }
 a:active
 {
-    color: #12eb87;
+	color: #12eb87;
 }
 
 p, ul
 {
-    margin-bottom: 20px;
-    line-height: 1.6em;
+	margin-bottom: 20px;
+	line-height: 1.6em;
 }
 
 /* HEADINGS   
 ----------------------------------------------------------*/
 h1, h2, h3, h4, h5, h6
 {
-    font-size: 1.5em;
-    color: #000;
-    font-family: Arial, Helvetica, sans-serif;
+	font-size: 1.5em;
+	color: #000;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 h1
 {
-    font-size: 2em;
-    padding-bottom: 0;
-    margin-bottom: 0;
+	font-size: 2em;
+	padding-bottom: 0;
+	margin-bottom: 0;
 }
 h2
 {
-    padding: 0 0 10px 0;
+	padding: 0 0 10px 0;
 }
 h3
 {
-    font-size: 1.2em;
+	font-size: 1.2em;
 }
 h4
 {
-    font-size: 1.1em;
+	font-size: 1.1em;
 }
 h5, h6
 {
-    font-size: 1em;
+	font-size: 1em;
 }
 
 /* this rule styles <h2> tags that are the 
 first child of the left and right table columns */
 .rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2
 {
-    margin-top: 0;
+	margin-top: 0;
 }
 
 /* PRIMARY LAYOUT ELEMENTS   
@@ -80,97 +84,107 @@ first child of the left and right table columns */
 page width. Or, you can specify an exact pixel width. */
 .page
 {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+div.center
+{
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+	height: 100%;
 }
 
 #header
 {
-    position: relative;
-    margin-bottom: 0px;
-    color: #000;
-    padding: 0;
-    width: 100%;
-    background-color: #ACC5E4;
-    height: 34px;
-    border-bottom: 1px solid #012794;
-    border-top: 2px solid #87A5D7;
+	position: relative;
+	margin-bottom: 0px;
+	color: #000;
+	padding: 0;
+	width: 100%;
+	background-color: #ACC5E4;
+	height: 34px;
+	border-bottom: 1px solid #012794;
+	border-top: 2px solid #87A5D7;
+	text-align: center;
 }
 
 #header h1
 {
-    font-weight: bold;
-    padding: 5px 0;
-    margin: 0;
-    color: #fff;
-    border: none;
-    line-height: 2em;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 32px !important;
+	font-weight: bold;
+	padding: 5px 0;
+	margin: 0;
+	color: #fff;
+	border: none;
+	line-height: 2em;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 32px !important;
 }
 
 #main
 {
-    padding: 30px 30px 15px 30px;
-    background-color: #fff;
-    margin-bottom: 30px;
-    _height: 1px; /* only IE6 applies CSS properties starting with an underscore */
+	padding: 30px 30px 15px 30px;
+	background-color: #fff;
+	margin-bottom: 30px;
+	_height: 1px; /* only IE6 applies CSS properties starting with an underscore */
+	text-align: center;
 }
 
 #footer
 {
-    color: #999;
-    padding: 10px 0;
-    text-align: center;
-    line-height: normal;
-    margin: 0;
-    font-size: .9em;
+	color: #999;
+	padding: 10px 0;
+	text-align: center;
+	line-height: normal;
+	margin: 0;
+	font-size: .9em;
 }
 
 /* TAB MENU   
 ----------------------------------------------------------*/
 ul#menu
 {
-    border-bottom: 1px White solid;
-    padding: 0;
-    margin: 0;
+	border-bottom: 1px White solid;
+	padding: 0;
+	margin: 0;
+	float: left;
 }
 
 ul#menu li
 {
-    display: inline;
-    list-style: none;
-    padding:0;
-    margin:0;
+	display: inline;
+	list-style: none;
+	padding:0;
+	margin:0;
 }
 
 ul#menu li a
 {
-    padding: 5px;
-    font-weight: bold;
-    text-decoration: none;
-    line-height: 2.8em;
-    background-color: #e8eef4;
-    color: #034af3;
+	padding: 5px 25px 5px 25px;
+	text-decoration: none;
+	line-height: 2.8em;
+	color:Black;
+	border-right: 1px solid #ECECEC;
 }
 
 ul#menu li a:hover
 {
-    background-color: #fff;
-    text-decoration: none;
+	background-color: #EFEFEF;
+	text-decoration: none;
 }
 
 ul#menu li a:active
 {
-    background-color: #a6e2a6;
-    text-decoration: none;
+	text-decoration: none;
 }
 
 ul#menu li.selected a
 {
-    background-color: #fff;
-    color: #000;
+	background-color: #EFEFEF;
+	color: #000;
 }
 
 /* FORM LAYOUT ELEMENTS   
@@ -178,33 +192,33 @@ ul#menu li.selected a
 
 fieldset 
 {
-    margin: 1em 0;
-    padding: 1em;
-    border: 1px solid #CCC;
+	margin: 1em 0;
+	padding: 1em;
+	border: 1px solid #CCC;
 }
 
 fieldset p 
 {
-    margin: 2px 12px 10px 10px;
+	margin: 2px 12px 10px 10px;
 }
 
 legend 
 {
-    font-size: 1.1em;
-    font-weight: 600;
-    padding: 2px 4px 8px 4px;
+	font-size: 1.1em;
+	font-weight: 600;
+	padding: 2px 4px 8px 4px;
 }
 
 input[type="text"] 
 {
-    width: 200px;
-    border: 1px solid #CCC;
+	width: 200px;
+	border: 1px solid #CCC;
 }
 
 input[type="password"] 
 {
-    width: 200px;
-    border: 1px solid #CCC;
+	width: 200px;
+	border: 1px solid #CCC;
 }
 
 /* TABLE
@@ -234,82 +248,85 @@ table th
 ----------------------------------------------------------*/
 .clear
 {
-    clear: both;
+	clear: both;
 }
 
 .error
 {
-    color:Red;
+	color:Red;
 }
 
 #menucontainer
 {
 	background-color: #F9F9F9;
 	width: 100%;
-	height: 32px;
+	height: 34px;
+	border-bottom: 1px solid #E5E5E5;
+	padding: 0;
+	text-align: center;
 }
 
 div#title
 {
-    display:block;
-    float:left;
-    text-align:left;
+	display:block;
+	float:left;
+	text-align:left;
 }
 
 #logindisplay
 {
-    font-size:1.1em;
-    display:block;
-    text-align:right;
-    margin:10px;
-    color:White;
+	font-size:1.1em;
+	display:block;
+	text-align:right;
+	margin:10px;
+	color:White;
 }
 
 #logindisplay a:link
 {
-    color: white;
-    text-decoration: underline;
+	color: white;
+	text-decoration: underline;
 }
 
 #logindisplay a:visited
 {
-    color: white;
-    text-decoration: underline;
+	color: white;
+	text-decoration: underline;
 }
 
 #logindisplay a:hover
 {
-    color: white;
-    text-decoration: none;
+	color: white;
+	text-decoration: none;
 }
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error
 {
-    color: #ff0000;
+	color: #ff0000;
 }
 
 .field-validation-valid
 {
-    display: none;
+	display: none;
 }
 
 .input-validation-error
 {
-    border: 1px solid #ff0000;
-    background-color: #ffeeee;
+	border: 1px solid #ff0000;
+	background-color: #ffeeee;
 }
 
 .validation-summary-errors
 {
-    font-weight: bold;
-    color: #ff0000;
+	font-weight: bold;
+	color: #ff0000;
 }
 
 .validation-summary-valid
 {
-    display: none;
+	display: none;
 }
 
 /* Styles for editor and display helpers
@@ -319,47 +336,47 @@ div#title
 .display-field,
 .editor-field
 {
-    margin: 0.5em 0;
+	margin: 0.5em 0;
 }
 
 .text-box
 {
-    width: 30em;
+	width: 30em;
 }
 
 .text-box.multi-line
 {
-    height: 6.5em;
+	height: 6.5em;
 }
 
 .tri-state
 {
-    width: 6em;
+	width: 6em;
 }
 
 
 /*
-    stylesheet for resource detail list (temporary solution)
+	stylesheet for resource detail list (temporary solution)
 */
 .link
 {
-    width: 25px;
-    text-align:center;
+	width: 25px;
+	text-align:center;
 }
-    
+	
 .title
 {
-    width: 200px;
-    overflow: hidden;
+	width: 200px;
+	overflow: hidden;
 }
-    
+	
 .content
 {
-    line-height:normal;
+	line-height:normal;
 }
-    
+	
 table.contentList
 {
-    width: 100%;
-    padding: 2px;
+	width: 100%;
+	padding: 2px;
 }
