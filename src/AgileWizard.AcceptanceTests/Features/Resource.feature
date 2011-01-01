@@ -47,6 +47,12 @@ Scenario: Add Resource require login
 	And open adding-resource page
 	Then login page should be open
 
+@Ignore
+Scenario: Not able to see Add and Edit link if no login
+	Given no login
+	And open resource list page
+	Then add and edit link should not be shown
+
 Scenario: View Resource Detail
 	Given open resource list page
 	When open a resource titled with 'Embeded Video'

@@ -125,5 +125,14 @@ namespace AgileWizard.AcceptanceTests.Helper
         {
             Assert.Equal(expected, Browser.Element(x => x.ClassName == elementClassName).Text.Trim());
         }
+
+        public static void AssertElementByClassNameNotExist(string expected, string elementClassName)
+        {
+            var linkElements = from element in Browser.Elements
+                               where element.ClassName == elementClassName
+                               select element;
+            foreach (var linkElement in linkElements)
+                Assert.NotEqual(expected, linkElement.Text.Trim());
+        }
     }
 }

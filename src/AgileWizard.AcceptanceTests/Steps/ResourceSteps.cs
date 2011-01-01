@@ -90,6 +90,13 @@ namespace AgileWizard.AcceptanceTests.Steps
         {
             ResourceListPage.AssertTotalResourceCount();
         }
+
+        [Then(@"add and edit link should not be shown")]
+        public void ThenAddAndEditLinkShouldNotBeShown()
+        {
+            ResourceListPage.AssertAddAndEditLinkNotShown();
+        }
+
         #endregion
 
         #region Resource List Culture

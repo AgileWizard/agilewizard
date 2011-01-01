@@ -2,6 +2,8 @@
 {
     public interface IUserAuthenticationService
     {
-        bool IsMatch(string userName, string password);
+        bool IsAuthenticated { get; }
+        bool SignIn(string userName, string password, bool rememberMe);
+        void SignOut();
     }
 }

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using AgileWizard.Domain.Repositories;
+﻿using System.Web.Mvc;
 
-namespace AgileWizard.Website
+namespace AgileWizard.Website.Attributes
 {
     public class RequireAuthentication : ActionFilterAttribute
     {

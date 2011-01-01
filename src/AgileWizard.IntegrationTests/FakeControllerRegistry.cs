@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using AgileWizard.Data;
+using AgileWizard.Domain.Services;
+using AgileWizard.Domain.Users;
 using StructureMap.Configuration.DSL;
 using AgileWizard.Website.Models;
 using AgileWizard.Domain.Repositories;
-using AgileWizard.Domain.Users;
 
 namespace AgileWizard.IntegrationTests
 {
@@ -14,7 +12,7 @@ namespace AgileWizard.IntegrationTests
         public FakeControllerRegistry()
         {
             For<IFormsAuthenticationService>().Use<FakeFormsAuthenticationService>();
-            For<ISessionStateRepository>().Use<FakeSessoinStateRepository>();
+            For<ISessionStateRepository>().Use<FakeSessoinStateRepository>().SetProperty(x=>x.CurrentUser = User.DefaultUser());
 
         }
 
@@ -33,28 +31,6 @@ namespace AgileWizard.IntegrationTests
             }
 
             #endregion
-        }
-
-        public class FakeSessoinStateRepository : ISessionStateRepository
-        {
-            private Dictionary<string, object> _dic = new Dictionary<string, object>();
-            public User CurrentUser
-            {
-                get { return new User { UserName = "agilewizard" }; }
-                set { }
-            }
-
-            public object this[string name]
-            {
-                get
-                {
-                    return _dic[name];
-                }
-                set
-                {
-                    _dic[name] = value;
-                }
-            }
         }
     }
 }

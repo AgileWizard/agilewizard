@@ -57,6 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ResourceRepository.cs" />
     <Compile Include="Resources\Tag.cs" />
+    <Compile Include="Services\IFormsAuthenticationService.cs" />
     <Compile Include="Services\IResourceService.cs" />
     <Compile Include="Services\IUserAuthenticationService.cs" />
     <Compile Include="Services\ResourceService.cs" />

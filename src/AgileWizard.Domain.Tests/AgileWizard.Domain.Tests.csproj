@@ -57,6 +57,10 @@
     <Compile Include="Entities\UserTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AgileWizard.Data\AgileWizard.Data.csproj">
+      <Project>{81A89F80-3164-463C-8B13-6339627C6571}</Project>
+      <Name>AgileWizard.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AgileWizard.Domain\AgileWizard.Domain.csproj">
       <Project>{FB09A149-71B0-4ECA-9231-C739ABA2625D}</Project>
       <Name>AgileWizard.Domain</Name>

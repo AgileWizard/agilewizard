@@ -7,7 +7,7 @@
     <h2>
         <%: ResourceString.Resources%></h2>
     <p>
-        <%: Html.ActionLink(ResourceString.CreateResourceLink, "Create", null, new { @class="createNewResource"})%>
+        <%: Html.ActionLink(ResourceString.CreateResourceLink, "Create", null, new { @class="link"})%>
     </p>
     <p>
         <span class="display-label">

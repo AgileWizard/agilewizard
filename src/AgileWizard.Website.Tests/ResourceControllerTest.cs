@@ -60,7 +60,7 @@ namespace AgileWizard.Website.Tests
         public void when_add_resource()
         {
             //Arrange
-            _sessionStateRepository.Setup(s => s.CurrentUser).Returns(User.EmptyUser());
+            _sessionStateRepository.Setup(s => s.CurrentUser).Returns(User.DefaultUser());
 
             ResourceRepositoryWillBeCalled();
 
@@ -120,8 +120,8 @@ namespace AgileWizard.Website.Tests
         public void post_edit_action_should_get_original_resource_and_update_it()
         {
             //Arrange
-            _sessionStateRepository.Setup(s => s.CurrentUser).Returns(User.EmptyUser());
-            _resourceService.Setup(s => s.UpdateResource(ID, It.Is<Resource>(r => r.Title == TITLE && r.Content == CONTENT && r.Author == AUTHOR && r.ReferenceUrl == REFERENCE_URL && r.SubmitUser == User.EmptyUser().UserName))).Verifiable();
+            _sessionStateRepository.Setup(s => s.CurrentUser).Returns(User.DefaultUser());
+            _resourceService.Setup(s => s.UpdateResource(ID, It.Is<Resource>(r => r.Title == TITLE && r.Content == CONTENT && r.Author == AUTHOR && r.ReferenceUrl == REFERENCE_URL && r.SubmitUser == User.DefaultUser().UserName))).Verifiable();
 
             //Act
             var actionResult = resourceControllerSUT.Edit(ID, _resourceModel);

@@ -191,19 +191,38 @@ this.ScenarioSetup(scenarioInfo);
             testRunner.CollectScenarioErrors();
         }
         
+        [Xunit.FactAttribute(Skip="Ignored")]
+        [Xunit.TraitAttribute("FeatureTitle", "Resource")]
+        [Xunit.TraitAttribute("Description", "Not able to see Add and Edit link if no login")]
+        public virtual void NotAbleToSeeAddAndEditLinkIfNoLogin()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Not able to see Add and Edit link if no login", new string[] {
+                        "Ignore"});
+#line 51
+this.ScenarioSetup(scenarioInfo);
+#line 52
+ testRunner.Given("no login");
+#line 53
+ testRunner.And("open resource list page");
+#line 54
+ testRunner.Then("add and edit link should not be shown");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
         [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "Resource")]
         [Xunit.TraitAttribute("Description", "View Resource Detail")]
         public virtual void ViewResourceDetail()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View Resource Detail", ((string[])(null)));
-#line 50
+#line 56
 this.ScenarioSetup(scenarioInfo);
-#line 51
+#line 57
  testRunner.Given("open resource list page");
-#line 52
+#line 58
  testRunner.When("open a resource titled with \'Embeded Video\'");
-#line 53
+#line 59
  testRunner.Then("resource details page title with - \'Embeded Video\' should be shown");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -215,13 +234,13 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void ViewResourceList()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View Resource List", ((string[])(null)));
-#line 55
+#line 61
 this.ScenarioSetup(scenarioInfo);
-#line 56
+#line 62
  testRunner.Given("login already");
-#line 57
+#line 63
  testRunner.And("open resource list page");
-#line 58
+#line 64
  testRunner.Then("resoure list page should be in current culture");
 #line hidden
             testRunner.CollectScenarioErrors();

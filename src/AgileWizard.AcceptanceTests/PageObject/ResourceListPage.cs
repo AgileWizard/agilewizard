@@ -1,4 +1,5 @@
-﻿using AgileWizard.AcceptanceTests.Helper;
+﻿using System;
+using AgileWizard.AcceptanceTests.Helper;
 using AgileWizard.Locale.Resources.Models;
 using AgileWizard.Locale.Resources.Views;
 using Xunit;
@@ -11,7 +12,7 @@ namespace AgileWizard.AcceptanceTests.PageObject
         private const string _listContent = "listContent";
         private const string _listTitle = "listTitle";
         private const string _displayLabel = "display-label";
-        private const string _createNewResource = "createNewResource";
+        private const string _createNewResource = "link";
         private const string _totalResourceCount = "totalResourceCount";
 
         public static void GoToPage()
@@ -47,6 +48,12 @@ namespace AgileWizard.AcceptanceTests.PageObject
 
             BrowserHelper.AssertElementByIDOrName(ResourceName.Title, _listTitle);
 
-            BrowserHelper.AssertElementByIDOrName(ResourceName.Content, _listContent);        }
+            BrowserHelper.AssertElementByIDOrName(ResourceName.Content, _listContent);
+        }
+
+        public static void AssertAddAndEditLinkNotShown()
+        {
+            BrowserHelper.AssertElementByClassNameNotExist(ResourceString.CreateResourceLink, _createNewResource);
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using AgileWizard.Domain.Resources;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
+using AgileWizard.Website.Attributes;
 using AgileWizard.Website.Models;
 using Raven.Client;
 using AgileWizard.Website.Helper;

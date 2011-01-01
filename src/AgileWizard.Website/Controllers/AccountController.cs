@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using AgileWizard.Domain.Services;
 using AgileWizard.Website.Models;
-using AgileWizard.Domain;
 using AgileWizard.Domain.Repositories;
 
 namespace AgileWizard.Website.Controllers
@@ -10,14 +9,12 @@ namespace AgileWizard.Website.Controllers
     [HandleError]
     public class AccountController : MvcControllerBase
     {
-        private IFormsAuthenticationService FormsService { get; set; }
         private IUserAuthenticationService UserAuthenticationService { get; set; }
 
-        public AccountController(IUserAuthenticationService uerAuthenticationService, IFormsAuthenticationService formsService, ISessionStateRepository sessionStateRepository)
+        public AccountController(IUserAuthenticationService uerAuthenticationService, ISessionStateRepository sessionStateRepository)
             : base(sessionStateRepository)
         {
             UserAuthenticationService = uerAuthenticationService;
-            FormsService = formsService;
         }
 
         public ActionResult LogOn()
@@ -30,17 +27,8 @@ namespace AgileWizard.Website.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (UserAuthenticationService.IsMatch(model.UserName, model.Password))
+                if (UserAuthenticationService.SignIn(model.UserName, model.Password, model.RememberMe))
                 {
-                    FormsService.SignIn(model.UserName, model.RememberMe);
-
-                    this.SessionStateRepository.CurrentUser = new Domain.Users.User
-                    {
-                        UserName = model.UserName,
-                        Password = model.Password
-                    };
-
-
                     return RedirectToAction("Index", "Home");
                 }
                 ShowLoginError();
@@ -56,9 +44,7 @@ namespace AgileWizard.Website.Controllers
 
         public ActionResult LogOff()
         {
-            FormsService.SignOut();
-
-            this.SessionStateRepository.CurrentUser = null;
+            UserAuthenticationService.SignOut();
 
             return RedirectToAction("Index", "Home");
         }

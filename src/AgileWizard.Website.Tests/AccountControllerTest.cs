@@ -1,6 +1,5 @@
 ﻿using AgileWizard.Domain.Services;
 using Xunit;
-using AgileWizard.Domain;
 using Moq;
 using AgileWizard.Website.Models;
 using AgileWizard.Website.Controllers;
@@ -13,10 +12,10 @@ namespace AgileWizard.Website.Tests
         private const string _userName = "agilewizard";
         private const string _password = "thepassword";
         private readonly Mock<IUserAuthenticationService> _userAuthenticationService;
-        private readonly Mock<IFormsAuthenticationService> _formsService;
         private readonly Mock<ISessionStateRepository> _sessionStateRepository;
         private readonly LogOnModel _logOnModel;
         private readonly AccountController _accountControllerSUT;
+        private const bool _rememberMe = false;
 
         public AccountControllerTest()
         {
@@ -30,18 +29,14 @@ namespace AgileWizard.Website.Tests
             _userAuthenticationService = new Mock<IUserAuthenticationService>();
             _sessionStateRepository = new Mock<ISessionStateRepository>();
 
-            _formsService = new Mock<IFormsAuthenticationService>();
-
-            _accountControllerSUT = new AccountController(_userAuthenticationService.Object, _formsService.Object, _sessionStateRepository.Object);
+            _accountControllerSUT = new AccountController(_userAuthenticationService.Object, _sessionStateRepository.Object);
         }
 
         [Fact]
-        public void logon_success_should_call_formsservice_to_signin()
+        public void call_userauthenticationservice_when_signin()
         {
             // arrange
             SetUpSuccessfulExpectationOnUserAuthentication();
-
-            FromsServideSginInWillBeCalled();
 
             // act
             VerifyOnControllerSUTAction();
@@ -53,10 +48,18 @@ namespace AgileWizard.Website.Tests
             // arrange
             SetUpFailureExpectationOnUserAuthentication();
 
-            FromsServideSginInWillNotBeCalled();
-
             // act
             VerifyOnControllerSUTAction();
+        }
+
+        [Fact]
+        public void logoff_should_call_userauthentication_to_signout()
+        {
+            _userAuthenticationService.Setup(x=>x.SignOut()).Verifiable();
+
+            _accountControllerSUT.LogOff();
+
+            _userAuthenticationService.VerifyAll();
         }
 
         private void SetUpSuccessfulExpectationOnUserAuthentication()
@@ -71,17 +74,7 @@ namespace AgileWizard.Website.Tests
 
         private void SetUpExpectationOnUserAuthentication(bool expectation)
         {
-            _userAuthenticationService.Setup(x => x.IsMatch(_userName, _password)).Returns(expectation);
-        }
-
-        private void FromsServideSginInWillBeCalled()
-        {
-            _formsService.Setup(x => x.SignIn(_userName, false)).Verifiable();
-        }
-
-        private void FromsServideSginInWillNotBeCalled()
-        {
-            _formsService.Verify(x => x.SignIn(_userName, false), Times.Never());
+            _userAuthenticationService.Setup(x => x.SignIn(_userName, _password, _rememberMe)).Returns(expectation);
         }
 
         private void VerifyOnControllerSUTAction()
@@ -95,7 +88,6 @@ namespace AgileWizard.Website.Tests
         private void VerifyServiceExpectations()
         {
             _userAuthenticationService.VerifyAll();
-            _formsService.VerifyAll();
         }
     }
 }
