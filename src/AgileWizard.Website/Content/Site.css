@@ -133,6 +133,18 @@ div.center
 	text-align: center;
 }
 
+#main .mainbar
+{
+    float: left;
+    width: 708px;
+}
+
+#main .sidebar
+{
+    float: right;
+    width: 292px;
+}
+
 #footer
 {
 	color: #999;

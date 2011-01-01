@@ -36,7 +36,11 @@
         </div>
         <div id="main">
             <div class="center">
-                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+                <div class="mainbar">
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+                </div>
+                <div class="sidebar">
+                </div>
             </div>
         </div>
 
