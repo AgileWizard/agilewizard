@@ -83,7 +83,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helper\EditorExtensions.cs" />
     <Compile Include="Helper\TagsHelper.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\ResourceModels.cs" />
@@ -365,6 +364,7 @@
     <Content Include="Views\Resource\Edit.aspx" />
     <Content Include="Views\Resource\Index.aspx" />
     <Content Include="Views\Shared\Footer.ascx" />
+    <Content Include="Views\Shared\HtmlEditor.ascx" />
     <Content Include="Views\Shared\Right.ascx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

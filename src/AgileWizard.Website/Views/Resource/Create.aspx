@@ -3,6 +3,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     <%: ResourceString.CreateResourceTitle %>
 </asp:Content>
+
+<asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptContent" runat="server">
+    <% Html.RenderPartial("HtmlEditor"); %>
+</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
         <%: ResourceString.Create %></h2>
@@ -36,7 +41,7 @@
             <%: Html.LabelFor(m => m.Content) %>
         </div>
         <div class="editor-field">
-            <%: Html.HtmlEditorFor(m => m.Content, new {rows=15, cols=60, Class="tinymce" })%>
+            <%: Html.TextAreaFor(m => m.Content, new {rows=15, cols=60, Class="tinymce" })%>
             <%: Html.ValidationMessageFor(m => m.Content)%>
         </div>
         <div class="editor-label">

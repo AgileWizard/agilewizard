@@ -1,62 +1,63 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<AgileWizard.Website.Models.ResourceModel>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	<%: ResourceString.EditResourceTitle %>
+    <%: ResourceString.EditResourceTitle %>
+</asp:Content>
+
+<asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptContent" runat="server">
+    <% Html.RenderPartial("HtmlEditor"); %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-	<h2><%: ResourceString.EditResourceTitle %></h2>
-	<% Html.EnableClientValidation(); %>
-	<% using (Html.BeginForm()) {%>
-		
-		<fieldset>
-			<legend><%: ResourceString.EditResourceTitle %></legend>
-		   
-			<div class="editor-label">
-				<%: Html.LabelFor(m => m.Title) %>
-			</div>
-			<div class="editor-field">
-				<%: Html.TextBoxFor(m => m.Title) %>
-				<%: Html.ValidationMessageFor(m => m.Title) %>
-			</div>
-			<div class="editor-label">
-				<%: Html.LabelFor(m => m.Author) %>
-			</div>
-			<div class="editor-field">
-				<%: Html.TextBoxFor(m => m.Author)%>
-				<%: Html.ValidationMessageFor(m => m.Author)%>
-			</div>
-			 <div class="editor-label">
-			<%: Html.LabelFor(m => m.ReferenceUrl) %>
-			</div>
-			<div class="editor-field">
-				<%: Html.TextBoxFor(m => m.ReferenceUrl) %>
-				<%: Html.ValidationMessageFor(m => m.ReferenceUrl) %>
-			</div>
-			<div class="editor-label">
-				<%: Html.LabelFor(m => m.Tags) %>
-			</div>
-			<div class="editor-field">
-				<%: Html.TextBoxFor(m => m.Tags)%>
-				<%: Html.ValidationMessageFor(m => m.Tags)%>
-			</div>
-			<div class="editor-label">
-				<%: Html.LabelFor(m => m.Content) %>
-			</div>
-			<div class="editor-field">
-				<%: Html.HtmlEditorFor(m => m.Content, new { rows = 15, cols = 60, Class = "tinymce" })%>
-				<%: Html.ValidationMessageFor(m => m.Content)%>
-			</div>
-			<p>
-				<input type="submit" value="<%: ResourceString.Save %>" />
-			</p>
-		</fieldset>
-
-	<% } %>
-
-	<div>
-		<%: Html.ActionLink(ResourceString.BackToResources, "Index") %>
-	</div>
-
+    <h2>
+        <%: ResourceString.EditResourceTitle %></h2>
+    <% Html.EnableClientValidation(); %>
+    <% using (Html.BeginForm())
+       {%>
+    <fieldset>
+        <legend>
+            <%: ResourceString.EditResourceTitle %></legend>
+        <div class="editor-label">
+            <%: Html.LabelFor(m => m.Title) %>
+        </div>
+        <div class="editor-field">
+            <%: Html.TextBoxFor(m => m.Title) %>
+            <%: Html.ValidationMessageFor(m => m.Title) %>
+        </div>
+        <div class="editor-label">
+            <%: Html.LabelFor(m => m.Author) %>
+        </div>
+        <div class="editor-field">
+            <%: Html.TextBoxFor(m => m.Author)%>
+            <%: Html.ValidationMessageFor(m => m.Author)%>
+        </div>
+        <div class="editor-label">
+            <%: Html.LabelFor(m => m.ReferenceUrl) %>
+        </div>
+        <div class="editor-field">
+            <%: Html.TextBoxFor(m => m.ReferenceUrl) %>
+            <%: Html.ValidationMessageFor(m => m.ReferenceUrl) %>
+        </div>
+        <div class="editor-label">
+            <%: Html.LabelFor(m => m.Tags) %>
+        </div>
+        <div class="editor-field">
+            <%: Html.TextBoxFor(m => m.Tags)%>
+            <%: Html.ValidationMessageFor(m => m.Tags)%>
+        </div>
+        <div class="editor-label">
+            <%: Html.LabelFor(m => m.Content) %>
+        </div>
+        <div class="editor-field">
+            <%: Html.TextAreaFor(m => m.Content, new { rows = 15, cols = 60, Class = "tinymce" })%>
+            <%: Html.ValidationMessageFor(m => m.Content)%>
+        </div>
+        <p>
+            <input type="submit" value="<%: ResourceString.Save %>" />
+        </p>
+    </fieldset>
+    <% } %>
+    <div>
+        <%: Html.ActionLink(ResourceString.BackToResources, "Index") %>
+    </div>
 </asp:Content>
-
