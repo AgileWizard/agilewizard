@@ -78,7 +78,7 @@ namespace AgileWizard.AcceptanceTests.Helper
         {
             if (text == null) return;
 
-            Browser.TextFields.Single(t => t.Name == field).TypeText(text);
+            Browser.TextFields.Single(t => t.Name == field).SetAttributeValue("value", text);
         }
 
         public static void InputHtml(string field, string text)
