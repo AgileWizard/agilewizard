@@ -19,8 +19,9 @@
     </p>
     <table class="contentList">
         <tr>
-            <th class="link">
-            </th>
+        <%if (Request.IsAuthenticated){%>
+            <th class="link"></th>
+        <%} %>
             <th id="listTitle"><%: ResourceName.Title%></th>
             <th id="listContent"><%: ResourceName.Content%></th>
         </tr>
