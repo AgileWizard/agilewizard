@@ -107,7 +107,6 @@ page width. Or, you can specify an exact pixel width. */
     width:1000px;
     height:100%;
     overflow:hidden;
-    _height: 1px; /* only IE6 applies CSS properties starting with an underscore */
 }
 
 #footer
@@ -290,6 +289,7 @@ div#main_left
     margin:3px 3px;
     height:100%;
     overflow:hidden;
+    _margin:0px;
 }
 
 div#main_right
