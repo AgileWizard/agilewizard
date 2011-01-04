@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using AgileWizard.Domain.Repositories;
-using AgileWizard.Domain.Resources;
+using AgileWizard.Domain.Models;
 using AgileWizard.Website.Controllers;
 using AgileWizard.Website.Models;
 using StructureMap;
@@ -83,7 +83,7 @@ namespace AgileWizard.IntegrationTests.Steps
             [Given(@"there is a resource")]
             public void GivenThereIsAResource(Table table)
             {
-                var resource = table.CreateInstance<Domain.Resources.Resource>();
+                var resource = table.CreateInstance<Domain.Models.Resource>();
                 foreach (var row in table.Rows)
                 {
                     if (row["Field"] == "Tags")
@@ -101,7 +101,7 @@ namespace AgileWizard.IntegrationTests.Steps
             public void WhenModifyTheResource(Table table)
             {
                 var resourceModel = table.CreateInstance<ResourceModel>();
-                var resource = ScenarioContext.Current[EXISTING_RESOURCE_KEY] as Domain.Resources.Resource;
+                var resource = ScenarioContext.Current[EXISTING_RESOURCE_KEY] as Domain.Models.Resource;
                 var id = resource.Id.Substring(10);
                 var controller = ObjectFactory.GetInstance<ResourceController>();
                 var actionResult = controller.Edit(id, resourceModel);
@@ -122,7 +122,7 @@ namespace AgileWizard.IntegrationTests.Steps
                 var actionResult = ScenarioContext.Current[ACTION_RESULT_KEY] as ViewResult;
                 var resourceRepository = ObjectFactory.GetInstance<IResourceRepository>();
                 var actualResource = actionResult.ViewData.Model as ResourceModel;
-                var existingResource = ScenarioContext.Current[EXISTING_RESOURCE_KEY] as Domain.Resources.Resource;
+                var existingResource = ScenarioContext.Current[EXISTING_RESOURCE_KEY] as Domain.Models.Resource;
 
                 Assert.Equal(actualResource.Title, existingResource.Title);
                 Assert.Equal(actualResource.Content, existingResource.Content);
@@ -135,7 +135,7 @@ namespace AgileWizard.IntegrationTests.Steps
             public void WhenOpenTheResourceToEdit()
             {
                 var controller = ObjectFactory.GetInstance<ResourceController>();
-                var resource = ScenarioContext.Current[EXISTING_RESOURCE_KEY] as Domain.Resources.Resource;
+                var resource = ScenarioContext.Current[EXISTING_RESOURCE_KEY] as Domain.Models.Resource;
                 var id = resource.Id.Substring(10);
                 var actionResult = controller.Edit(id);
                 ScenarioContext.Current[ACTION_RESULT_KEY] = actionResult;

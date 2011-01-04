@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Xunit;
 using AgileWizard.Website.Helper;
-using AgileWizard.Domain.Resources;
+using AgileWizard.Domain.Models;
 
 namespace AgileWizard.Website.Tests
 {

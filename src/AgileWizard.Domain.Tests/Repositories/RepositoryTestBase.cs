@@ -1,7 +1,7 @@
 ﻿using Moq;
 using Raven.Client;
 using AgileWizard.Domain.Repositories;
-using AgileWizard.Domain.Resources;
+using AgileWizard.Domain.Models;
 
 namespace AgileWizard.Domain.Tests.Repositories
 {

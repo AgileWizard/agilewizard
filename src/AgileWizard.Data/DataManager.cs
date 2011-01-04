@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AgileWizard.Domain.Resources;
+using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Users;
 using Raven.Client;
 using Raven.Database.Data;

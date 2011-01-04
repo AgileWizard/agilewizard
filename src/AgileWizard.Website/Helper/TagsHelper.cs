@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using AgileWizard.Domain.Resources;
+using AgileWizard.Domain.Models;
 using System.Text;
 
 namespace AgileWizard.Website.Helper

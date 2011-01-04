@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using AgileWizard.Domain.Resources;
+using AgileWizard.Domain.Models;
 using Raven.Client.Indexes;
 using Raven.Database.Indexing;
 
