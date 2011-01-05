@@ -33,7 +33,7 @@ namespace AgileWizard.Domain.Tests.Repositories
                 Content = CONTENT,
                 Author = AUTHOR,
                 SubmitUser = SUBMITUSER,
-                Tags = new List<Tag>(),
+                Tags = new List<Resource.ResourceTag>(),
                 ReferenceUrl = REFERENCEURL
             };
 

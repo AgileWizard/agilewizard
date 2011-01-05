@@ -21,7 +21,12 @@ namespace AgileWizard.Domain.Models
 
         public string SubmitUser { get; set; }
 
-        public List<Tag> Tags { get; set; }
+        public List<ResourceTag> Tags { get; set; }
+
+        public class ResourceTag
+        {
+            public string Name { get; set; }
+        }
 
     }
 }

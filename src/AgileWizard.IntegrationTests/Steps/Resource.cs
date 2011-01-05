@@ -88,7 +88,7 @@ namespace AgileWizard.IntegrationTests.Steps
                 {
                     if (row["Field"] == "Tags")
                     {
-                        resource.Tags = row["Value"].Split(',').Select(s => new Tag(){Name = s}).ToList();
+                        resource.Tags = row["Value"].Split(',').Select(s => new AgileWizard.Domain.Models.Resource.ResourceTag() { Name = s }).ToList();
                     }
                 }
                 var repository = ObjectFactory.GetInstance<IResourceRepository>();

@@ -24,7 +24,7 @@ namespace AgileWizard.Website.Tests
         [Fact]
         public void can_convert_tagList_to_comma_separated_string()
         {
-            var tagList = new List<Tag> { new Tag { Name = "Agile" }, new Tag { Name = "Shanghai" }, new Tag { Name = "Wen" } };
+            var tagList = new List<Resource.ResourceTag> { new Resource.ResourceTag { Name = "Agile" }, new Resource.ResourceTag { Name = "Shanghai" }, new Resource.ResourceTag { Name = "Wen" } };
             var tagString = tagList.ToTagString();
             Assert.Equal("Agile,Shanghai,Wen", tagString);
         }
@@ -32,7 +32,7 @@ namespace AgileWizard.Website.Tests
         [Fact]
         public void ToTagString_ShouldRemoveDuplicated_WhenHasSameTagValue()
         {
-            var tagList = new List<Tag> { new Tag { Name = "Agile" }, new Tag { Name = "agile" }, new Tag { Name = "Wen" } };
+            var tagList = new List<Resource.ResourceTag> { new Resource.ResourceTag { Name = "Agile" }, new Resource.ResourceTag { Name = "agile" }, new Resource.ResourceTag { Name = "Wen" } };
             var tagString = tagList.ToTagString();
             Assert.Equal("Agile,Wen", tagString);
         }
