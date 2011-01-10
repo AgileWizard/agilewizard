@@ -1,80 +1,86 @@
-﻿/*----------------------------------------------------------
+﻿*
+{
+	margin: 0;
+	padding: 0;
+}
+
+/*----------------------------------------------------------
 The base color for this template is #5c87b2. If you'd like
 to use a different color start by replacing all instances of
 #5c87b2 with your new color.
 ----------------------------------------------------------*/
 body
 {
-    background-color: #ffffff;
-    font-size: 12px;
-    font-family: Verdana, 宋体, Sans-Serif;
-    margin: 0;
-    padding: 0;
-    color: #333333;
+	background-color: #ffffff;
+	font-size: 12px;
+	font-family: Verdana, 宋体, Sans-Serif;
+	margin: 0;
+	padding: 0;
+	color: #333333;
 }
 
 a:link
 {
-    color: #2e55a7;
-    text-decoration: none;
+	color: #2e55a7;
+	text-decoration: none;
 }
 a:visited
 {
-    color: #505abc;
+	color: #505abc;
 }
 a:hover
 {
-    color: #1d60ff;
-    text-decoration: underline;
+	color: #1d60ff;
+	text-decoration: underline;
 }
 a:active
 {
-    color: #12eb87;
+	color: #12eb87;
 }
 
 p, ul
 {
-    margin-bottom: 20px;
-    line-height: 1.6em;
+	margin-bottom: 20px;
+	line-height: 1.6em;
 }
 
 /* HEADINGS   
 ----------------------------------------------------------*/
 h1, h2, h3, h4, h5, h6
 {
-    font-size: 1.5em;
-    color: #00f;
-    font-family: Arial, 宋体, sans-serif;
+	font-size: 1.5em;
+	color: #00f;
+	font-family: Arial, 宋体, sans-serif;
 }
 
 h1
 {
-    font-size: 2em;
-    padding-bottom: 0;
-    margin-bottom: 0;
+	font-size: 2em;
+	padding-bottom: 0;
+	margin-bottom: 0;
 }
 h2
 {
-    padding: 0 0 10px 0;
+	padding: 0 0 10px 0;
 }
 h3
 {
-    font-size: 1.2em;
+	font-size: 1.2em;
 }
 h4
 {
-    font-size: 1.1em;
+	font-size: 1.1em;
 }
 h5, h6
 {
-    font-size: 1em;
+	font-size: 1em;
 }
 
 /* this rule styles <h2> tags that are the 
 first child of the left and right table columns */
 .rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2
 {
-    margin-top: 0;
+	margin-top: 0;
 }
 
 /* PRIMARY LAYOUT ELEMENTS   
@@ -84,92 +90,92 @@ first child of the left and right table columns */
 page width. Or, you can specify an exact pixel width. */
 .page
 {
-    width:100%;
-    margin-left: auto;
-    margin-right: auto;
+	width:100%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #header
 {
-    background-image:url(Images/header_bg.png);
-    background-repeat:repeat-x;
-    height:64px;
-    position: relative;
-    margin-bottom: 0px;
-    color: #000;
-    padding: 0;
+	background-image:url(Images/header_bg.png);
+	background-repeat:repeat-x;
+	height:64px;
+	position: relative;
+	margin-bottom: 0px;
+	color: #000;
+	padding: 0;
 }
 
 #main
 {
-    background-color: #fff;
-    margin:auto;
-    width:1000px;
-    height:100%;
-    overflow:hidden;
+	background-color: #fff;
+	margin:auto;
+	width:1000px;
+	height:100%;
+	overflow:hidden;
 }
 
 #footer
 {
-    color: #fff;
-    padding: 2px 0;
-    line-height: normal;
-    margin: 0;
-    font-size: .9em;
-    background-image:url(Images/footer_bg.png);
-    background-repeat:repeat-x;
-    height:68px;    
+	color: #fff;
+	padding: 2px 0;
+	line-height: normal;
+	margin: 0;
+	font-size: .9em;
+	background-image:url(Images/footer_bg.png);
+	background-repeat:repeat-x;
+	height:68px;    
 }
 
 /* TAB MENU   
 ----------------------------------------------------------*/
 ul#menulist
 {
-    padding: 0 0 2px;
-    position: relative;
-    margin: 0;
-    text-align: left;
+	padding: 0 0 2px;
+	position: relative;
+	margin: 0;
+	text-align: left;
 }
 
 ul#menulist li
 {
-    display: inline;
-    list-style: none;
+	display: inline;
+	list-style: none;
 }
 
 ul#menulist li#greeting
 {
-    padding: 0px 20px;
-    font-weight: bold;
-    text-decoration: none;
-    line-height: 2.8em;
-    color: #fff;
+	padding: 0px 20px;
+	font-weight: bold;
+	text-decoration: none;
+	line-height: 2.8em;
+	color: #fff;
 }
 
 ul#menulist li a
 {
-    padding: 5px 20px;
-    font-weight: bold;
-    text-decoration: none;
-    line-height: 2.8em;
+	padding: 5px 20px;
+	font-weight: bold;
+	text-decoration: none;
+	line-height: 2.8em;
 }
 
 ul#menulist li a:hover
 {
-    background-color: #efefef;
-    text-decoration: none;
+	background-color: #efefef;
+	text-decoration: none;
 }
 
 ul#menulist li a:active
 {
-    background-color: #a6e2a6;
-    text-decoration: none;
+	background-color: #a6e2a6;
+	text-decoration: none;
 }
 
 ul#menulist li.selected a
 {
-    background-color: #fff;
-    color: #000;
+	background-color: #fff;
+	color: #000;
 }
 
 /* FORM LAYOUT ELEMENTS   
@@ -177,33 +183,33 @@ ul#menulist li.selected a
 
 fieldset 
 {
-    margin: 1em 0;
-    padding: 1em;
-    border: 1px solid #CCC;
+	margin: 1em 0;
+	padding: 1em;
+	border: 1px solid #CCC;
 }
 
 fieldset p 
 {
-    margin: 2px 12px 10px 10px;
+	margin: 2px 12px 10px 10px;
 }
 
 legend 
 {
-    font-size: 1.1em;
-    font-weight: 600;
-    padding: 2px 4px 8px 4px;
+	font-size: 1.1em;
+	font-weight: 600;
+	padding: 2px 4px 8px 4px;
 }
 
 input[type="text"] 
 {
-    width: 200px;
-    border: 1px solid #CCC;
+	width: 200px;
+	border: 1px solid #CCC;
 }
 
 input[type="password"] 
 {
-    width: 200px;
-    border: 1px solid #CCC;
+	width: 200px;
+	border: 1px solid #CCC;
 }
 
 /* TABLE
@@ -233,155 +239,155 @@ table th
 ----------------------------------------------------------*/
 .clear
 {
-    clear: both;
+	clear: both;
 }
 
 .error
 {
-    color:Red;
+	color:Red;
 }
 
 div#top
 {
-    width:1000px;
-    height:35px;
-    margin:auto;
+	width:1000px;
+	height:35px;
+	margin:auto;
 }
 div#header_b
 {  
-    width:1000px;
-    height:34px;
-    line-height:34px;
-    vertical-align:middle;
-    margin:auto;
+	width:1000px;
+	height:34px;
+	line-height:34px;
+	vertical-align:middle;
+	margin:auto;
 }
 
 div#logo
 {
-    display:block;
-    width:131px;
-    height:35px;
-    float:left;
-    background-image:url(images/logo_t.png);
-    background-repeat:no-repeat;
+	display:block;
+	width:131px;
+	height:35px;
+	float:left;
+	background-image:url(images/logo_t.png);
+	background-repeat:no-repeat;
 }
 div#top_action
 {
-    float:right;
-    text-align:left;
-    vertical-align:middle;
-    line-height:30px;
+	float:right;
+	text-align:left;
+	vertical-align:middle;
+	line-height:30px;
 }
 div#menu
 {
-    float:none;
+	float:none;
 }
 
 div#search
 {
-        
+		
 }
 
 div#main_left
 {
-    float:left;
-    width:702px;
-    margin:3px 3px;
-    height:100%;
-    overflow:hidden;
-    _margin:0px;
+	float:left;
+	width:702px;
+	margin:3px 3px;
+	height:100%;
+	overflow:hidden;
+	_margin:0px;
 }
 
 div#main_right
 {
-    float:right;
-    background-color:#d9d9d9;
-    width:292px;
-    overflow:hidden;
-    height:540px;
+	float:right;
+	background-color:#d9d9d9;
+	width:292px;
+	overflow:hidden;
+	height:540px;
 }
 
 div#footer_container
 {
-    width:1000px;
-    height:26px;
-    margin:auto;
-    line-height:26px;
-    margin-top:20px;
-    clear:both;
+	width:1000px;
+	height:26px;
+	margin:auto;
+	line-height:26px;
+	margin-top:20px;
+	clear:both;
 }
 
 div#footer_logo
 {
-    background-image:url(images/logo_f.png);
-    background-repeat:no-repeat;
-    width:110px;
-    height:26px;
-    float:left;
+	background-image:url(images/logo_f.png);
+	background-repeat:no-repeat;
+	width:110px;
+	height:26px;
+	float:left;
 }
 
 div#copyright
 {
-    background-repeat:no-repeat;
-    float:right;
-    padding-right:15px;
-    margin-right:15px;
+	background-repeat:no-repeat;
+	float:right;
+	padding-right:15px;
+	margin-right:15px;
 }
 
 #logindisplay
 {
-    font-size:1.1em;
-    display:block;
-    text-align:right;
-    margin:10px;
-    color:White;
+	font-size:1.1em;
+	display:block;
+	text-align:right;
+	margin:10px;
+	color:White;
 }
 
 #logindisplay a:link
 {
-    color: white;
-    text-decoration: underline;
+	color: white;
+	text-decoration: underline;
 }
 
 #logindisplay a:visited
 {
-    color: white;
-    text-decoration: underline;
+	color: white;
+	text-decoration: underline;
 }
 
 #logindisplay a:hover
 {
-    color: white;
-    text-decoration: none;
+	color: white;
+	text-decoration: none;
 }
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error
 {
-    color: #ff0000;
+	color: #ff0000;
 }
 
 .field-validation-valid
 {
-    display: none;
+	display: none;
 }
 
 .input-validation-error
 {
-    border: 1px solid #ff0000;
-    background-color: #ffeeee;
+	border: 1px solid #ff0000;
+	background-color: #ffeeee;
 }
 
 .validation-summary-errors
 {
-    font-weight: bold;
-    color: #ff0000;
+	font-weight: bold;
+	color: #ff0000;
 }
 
 .validation-summary-valid
 {
-    display: none;
+	display: none;
 }
 
 /* Styles for editor and display helpers
@@ -391,47 +397,47 @@ div#copyright
 .display-field,
 .editor-field
 {
-    margin: 0.5em 0;
+	margin: 0.5em 0;
 }
 
 .text-box
 {
-    width: 30em;
+	width: 30em;
 }
 
 .text-box.multi-line
 {
-    height: 6.5em;
+	height: 6.5em;
 }
 
 .tri-state
 {
-    width: 6em;
+	width: 6em;
 }
 
 
 /*
-    stylesheet for resource detail list (temporary solution)
+	stylesheet for resource detail list (temporary solution)
 */
 .link
 {
-    width: 25px;
-    text-align:center;
+	width: 25px;
+	text-align:center;
 }
-    
+	
 .title
 {
-    width: 200px;
-    overflow: hidden;
+	width: 200px;
+	overflow: hidden;
 }
-    
+	
 .content
 {
-    line-height:normal;
+	line-height:normal;
 }
-    
+	
 table.contentList
 {
-    width: 100%;
-    padding: 2px;
+	width: 100%;
+	padding: 2px;
 }

@@ -1,11 +1,12 @@
 ﻿.Title
 {
-	
 }
 
 .Content
 {
-	font-family: 微软雅黑, arial, 宋体, sans-serif;	color: Black}
+	font-family: 微软雅黑, arial, 宋体, sans-serif;
+	color: Black;
+}
 
 .Information
 {
@@ -18,4 +19,75 @@
 .Tags
 {
 }
+
+.resource-item
+{
+	padding: 5px;
+	clear: both;
+	border-bottom: 1px solid #DEDEDE;
+}
+
+
+.resource-item .thumbs
+{
+	float: left;
+	height: 125px;
+	overflow: hidden;
+	margin-left: 10px;
+	padding-right: 5px;
+}
+
+.resource-item .thumbs img
+{
+	width: 125px;
+	margin: 5px 0;
+	max-width: 500px;
+}
+
+.resource-item .indexs
+{
+	min-height: 75px;
+}
+
+.resource-item .counter a
+{
+	background-color: #BBB;
+	color: white;
+	float: right;
+	-webkit-text-size-adjust: none;
+	font-size: 10px;
+	line-height: 1em;
+	padding: 3px 5px;
+	text-align: center;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+.resource-item .h2
+{
+	font-size: 14px;
+	margin-bottom: 5px;
+	line-height: 1.3em;
+}
+
+.resource-item .time
+{
+	-webkit-text-size-adjust: none;
+	font-size: 11px;
+	font-weight: normal;
+	color: #999;
+	line-height: 1.5em;
+	padding-bottom: 5px;
+	text-transform: uppercase;
+}
+
+.break
+{
+	font-size: 0;
+	height: 0;
+	width: 0;
+	clear: both;
+	display: block;
+}
+
 

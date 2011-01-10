@@ -24,19 +24,25 @@ namespace AgileWizard.Website.Controllers
 
         public ActionResult Index()
         {
+            ResourceList resourceList = GetResourceList();
+            return View(resourceList);
+        }
+
+        private ResourceList GetResourceList()
+        {
             var resources = ResourceService.GetResourceList();
             var resourceList = new ResourceList();
 
             var t = from c in resources
                     select new ResourceModel
-                        {
-                            Id = c.Id.Substring(10),
-                            Title = c.Title,
-                            Content = c.Content
-                        };
+                               {
+                                   Id = c.Id.Substring(10),
+                                   Title = c.Title,
+                                   Content = c.Content
+                               };
             resourceList.AddRange(t);
             resourceList.TotalCount = ResourceService.GetResourcesTotalCount();
-            return View(resourceList);
+            return resourceList;
         }
 
         [HttpPost]
@@ -111,6 +117,12 @@ namespace AgileWizard.Website.Controllers
             });
 
             return RedirectToAction("Details", new { id });
+        }
+
+        public ActionResult ResourceList()
+        {
+            ResourceList resourceList = GetResourceList();
+            return PartialView("ResourceList", resourceList);
         }
     }
 }

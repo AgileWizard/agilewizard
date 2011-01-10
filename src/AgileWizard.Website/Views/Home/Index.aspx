@@ -9,6 +9,5 @@
     </div>
     <h2>
         <%: HomeString.Welecome %></h2>
-    <p>
-    </p>
+    <div><% Html.RenderAction("ResourceList", "Resource"); %></div>
 </asp:Content>
