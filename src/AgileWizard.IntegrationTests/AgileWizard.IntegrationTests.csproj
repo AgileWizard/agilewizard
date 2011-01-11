@@ -77,9 +77,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EditResource.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Tag.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Tag.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\Account.cs" />
     <Compile Include="Steps\Resource.cs" />
+    <Compile Include="Steps\Tag.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AgileWizard.Data\AgileWizard.Data.csproj">
@@ -110,6 +116,10 @@
     <None Include="Features\EditResource.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>EditResource.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Tag.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Tag.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup />

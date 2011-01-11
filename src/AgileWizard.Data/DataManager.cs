@@ -59,9 +59,41 @@ namespace AgileWizard.Data
                            new Resource
                                {
                                    Title = "Embeded Video",
+                                   Tags = new List<Resource.ResourceTag>
+                                   {
+                                       new Resource.ResourceTag
+                                       {
+                                           Name = "test",
+                                       },
+                                       new Resource.ResourceTag
+                                       {
+                                           Name = "html",
+                                       },
+                                   },
+                                   CreateTime = DateTime.Now.AddMinutes(-10),
+                                   LastUpdateTime = DateTime.Now.AddMinutes(-10),
                                    Content =
                                        @"<embed src=""http://player.youku.com/player.php/sid/XMjI2MjI2MTQw/v.swf"" quality=""high"" width=""480"" height=""400"" align=""middle"" allowScriptAccess=""sameDomain"" type=""application/x-shockwave-flash""></embed>"
-                               }
+                               },
+
+                            new Resource
+                            {
+                                Title = "Tag Test",
+                                Tags = new List<Resource.ResourceTag>
+                                {
+                                    new Resource.ResourceTag
+                                    {
+                                        Name = "test",
+                                    },
+                                    new Resource.ResourceTag
+                                    {
+                                        Name = "plain-text",
+                                    },
+                                },
+                                CreateTime = DateTime.Now,
+                                LastUpdateTime = DateTime.Now,
+                                Content = @"just a plain text resource"
+                            }
                        };
         }
 

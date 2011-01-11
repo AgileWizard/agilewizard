@@ -19,6 +19,15 @@ namespace AgileWizard.Domain.Models
 
         public DateTime LastUpdateTime { get; set; }
 
+        public int ShortTicks
+        {
+            get
+            {
+                // substract 1/1/2011
+                return (int)LastUpdateTime.Subtract(new DateTime(2011, 1, 1)).TotalSeconds;
+            }
+        }
+
         public string SubmitUser { get; set; }
 
         public List<ResourceTag> Tags { get; set; }
