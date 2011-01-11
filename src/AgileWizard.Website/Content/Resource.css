@@ -49,19 +49,34 @@
 	min-height: 75px;
 }
 
-.resource-item .counter a
+.resource-item .counter
 {
 	background-color: #BBB;
 	color: white;
 	float: right;
-	-webkit-text-size-adjust: none;
-	font-size: 10px;
+	font-size: 14px;
 	line-height: 1em;
-	padding: 3px 5px;
+	padding: 3px 10px;
 	text-align: center;
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
+	width: 40px;
+	height: 30px;
 }
+
+.resource-item .like
+{
+	background-color: #C8A64A;
+}
+
+.resource-item .unlike
+{
+	background-color: #2C630D;
+}
+
+.resource-item .pageview
+{
+	background-color: #224282;
+}
+
 
 .resource-item .h2
 {

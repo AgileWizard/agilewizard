@@ -8,7 +8,20 @@
             </a>
         </div>
         <div class="indexs">
-            <span class="counter"><a href="">10</a><a href="">10</a><a href="">10</a></span>
+            <div class="counters">
+                <div class="counter pageview">
+                    <div class="counts">20</div>
+                    <div>点击</div>
+                </div>
+                <div class="counter unlike">
+                    <div class="counts">1</div>
+                    <div>踩</div>
+                </div>
+                <div class="counter like">
+                    <div class="counts">10</div>
+                    <div>顶</div>
+                </div>
+            </div>
             <h2>
                 <a href="<%: Url.Action("Details", "Resource", new { id = item.Id }) %>"><%: item.Title %></a>
             </h2>
