@@ -39,23 +39,11 @@ namespace AgileWizard.Website.Controllers
                                {
                                    Id = c.Id.Substring(10),
                                    Title = c.Title,
-                                   Content = Excerpt(c.Content)
+                                   Content = Utils.ExcerptContent(c.Content, 240)
                                };
             resourceList.AddRange(t);
             resourceList.TotalCount = ResourceService.GetResourcesTotalCount();
             return resourceList;
-        }
-
-        private string Excerpt(string content)
-        {
-            if (content == null || content.Trim().Length == 0)
-                return string.Empty;
-            else
-            {
-                var regexStripHtml = new Regex("<[^>]*>", RegexOptions.Compiled);
-                var preparedString = regexStripHtml.Replace(content, string.Empty).Trim();
-                return preparedString.Substring(0, preparedString.Length < 240 ? preparedString.Length : 240);
-            }
         }
 
         [HttpPost]

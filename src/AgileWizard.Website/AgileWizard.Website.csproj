@@ -84,6 +84,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\TagsHelper.cs" />
+    <Compile Include="Helper\Utils.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\ResourceModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
