@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Repositories;
@@ -38,11 +39,23 @@ namespace AgileWizard.Website.Controllers
                                {
                                    Id = c.Id.Substring(10),
                                    Title = c.Title,
-                                   Content = c.Content
+                                   Content = Excerpt(c.Content)
                                };
             resourceList.AddRange(t);
             resourceList.TotalCount = ResourceService.GetResourcesTotalCount();
             return resourceList;
+        }
+
+        private string Excerpt(string content)
+        {
+            if (content == null || content.Trim().Length == 0)
+                return string.Empty;
+            else
+            {
+                var regexStripHtml = new Regex("<[^>]*>", RegexOptions.Compiled);
+                var preparedString = regexStripHtml.Replace(content, string.Empty).Trim();
+                return preparedString.Substring(0, preparedString.Length < 240 ? preparedString.Length : 240);
+            }
         }
 
         [HttpPost]
