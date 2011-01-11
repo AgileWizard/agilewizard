@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using AgileWizard.Domain.Users;
+using AgileWizard.IntegrationTests.PageObject;
 using TechTalk.SpecFlow;
 using AgileWizard.Website.Controllers;
 using StructureMap;
@@ -14,35 +13,38 @@ namespace AgileWizard.IntegrationTests.Steps
     [Binding]
     public class Account
     {
-        [Given(@"new account controller")]
-        public void GivenNewAccountController()
-        {
-            var accountController = ObjectFactory.GetInstance<AccountController>();
+        private AccountController _accountController;
+        private RedirectToRouteResult _actionResult;
+        private LogOnModel _logOnModel;
 
-            ScenarioContext.Current[Consts.SubjectUnderTest] = accountController;
+        [When(@"logon with correct username and password")]
+        public void WhenLogonWithCorrectUsernameAndPassword()
+        {
+            GetAccountController();
+
+            GetLogonModelWithCorrectUserNameAndPassword();
+
+            _actionResult = _accountController.LogOn(_logOnModel) as RedirectToRouteResult;
         }
 
-        [When(@"logon with username - '(\w+)' and password - '(\w+)'")]
-        public void WhenLogonWithUsernameAndPassword(string userName, string password)
+        private void GetAccountController()
         {
-            var accountController = ScenarioContext.Current[Consts.SubjectUnderTest] as AccountController;
-
-            var result = accountController.LogOn(new LogOnModel
-            {
-                UserName = userName,
-                Password = password,
-            });
-
-            ScenarioContext.Current[Consts.Result] = result;
+            _accountController = ObjectFactory.GetInstance<AccountController>();
         }
 
-        [Then(@"return result should have controller - '(\w+)' and action - '(\w+)'")]
-        public void ThenReturnResultShouldHaveControllerAndAction(string controller, string action)
+        private void GetLogonModelWithCorrectUserNameAndPassword()
         {
-            var result = ScenarioContext.Current[Consts.Result] as RedirectToRouteResult;
+            _logOnModel = new LogOnModel
+                              {
+                                  UserName = User.DefaultUser().UserName,
+                                  Password = User.DefaultUser().Password,
+                              };
+        }
 
-            Assert.Equal(controller, (string)result.RouteValues["controller"], StringComparer.OrdinalIgnoreCase);
-            Assert.Equal(action, (string)result.RouteValues["action"], StringComparer.OrdinalIgnoreCase);
+        [Then(@"navigate to home page")]
+        public void ThenNavigateToHomePage()
+        {
+            Home.AssertNavigateToHome(_actionResult);
         }
     }
 }
