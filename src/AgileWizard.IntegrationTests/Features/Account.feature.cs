@@ -16,7 +16,7 @@ namespace AgileWizard.IntegrationTests.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.4.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class Account_NonUIFeature : Xunit.IUseFixture<Account_NonUIFeature.FixtureData>, System.IDisposable
+    public partial class AccountLoginFeature : Xunit.IUseFixture<AccountLoginFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -27,12 +27,11 @@ namespace AgileWizard.IntegrationTests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Account - NonUI", "In order to indentify user\nAs a website master\nI want user to login with username" +
-                    " and password", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Account Login", "As a website master\r\nI can login to system", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
-        public virtual void SetFixture(Account_NonUIFeature.FixtureData fixtureData)
+        public virtual void SetFixture(AccountLoginFeature.FixtureData fixtureData)
         {
         }
         
@@ -58,19 +57,55 @@ namespace AgileWizard.IntegrationTests.Features
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "Account - NonUI")]
-        [Xunit.TraitAttribute("Description", "Login")]
-        public virtual void Login()
+        [Xunit.TraitAttribute("FeatureTitle", "Account Login")]
+        [Xunit.TraitAttribute("Description", "Successful login")]
+        public virtual void SuccessfulLogin()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login", ((string[])(null)));
-#line 6
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Successful login", ((string[])(null)));
+#line 5
 this.ScenarioSetup(scenarioInfo);
+#line 6
+ testRunner.When("logon with correct username and password");
 #line 7
- testRunner.Given("new account controller");
-#line 8
-  testRunner.When("logon with username - \'agilewizard\' and password - \'agilewizard\'");
-#line 9
- testRunner.Then("return result should have controller - \'home\' and action - \'index\'");
+ testRunner.Then("navigate to home page");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [Xunit.FactAttribute(Skip="Ignored")]
+        [Xunit.TraitAttribute("FeatureTitle", "Account Login")]
+        [Xunit.TraitAttribute("Description", "Failure login - not existing user")]
+        public virtual void FailureLogin_NotExistingUser()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Failure login - not existing user", new string[] {
+                        "Ignore"});
+#line 10
+this.ScenarioSetup(scenarioInfo);
+#line 11
+ testRunner.When("logon with non-existing username");
+#line 12
+ testRunner.Then("no navigation");
+#line 13
+ testRunner.Then("show error message");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [Xunit.FactAttribute(Skip="Ignored")]
+        [Xunit.TraitAttribute("FeatureTitle", "Account Login")]
+        [Xunit.TraitAttribute("Description", "Failure login - wrong password")]
+        public virtual void FailureLogin_WrongPassword()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Failure login - wrong password", new string[] {
+                        "Ignore"});
+#line 16
+this.ScenarioSetup(scenarioInfo);
+#line 17
+ testRunner.When("logon with wrong password");
+#line 18
+ testRunner.Then("no navigation");
+#line 19
+ testRunner.Then("show error message");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -82,12 +117,12 @@ this.ScenarioSetup(scenarioInfo);
             
             public FixtureData()
             {
-                Account_NonUIFeature.FeatureSetup();
+                AccountLoginFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                Account_NonUIFeature.FeatureTearDown();
+                AccountLoginFeature.FeatureTearDown();
             }
         }
     }
