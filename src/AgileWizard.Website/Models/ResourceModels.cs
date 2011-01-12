@@ -2,8 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.Collections.Generic;
+using AgileWizard.Domain.Models;
 using AgileWizard.Locale;
 using AgileWizard.Locale.Resources.Models;
+using AutoMapper;
 
 namespace AgileWizard.Website.Models
 {
@@ -37,8 +39,39 @@ namespace AgileWizard.Website.Models
         public string ReferenceUrl { get; set; }
     }
 
-    public class ResourceList : List<ResourceModel>
+    public class ResourceListViewModel
     {
+        [LocalizedDisplayName("Id", NameResourceType = typeof(ResourceName))]
+        public string Id { get; set; }
+
+        [LocalizedRequiredAttribute]
+        [LocalizedDisplayName("Title", NameResourceType = typeof(ResourceName))]
+        public string Title { get; set; }
+
+        [LocalizedRequiredAttribute]
+        [LocalizedDisplayName("Content", NameResourceType = typeof(ResourceName))]
+        public string Content { get; set; }
+
+        [LocalizedDisplayName("CreateTime", NameResourceType = typeof(ResourceName))]
+        public DateTime CreateTime { get; set; }
+
+        [LocalizedDisplayName("Author", NameResourceType = typeof(ResourceName))]
+        public string Author { get; set; }
+
+        [LocalizedDisplayName("Tags", NameResourceType = typeof(ResourceName))]
+        public List<Resource.ResourceTag> Tags { get; set; }
+
+        public string ImageUrl { get; set; }
+    }
+
+
+    public class ResourceList : List<ResourceListViewModel>
+    {
+        public ResourceList(IList<Resource> resources)
+        {
+            Mapper.Map<IList<Resource>, IList<ResourceListViewModel>>(resources, this);
+        }
+
         public int TotalCount { set; get; }
 
     }

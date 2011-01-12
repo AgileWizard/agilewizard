@@ -4,7 +4,7 @@
     <div class="resource-item">
         <div class="thumbs">
             <a href="<%: Url.Action("Details", "Resource", new { id = item.Id }) %>">
-                <img src="" width="125px" />
+                <img src="<%= item.ImageUrl ?? Url.Content("~/Content/Images/default_resource_icon.jpg") %>" width="125px" />
             </a>
         </div>
         <div class="indexs">
@@ -26,9 +26,9 @@
                 <a href="<%: Url.Action("Details", "Resource", new { id = item.Id }) %>"><%: item.Title %></a>
             </h2>
             <div class="time">
-                &copy; <a href="" title="<%: item.SubmitUser %>"><%: item.SubmitUser %></a> / 
+                &copy; <a href="" title="<%: item.Author %>"><%: item.Author%></a> / 
                 <%: item.CreateTime.ToShortDateString() %> / <%: item.CreateTime.ToShortTimeString() %> / 
-                <%  if (!string.IsNullOrEmpty(item.Tags)) { foreach (var tag in item.Tags.Split(',')) { %><a href=""><%: tag %></a> / <% }} %>
+                <% foreach (var tag in item.Tags) { %><a href=""><%: tag.Name %></a> / <% } %>
             </div>
             <%= item.Content %>
         </div>

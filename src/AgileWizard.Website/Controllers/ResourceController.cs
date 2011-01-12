@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using AgileWizard.Domain.Models;
@@ -6,6 +8,7 @@ using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
 using AgileWizard.Website.Attributes;
 using AgileWizard.Website.Models;
+using AutoMapper;
 using Raven.Client;
 using AgileWizard.Website.Helper;
 
@@ -32,17 +35,10 @@ namespace AgileWizard.Website.Controllers
         private ResourceList GetResourceList()
         {
             var resources = ResourceService.GetResourceList();
-            var resourceList = new ResourceList();
-
-            var t = from c in resources
-                    select new ResourceModel
-                               {
-                                   Id = c.Id.Substring(10),
-                                   Title = c.Title,
-                                   Content = Utils.ExcerptContent(c.Content, 240)
-                               };
-            resourceList.AddRange(t);
-            resourceList.TotalCount = ResourceService.GetResourcesTotalCount();
+            var resourceList = new ResourceList(resources)
+                                   {
+                                       TotalCount = ResourceService.GetResourcesTotalCount()
+                                   };
             return resourceList;
         }
 

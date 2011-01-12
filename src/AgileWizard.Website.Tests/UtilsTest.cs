@@ -68,5 +68,15 @@ namespace AgileWizard.Website.Tests
 
             Assert.Equal("Test html ", result);
         }
+
+        [Fact]
+        public void Should_get_first_img_src_in_content()
+        {
+            const string content = @"<img style=""margin-top: 5px; margin-right: 0px; margin-bottom: 5px; margin-left: 0px; max-width: 500px; padding: 0px; border: 0px initial initial;"" title=""CES 2011 3M弯曲屏幕触摸机"" src=""http://pic.yupoo.com/jdvip/ALzag2Bf/medium.jpg"" alt=""http://jandan.net/"" /><br style=""padding: 0px; margin: 0px;"" />还是来自三星的东东，";
+
+            var result = Utils.FetchFirstImageUrl(content);
+
+            Assert.Equal("http://pic.yupoo.com/jdvip/ALzag2Bf/medium.jpg", result);
+        }
     }
 }

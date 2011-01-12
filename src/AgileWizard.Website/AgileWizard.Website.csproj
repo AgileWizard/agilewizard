@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\lib\AutoMapper\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\lib\ravendb\Newtonsoft.Json.dll</HintPath>
@@ -92,6 +95,7 @@
     <Compile Include="SessionStateRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\default_resource_icon.jpg" />
     <Content Include="Content\Images\footer_bg.png" />
     <Content Include="Content\Images\header_bg.png" />
     <Content Include="Content\Images\home_pic.png" />

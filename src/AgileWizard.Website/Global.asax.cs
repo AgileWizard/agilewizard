@@ -2,7 +2,11 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using AgileWizard.Domain.Models;
 using AgileWizard.Domain.QueryIndexes;
+using AgileWizard.Website.Helper;
+using AgileWizard.Website.Models;
+using AutoMapper;
 using Raven.Client.Document;
 using Raven.Client;
 using AgileWizard.Website.Controllers;
@@ -19,7 +23,8 @@ namespace AgileWizard.Website
         private const string RavenSessionKey = "Raven.Session";
         private static DocumentStore _documentStore;
 
-        public MvcApplication() {
+        public MvcApplication()
+        {
             BeginRequest += (sender, args) =>
             {
                 var documentSession = _documentStore.OpenSession();
@@ -65,6 +70,7 @@ namespace AgileWizard.Website
             RegisterRoutes(RouteTable.Routes);
 
             RegisterIoC();
+            ConfigAutoMapper();
         }
 
         private static void RegisterIoC()
@@ -78,7 +84,16 @@ namespace AgileWizard.Website
             ControllerBuilder.Current.SetControllerFactory(new StructureMapControllerFactory());
         }
 
-        public static IDocumentSession CurrentSession {
+        public static void ConfigAutoMapper()
+        {
+            Mapper.CreateMap<Resource, ResourceListViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.Substring(10)))
+                .ForMember(dest => dest.Content, opt => opt.MapFrom(src => Utils.ExcerptContent(src.Content, 240)))
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => Utils.FetchFirstImageUrl(src.Content)));
+        }
+
+        public static IDocumentSession CurrentSession
+        {
             get { return (IDocumentSession)HttpContext.Current.Items[RavenSessionKey]; }
         }
 

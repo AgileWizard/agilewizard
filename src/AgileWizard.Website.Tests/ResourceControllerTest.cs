@@ -51,6 +51,7 @@ namespace AgileWizard.Website.Tests
             _resourceService = new Mock<IResourceService>();
             _documentSession = new Mock<IDocumentSession>();
             _sessionStateRepository = new Mock<ISessionStateRepository>();
+            MvcApplication.ConfigAutoMapper();
 
             resourceControllerSUT = new ResourceController(_resourceService.Object, _documentSession.Object, _sessionStateRepository.Object);
         }
@@ -146,8 +147,8 @@ namespace AgileWizard.Website.Tests
             Assert.IsType<ViewResult>(actionResult);
             var viewResult = (ViewResult)actionResult;
             Assert.Empty(viewResult.ViewName);
-            Assert.IsAssignableFrom<IEnumerable<ResourceModel>>(viewResult.ViewData.Model);
-            var viewModel = (IEnumerable<ResourceModel>)viewResult.ViewData.Model;
+            Assert.IsAssignableFrom<IEnumerable<ResourceListViewModel>>(viewResult.ViewData.Model);
+            var viewModel = (IEnumerable<ResourceListViewModel>)viewResult.ViewData.Model;
             Assert.Equal("1", viewModel.First().Id);
         }
 
