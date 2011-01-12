@@ -18,7 +18,7 @@ namespace AgileWizard.Domain.QueryIndexes
                                    from tag in resource.Tags
                                    select new
                                    {
-                                       Name = tag.Name,
+                                       Name = tag.Name.ToLower(),
                                        ShortTicks = resource.ShortTicks,
                                    },
 

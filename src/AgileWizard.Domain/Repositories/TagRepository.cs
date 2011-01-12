@@ -17,10 +17,10 @@ namespace AgileWizard.Domain.Repositories
             _documentSession = documentSession;
         }
 
-        public List<Tag> GetTagList()
+        public List<Tag> GetTagList(int maxCount)
         {
             var query = _documentSession.Query<Tag>(typeof(TagAggregateIndex).Name);
-            return query.ToList();
+            return query.Take(maxCount).ToList();
         }
     }
 }

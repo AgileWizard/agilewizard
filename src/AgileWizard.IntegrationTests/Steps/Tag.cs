@@ -16,7 +16,7 @@ namespace AgileWizard.IntegrationTests.Steps
         {
             var tagRepository = ObjectFactory.GetInstance<ITagRepository>();
 
-            var list = tagRepository.GetTagList();
+            var list = tagRepository.GetTagList(10);
 
             foreach (var tag in list)
             {

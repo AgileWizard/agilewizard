@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using AgileWizard.Domain.Models;
 using System.Text;
+using AgileWizard.Domain.Services;
 
 namespace AgileWizard.Website.Helper
 {
@@ -32,6 +33,11 @@ namespace AgileWizard.Website.Helper
             var tagNames = tags.Select<Resource.ResourceTag, string>(s => s.Name)
                 .Distinct(StringComparer.OrdinalIgnoreCase); ;
             return string.Join(",", tagNames);
+        }
+
+        public static List<Tag> GetTagList(int maxCount)
+        {
+            return ServiceGateway.TagService.GetTagList(maxCount);
         }
     }
 }
