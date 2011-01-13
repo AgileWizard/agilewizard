@@ -78,5 +78,15 @@ namespace AgileWizard.Website.Tests
 
             Assert.Equal("http://pic.yupoo.com/jdvip/ALzag2Bf/medium.jpg", result);
         }
+
+        [Fact]
+        public void Should_get_null_when_there_is_no_img_in_content()
+        {
+            const string content = @"test content";
+
+            var result = Utils.FetchFirstImageUrl(content);
+
+            Assert.Null(result);
+        }
     }
 }
