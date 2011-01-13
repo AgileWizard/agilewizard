@@ -1,26 +1,29 @@
-﻿using AgileWizard.AcceptanceTests.Helper;
-using TechTalk.SpecFlow;
+﻿using TechTalk.SpecFlow;
+using Xunit;
+
+using AgileWizard.AcceptanceTests.Helper;
+using AgileWizard.AcceptanceTests.PageObject;
 
 namespace AgileWizard.AcceptanceTests.Steps
 {
     [Binding]
     public class SharedSteps
     {
-        [When(@"press button - '([\w\s]+)'")]
-        public void WhenPressButton(string buttonText)
-        {
-            BrowserHelper.PressButton(buttonText);
-        }
+        private AccountPage _accountPage = null;
 
         [Given(@"login already")]
         public void GivenLoginAlready()
         {
             BrowserHelper.OpenPage("Account/LogOn");
+            _accountPage = BrowserHelper.Browser.Page<AccountPage>();
 
-            BrowserHelper.InputText("UserName", BrowserHelper.UserName);
-            BrowserHelper.InputText("Password", BrowserHelper.Password);
+            _accountPage.UserName = BrowserHelper.UserName;
+            _accountPage.Password = BrowserHelper.Password;
 
-            BrowserHelper.PressSubmitButton();
+            _accountPage.Submit();
+
+            var browser = BrowserHelper.Browser;
+            Assert.Equal(BrowserHelper.WebsiteUrl, browser.Url);
         }
 
         [Given("no login")]

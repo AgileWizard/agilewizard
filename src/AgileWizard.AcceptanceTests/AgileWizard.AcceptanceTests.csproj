@@ -58,12 +58,6 @@
   <ItemGroup>
     <Compile Include="Data\ResourceData.cs" />
     <Compile Include="EventDefinition.cs" />
-    <Compile Include="Features\Account.feature.cs">
-      <DependentUpon>Account.feature</DependentUpon>
-      <SubType>Code</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Include="Features\Resource.feature.cs">
       <DependentUpon>Resource.feature</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -77,9 +71,6 @@
     <Compile Include="PageObject\ResourceDetailsPage.cs" />
     <Compile Include="PageObject\ResourceListPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Steps\AccountSteps.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Steps\ResourceSteps.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -102,10 +93,6 @@
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Features\Account.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Account.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Resource.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
