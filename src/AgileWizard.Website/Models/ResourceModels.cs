@@ -15,7 +15,7 @@ namespace AgileWizard.Website.Models
         public string Id { get; set; }
 
         [LocalizedRequiredAttribute]
-        [LocalizedDisplayName("Title", NameResourceType = typeof(ResourceName))]
+        [LocalizedDisplayName("Title", NameResourceType = typeof(ResourceName))]        
         public string Title { get; set; }
 
         [LocalizedRequiredAttribute]

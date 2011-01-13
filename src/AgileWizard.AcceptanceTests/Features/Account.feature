@@ -3,6 +3,7 @@
 	As a website master
 	I want user to login with username and password
 
+@Ignor
 Scenario: Login
 	Given open login page
 	And enter username - 'agilewizard' and password - 'agilewizard'
