@@ -59,10 +59,10 @@ namespace AgileWizard.AcceptanceTests.Features
         
         [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "Resource")]
-        [Xunit.TraitAttribute("Description", "Add Simple Resource")]
-        public virtual void AddSimpleResource()
+        [Xunit.TraitAttribute("Description", "Add and edit Resource")]
+        public virtual void AddAndEditResource()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Simple Resource", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add and edit Resource", ((string[])(null)));
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 7
@@ -78,7 +78,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Embeded Video"});
             table1.AddRow(new string[] {
                         "Content",
-                        "Modified Content"});
+                        "Created Content"});
             table1.AddRow(new string[] {
                         "Author",
                         "Daniel"});
@@ -90,8 +90,8 @@ this.ScenarioSetup(scenarioInfo);
                         "Agile,Shanghai"});
 #line 9
  testRunner.And("enter data in resource page", ((string)(null)), table1);
-#line 17
- testRunner.When("press submit button");
+#line 16
+ testRunner.And("press submit button");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
@@ -101,7 +101,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Embeded Video"});
             table2.AddRow(new string[] {
                         "Content",
-                        "Modified Content"});
+                        "Created Content"});
             table2.AddRow(new string[] {
                         "Author",
                         "Daniel"});
@@ -111,137 +111,8 @@ this.ScenarioSetup(scenarioInfo);
             table2.AddRow(new string[] {
                         "Tags",
                         "Agile,Shanghai"});
-#line 18
+#line 17
  testRunner.Then("current page should be resource details page", ((string)(null)), table2);
-#line hidden
-            testRunner.CollectScenarioErrors();
-        }
-        
-        [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "Resource")]
-        [Xunit.TraitAttribute("Description", "Edit A Resource")]
-        public virtual void EditAResource()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit A Resource", ((string[])(null)));
-#line 26
-this.ScenarioSetup(scenarioInfo);
-#line 27
- testRunner.Given("login already");
-#line 28
- testRunner.And("open resource list page");
-#line 29
- testRunner.And("edit a resource titled with \'Embeded Video\'");
-#line hidden
-            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Field",
-                        "Value"});
-            table3.AddRow(new string[] {
-                        "Title",
-                        "Embeded Video"});
-            table3.AddRow(new string[] {
-                        "Content",
-                        "Modified Content"});
-            table3.AddRow(new string[] {
-                        "Author",
-                        "Daniel"});
-            table3.AddRow(new string[] {
-                        "ReferenceUrl",
-                        "http://www.cnblogs.com/tengzy/"});
-#line 30
- testRunner.And("enter data in resource page", ((string)(null)), table3);
-#line 37
- testRunner.When("press submit button");
-#line hidden
-            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Field",
-                        "Value"});
-            table4.AddRow(new string[] {
-                        "Title",
-                        "Embeded Video"});
-            table4.AddRow(new string[] {
-                        "Content",
-                        "Modified Content"});
-            table4.AddRow(new string[] {
-                        "Author",
-                        "Daniel"});
-            table4.AddRow(new string[] {
-                        "ReferenceUrl",
-                        "http://www.cnblogs.com/tengzy/"});
-#line 38
- testRunner.Then("current page should be resource details page", ((string)(null)), table4);
-#line hidden
-            testRunner.CollectScenarioErrors();
-        }
-        
-        [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "Resource")]
-        [Xunit.TraitAttribute("Description", "Add Resource require login")]
-        public virtual void AddResourceRequireLogin()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Resource require login", ((string[])(null)));
-#line 45
-this.ScenarioSetup(scenarioInfo);
-#line 46
- testRunner.Given("no login");
-#line 47
- testRunner.And("open adding-resource page");
-#line 48
- testRunner.Then("login page should be open");
-#line hidden
-            testRunner.CollectScenarioErrors();
-        }
-        
-        [Xunit.FactAttribute(Skip="Ignored")]
-        [Xunit.TraitAttribute("FeatureTitle", "Resource")]
-        [Xunit.TraitAttribute("Description", "Not able to see Add and Edit link if no login")]
-        public virtual void NotAbleToSeeAddAndEditLinkIfNoLogin()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Not able to see Add and Edit link if no login", new string[] {
-                        "Ignore"});
-#line 51
-this.ScenarioSetup(scenarioInfo);
-#line 52
- testRunner.Given("no login");
-#line 53
- testRunner.And("open resource list page");
-#line 54
- testRunner.Then("add and edit link should not be shown");
-#line hidden
-            testRunner.CollectScenarioErrors();
-        }
-        
-        [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "Resource")]
-        [Xunit.TraitAttribute("Description", "View Resource Detail")]
-        public virtual void ViewResourceDetail()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View Resource Detail", ((string[])(null)));
-#line 56
-this.ScenarioSetup(scenarioInfo);
-#line 57
- testRunner.Given("open resource list page");
-#line 58
- testRunner.When("open a resource titled with \'Embeded Video\'");
-#line 59
- testRunner.Then("resource details page title with - \'Embeded Video\' should be shown");
-#line hidden
-            testRunner.CollectScenarioErrors();
-        }
-        
-        [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "Resource")]
-        [Xunit.TraitAttribute("Description", "View Resource List")]
-        public virtual void ViewResourceList()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View Resource List", ((string[])(null)));
-#line 61
-this.ScenarioSetup(scenarioInfo);
-#line 62
- testRunner.Given("login already");
-#line 63
- testRunner.And("open resource list page");
-#line 64
- testRunner.Then("resoure list page should be in current culture");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

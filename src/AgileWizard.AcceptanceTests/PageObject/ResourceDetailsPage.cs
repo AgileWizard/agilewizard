@@ -2,18 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AgileWizard.AcceptanceTests.Helper;
 using System.Text.RegularExpressions;
+using WatiN.Core;
+using Xunit;
+
+using AgileWizard.AcceptanceTests.Helper;
+using AgileWizard.AcceptanceTests.Data;
 
 namespace AgileWizard.AcceptanceTests.PageObject
 {
-    public class ResourceDetailsPage : IDisposable
+    [Page(UrlRegex = @".+/Resource/Details/\d+")]
+    public class ResourceDetailsPage : WatiN.Core.Page
+
     {
         public string Title
         {
             get
             {
-                return BrowserHelper.Browser.Title;
+
+                return Document.Element(Find.ById("title_field")).Text;
             }
         }
 
@@ -21,7 +28,7 @@ namespace AgileWizard.AcceptanceTests.PageObject
         {
             get
             {
-                return BrowserHelper.Browser.Span(x => x.ClassName == "Author").Text;
+                return Document.Span(Find.ById("author_field")).Text;
             }
         }
 
@@ -29,7 +36,7 @@ namespace AgileWizard.AcceptanceTests.PageObject
         {
             get
             {
-                return BrowserHelper.Browser.Div(x => x.ClassName == "Content").Text;
+                return Document.Div(Find.ById("content_field")).Text;
             }
         }
 
@@ -37,7 +44,7 @@ namespace AgileWizard.AcceptanceTests.PageObject
         {
             get
             {
-                return BrowserHelper.Browser.Span(x => x.ClassName == "ReferenceUrl").Text;
+                return Document.Span(Find.ById("referenceurl_field")).Text;
             }
         }
 
@@ -45,19 +52,19 @@ namespace AgileWizard.AcceptanceTests.PageObject
         {
             get
             {
-                return BrowserHelper.Browser.Span(x => x.ClassName == "Tags").Text;
+                return Document.Span(Find.ById("tags_field")).Text;
             }
         }
 
-        public bool IsCurrentPage()
-        {
-            var regex = new Regex(@".+/Resource/Details/\d+");
 
-            return regex.IsMatch(BrowserHelper.Browser.Url);
-        }
 
-        public void Dispose()
+        public void AssertPageData(ResourceData data)
         {
-        }
+            Assert.Equal(data.Title, this.Title);
+            Assert.Equal(this.Author, data.Author);
+            Assert.Equal(this.ReferenceUrl, data.ReferenceUrl);
+            Assert.Equal(this.Tags, data.Tags);
+            Assert.Equal(data.Content, this.Content);
+         }
     }
 }
