@@ -75,7 +75,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Value"});
             table1.AddRow(new string[] {
                         "Title",
-                        "Embeded Video"});
+                        "Test Embeded Video"});
             table1.AddRow(new string[] {
                         "Content",
                         "Created Content"});
@@ -98,7 +98,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Value"});
             table2.AddRow(new string[] {
                         "Title",
-                        "Embeded Video"});
+                        "Test Embeded Video"});
             table2.AddRow(new string[] {
                         "Content",
                         "Created Content"});
@@ -113,6 +113,54 @@ this.ScenarioSetup(scenarioInfo);
                         "Agile,Shanghai"});
 #line 17
  testRunner.Then("current page should be resource details page", ((string)(null)), table2);
+#line 24
+ testRunner.Then("open resource list page and validate culture and total count");
+#line 25
+ testRunner.Then("go resource edit page with title - Test Embeded Video");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table3.AddRow(new string[] {
+                        "Title",
+                        "Modified Title"});
+            table3.AddRow(new string[] {
+                        "Content",
+                        "Modified Content"});
+            table3.AddRow(new string[] {
+                        "Author",
+                        "Test Author"});
+            table3.AddRow(new string[] {
+                        "ReferenceUrl",
+                        "http://testurl.com/"});
+            table3.AddRow(new string[] {
+                        "Tags",
+                        "TestTag"});
+#line 26
+ testRunner.Then("update resource data", ((string)(null)), table3);
+#line 33
+ testRunner.Then("press submit button");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table4.AddRow(new string[] {
+                        "Title",
+                        "Modified Title"});
+            table4.AddRow(new string[] {
+                        "Content",
+                        "Modified Content"});
+            table4.AddRow(new string[] {
+                        "Author",
+                        "Test Author"});
+            table4.AddRow(new string[] {
+                        "ReferenceUrl",
+                        "http://testurl.com/"});
+            table4.AddRow(new string[] {
+                        "Tags",
+                        "TestTag"});
+#line 34
+ testRunner.Then("page should be redirected to details page", ((string)(null)), table4);
 #line hidden
             testRunner.CollectScenarioErrors();
         }

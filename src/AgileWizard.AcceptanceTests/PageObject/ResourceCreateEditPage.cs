@@ -85,13 +85,13 @@ namespace AgileWizard.AcceptanceTests.PageObject
             this.Tags = data.Tags; 
         }
 
-        public void AssertPageData(ResourceData other)
+        public void AssertPageData(ResourceData data)
         {
-            Assert.Equal(this.Title, other.Title);
-            Assert.Equal(this.Author, other.Author);
-            Assert.Equal(this.Content, other.Author);
-            Assert.Equal(this.ReferenceUrl, other.ReferenceUrl);
-            Assert.Equal(this.Tags, other.Tags);
+            Assert.Equal(this.Title, data.Title);
+            Assert.Equal(this.Author, data.Author);
+            Assert.Equal(this.Content, data.Author);
+            Assert.Equal(this.ReferenceUrl, data.ReferenceUrl);
+            Assert.Equal(this.Tags, data.Tags);
         }
 
     }
