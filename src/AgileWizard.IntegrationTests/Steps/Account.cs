@@ -25,7 +25,8 @@ namespace AgileWizard.IntegrationTests.Steps
         [Then(@"navigate to home page")]
         public void ThenNavigateToHomePage()
         {
-            Home.AssertNavigateToHome(_actionResult as RedirectToRouteResult);
+            var home = new Home();
+            home.AssertNavigation(_actionResult as RedirectToRouteResult);
         }
 
         [When(@"logon username - (.+) and password - (.+)")]

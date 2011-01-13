@@ -77,13 +77,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EditResource.feature</DependentUpon>
     </Compile>
-
     <Compile Include="Features\Tag.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Tag.feature</DependentUpon>
     </Compile>
     <Compile Include="PageObject\Home.cs" />
+    <Compile Include="PageObject\IntegrationTestBase.cs" />
+    <Compile Include="PageObject\ResourceDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\Account.cs" />
     <Compile Include="Steps\Resource.cs" />

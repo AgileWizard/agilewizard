@@ -62,17 +62,16 @@ namespace AgileWizard.AcceptanceTests.Features
         [Xunit.TraitAttribute("Description", "Login")]
         public virtual void Login()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login", new string[] {
-                        "Ignor"});
-#line 7
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login", ((string[])(null)));
+#line 6
 this.ScenarioSetup(scenarioInfo);
-#line 8
+#line 7
  testRunner.Given("open login page");
-#line 9
+#line 8
  testRunner.And("enter username - \'agilewizard\' and password - \'agilewizard\'");
-#line 10
+#line 9
  testRunner.When("press login button");
-#line 11
+#line 10
  testRunner.Then("should be redirected to main page");
 #line hidden
             testRunner.CollectScenarioErrors();

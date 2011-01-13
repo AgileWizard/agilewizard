@@ -56,54 +56,38 @@ namespace AgileWizard.IntegrationTests.Features
             this.ScenarioTearDown();
         }
         
-        [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "Add Resource")]
-        [Xunit.TraitAttribute("Description", "Add plain text resource")]
-        public virtual void AddPlainTextResource()
+        public virtual void AddResource(string title, string author, string tags, string referenceurl, string content)
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add plain text resource", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("add resource", ((string[])(null)));
 #line 5
 this.ScenarioSetup(scenarioInfo);
 #line 6
- testRunner.Given("new resource with  title - \'plain text Resource\' and content - \'simple Content\' a" +
-                    "nd author - \'Test Author\' and tags - \'Agilewizard,Shanghai\'");
+ testRunner.Given(string.Format("new resource with  title - {0} and content - {1} and author - {2} and tags - {3} " +
+                        "and reference url - {4}", title, content, author, tags, referenceurl));
 #line 7
- testRunner.And("reference url - \'http://www.cnblogs.com/tengzy/\'");
-#line 8
  testRunner.When("submit resource to system");
-#line 9
+#line 8
  testRunner.Then("navigate to details page");
-#line 10
- testRunner.And("display the title, content, author and submit user and tags");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
         
-        [Xunit.FactAttribute(Skip="Ignored")]
+        [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "Add Resource")]
-        [Xunit.TraitAttribute("Description", "Add video resource")]
-        public virtual void AddVideoResource()
+        [Xunit.TraitAttribute("Description", "add resource")]
+        public virtual void AddResource_SimpleResource()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add video resource", new string[] {
-                        "ignore"});
-#line 14
-this.ScenarioSetup(scenarioInfo);
-#line 15
- testRunner.Given("new resource with  title - \'embed video Resource\'");
-#line 16
- testRunner.And("content -  @\"<embed src=\"\"http://player.youku.com/player.php/sid/XMjI2MjI2MTQw/v." +
-                    "swf\"\" quality=\"\"high\"\" width=\"\"480\"\" height=\"\"400\"\" align=\"\"middle\"\" allowScript" +
-                    "Access=\"\"sameDomain\"\" type=\"\"application/x-shockwave-flash\"\"></embed>\"");
-#line 17
- testRunner.And("author - \'Test Author\'");
-#line 18
- testRunner.When("submit resource to system");
-#line 19
- testRunner.Then("resource will be persisted");
-#line 20
- testRunner.And("navigate to details page");
-#line hidden
-            testRunner.CollectScenarioErrors();
+            this.AddResource("simple Resource", "Test Author", "Agilewizard,Shanghai", "http://www.cnblogs.com/tengzy/", "simple Content");
+        }
+        
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "Add Resource")]
+        [Xunit.TraitAttribute("Description", "add resource")]
+        public virtual void AddResource_EmbedVideoResource()
+        {
+            this.AddResource("embed video Resource", "Test Author", "Agilewizard,Shanghai", "http://www.cnblogs.com/tengzy/", "@\"<embed src=\"\"http://player.youku.com/player.php/sid/XMjI2MjI2MTQw/v.swf\"\" quali" +
+                    "ty=\"\"high\"\" width=\"\"480\"\" height=\"\"400\"\" align=\"\"middle\"\" allowScriptAccess=\"\"sa" +
+                    "meDomain\"\" type=\"\"application/x-shockwave-flash\"\"></embed>\"");
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.4.0.0")]
