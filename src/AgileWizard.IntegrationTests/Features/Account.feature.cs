@@ -72,42 +72,35 @@ this.ScenarioSetup(scenarioInfo);
             testRunner.CollectScenarioErrors();
         }
         
-        [Xunit.FactAttribute(Skip="Ignored")]
-        [Xunit.TraitAttribute("FeatureTitle", "Account Login")]
-        [Xunit.TraitAttribute("Description", "Failure login - not existing user")]
-        public virtual void FailureLogin_NotExistingUser()
+        public virtual void FailureLogin(string username, string password)
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Failure login - not existing user", new string[] {
-                        "Ignore"});
-#line 10
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Failure login", ((string[])(null)));
+#line 9
 this.ScenarioSetup(scenarioInfo);
+#line 10
+ testRunner.When(string.Format("logon username - {0} and password - {1}", username, password));
 #line 11
- testRunner.When("logon with non-existing username");
-#line 12
  testRunner.Then("no navigation");
-#line 13
+#line 12
  testRunner.Then("show error message");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
         
-        [Xunit.FactAttribute(Skip="Ignored")]
+        [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "Account Login")]
-        [Xunit.TraitAttribute("Description", "Failure login - wrong password")]
-        public virtual void FailureLogin_WrongPassword()
+        [Xunit.TraitAttribute("Description", "Failure login")]
+        public virtual void FailureLogin_Notexisting()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Failure login - wrong password", new string[] {
-                        "Ignore"});
-#line 16
-this.ScenarioSetup(scenarioInfo);
-#line 17
- testRunner.When("logon with wrong password");
-#line 18
- testRunner.Then("no navigation");
-#line 19
- testRunner.Then("show error message");
-#line hidden
-            testRunner.CollectScenarioErrors();
+            this.FailureLogin("notexisting", "agilewizard");
+        }
+        
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "Account Login")]
+        [Xunit.TraitAttribute("Description", "Failure login")]
+        public virtual void FailureLogin_Agilewizard()
+        {
+            this.FailureLogin("agilewizard", "wrongone");
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.4.0.0")]
