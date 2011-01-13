@@ -26,7 +26,6 @@ namespace AgileWizard.Domain.QueryIndexes
                                   group item by item.Name into g
                                   let shortTicks = g.Max(x => x.ShortTicks)
                                   let totalCount = g.Count()
-                                  orderby shortTicks descending, g.Key
                                   select new
                                   {
                                       Name = g.Key,
