@@ -20,7 +20,7 @@
                     <%: Html.LabelFor(m => m.UserName) %>
                 </div>
                 <div class="editor-field">
-                    <%: Html.TextBoxFor(m => m.UserName) %>
+                    <%: Html.TextBoxFor(m => m.UserName, new { id="username_field" }) %>
                     <%: Html.ValidationMessageFor(m => m.UserName) %>
                 </div>
                 
@@ -28,7 +28,7 @@
                     <%: Html.LabelFor(m => m.Password) %>
                 </div>
                 <div class="editor-field">
-                    <%: Html.PasswordFor(m => m.Password) %>
+                    <%: Html.PasswordFor(m => m.Password, new { id="password_field" }) %>
                     <%: Html.ValidationMessageFor(m => m.Password) %>
                 </div>
                 
@@ -38,7 +38,7 @@
                 </div>
                 
                 <p>
-                    <input type="submit" value="<%: AccountString.LogOnButtonText %>" />
+                    <input id="submit_button" type="submit" value="<%: AccountString.LogOnButtonText %>" />
                 </p>
             </fieldset>
         </div>
