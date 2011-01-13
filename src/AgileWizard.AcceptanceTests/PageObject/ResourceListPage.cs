@@ -1,23 +1,40 @@
 ﻿using System;
+using System.Collections;
+
 using AgileWizard.AcceptanceTests.Helper;
 using AgileWizard.Locale.Resources.Models;
 using AgileWizard.Locale.Resources.Views;
 using Xunit;
+using WatiN.Core;
 
 namespace AgileWizard.AcceptanceTests.PageObject
 {
-    public class ResourceListPage : WatiN.Core.Page, IDisposable
+    [Page(UrlRegex = @"Resource(/Index)?$")]
+    public class ResourceListPage : Page
     {
-        private const string Url = "Resource";
-        private const string _listContent = "listContent";
-        private const string _listTitle = "listTitle";
-        private const string _displayLabel = "display-label";
-        private const string _createNewResource = "link";
-        private const string _totalResourceCount = "totalResourceCount";
-
-        public void GoToPage()
+        public Link CreateResourceLink
         {
-            BrowserHelper.OpenPage(Url);
+            get
+            {
+                return Document.Link(Find.ById("create_link"));
+            }
+        }
+
+        public int TotalCount
+        {
+            get
+            {
+                string totalCount = Document.Span(Find.ById("total_count")).Text;
+                return Int32.Parse(totalCount);
+            }
+        }
+
+        public string PageTitle
+        {
+            get
+            {
+                return Document.Title;
+            }
         }
 
         public void GoToResourceDetail(string title)
@@ -33,35 +50,19 @@ namespace AgileWizard.AcceptanceTests.PageObject
 
         public void AssertTotalResourceCount()
         {
-            var totalResoureCount = int.Parse(BrowserHelper.GetElementTextByClassName(_totalResourceCount)); 
-            Assert.True(totalResoureCount > 0);
+            Assert.True(this.TotalCount > 0);
         }
 
         public void AssertCulture()
-        {
+       {
             var expect = ResourceString.Resources;
-            Assert.Equal(BrowserHelper.Browser.Title, expect);
-
-            BrowserHelper.AssertElementByClassName(ResourceString.CreateResourceLink, _createNewResource);
-
-            BrowserHelper.AssertElementByClassName(ResourceString.TotalResourceCount, _displayLabel);
-
-            BrowserHelper.AssertElementByIDOrName(ResourceName.Title, _listTitle);
-
-            BrowserHelper.AssertElementByIDOrName(ResourceName.Content, _listContent);
+            Assert.Equal(this.PageTitle, expect);
         }
 
         public void AssertAddAndEditLinkNotShown()
         {
-            BrowserHelper.AssertElementByClassNameNotExist(ResourceString.CreateResourceLink, _createNewResource);
+            //BrowserHelper.AssertElementByClassNameNotExist(ResourceString.CreateResourceLink, _createNewResource);
+            throw new NotImplementedException();
         }
-
-        #region IDisposable Members
-
-        public void Dispose()
-        {
-        }
-
-        #endregion
     }
 }

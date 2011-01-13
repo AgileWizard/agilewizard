@@ -8,13 +8,13 @@
         <%: ResourceString.Resources%></h2>
         <%if (Request.IsAuthenticated) {%>
         <p>
-        <%: Html.ActionLink(ResourceString.CreateResourceLink, "Create", null, new { @class="link"})%>
+        <%: Html.ActionLink(ResourceString.CreateResourceLink, "Create", null, new { @class="link", @id="create_link"})%>
         </p>
         <%}%>
 
     <p>
         <span class="display-label">
-            <%: ResourceString.TotalResourceCount %></span> <span class="totalResourceCount">
+            <%: ResourceString.TotalResourceCount %></span> <span id="total_count" class="totalResourceCount">
                 <%: Model.TotalCount %></span>
     </p>
     <table class="contentList">
