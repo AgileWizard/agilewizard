@@ -6,7 +6,7 @@ using Xunit;
 
 namespace AgileWizard.AcceptanceTests.PageObject
 {
-    public class ResourceListPage
+    public class ResourceListPage : WatiN.Core.Page, IDisposable
     {
         private const string Url = "Resource";
         private const string _listContent = "listContent";
@@ -15,29 +15,29 @@ namespace AgileWizard.AcceptanceTests.PageObject
         private const string _createNewResource = "link";
         private const string _totalResourceCount = "totalResourceCount";
 
-        public static void GoToPage()
+        public void GoToPage()
         {
             BrowserHelper.OpenPage(Url);
         }
 
-        public static void GoToResourceDetail(string title)
+        public void GoToResourceDetail(string title)
         {
             BrowserHelper.ClickByText(title);
         }
 
-        public static void GoToResourceEdit(string title)
+        public void GoToResourceEdit(string title)
         {
             var browser = BrowserHelper.Browser;
             browser.Link(l => l.Text == ResourceString.Edit.Trim() && l.Parent.NextSibling.Text == title).Click();
         }
 
-        public static void AssertTotalResourceCount()
+        public void AssertTotalResourceCount()
         {
             var totalResoureCount = int.Parse(BrowserHelper.GetElementTextByClassName(_totalResourceCount)); 
             Assert.True(totalResoureCount > 0);
         }
 
-        public static void AssertCulture()
+        public void AssertCulture()
         {
             var expect = ResourceString.Resources;
             Assert.Equal(BrowserHelper.Browser.Title, expect);
@@ -51,9 +51,17 @@ namespace AgileWizard.AcceptanceTests.PageObject
             BrowserHelper.AssertElementByIDOrName(ResourceName.Content, _listContent);
         }
 
-        public static void AssertAddAndEditLinkNotShown()
+        public void AssertAddAndEditLinkNotShown()
         {
             BrowserHelper.AssertElementByClassNameNotExist(ResourceString.CreateResourceLink, _createNewResource);
         }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+        }
+
+        #endregion
     }
 }

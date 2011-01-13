@@ -53,7 +53,7 @@
             <%: Html.ValidationMessageFor(m => m.Content)%>
         </div>
         <p>
-            <input type="submit" value="<%: ResourceString.Save %>" />
+            <input id="submit_button" type="submit" value="<%: ResourceString.Save %>" />
         </p>
     </fieldset>
     <% } %>

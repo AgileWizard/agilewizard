@@ -4,14 +4,14 @@
 </asp:Content>
 <asp:Content runat="server" ID="Main" ContentPlaceHolderID="MainContent">
     <link href="<%=Url.Content("~/Content/Resource.css") %>" rel="stylesheet" type="text/css" />
-    <h1 class="Title"><%: Model.Title %></h1>
+    <h1 id="title_field" class="Title"><%: Model.Title %></h1>
     <div class="Information">
-        <%:ResourceName.Author %>:<span class="Author"><%: Model.Author %></span>&nbsp;
-        <%:ResourceName.SubmitUser %>:<span class="SubmitUser"><%: Model.SubmitUser%></span>&nbsp;
-        <span><%: Model.CreateTime.ToString() %></span>
-        <%:ResourceName.ReferenceUrl %>: <span class="ReferenceUrl"><%=Model.ReferenceUrl %></span>
+        <%:ResourceName.Author %>:<span id="author_field" class="Author"><%: Model.Author %></span>&nbsp;
+        <%:ResourceName.SubmitUser %>:<span id="submituser_field" class="SubmitUser"><%: Model.SubmitUser%></span>&nbsp;
+        <span id="createtime_field"><%: Model.CreateTime.ToString() %></span>
+        <%:ResourceName.ReferenceUrl %>: <span id="referenceurl_field" class="ReferenceUrl"><%=Model.ReferenceUrl %></span>
     </div>
     <br />
-    <div class="Content"><%=Model.Content %></div>
-    <div class="TagsArea"><%:ResourceName.Tags %>:<span class="Tags"><%:Model.Tags %></span></div>
+    <div id="content_field" class="Content"><%=Model.Content %></div>
+    <div class="TagsArea"><%:ResourceName.Tags %>:<span id="tags_field" class="Tags"><%:Model.Tags %></span></div>
 </asp:Content>
