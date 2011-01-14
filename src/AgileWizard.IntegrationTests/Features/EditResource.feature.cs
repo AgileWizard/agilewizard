@@ -27,7 +27,7 @@ namespace AgileWizard.IntegrationTests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Edit resource", "As a admin,\r\nI can edit title, content, tag of a resource", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Edit resource", "As a admin,\nI can edit title, content, tag of a resource", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -56,14 +56,13 @@ namespace AgileWizard.IntegrationTests.Features
             this.ScenarioTearDown();
         }
         
-        [Xunit.FactAttribute(Skip="Ignored")]
+        [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "Edit resource")]
         [Xunit.TraitAttribute("Description", "Open a resource to edit")]
         public virtual void OpenAResourceToEdit()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Open a resource to edit", new string[] {
-                        "Ignore"});
-#line 6
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Open a resource to edit", ((string[])(null)));
+#line 5
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -84,26 +83,25 @@ this.ScenarioSetup(scenarioInfo);
             table1.AddRow(new string[] {
                         "Tags",
                         "Test,Integration"});
-#line 7
+#line 6
  testRunner.Given("there is a resource", ((string)(null)), table1);
-#line 14
+#line 13
  testRunner.When("open the resource to edit");
-#line 15
+#line 14
  testRunner.Then("navigate to edit page");
-#line 16
+#line 15
  testRunner.And("show edit for the title, content, author and tags");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
         
-        [Xunit.FactAttribute(Skip="Ignored")]
+        [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "Edit resource")]
         [Xunit.TraitAttribute("Description", "Edit a resource")]
         public virtual void EditAResource()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit a resource", new string[] {
-                        "Ignore"});
-#line 19
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit a resource", ((string[])(null)));
+#line 17
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -124,7 +122,7 @@ this.ScenarioSetup(scenarioInfo);
             table2.AddRow(new string[] {
                         "Tags",
                         "Test,Integration"});
-#line 20
+#line 18
  testRunner.Given("there is a resource", ((string)(null)), table2);
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -145,11 +143,11 @@ this.ScenarioSetup(scenarioInfo);
             table3.AddRow(new string[] {
                         "Tags",
                         "Test,Integration,XP"});
-#line 27
+#line 25
  testRunner.When("modify the resource", ((string)(null)), table3);
-#line 34
+#line 32
  testRunner.Then("navigate to details page");
-#line 35
+#line 33
  testRunner.And("display the title, content, author and submit user and tags");
 #line hidden
             testRunner.CollectScenarioErrors();

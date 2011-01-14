@@ -2,7 +2,6 @@
 	As a admin,
 	I can edit title, content, tag of a resource
 
-@Ignore 
 Scenario: Open a resource to edit
 	Given there is a resource
 	|	Field			|	Value							|
@@ -15,7 +14,6 @@ Scenario: Open a resource to edit
 	Then navigate to edit page
 	And show edit for the title, content, author and tags
 
-@Ignore
 Scenario: Edit a resource
 	Given there is a resource
 	|	Field			|	Value							|
