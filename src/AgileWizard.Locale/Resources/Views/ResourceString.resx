@@ -135,6 +135,12 @@
   <data name="EditResourceTitle" xml:space="preserve">
     <value>编辑资源</value>
   </data>
+  <data name="Like" xml:space="preserve">
+    <value>顶</value>
+  </data>
+  <data name="PageView" xml:space="preserve">
+    <value>点击</value>
+  </data>
   <data name="Resources" xml:space="preserve">
     <value>资源列表</value>
   </data>
@@ -143,5 +149,8 @@
   </data>
   <data name="TotalResourceCount" xml:space="preserve">
     <value>资源总数</value>
+  </data>
+  <data name="Unlike" xml:space="preserve">
+    <value>踩</value>
   </data>
 </root>

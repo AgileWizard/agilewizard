@@ -97,6 +97,11 @@
 	text-transform: uppercase;
 }
 
+.resource-item .time a
+{
+	color: #999;
+}
+
 .break
 {
 	font-size: 0;

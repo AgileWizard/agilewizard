@@ -115,6 +115,24 @@ namespace AgileWizard.Locale.Resources.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 顶.
+        /// </summary>
+        public static string Like {
+            get {
+                return ResourceManager.GetString("Like", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 点击.
+        /// </summary>
+        public static string PageView {
+            get {
+                return ResourceManager.GetString("PageView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 资源列表.
         /// </summary>
         public static string Resources {
@@ -138,6 +156,15 @@ namespace AgileWizard.Locale.Resources.Views {
         public static string TotalResourceCount {
             get {
                 return ResourceManager.GetString("TotalResourceCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 踩.
+        /// </summary>
+        public static string Unlike {
+            get {
+                return ResourceManager.GetString("Unlike", resourceCulture);
             }
         }
     }
