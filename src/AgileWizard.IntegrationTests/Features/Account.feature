@@ -6,14 +6,12 @@ Scenario: Successful login
 	When logon with correct username and password
 	Then navigate to home page
 
-@Ignore
-Scenario: Failure login - not existing user
-	When logon with non-existing username
+Scenario Outline: Failure login 
+	When logon username - <username> and password - <password>
 	Then no navigation
 	Then show error message
 
-@Ignore
-Scenario: Failure login - wrong password
-	When logon with wrong password
-	Then no navigation
-	Then show error message
+	Examples:
+	|   username   |  password  |
+	| notexisting  | agilewizard|
+	| agilewizard |  wrongone  |

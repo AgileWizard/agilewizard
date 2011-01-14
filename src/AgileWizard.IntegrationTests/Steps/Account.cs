@@ -1,5 +1,4 @@
-﻿using System;
-using AgileWizard.Domain.Users;
+﻿using AgileWizard.Domain.Users;
 using AgileWizard.IntegrationTests.PageObject;
 using TechTalk.SpecFlow;
 using AgileWizard.Website.Controllers;
@@ -14,17 +13,38 @@ namespace AgileWizard.IntegrationTests.Steps
     public class Account
     {
         private AccountController _accountController;
-        private RedirectToRouteResult _actionResult;
+        private ActionResult _actionResult;
         private LogOnModel _logOnModel;
 
         [When(@"logon with correct username and password")]
         public void WhenLogonWithCorrectUsernameAndPassword()
         {
-            GetAccountController();
+            LogonWithCorrectUserNameAndPassword();
+        }
 
-            GetLogonModelWithCorrectUserNameAndPassword();
+        [Then(@"navigate to home page")]
+        public void ThenNavigateToHomePage()
+        {
+            var home = new Home();
+            home.AssertNavigation(_actionResult as RedirectToRouteResult);
+        }
 
-            _actionResult = _accountController.LogOn(_logOnModel) as RedirectToRouteResult;
+        [When(@"logon username - (.+) and password - (.+)")]
+        public void WhenLogonUsername(string username, string password)
+        {
+            LogonWithUserNameAndPassword(username, password);
+        }
+
+        [Then(@"no navigation")]
+        public void ThenNoNavigation()
+        {
+            Assert.IsType<ViewResult>(_actionResult);
+            Assert.Empty(((ViewResult)_actionResult).ViewName);        }
+
+        [Then(@"show error message")]
+        public void ThenShowErrorMessage()
+        {
+            Assert.True(_accountController.ModelState.Values.Count > 0);
         }
 
         private void GetAccountController()
@@ -32,19 +52,26 @@ namespace AgileWizard.IntegrationTests.Steps
             _accountController = ObjectFactory.GetInstance<AccountController>();
         }
 
-        private void GetLogonModelWithCorrectUserNameAndPassword()
+        private void LogonWithCorrectUserNameAndPassword()
         {
-            _logOnModel = new LogOnModel
-                              {
-                                  UserName = User.DefaultUser().UserName,
-                                  Password = User.DefaultUser().Password,
-                              };
+            LogonWithUserNameAndPassword(User.DefaultUser().UserName, User.DefaultUser().Password);
         }
 
-        [Then(@"navigate to home page")]
-        public void ThenNavigateToHomePage()
+        private void LogonWithUserNameAndPassword(string username, string password)
         {
-            Home.AssertNavigateToHome(_actionResult);
+            _logOnModel = new LogOnModel
+            {
+                UserName = username,
+                Password = password,
+            };
+            Logon();
+        }
+
+        private void Logon()
+        {
+            GetAccountController();
+
+            _actionResult = _accountController.LogOn(_logOnModel);
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using AgileWizard.Domain.Repositories;
-using AgileWizard.Domain.Models;
+using AgileWizard.IntegrationTests.PageObject;
 using AgileWizard.Website.Controllers;
 using AgileWizard.Website.Models;
 using StructureMap;
@@ -20,6 +20,10 @@ namespace AgileWizard.IntegrationTests.Steps
         [Binding]
         public class StepDefinitions
         {
+            private Domain.Models.Resource _resource;
+            private ResourceModel _resourceModel;
+            private ResourceController _resourceController;
+            private ActionResult _actionResult;
 
             const string SubmitUser = "agilewizard";
             private const string SUBMITTED_RESOURCE_MODEL_KEY = "SubmittedResourceModel";
@@ -47,54 +51,40 @@ namespace AgileWizard.IntegrationTests.Steps
                 resourceModel.ReferenceUrl = referenceUrl;
             }
 
-            [When(@"submit resource to system")]
-            public void WhenSubmitResourceToSystem()
-            {
-                var resourceModel = ScenarioContext.Current[SUBMITTED_RESOURCE_MODEL_KEY] as ResourceModel;
-                var resourceController = ObjectFactory.GetInstance<ResourceController>();
-                var actionResult = resourceController.Create(resourceModel) as RedirectToRouteResult;
-                ScenarioContext.Current[ACTION_RESULT_KEY] = actionResult;
-            }
 
-            [Then(@"navigate to details page")]
-            public void ThenNavigateToDetailsPage()
-            {
-                var actionResult = ScenarioContext.Current[ACTION_RESULT_KEY] as RedirectToRouteResult;
-                Assert.Equal("details", (string)actionResult.RouteValues["action"], StringComparer.OrdinalIgnoreCase);
-            }
 
-            [Then(@"display the title, content, author and submit user and tags")]
-            public void ThenDisplayDetailInformation()
-            {
-                var actionResult = ScenarioContext.Current[ACTION_RESULT_KEY] as RedirectToRouteResult;
-                var resourceRepository = ObjectFactory.GetInstance<IResourceRepository>();
-                var resourceId = actionResult.RouteValues["id"].ToString();
-                var actualResource = resourceRepository.GetResourceById(resourceId);
-                var submittedResourceModel = ScenarioContext.Current[SUBMITTED_RESOURCE_MODEL_KEY] as ResourceModel;
+            //[Then(@"display the title, content, author and submit user and tags")]
+            //public void ThenDisplayDetailInformation()
+            //{
+            //    var actionResult = ScenarioContext.Current[ACTION_RESULT_KEY] as RedirectToRouteResult;
+            //    var resourceRepository = ObjectFactory.GetInstance<IResourceRepository>();
+            //    var resourceId = actionResult.RouteValues["id"].ToString();
+            //    var actualResource = resourceRepository.GetResourceById(resourceId);
+            //    var submittedResourceModel = ScenarioContext.Current[SUBMITTED_RESOURCE_MODEL_KEY] as ResourceModel;
 
-                Assert.Equal(actualResource.Title, submittedResourceModel.Title);
-                Assert.Equal(actualResource.Content, submittedResourceModel.Content);
-                Assert.Equal(actualResource.Author, submittedResourceModel.Author);
-                Assert.Equal(actualResource.SubmitUser, SubmitUser);
-                Assert.Equal(actualResource.ReferenceUrl, submittedResourceModel.ReferenceUrl);
-                Assert.Equal(actualResource.Tags.Count, submittedResourceModel.Tags.ToTagList().Count);
-            }
+            //    Assert.Equal(actualResource.Title, submittedResourceModel.Title);
+            //    Assert.Equal(actualResource.Content, submittedResourceModel.Content);
+            //    Assert.Equal(actualResource.Author, submittedResourceModel.Author);
+            //    Assert.Equal(actualResource.SubmitUser, SubmitUser);
+            //    Assert.Equal(actualResource.ReferenceUrl, submittedResourceModel.ReferenceUrl);
+            //    Assert.Equal(actualResource.Tags.Count, submittedResourceModel.Tags.ToTagList().Count);
+            //}
 
             [Given(@"there is a resource")]
             public void GivenThereIsAResource(Table table)
             {
-                var resource = table.CreateInstance<Domain.Models.Resource>();
+                _resource = table.CreateInstance<Domain.Models.Resource>();
                 foreach (var row in table.Rows)
                 {
                     if (row["Field"] == "Tags")
                     {
-                        resource.Tags = row["Value"].Split(',').Select(s => new AgileWizard.Domain.Models.Resource.ResourceTag() { Name = s }).ToList();
+                        _resource.Tags = row["Value"].Split(',').Select(s => new Domain.Models.Resource.ResourceTag() { Name = s }).ToList();
                     }
                 }
                 var repository = ObjectFactory.GetInstance<IResourceRepository>();
-                resource = repository.Add(resource);
+                _resource = repository.Add(_resource);
                 repository.Save();
-                ScenarioContext.Current[EXISTING_RESOURCE_KEY] = resource;
+                ScenarioContext.Current[EXISTING_RESOURCE_KEY] = _resource;
             }
 
             [When(@"modify the resource")]
@@ -139,6 +129,40 @@ namespace AgileWizard.IntegrationTests.Steps
                 var id = resource.Id.Substring(10);
                 var actionResult = controller.Edit(id);
                 ScenarioContext.Current[ACTION_RESULT_KEY] = actionResult;
+            }
+
+            [Given(@"new resource with  title - (.+) and content - (.+) and author - (.+) and tags - (.+) and reference url - (\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])")]
+            public void GivenNewResourceWithTitleAndContentAndAuthorAndTagsAndReferenceUrl(string title, string content, string author, string tags, string referenceurl)
+            {
+                _resourceModel = new ResourceModel
+                                {
+                                    Title = title,
+                                    Content = content,
+                                    Author = author,
+                                    Tags = tags,
+                                    ReferenceUrl = referenceurl,
+                                }; 
+            }
+
+            [When(@"submit resource to system")]
+            public void WhenSubmitResourceToSystem()
+            {
+                CreateResource();
+            }
+
+            [Then(@"navigate to details page")]
+            public void ThenNavigateToDetailsPage()
+            {
+                var resourceDetail = new ResourceDetail();
+
+                resourceDetail.AssertAction(_actionResult as RedirectToRouteResult);
+            }
+
+            private void CreateResource()
+            {
+                _resourceController = ObjectFactory.GetInstance<ResourceController>();
+
+                _actionResult = _resourceController.Create(_resourceModel);
             }
         }
     }
