@@ -11,15 +11,15 @@
             <div class="counters">
                 <div class="counter pageview">
                     <div class="counts">20</div>
-                    <div>点击</div>
+                    <div><%= ResourceString.PageView %></div>
                 </div>
                 <div class="counter unlike">
                     <div class="counts">1</div>
-                    <div>踩</div>
+                    <div><%= ResourceString.Unlike %></div>
                 </div>
                 <div class="counter like">
                     <div class="counts">10</div>
-                    <div>顶</div>
+                    <div><%= ResourceString.Like %></div>
                 </div>
             </div>
             <h2>
@@ -27,8 +27,8 @@
             </h2>
             <div class="time">
                 &copy; <a href="" title="<%: item.Author %>"><%: item.Author%></a> / 
-                <%: item.CreateTime.ToShortDateString() %> / <%: item.CreateTime.ToShortTimeString() %> / 
-                <% foreach (var tag in item.Tags) { %><a href=""><%: tag.Name %></a> / <% } %>
+                <%: item.CreateTime.ToString("yyyy.MM.dd") %> / <%: item.CreateTime.ToShortTimeString() %> / 
+                <% if (item.Tags.Count > 0) { %><a href=""><%: item.Tags[0].Name %></a><% } %>
             </div>
             <%= item.Content %>
         </div>

@@ -95,6 +95,7 @@
     <Compile Include="SessionStateRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\arrow.gif" />
     <Content Include="Content\Images\default_resource_icon.jpg" />
     <Content Include="Content\Images\footer_bg.png" />
     <Content Include="Content\Images\header_bg.png" />
@@ -102,6 +103,7 @@
     <Content Include="Content\Images\logo_f.png" />
     <Content Include="Content\Images\logo_t.png" />
     <Content Include="Content\Resource.css" />
+    <Content Include="Content\Tag.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\tiny_mce\jquery.tinymce.js" />
     <Content Include="Scripts\tiny_mce\langs\en.js" />
