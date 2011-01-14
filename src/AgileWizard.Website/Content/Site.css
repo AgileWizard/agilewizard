@@ -111,8 +111,14 @@ page width. Or, you can specify an exact pixel width. */
 	background-color: #fff;
 	margin:auto;
 	width:1000px;
-	height:100%;
+	min-height: 700px;
+	height:auto;
 	overflow:hidden;
+}
+
+* html #main
+{
+	height: 700px;
 }
 
 #footer
