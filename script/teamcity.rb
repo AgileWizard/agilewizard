@@ -1,6 +1,8 @@
 require  "albacore"
 require 'fileutils'
-load 'varConfig.rb'
+if not((defined? ROOT)) then
+	load 'varConfig.rb'
+end
 
 task :default => [:compile,:test,:clean]
 
