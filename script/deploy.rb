@@ -3,7 +3,7 @@ require 'fileutils'
 if not((defined? ROOT)) then
 	load 'varConfig.rb'
 end
-#load 'publish.rb'
+load 'publish.rb'
 
 # Configuration
 APPLICATION_DIR = "C:/inetpub/wwwroot/Agile wizard"
@@ -15,7 +15,7 @@ time = Time.new
 # Current date and time string format
 CURRENT_DATE_TIME = time.strftime("%Y%m%d_%H%M%S")
 
-task :default => [:backupApp, :backupData, :deploy]
+task :default => [:publish, :backupApp, :backupData, :deploy]
 
 desc 'backup the old website applications'
 task :backupApp do |zip|
