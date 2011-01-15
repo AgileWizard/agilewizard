@@ -45,7 +45,7 @@ namespace AgileWizard.AcceptanceTests.PageObject
         public void GoToResourceEdit(string title)
         {
             var browser = BrowserHelper.Browser;
-            browser.Link(l => l.Text == ResourceString.Edit.Trim() && l.Parent.NextSibling.Text == title).Click();
+            browser.Link(l => l.Text == ResourceString.Edit.Trim() && l.Parent.PreviousSibling.PreviousSibling.Text.Trim() == title).Click();
         }
 
         public void AssertTotalResourceCount()

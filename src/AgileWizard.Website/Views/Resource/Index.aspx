@@ -17,23 +17,5 @@
             <%: ResourceString.TotalResourceCount %></span> <span id="total_count" class="totalResourceCount">
                 <%: Model.TotalCount %></span>
     </p>
-    <table class="contentList">
-        <tr>
-        <%if (Request.IsAuthenticated){%>
-            <th class="link"></th>
-        <%} %>
-            <th id="listTitle"><%: ResourceName.Title%></th>
-            <th id="listContent"><%: ResourceName.Content%></th>
-        </tr>
-        <% foreach (var item in Model)
-           { %>
-        <tr>
-        <%if (Request.IsAuthenticated) {%>
-            <td class="link"><%: Html.ActionLink(ResourceString.Edit, "Edit", new { id=item.Id }) %></td>
-        <%}%>
-            <td class="title"><%: Html.ActionLink(item.Title, "Details", new { id = item.Id })%></td>
-            <td class="content"><%: item.Content %></td>
-        </tr>
-        <% } %>
-    </table>
+    <div><%: Html.Partial("ResourceList", Model) %></div>
 </asp:Content>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AgileWizard.Domain.Models;
@@ -131,6 +132,34 @@ namespace AgileWizard.Website.Tests
             _resourceService.VerifyAll();
             ShouldRedirectToActionDetails(actionResult, ID);
         }
+
+        [Fact]
+        public void render_user_control_for_resource_list()
+        {
+            //Arrange
+            var resources = new List<Resource>
+                                {
+                                    _resource
+                                };
+            _resourceService.Setup(s => s.GetResourceList()).Returns(resources);
+
+            //Act
+            var actionResult = resourceControllerSUT.ResourceList();
+
+            //Assert
+            ShouldShowResourceListUserControlWithModel(actionResult);
+        }
+
+        private void ShouldShowResourceListUserControlWithModel(ActionResult actionResult)
+        {
+            Assert.IsType<PartialViewResult>(actionResult);
+            var partialViewResult = (PartialViewResult)actionResult;
+            Assert.Equal("ResourceList", partialViewResult.ViewName);
+            Assert.IsAssignableFrom<IEnumerable<ResourceListViewModel>>(partialViewResult.ViewData.Model);
+            var viewModel = (IEnumerable<ResourceListViewModel>)partialViewResult.ViewData.Model;
+            Assert.Equal("1", viewModel.First().Id);
+        }
+
 
         private void ShouldShowDefaultViewWithModel(string title, ActionResult actionResult)
         {

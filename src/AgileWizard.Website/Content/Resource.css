@@ -103,6 +103,11 @@
 	text-decoration: none;
 }
 
+.resource-item .admin-action
+{
+    float: right;
+}
+
 .break
 {
 	font-size: 0;
