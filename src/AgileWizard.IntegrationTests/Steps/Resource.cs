@@ -16,14 +16,10 @@ using AgileWizard.Domain.Models;
 namespace AgileWizard.IntegrationTests.Steps
 {
     [Binding]
-    public class ResourceSteps
+    public partial class ResourceSteps
     {
         private const string SubmitUser = "agilewizard";
-        private const string ACTION_RESULT_KEY = "ActionResult";
-        private const string EXISTING_RESOURCE_KEY = "ExistingResource";
-        private const string SUBMITTED_RESOURCE_MODEL_KEY = "SubmittedResourceModel";
-        private const string PENDING_SUBMITTED_RESOURCE_MODEL_KEY = "PendingSubmittedResourceModel";
-
+        
         [Given(@"new resource with  title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)' and tags - '(.+)'")]
         public void GivenNewResourceWithTitleContentAuthorAndTags(string title, string content, string author, string tags)
         {
@@ -35,13 +31,13 @@ namespace AgileWizard.IntegrationTests.Steps
                                      Content = content,
                                      SubmitUser = SubmitUser
                                  };
-            CurrentScenario[SUBMITTED_RESOURCE_MODEL_KEY] = resourceModel;
+            SubmittedResourceModel = resourceModel;
         }
 
         [Given(@"reference url - '(\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])'")]
         public void GivenRefereceUrl(string referenceUrl)
         {
-            var resourceModel = CurrentScenario[SUBMITTED_RESOURCE_MODEL_KEY] as ResourceModel;
+            var resourceModel = SubmittedResourceModel;
             resourceModel.ReferenceUrl = referenceUrl;
         }
 
@@ -50,11 +46,11 @@ namespace AgileWizard.IntegrationTests.Steps
         [Then(@"display the title, content, author and submit user and tags")]
         public void ThenDisplayDetailInformation()
         {
-            var actionResult = CurrentScenario[ACTION_RESULT_KEY] as RedirectToRouteResult;
+            var actionResult = ActionResult as RedirectToRouteResult;
             var resourceRepository = ObjectFactory.GetInstance<IResourceRepository>();
             var resourceId = actionResult.RouteValues["id"].ToString();
             var actualResource = resourceRepository.GetResourceById(resourceId);
-            var submittedResourceModel = CurrentScenario[SUBMITTED_RESOURCE_MODEL_KEY] as ResourceModel;
+            var submittedResourceModel = SubmittedResourceModel;
 
             Assert.Equal(actualResource.Title, submittedResourceModel.Title);
             Assert.Equal(actualResource.Content, submittedResourceModel.Content);
@@ -89,21 +85,21 @@ namespace AgileWizard.IntegrationTests.Steps
             var id = resource.Id.Substring(10);
             var controller = ObjectFactory.GetInstance<ResourceController>();
             var actionResult = controller.Edit(id, resourceModel);
-            CurrentScenario[SUBMITTED_RESOURCE_MODEL_KEY] = resourceModel;
-            CurrentScenario[ACTION_RESULT_KEY] = actionResult;
+            SubmittedResourceModel = resourceModel;
+            ActionResult = actionResult;
         }
 
         [Then(@"navigate to edit page")]
         public void ThenNavigateToEditPage()
         {
-            var actionResult = CurrentScenario[ACTION_RESULT_KEY] as ViewResult;
+            var actionResult = ActionResult as ViewResult;
             Assert.Empty(actionResult.ViewName);
         }
 
         [Then(@"show edit for the title, content, author and tags")]
         public void ThenShowEditForTheTitleContentAuthorAndTags()
         {
-            var actionResult = CurrentScenario[ACTION_RESULT_KEY] as ViewResult;
+            var actionResult = ActionResult as ViewResult;
             var resourceRepository = ObjectFactory.GetInstance<IResourceRepository>();
             var actualResource = actionResult.ViewData.Model as ResourceModel;
             var existingResource = CurrentScenario[EXISTING_RESOURCE_KEY] as Domain.Models.Resource;
@@ -122,7 +118,7 @@ namespace AgileWizard.IntegrationTests.Steps
             var resource = CurrentScenario[EXISTING_RESOURCE_KEY] as Domain.Models.Resource;
             var id = resource.Id.Substring(10);
             var actionResult = controller.Edit(id);
-            CurrentScenario[ACTION_RESULT_KEY] = actionResult;
+            ActionResult = actionResult;
         }
 
         [Given(@"new resource with  title - (.+) and content - (.+) and author - (.+) and tags - (.+) and reference url - (\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])")]
@@ -137,7 +133,7 @@ namespace AgileWizard.IntegrationTests.Steps
                                 ReferenceUrl = referenceurl,
                             };
 
-            CurrentScenario[PENDING_SUBMITTED_RESOURCE_MODEL_KEY] = resourceModel;
+            PendingSubmittedResourceModel = resourceModel;
         }
 
         [When(@"submit resource to system")]
@@ -150,16 +146,16 @@ namespace AgileWizard.IntegrationTests.Steps
         public void ThenNavigateToDetailsPage()
         {
             var resourceDetail = new ResourceDetail();
-            var actionResult = CurrentScenario[ACTION_RESULT_KEY];
+            var actionResult = ActionResult;
             resourceDetail.AssertAction(actionResult as RedirectToRouteResult);
         }
 
         private void CreateResource()
         {
             var resourceController = ObjectFactory.GetInstance<ResourceController>();
-            var pendingSubmittedResourceModel = CurrentScenario[PENDING_SUBMITTED_RESOURCE_MODEL_KEY] as ResourceModel;
+            var pendingSubmittedResourceModel = PendingSubmittedResourceModel;
 
-            CurrentScenario[ACTION_RESULT_KEY] = resourceController.Create(pendingSubmittedResourceModel);
+            ActionResult = resourceController.Create(pendingSubmittedResourceModel);
         }
 
         private ScenarioContext CurrentScenario 
