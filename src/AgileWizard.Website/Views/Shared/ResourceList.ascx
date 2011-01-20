@@ -12,15 +12,15 @@
             <div class="counters">
                 <div class="counter pageview">
                     <div class="counts">20</div>
-                    <div><%=ResourceString.PageView%></div>
+                    <div class="actionResult"><%=ResourceString.PageView%></div>
                 </div>
                 <div class="counter unlike">
                     <div class="counts">1</div>
-                    <div><%=ResourceString.Unlike%></div>
+                    <div class="actionResult"><%=ResourceString.Unlike%></div>
                 </div>
                 <div class="counter like">
                     <div class="counts">10</div>
-                    <div><%=ResourceString.Like%></div>
+                    <div class="actionResult"><%=ResourceString.Like%></div>
                 </div>
             </div>
             <h2>
