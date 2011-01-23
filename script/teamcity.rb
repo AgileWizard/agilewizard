@@ -1,5 +1,6 @@
 require  "albacore"
 require 'fileutils'
+
 if not((defined? ROOT)) then
 	load File.join(File.dirname(__FILE__), 'varConfig.rb')
 end
@@ -22,31 +23,37 @@ msbuild :compile => :init do |msb|
   msb.properties :configuration => :release,:platform => 'Any CPU'
 end
 
-task :test=>[:startWebServer,
+task :test=>[:buildDeploymentPackage,
+			:deployLocal,
+			:modifyTestProjectStartSiteConfig,
 			:openIE,
             :xunit
 			] do    
 end
 
-task :startWebServer do
-  START_COMMAND= "\"" + WEB_DEV_FULL_NAME + "\"" + " /port:"  + WEB_PORT + " /path:\"" + WEBSITE_LOCATION+"\""
-  
-  puts START_COMMAND
-  system("call taskkill /F /IM " + WEB_DEV_NAME)
-
-  Thread.new{system(START_COMMAND)}
-  sleep(1)
+desc 'starting to build deployment package for the website project'
+msbuild :buildDeploymentPackage do |msb|
+  puts "building deployment package"
+  msb.solution = WEBSITE_PROJ
+  msb.verbosity = "Quiet"
+  msb.targets :publish
+  msb.parameters  [ "/T:Package",
+					"/P:Configuration=" + COMILE_MODE]
 end
 
-xunit :xunit =>[:startWebServer,:openIE] do |xunit|
-    xunit.command = XUNIT_PATH
-	xunit.assemblies = [
-		File.join(OUTPUT_DLL_DIR, "AgileWizard.Domain.Tests.dll"),
-		File.join(OUTPUT_DLL_DIR, "AgileWizard.Website.Tests.dll"),
-		File.join(OUTPUT_DLL_DIR, "AgileWizard.AcceptanceTests.dll"),
-		File.join(OUTPUT_DLL_DIR, "AgileWizard.IntegrationTests.dll"),
-		File.join(OUTPUT_DLL_DIR, "AgileWizard.Locale.Tests.dll")
-		]
+task :deployLocal do
+	deploy_script_path = File.join(DEPLOY_SOURCE, "AgileWizard.Website.deploy.cmd")
+	system("'"+ deploy_script_path + "'" + " /Y")
+end
+
+task :modifyTestProjectStartSiteConfig do
+	require 'rexml/document'
+	include REXML
+	
+	puts 'Changing the AT StartSite to http://localhost/'
+	config_doc = Document.new(File.new(AT_CONFIG_PATH))
+	config_doc.root.elements["appSettings//add[@key='WebsiteUrl']"].attributes['value'] = AT_CONFIG_SITE
+	File.open(AT_CONFIG_PATH, 'w'){|f| f.write config_doc.to_s}
 end
 
 task :openIE do
@@ -57,7 +64,29 @@ task :openIE do
 	system("start iexplore.exe about:blank")
 end
 
+xunit :xunit =>[:openIE] do |xunit|
+    xunit.command = XUNIT_PATH
+	xunit.assemblies = [
+		File.join(OUTPUT_DLL_DIR, "AgileWizard.Domain.Tests.dll"),
+		File.join(OUTPUT_DLL_DIR, "AgileWizard.Website.Tests.dll"),
+		File.join(OUTPUT_DLL_DIR, "AgileWizard.AcceptanceTests.dll"),
+		File.join(OUTPUT_DLL_DIR, "AgileWizard.IntegrationTests.dll"),
+		File.join(OUTPUT_DLL_DIR, "AgileWizard.Locale.Tests.dll")
+		]
+end
+
 desc "finialize the whole step"
 task :clean do
  
+end
+
+desc 'Currently this task is useless'
+task :startWebServer do
+  START_COMMAND= "\"" + WEB_DEV_FULL_NAME + "\"" + " /port:"  + WEB_PORT + " /path:\"" + WEBSITE_LOCATION+"\""
+  
+  puts START_COMMAND
+  system("call taskkill /F /IM " + WEB_DEV_NAME)
+
+  Thread.new{system(START_COMMAND)}
+  sleep(1)
 end

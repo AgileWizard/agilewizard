@@ -13,5 +13,11 @@ PROJECT_NAME = "AgileWizard"
 OUTPUT_DIRECTORY = File.join(ROOT, "bin")
 COMILE_MODE = "Release"
 OUTPUT_DLL_DIR = File.join(OUTPUT_DIRECTORY, COMILE_MODE)
+PUBLISH_DIR = File.join(OUTPUT_DIRECTORY, "Publish")
 WEB_DEV_NAME = "WebDev.WebServer40.EXE"
 WEB_DEV_FULL_NAME = "C:/Program Files/Common Files/Microsoft Shared/DevServer/10.0/" + WEB_DEV_NAME
+
+DEPLOY_SOURCE = File.join(PUBLISH_DIR, COMILE_MODE)
+AT_CONFIG_NAME = "AgileWizard.AcceptanceTests.dll.config"
+AT_CONFIG_PATH = File.join(OUTPUT_DLL_DIR, AT_CONFIG_NAME)
+AT_CONFIG_SITE = "http://localhost/"
