@@ -57,9 +57,6 @@ task :modifyTestProjectStartSiteConfig do
 end
 
 task :openIE do
-	puts "close all IE first"
-	system("call taskkill /F /IM iexplore*")
-
 	puts "start one IE for forbidding the COM error when WatiN running"
 	system("start iexplore.exe about:blank")
 end
@@ -76,8 +73,13 @@ xunit :xunit =>[:openIE] do |xunit|
 end
 
 desc "finialize the whole step"
-task :clean do
- 
+task :clean => :closeIE do
+
+end
+
+task :closeIE do
+	puts "close all IE first"
+	system("call taskkill /F /IM iexplore*")
 end
 
 desc 'Currently this task is useless'
