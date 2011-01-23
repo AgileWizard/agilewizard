@@ -26,10 +26,12 @@ namespace AgileWizard.AcceptanceTests.PageObject
         {
             get
             {
+                Document.DomContainer.WaitForComplete();
                 return Document.Frame(Find.ById("Content_ifr")).Body.GetAttributeValue("innerHTML");
             }
             set
             {
+                Document.DomContainer.WaitForComplete();
                 Document.Frame(Find.ById("Content_ifr")).Body.SetAttributeValue("innerHTML", value);
             }
         }
