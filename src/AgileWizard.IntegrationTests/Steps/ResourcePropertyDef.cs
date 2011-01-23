@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using AgileWizard.Website.Models;
+using AgileWizard.Domain.Models;
 
 namespace AgileWizard.IntegrationTests.Steps
 {
@@ -23,6 +24,18 @@ namespace AgileWizard.IntegrationTests.Steps
             set
             {
                 CurrentScenario[ACTION_RESULT_KEY] = value;
+            }
+        }
+
+        public Resource ExistingResource
+        {
+            get
+            {
+                return CurrentScenario[EXISTING_RESOURCE_KEY] as Resource;
+            }
+            set
+            {
+                CurrentScenario[EXISTING_RESOURCE_KEY] = value;
             }
         }
 
