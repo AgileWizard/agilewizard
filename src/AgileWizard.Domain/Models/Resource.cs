@@ -32,6 +32,8 @@ namespace AgileWizard.Domain.Models
 
         public List<ResourceTag> Tags { get; set; }
 
+        public int PageView { get; set; }
+
         public class ResourceTag
         {
             public string Name { get; set; }

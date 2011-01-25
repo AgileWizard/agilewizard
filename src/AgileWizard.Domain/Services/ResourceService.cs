@@ -49,5 +49,17 @@ namespace AgileWizard.Domain.Services
             _repository.Save();
 
         }
+
+        public void AddOnePageView(string resourceId, string userIP)
+        {
+            var pageViewLog = new ResourceLog {IP = userIP, Name = "PageView", ResourceId = resourceId};
+            _repository.InsertResourceLog(pageViewLog);
+        }
+
+        public int GetResourceCounter(string resourceId, string counterName)
+        {
+            var counter = _repository.GetResourceCounter(resourceId, counterName);
+            return counter == null ? 0 : counter.Count;
+        }
     }
 }

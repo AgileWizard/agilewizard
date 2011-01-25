@@ -57,5 +57,17 @@ namespace AgileWizard.Domain.Repositories
         {
             _documentSession.SaveChanges();
         }
+
+        public void InsertResourceLog(ResourceLog resourceLog)
+        {
+            _documentSession.Store(resourceLog);
+            _documentSession.SaveChanges();
+        }
+
+        public ResourceCounter GetResourceCounter(string resourceId, string counterName)
+        {
+            var query = _documentSession.LuceneQuery<ResourceCounter>(typeof (ResourceLogAggregateIndex).Name);
+            return query.SingleOrDefault(c => c.Name == counterName && c.ResourceId == resourceId);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<AgileWizard.Website.Models.ResourceList>" %>
+<%@ Import Namespace="AgileWizard.Domain.Services" %>
 <link href="../../Content/Resource.css" rel="stylesheet" type="text/css" />
 <% foreach (var item in Model)
    {%>
@@ -11,7 +12,7 @@
         <div class="indexs">
             <div class="counters">
                 <div class="counter pageview">
-                    <div class="counts">20</div>
+                    <div class="counts"><%=ServiceGateway.ResourceService.GetResourceCounter(item.Id, "PageView") %></div>
                     <div class="actionResult"><%=ResourceString.PageView%></div>
                 </div>
                 <div class="counter unlike">

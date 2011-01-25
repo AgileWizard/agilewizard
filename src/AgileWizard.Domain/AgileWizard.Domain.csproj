@@ -48,7 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainRegistry.cs" />
+    <Compile Include="Models\ResourceCounter.cs" />
+    <Compile Include="Models\ResourceLog.cs" />
     <Compile Include="Models\Tag.cs" />
+    <Compile Include="QueryIndexes\ResourceLogAggregateIndex.cs" />
     <Compile Include="QueryIndexes\TagAggregateIndex.cs" />
     <Compile Include="Repositories\IResourceRepository.cs" />
     <Compile Include="Repositories\ISessionStateRepository.cs" />

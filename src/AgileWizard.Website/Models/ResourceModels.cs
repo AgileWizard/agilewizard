@@ -37,6 +37,8 @@ namespace AgileWizard.Website.Models
         [LocalizedDisplayName("ReferenceUrl", NameResourceType = typeof(ResourceName))]
         [RegularExpression(@"\b(\w*)://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|]")]
         public string ReferenceUrl { get; set; }
+
+        public int PageView { get; set; }
     }
 
     public class ResourceListViewModel
@@ -62,6 +64,8 @@ namespace AgileWizard.Website.Models
         public List<Resource.ResourceTag> Tags { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public int PageView { get; set; }
     }
 
 

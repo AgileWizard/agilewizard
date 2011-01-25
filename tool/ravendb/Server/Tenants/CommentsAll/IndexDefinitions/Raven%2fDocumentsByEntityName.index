@@ -1,0 +1,15 @@
+{
+  "Map": "from doc in docs \r\nwhere doc[\"@metadata\"][\"Raven-Entity-Name\"] != null \r\nselect new { Tag = doc[\"@metadata\"][\"Raven-Entity-Name\"] };\r\n",
+  "Reduce": null,
+  "TransformResults": null,
+  "IsMapReduce": false,
+  "IsCompiled": false,
+  "Stores": {
+    "Tag": "No"
+  },
+  "Indexes": {
+    "Tag": "NotAnalyzed"
+  },
+  "SortOptions": {},
+  "Analyzers": {}
+}

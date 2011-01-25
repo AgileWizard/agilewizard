@@ -18,6 +18,7 @@ namespace AgileWizard.Website.Controllers
     {
         private IResourceService ResourceService { get; set; }
         private IDocumentSession DocumentSession { get; set; }
+        private static readonly object pageViewLock = new object();
 
         public ResourceController(IResourceService resourceService, IDocumentSession documentSession, ISessionStateRepository sessionStateRepository)
             : base(sessionStateRepository)
@@ -70,6 +71,9 @@ namespace AgileWizard.Website.Controllers
         public ActionResult Details(string id)
         {
             var resource = ResourceService.GetResourceById(id);
+
+            ResourceService.AddOnePageView(id, Request.UserHostAddress);
+
             return View(new ResourceModel
                             {
                                 Id = resource.Id,
@@ -79,7 +83,8 @@ namespace AgileWizard.Website.Controllers
                                 CreateTime = resource.CreateTime,
                                 SubmitUser = resource.SubmitUser,
                                 Tags = resource.Tags.ToTagString(),
-                                ReferenceUrl = resource.ReferenceUrl
+                                ReferenceUrl = resource.ReferenceUrl,
+                                PageView = resource.PageView
                             });
         }
 

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Users;
 using AgileWizard.Domain.Repositories;
@@ -97,6 +99,10 @@ namespace AgileWizard.Website.Tests
         {
             //Arrange
             _resourceService.Setup(s => s.GetResourceById(ID)).Returns(_resource);
+            var request = new Mock<HttpRequestBase>();
+            var context = new Mock<HttpContextBase>();
+            context.SetupGet(x => x.Request).Returns(request.Object);
+            resourceControllerSUT.ControllerContext = new ControllerContext(context.Object, new RouteData(), resourceControllerSUT);
 
             //Act
             var actionResult = resourceControllerSUT.Details(ID);
@@ -112,7 +118,7 @@ namespace AgileWizard.Website.Tests
             _resourceService.Setup(s => s.GetResourceById(ID)).Returns(_resource);
 
             //Act
-            var actionResult = resourceControllerSUT.Details(ID);
+            var actionResult = resourceControllerSUT.Edit(ID);
 
             //Assert
             ShouldShowDefaultViewWithModel(TITLE, actionResult);
