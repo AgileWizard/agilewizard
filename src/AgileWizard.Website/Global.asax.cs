@@ -88,7 +88,7 @@ namespace AgileWizard.Website
         {
             Mapper.CreateMap<Resource, ResourceListViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.Substring(10)))
-                .ForMember(dest => dest.Content, opt => opt.MapFrom(src => Utils.ExcerptContent(src.Content, 240)))
+                .ForMember(dest => dest.Content, opt => opt.MapFrom(src => Utils.ExcerptContent(src.Content, 200)))
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => Utils.FetchFirstImageUrl(src.Content)));
         }
 
