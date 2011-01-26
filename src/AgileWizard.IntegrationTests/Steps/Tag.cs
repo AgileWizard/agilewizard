@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using TechTalk.SpecFlow;
 using StructureMap;
-using AgileWizard.Domain.Repositories;
+using AgileWizard.Domain.Services;
+using Xunit;
 
 namespace AgileWizard.IntegrationTests.Steps
 {
@@ -14,9 +15,11 @@ namespace AgileWizard.IntegrationTests.Steps
         [Then("tag list is available")]
         public void TagListIsAvailable()
         {
-            var tagRepository = ObjectFactory.GetInstance<ITagRepository>();
+            var tagService = ObjectFactory.GetInstance<ITagService>();
 
-            var list = tagRepository.GetTagList(10);
+            var list = tagService.GetTagList(10);
+
+            Assert.NotEqual(0, list.Count);
 
             foreach (var tag in list)
             {
