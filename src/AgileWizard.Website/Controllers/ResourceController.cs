@@ -76,7 +76,7 @@ namespace AgileWizard.Website.Controllers
 
             return View(new ResourceModel
                             {
-                                Id = resource.Id,
+                                Id = resource.Id.Substring(10),
                                 Title = resource.Title,
                                 Content = resource.Content,
                                 Author = resource.Author,
@@ -125,6 +125,20 @@ namespace AgileWizard.Website.Controllers
         {
             ResourceList resourceList = GetResourceList();
             return PartialView("ResourceList", resourceList);
+        }
+
+        [HttpPost]
+        public ActionResult Like(string id)
+        {
+            ResourceService.LikeThisResource(id, Request.UserHostAddress);
+            return Json(null);
+        }
+
+        [HttpPost]
+        public ActionResult Dislike(string id)
+        {
+            ResourceService.DislikeThisResource(id, Request.UserHostAddress);
+            return Json(null);
         }
     }
 }

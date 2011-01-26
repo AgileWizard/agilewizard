@@ -123,6 +123,24 @@ namespace AgileWizard.Domain.Tests.Repositories
             _session.VerifyAll();
         }
 
+        [Fact]
+        public void Can_get_resource_counter()
+        {
+            //Arrange
+            const string ID = "1";
+            const string COUNTER_NAME = "PageView";
+            const int COUNT = 10;
+            var counters = new ResourceCounter[]{new ResourceCounter{Name = COUNTER_NAME, ResourceId = ID, Count = COUNT} };
+            _session.SetupLuceneQueryResult<ResourceCounter>(typeof(ResourceLogAggregateIndex).Name, counters);
+
+            //Act
+            var counter = _resourceRepositorySUT.GetResourceCounter(ID, COUNTER_NAME);
+
+            //Assert
+            Assert.Equal(ID, counter.ResourceId);
+            Assert.Equal(COUNTER_NAME, counter.Name);
+            Assert.Equal(COUNT, counter.Count);
+        }
 
         private void AssertResourceOrderByLastupdateTimeDescending(List<Resource> resources)
         {

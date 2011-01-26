@@ -12,15 +12,15 @@
         <div class="indexs">
             <div class="counters">
                 <div class="counter pageview">
-                    <div class="counts"><%=ServiceGateway.ResourceService.GetResourceCounter(item.Id, "PageView") %></div>
+                    <div class="counts"><%=ServiceGateway.ResourceService.GetPageViewsCount(item.Id) %></div>
                     <div class="actionResult"><%=ResourceString.PageView%></div>
                 </div>
-                <div class="counter unlike">
-                    <div class="counts">1</div>
-                    <div class="actionResult"><%=ResourceString.Unlike%></div>
+                <div class="counter dislike">
+                    <div class="counts"><%=ServiceGateway.ResourceService.GetDislikesCount(item.Id) %></div>
+                    <div class="actionResult"><%=ResourceString.Dislike%></div>
                 </div>
                 <div class="counter like">
-                    <div class="counts">10</div>
+                    <div class="counts"><%=ServiceGateway.ResourceService.GetLikesCount(item.Id) %></div>
                     <div class="actionResult"><%=ResourceString.Like%></div>
                 </div>
             </div>

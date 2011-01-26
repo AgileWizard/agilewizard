@@ -97,6 +97,15 @@ namespace AgileWizard.Locale.Resources.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 踩.
+        /// </summary>
+        public static string Dislike {
+            get {
+                return ResourceManager.GetString("Dislike", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 编辑.
         /// </summary>
         public static string Edit {
@@ -156,15 +165,6 @@ namespace AgileWizard.Locale.Resources.Views {
         public static string TotalResourceCount {
             get {
                 return ResourceManager.GetString("TotalResourceCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 踩.
-        /// </summary>
-        public static string Unlike {
-            get {
-                return ResourceManager.GetString("Unlike", resourceCulture);
             }
         }
     }

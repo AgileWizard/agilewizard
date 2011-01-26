@@ -7,6 +7,9 @@ namespace AgileWizard.Domain.Services
 {
     public class ResourceService : IResourceService
     {
+        private const string PAGE_VIEW_COUNTER_NAME = "PageView";
+        private const string LIKE_COUNTER_NAME = "Like";
+        private const string DISLIKE_COUNTER_NAME = "Dislike";
         private IResourceRepository _repository;
 
         public ResourceService(IResourceRepository repository)
@@ -52,11 +55,41 @@ namespace AgileWizard.Domain.Services
 
         public void AddOnePageView(string resourceId, string userIP)
         {
-            var pageViewLog = new ResourceLog {IP = userIP, Name = "PageView", ResourceId = resourceId};
+            WriteLogForResourceCounter(PAGE_VIEW_COUNTER_NAME, resourceId, userIP);
+        }
+
+        public void LikeThisResource(string resourceId, string userIP)
+        {
+            WriteLogForResourceCounter(LIKE_COUNTER_NAME, resourceId, userIP);
+        }
+
+        public void DislikeThisResource(string resourceId, string userIP)
+        {
+            WriteLogForResourceCounter(DISLIKE_COUNTER_NAME, resourceId, userIP);
+        }
+
+        public int GetLikesCount(string resourceId)
+        {
+            return GetResourceCounter(resourceId, LIKE_COUNTER_NAME);
+        }
+
+        public int GetDislikesCount(string resourceId)
+        {
+            return GetResourceCounter(resourceId, DISLIKE_COUNTER_NAME);
+        }
+
+        public int GetPageViewsCount(string resourceId)
+        {
+            return GetResourceCounter(resourceId, PAGE_VIEW_COUNTER_NAME);
+        }
+
+        private void WriteLogForResourceCounter(string counterName, string resourceId, string userIP)
+        {
+            var pageViewLog = new ResourceLog { IP = userIP, Name = counterName, ResourceId = resourceId };
             _repository.InsertResourceLog(pageViewLog);
         }
 
-        public int GetResourceCounter(string resourceId, string counterName)
+        private int GetResourceCounter(string resourceId, string counterName)
         {
             var counter = _repository.GetResourceCounter(resourceId, counterName);
             return counter == null ? 0 : counter.Count;

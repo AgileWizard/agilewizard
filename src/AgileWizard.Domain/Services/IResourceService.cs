@@ -11,6 +11,10 @@ namespace AgileWizard.Domain.Services
         int GetResourcesTotalCount();
         void UpdateResource(string id, Resource resource);
         void AddOnePageView(string resourceId, string userIP);
-        int GetResourceCounter(string resourceId, string counterName);
+        void LikeThisResource(string resourceId, string userIP);
+        void DislikeThisResource(string resourceId, string userIP);
+        int GetLikesCount(string resourceId);
+        int GetDislikesCount(string resourceId);
+        int GetPageViewsCount(string resourceId);
     }
 }
