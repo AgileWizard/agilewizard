@@ -98,6 +98,19 @@ namespace AgileWizard.Domain.Tests.Services
             ResourceShouldBeUpdated(_resource, resourceToUpdate);
         }
 
+        [Fact]
+        public void Can_add_one_page_view()
+        {
+            //Arrange
+            _repository.Setup(r => r.InsertResourceLog(It.Is<ResourceLog>(l => l.Name == "PageView" && l.ResourceId == ID))).Verifiable();
+
+            //Act
+            _service.AddOnePageView(ID, "127.0.0.1");
+
+            //Assert
+            _repository.VerifyAll();
+        }
+
         private void ResourceShouldBeUpdated(Resource resource, Resource resourceToUpdate)
         {
             Assert.Equal(resourceToUpdate.Title, resource.Title);

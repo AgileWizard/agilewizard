@@ -108,6 +108,22 @@ namespace AgileWizard.Domain.Tests.Repositories
             _session.VerifyAll();
         }
 
+        [Fact]
+        public void Can_record_logs_for_counter()
+        {
+            //Arrange
+            var resourceLog = new ResourceLog {Name = "PageView", IP = "127.0.0.1", ResourceId = "80000"};
+            _session.Setup(s => s.Store(resourceLog)).Verifiable();
+            _session.Setup(s => s.SaveChanges()).Verifiable();
+
+            //Act
+            _resourceRepositorySUT.InsertResourceLog(resourceLog);
+
+            //Assert
+            _session.VerifyAll();
+        }
+
+
         private void AssertResourceOrderByLastupdateTimeDescending(List<Resource> resources)
         {
             using (IEnumerator<Resource> e = resources.GetEnumerator())
