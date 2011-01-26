@@ -4,7 +4,8 @@ require 'fileutils'
 if not((defined? ROOT)) then
 	load File.join(File.dirname(__FILE__), 'varConfig.rb')
 end
-load 'tasks.rb'
+
+load File.join(File.dirname(__FILE__), 'tasks.rb')
 
 task :default => [:init, :compile,:test,:clean]
 
