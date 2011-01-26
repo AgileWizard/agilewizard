@@ -94,5 +94,11 @@ namespace AgileWizard.Domain.Services
             var counter = _repository.GetResourceCounter(resourceId, counterName);
             return counter == null ? 0 : counter.Count;
         }
+
+
+        public List<Resource> GetResourceListByTag(string tagName)
+        {
+            return _repository.GetResourceListByTag(tagName);
+        }
     }
 }

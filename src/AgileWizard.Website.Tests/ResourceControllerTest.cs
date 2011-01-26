@@ -158,6 +158,29 @@ namespace AgileWizard.Website.Tests
             ShouldShowResourceListUserControlWithModel(actionResult);
         }
 
+        [Fact]
+        public void should_return_resource_list_by_given_tag()
+        {
+            // Arrange
+            _resource.Tags = new List<Resource.ResourceTag>
+            {
+                new Resource.ResourceTag
+                {
+                    Name = "agile",
+                }
+            };
+
+            var resources = new List<Resource> { _resource };
+            _resourceService.Setup(s => s.GetResourceListByTag("agile")).Returns(resources);
+
+            // Act
+            var viewResult = resourceControllerSUT.ListByTag("agile") as ViewResult;
+
+            // Assert
+            var viewModel = (IEnumerable<ResourceListViewModel>)viewResult.ViewData.Model;
+            Assert.Equal("agile", viewModel.First().Tags[0].Name);
+        }
+
         private void ShouldShowResourceListUserControlWithModel(ActionResult actionResult)
         {
             Assert.IsType<PartialViewResult>(actionResult);

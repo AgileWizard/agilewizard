@@ -376,6 +376,7 @@
     <Content Include="Views\Resource\Details.aspx" />
     <Content Include="Views\Resource\Edit.aspx" />
     <Content Include="Views\Resource\Index.aspx" />
+    <Content Include="Views\Resource\ListByTag.aspx" />
     <Content Include="Views\Shared\Footer.ascx" />
     <Content Include="Views\Shared\HtmlEditor.ascx" />
     <Content Include="Views\Shared\ResourceList.ascx" />

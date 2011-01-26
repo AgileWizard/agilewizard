@@ -112,7 +112,7 @@ namespace AgileWizard.Domain.Tests.Repositories
         public void Can_record_logs_for_counter()
         {
             //Arrange
-            var resourceLog = new ResourceLog {Name = "PageView", IP = "127.0.0.1", ResourceId = "80000"};
+            var resourceLog = new ResourceLog { Name = "PageView", IP = "127.0.0.1", ResourceId = "80000" };
             _session.Setup(s => s.Store(resourceLog)).Verifiable();
             _session.Setup(s => s.SaveChanges()).Verifiable();
 
@@ -130,7 +130,7 @@ namespace AgileWizard.Domain.Tests.Repositories
             const string ID = "1";
             const string COUNTER_NAME = "PageView";
             const int COUNT = 10;
-            var counters = new ResourceCounter[]{new ResourceCounter{Name = COUNTER_NAME, ResourceId = ID, Count = COUNT} };
+            var counters = new ResourceCounter[] { new ResourceCounter { Name = COUNTER_NAME, ResourceId = ID, Count = COUNT } };
             _session.SetupLuceneQueryResult<ResourceCounter>(typeof(ResourceLogAggregateIndex).Name, counters);
 
             //Act
@@ -140,6 +140,20 @@ namespace AgileWizard.Domain.Tests.Repositories
             Assert.Equal(ID, counter.ResourceId);
             Assert.Equal(COUNTER_NAME, counter.Name);
             Assert.Equal(COUNT, counter.Count);
+        }
+
+        [Fact]
+        public void should_return_resource_by_given_tag()
+        {
+            // Arrange
+            _session.SetupQueryResult<Resource>(typeof(ResourceIndexByTag).Name, 10.CountOfResouces("agile"));
+
+            // Act
+            var result = _resourceRepositorySUT.GetResourceListByTag("agile");
+
+            // Assert
+            Assert.Equal(10, result.Count);
+            
         }
 
         private void AssertResourceOrderByLastupdateTimeDescending(List<Resource> resources)
@@ -167,8 +181,14 @@ namespace AgileWizard.Domain.Tests.Repositories
 
     internal static class ResourcesGenerator
     {
-        internal static IEnumerable<Resource> CountOfResouces(this int totalCount)
+        internal static IEnumerable<Resource> CountOfResouces(this int totalCount, params string[] tags)
         {
+            var tagList = new List<Resource.ResourceTag>();
+            foreach (var tag in tags)
+            {
+                tagList.Add(new Resource.ResourceTag { Name = tag });
+            }
+
             for (int i = 0; i < totalCount; i++)
                 yield return new Resource
                 {
@@ -178,7 +198,8 @@ namespace AgileWizard.Domain.Tests.Repositories
                     LastUpdateTime = DateTime.Now,
                     Title = "agilewizard",
                     Id = (i + 1).ToString(),
-                    SubmitUser = "user"
+                    SubmitUser = "user",
+                    Tags = tagList,
                 };
         }
     }

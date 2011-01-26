@@ -12,5 +12,7 @@ namespace AgileWizard.Domain.Repositories
         void Save();
         void InsertResourceLog(ResourceLog resourceLog);
         ResourceCounter GetResourceCounter(string resourceId, string counterName);
+
+        List<Resource> GetResourceListByTag(string tagName);
     }
 }

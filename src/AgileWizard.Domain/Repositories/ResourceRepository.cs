@@ -69,5 +69,17 @@ namespace AgileWizard.Domain.Repositories
             var query = _documentSession.LuceneQuery<ResourceCounter>(typeof (ResourceLogAggregateIndex).Name);
             return query.SingleOrDefault(c => c.Name == counterName && c.ResourceId == resourceId);
         }
+
+        public List<Resource> GetResourceListByTag(string tagName)
+        {
+            var query = (IEnumerable<Resource>)_documentSession.Query<Resource>(typeof(ResourceIndexByTag).Name);
+
+            var result = from resource in query
+                         from tag in resource.Tags
+                         where tag.Name == tagName
+                         select resource;
+
+            return result.Take(_maxItemsInList).ToList();
+        }
     }
 }

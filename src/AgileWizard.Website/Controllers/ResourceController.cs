@@ -140,5 +140,21 @@ namespace AgileWizard.Website.Controllers
             ResourceService.DislikeThisResource(id, Request.UserHostAddress);
             return Json(null);
         }
+
+        public ActionResult ListByTag(string tagName)
+        {
+            ResourceList resourceList = GetResourceListByTag(tagName);
+            return View(resourceList);
+        }
+
+        private ResourceList GetResourceListByTag(string tagName)
+        {
+            var resources = ResourceService.GetResourceListByTag(tagName);
+            var resourceList = new ResourceList(resources)
+            {
+                TotalCount = ResourceService.GetResourcesTotalCount()
+            };
+            return resourceList;
+        }
     }
 }

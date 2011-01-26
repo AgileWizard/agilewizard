@@ -182,6 +182,21 @@ namespace AgileWizard.Domain.Tests.Services
             Assert.Equal(COUNT, actualCount);
         }
 
+        [Fact]
+        public void should_return_resource_by_given_tag()
+        {
+            // Arrange
+            var expectedResources = new List<Resource>();
+            _repository.Setup(r => r.GetResourceListByTag("agile")).Returns(expectedResources);
+
+            // Act
+            var result = _service.GetResourceListByTag("agile");
+
+            // Assert
+            Assert.Same(expectedResources, result);
+            _repository.VerifyAll();
+        }
+
         private void ResourceShouldBeUpdated(Resource resource, Resource resourceToUpdate)
         {
             Assert.Equal(resourceToUpdate.Title, resource.Title);

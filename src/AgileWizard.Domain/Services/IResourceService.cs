@@ -16,5 +16,7 @@ namespace AgileWizard.Domain.Services
         int GetLikesCount(string resourceId);
         int GetDislikesCount(string resourceId);
         int GetPageViewsCount(string resourceId);
+
+        List<Resource> GetResourceListByTag(string tagName);
     }
 }
