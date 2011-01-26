@@ -4,6 +4,7 @@ using Xunit;
 using WatiN.Core;
 using AgileWizard.AcceptanceTests.Data;
 using AgileWizard.AcceptanceTests.Helper;
+using System.Diagnostics;
 
 namespace AgileWizard.AcceptanceTests.PageObject
 {
@@ -26,13 +27,11 @@ namespace AgileWizard.AcceptanceTests.PageObject
         {
             get
             {
-                Document.DomContainer.WaitForComplete();
-                return Document.Frame(Find.ById("Content_ifr")).Body.GetAttributeValue("innerHTML");
+                return SafetyGetFrame("Content_ifr").Body.GetAttributeValue("innerHTML");
             }
             set
             {
-                Document.DomContainer.WaitForComplete();
-                Document.Frame(Find.ById("Content_ifr")).Body.SetAttributeValue("innerHTML", value);
+                SafetyGetFrame("Content_ifr").Body.SetAttributeValue("innerHTML", value);
             }
         }
 
@@ -94,6 +93,25 @@ namespace AgileWizard.AcceptanceTests.PageObject
             Assert.Equal(this.Content, data.Author);
             Assert.Equal(this.ReferenceUrl, data.ReferenceUrl);
             Assert.Equal(this.Tags, data.Tags);
+        }
+
+        private Frame SafetyGetFrame(string id)
+        {
+            Document.DomContainer.WaitForComplete();
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            while (!Document.Frames.Exists(x => x.Id == id))
+            {
+                if (stopwatch.ElapsedMilliseconds > 30 * 1000)
+                    throw new Exception(string.Format("Could not find frame '{0}'", id));
+            }
+
+            var frame = Document.Frame(id);
+            frame.DomContainer.WaitForComplete();
+
+            return frame;
         }
 
     }
