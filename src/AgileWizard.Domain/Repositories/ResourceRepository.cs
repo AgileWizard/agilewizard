@@ -87,7 +87,7 @@ namespace AgileWizard.Domain.Repositories
 
             var result = from resource in query
                          from tag in resource.Tags
-                         where tag.Name == tagName
+                         where tag.Name.ToLower() == tagName
                          select resource;
 
             return result;
