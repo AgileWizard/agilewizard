@@ -3,6 +3,19 @@
 	margin: 20px 0 0 20px;
 }
 
+.tag-container
+{
+    margin-top:0px;
+    padding-top:0px;
+}
+
+.tag-container div
+{
+    float:left;
+    margin:3px 3px 3px 0px;
+    padding:3px 3px 3px 0px;
+}
+
 .tag-row
 {
 	margin: 15px 0;

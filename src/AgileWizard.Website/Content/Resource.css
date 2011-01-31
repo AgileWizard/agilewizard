@@ -78,6 +78,8 @@
 	overflow: hidden;
 	margin-left: 10px;
 	padding-right: 5px;
+	margin-bottom:10px;
+	padding-bottom:10px;
 }
 
 .resource-item .thumbs img
@@ -127,9 +129,13 @@
 
 .resource-item .pageview
 {
-	background-color: #780000;
+	background-color: #244483;
 }
 
+.resource-item .pageviewHot
+{	
+    background-color: #780000;
+}
 
 .resource-item .h2
 {

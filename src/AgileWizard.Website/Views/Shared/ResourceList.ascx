@@ -38,6 +38,18 @@
             <%=item.Content%>
             <% if (Request.IsAuthenticated) { %><div class="admin"><%:Html.ActionLink(ResourceString.Edit, "Edit", "Resource", new {id = item.Id}, new {Class= "admin-action"})%></div><% } %>
         </div>
+        <div class="tag-container">
+            <%
+               var tagList = item.Tags;
+               foreach (var tag in tagList)
+               {
+            %>
+            <div class="tag-row">
+                <a href="#"><span class="tag-name">
+                    <%: tag.Name %></span></a>
+            </div>
+            <%} %>
+        </div>        
         <span class="break"></span>
     </div>
 <% } %>

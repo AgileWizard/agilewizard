@@ -7,7 +7,6 @@
     <div style="margin-left:8px;">
         <img src="../../Content/Images/home_pic.png" alt="" align=middle />
     </div>
-    <h2>
-        <%: HomeString.Welecome %></h2>
+   
     <div><% Html.RenderAction("ResourceList", "Resource"); %></div>
 </asp:Content>
