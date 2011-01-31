@@ -27,7 +27,7 @@ namespace AgileWizard.IntegrationTests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Tag", "As a website user\nI want to see tag list", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Tag", "As a website user\r\nI want to see tag list", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -61,11 +61,10 @@ namespace AgileWizard.IntegrationTests.Features
         [Xunit.TraitAttribute("Description", "Tag List")]
         public virtual void TagList()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Tag List", new string[] {
-                        "mytag"});
-#line 6
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Tag List", ((string[])(null)));
+#line 5
 this.ScenarioSetup(scenarioInfo);
-#line 7
+#line 6
  testRunner.Then("tag list is available");
 #line hidden
             testRunner.CollectScenarioErrors();

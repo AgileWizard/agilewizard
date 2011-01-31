@@ -6,6 +6,8 @@ using TechTalk.SpecFlow;
 using StructureMap;
 using AgileWizard.Domain.Services;
 using Xunit;
+using AgileWizard.Website.Helper;
+using AgileWizard.IntegrationTests.Helpers;
 
 namespace AgileWizard.IntegrationTests.Steps
 {
@@ -26,5 +28,15 @@ namespace AgileWizard.IntegrationTests.Steps
                 Console.WriteLine("[{0:yyyy/MM/dd HH:mm:ss} - {1} ({2})]", tag.LastUpdateTime, tag.Name, tag.TotalCount);
             }
         }
+
+        [Then(@"the tag list should contain '(.+)' tag")]
+        public void TheTagListShouldContainTag(string tagName)
+        {
+            var tagList = TagsHelper.GetTagList(10);
+
+            Assert.True(tagList.Contains(tagName));
+        }
+
+
     }
 }

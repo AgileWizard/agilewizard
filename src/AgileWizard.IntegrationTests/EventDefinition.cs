@@ -37,6 +37,8 @@ namespace AgileWizard.IntegrationTests
                 x.For<IDocumentSession>().Use(documentSession);
             }
             );
+
+            MvcApplication.ConfigAutoMapper();
         }
 
         [AfterTestRun]

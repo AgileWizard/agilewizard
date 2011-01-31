@@ -77,11 +77,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EditResource.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\ListResourceByTag.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ListResourceByTag.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Tag.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Tag.feature</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\TagExtension.cs" />
     <Compile Include="PageObject\Home.cs" />
     <Compile Include="PageObject\IntegrationTestBase.cs" />
     <Compile Include="PageObject\ResourceDetail.cs" />
@@ -120,6 +126,10 @@
     <None Include="Features\EditResource.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>EditResource.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\ListResourceByTag.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ListResourceByTag.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Tag.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

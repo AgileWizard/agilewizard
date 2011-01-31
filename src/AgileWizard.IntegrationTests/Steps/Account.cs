@@ -39,7 +39,8 @@ namespace AgileWizard.IntegrationTests.Steps
         public void ThenNoNavigation()
         {
             Assert.IsType<ViewResult>(_actionResult);
-            Assert.Empty(((ViewResult)_actionResult).ViewName);        }
+            Assert.Empty(((ViewResult)_actionResult).ViewName);
+        }
 
         [Then(@"show error message")]
         public void ThenShowErrorMessage()

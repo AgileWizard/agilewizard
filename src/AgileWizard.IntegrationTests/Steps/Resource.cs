@@ -12,6 +12,8 @@ using AgileWizard.Website.Helper;
 using TechTalk.SpecFlow.Assist;
 using System.Linq;
 using AgileWizard.Domain.Models;
+using Raven.Client;
+using AgileWizard.Data;
 
 namespace AgileWizard.IntegrationTests.Steps
 {
@@ -148,6 +150,24 @@ namespace AgileWizard.IntegrationTests.Steps
             var resourceDetail = new ResourceDetail();
             var actionResult = ActionResult;
             resourceDetail.AssertAction(actionResult as RedirectToRouteResult);
+        }
+
+        [When(@"I wait for non-stale data")]
+        public void WhenIWaitForNonStaleData()
+        {
+            var documentSession = ObjectFactory.GetInstance<IDocumentSession>();
+
+            DataManager.WaitForNonStaleResults(documentSession);
+        }
+
+        [Then(@"resource list of tag '(.+)' should have (\d+) item")]
+        public void ResourceListOfTagShouldHaveItem(string tagName, int count)
+        {
+            var controller = ObjectFactory.GetInstance<ResourceController>();
+
+            var viewResult = controller.ListByTag(tagName) as ViewResult;
+
+            Assert.Equal(count, (viewResult.ViewData.Model as ResourceList).Count);
         }
 
         private void CreateResource()

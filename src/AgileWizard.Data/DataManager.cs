@@ -7,6 +7,8 @@ using AgileWizard.Domain.Users;
 using Raven.Client;
 using Raven.Database.Data;
 using AgileWizard.Domain;
+using AgileWizard.Domain.QueryIndexes;
+using Raven.Client.Indexes;
 
 namespace AgileWizard.Data
 {
@@ -39,10 +41,33 @@ namespace AgileWizard.Data
 
             session.SaveChanges();
 
-            //query user back to wait index update
-            session.Query<User>(PermantIndex).Customize(x => x.WaitForNonStaleResults()).FirstOrDefault();
+            WaitForNonStaleResults(session);
 
             session.Clear();
+        }
+
+        public static void WaitForNonStaleResults(IDocumentSession session)
+        {
+            var indexNames = GetAllIndexNames();
+
+            indexNames.ForEach(x => session.LuceneQuery<dynamic>(x).WaitForNonStaleResults().FirstOrDefault());
+        }
+
+        private static List<string> GetAllIndexNames()
+        {
+            var types = typeof(IndexRegister).Assembly.GetTypes();
+            var type = typeof(AbstractIndexCreationTask);
+
+            var indexNames = new List<string>();
+            foreach (var x in types)
+            {
+                if (type.IsAssignableFrom(x))
+                {
+                    indexNames.Add(x.Name);
+                }
+            }
+
+            return indexNames;
         }
 
         public IList<User> AddUsers()
