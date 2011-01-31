@@ -4,6 +4,7 @@ using AgileWizard.Domain.Models;
 using AgileWizard.Domain.QueryIndexes;
 using Raven.Client;
 using System.Linq;
+using Raven.Client.Linq;
 
 namespace AgileWizard.Domain.Repositories
 {
@@ -72,14 +73,24 @@ namespace AgileWizard.Domain.Repositories
 
         public List<Resource> GetResourceListByTag(string tagName)
         {
-            var query = (IEnumerable<Resource>)_documentSession.Query<Resource>(typeof(ResourceIndexByTag).Name);
+            return GetQuery_ResourceListByTag(tagName).Take(_maxItemsInList).ToList();
+        }
+
+        public int GetResourcesTotalCountForTag(string tagName)
+        {
+            return GetQuery_ResourceListByTag(tagName).Count();
+        }
+
+        private IEnumerable<Resource> GetQuery_ResourceListByTag(string tagName)
+        {
+            var query = _documentSession.Query<Resource>(typeof(ResourceIndexByTag).Name).ToList();
 
             var result = from resource in query
                          from tag in resource.Tags
                          where tag.Name == tagName
                          select resource;
 
-            return result.Take(_maxItemsInList).ToList();
+            return result;
         }
     }
 }

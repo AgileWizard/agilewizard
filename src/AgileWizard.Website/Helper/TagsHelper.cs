@@ -37,7 +37,8 @@ namespace AgileWizard.Website.Helper
 
         public static List<Tag> GetTagList(int maxCount)
         {
-            return ServiceGateway.TagService.GetTagList(maxCount);
+            return new List<Tag>();
+            //return ServiceGateway.TagService.GetTagList(maxCount);
         }
     }
 }

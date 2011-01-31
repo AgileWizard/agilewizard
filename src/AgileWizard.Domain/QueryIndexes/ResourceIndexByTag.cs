@@ -16,7 +16,7 @@ namespace AgileWizard.Domain.QueryIndexes
             {
                 Map = resources => from resource in resources
                                    from tag in resource.Tags
-                                   select new { tag.Name },
+                                   select new { Name = tag.Name.ToLower() },
             }
             .ToIndexDefinition(DocumentStore.Conventions);
         }

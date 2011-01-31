@@ -14,5 +14,7 @@ namespace AgileWizard.Domain.Repositories
         ResourceCounter GetResourceCounter(string resourceId, string counterName);
 
         List<Resource> GetResourceListByTag(string tagName);
+
+        int GetResourcesTotalCountForTag(string tagName);
     }
 }

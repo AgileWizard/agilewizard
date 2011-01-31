@@ -141,9 +141,10 @@ namespace AgileWizard.Website.Controllers
             return Json(null);
         }
 
-        public ActionResult ListByTag(string tagName)
+        // id = tagName
+        public ActionResult ListByTag(string id)
         {
-            ResourceList resourceList = GetResourceListByTag(tagName);
+            ResourceList resourceList = GetResourceListByTag(id);
             return View(resourceList);
         }
 
@@ -152,7 +153,7 @@ namespace AgileWizard.Website.Controllers
             var resources = ResourceService.GetResourceListByTag(tagName);
             var resourceList = new ResourceList(resources)
             {
-                TotalCount = ResourceService.GetResourcesTotalCount()
+                TotalCount = ResourceService.GetResourcesTotalCountForTag(tagName)
             };
             return resourceList;
         }

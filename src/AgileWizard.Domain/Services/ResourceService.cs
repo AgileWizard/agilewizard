@@ -100,5 +100,10 @@ namespace AgileWizard.Domain.Services
         {
             return _repository.GetResourceListByTag(tagName);
         }
+
+        public int GetResourcesTotalCountForTag(string tagName)
+        {
+            return _repository.GetResourcesTotalCountForTag(tagName);
+        }
     }
 }
