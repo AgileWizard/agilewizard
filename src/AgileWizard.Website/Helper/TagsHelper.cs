@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using AgileWizard.Domain.Models;
-using System.Text;
 using AgileWizard.Domain.Services;
 
 namespace AgileWizard.Website.Helper
@@ -30,8 +28,8 @@ namespace AgileWizard.Website.Helper
             if (tags == null)
                 return string.Empty;
 
-            var tagNames = tags.Select<Resource.ResourceTag, string>(s => s.Name)
-                .Distinct(StringComparer.OrdinalIgnoreCase); ;
+            var tagNames = tags.Select(s => s.Name)
+                .Distinct(StringComparer.OrdinalIgnoreCase);
             return string.Join(",", tagNames);
         }
 

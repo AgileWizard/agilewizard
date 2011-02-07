@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
@@ -18,7 +14,6 @@ namespace AgileWizard.Website.Controllers
     {
         private IResourceService ResourceService { get; set; }
         private IDocumentSession DocumentSession { get; set; }
-        private static readonly object pageViewLock = new object();
 
         public ResourceController(IResourceService resourceService, IDocumentSession documentSession, ISessionStateRepository sessionStateRepository)
             : base(sessionStateRepository)
@@ -47,15 +42,8 @@ namespace AgileWizard.Website.Controllers
         [ValidateInput(false)]
         public ActionResult Create(ResourceDetailViewModel detailViewModel)
         {
-            var resource = ResourceService.AddResource(new Resource
-                {
-                    Title = detailViewModel.Title,
-                    Content = detailViewModel.Content,
-                    Author = detailViewModel.Author,
-                    SubmitUser = SessionStateRepository.CurrentUser.UserName,
-                    Tags = detailViewModel.Tags.ToTagList(),
-                    ReferenceUrl = detailViewModel.ReferenceUrl
-                });
+            var resource = Mapper.Map<ResourceDetailViewModel, Resource>(detailViewModel);
+            resource = ResourceService.AddResource(resource);
 
             return RedirectToAction("Details", new { id = resource.Id.Substring(10) });
         }

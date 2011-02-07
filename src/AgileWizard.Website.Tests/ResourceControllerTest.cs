@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -9,6 +8,7 @@ using AgileWizard.Domain.Users;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
 using AgileWizard.Website.Controllers;
+using AgileWizard.Website.Helper;
 using AgileWizard.Website.Models;
 using Moq;
 using Raven.Client;
@@ -31,22 +31,24 @@ namespace AgileWizard.Website.Tests
         private readonly Mock<ISessionStateRepository> _sessionStateRepository;
         private readonly ResourceController resourceControllerSUT;
 
-        private readonly Resource _resource = new Resource()
-                                         {
+        private readonly Resource _resource = new Resource
+                                                  {
                                              Id = DOCUMENT_ID,
                                              Title = TITLE,
                                              Content = CONTENT,
                                              Author = AUTHOR,
                                              ReferenceUrl = REFERENCE_URL,
-                                             SubmitUser = SUBMITUSER
+                                             SubmitUser = SUBMITUSER,
+                                             Tags = "TDD,Shanghai".ToTagList()
                                          };
-        private readonly ResourceDetailViewModel _resourceDetailViewModel = new ResourceDetailViewModel()
-                                                  {
+        private readonly ResourceDetailViewModel _resourceDetailViewModel = new ResourceDetailViewModel
+                                                                                {
                                                       Id = ID,
                                                       Title = TITLE,
                                                       Content = CONTENT,
                                                       Author = AUTHOR,
-                                                      ReferenceUrl = REFERENCE_URL
+                                                      ReferenceUrl = REFERENCE_URL,
+                                                      Tags = "TDD,Shanghai"
                                                   };
 
         public ResourceControllerTest()
@@ -64,10 +66,9 @@ namespace AgileWizard.Website.Tests
         public void when_add_resource()
         {
             //Arrange
-            _sessionStateRepository.Setup(s => s.CurrentUser).Returns(User.DefaultUser());
+            WithDefaultUser();
 
             ResourceRepositoryWillBeCalled();
-
 
             //Act
             var actionResult = resourceControllerSUT.Create(_resourceDetailViewModel);
@@ -75,6 +76,11 @@ namespace AgileWizard.Website.Tests
             //Assert
             _resourceService.VerifyAll();
             ShouldRedirectToActionDetails(actionResult, ID);
+        }
+
+        private void WithDefaultUser()
+        {
+            _sessionStateRepository.Setup(s => s.CurrentUser).Returns(User.DefaultUser());
         }
 
         [Fact]
@@ -221,12 +227,7 @@ namespace AgileWizard.Website.Tests
 
         private void ResourceRepositoryWillBeCalled()
         {
-            _resourceService.Setup(x => x.AddResource(It.Is<Resource>(r => r.Title == _resourceDetailViewModel.Title
-                && r.Author == _resourceDetailViewModel.Author
-                && r.Content == _resourceDetailViewModel.Content
-                && r.ReferenceUrl == _resourceDetailViewModel.ReferenceUrl
-                && r.SubmitUser == _sessionStateRepository.Object.CurrentUser.UserName
-                && r.Tags.Count == 0))).Returns(_resource).Verifiable();
+            _resourceService.Setup(x => x.AddResource(It.IsAny<Resource>())).Returns(_resource).Verifiable();
         }
     }
 }
