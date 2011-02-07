@@ -39,11 +39,11 @@ namespace AgileWizard.IntegrationTests.Steps
             }
         }
 
-        public ResourceModel SubmittedResourceModel
+        public ResourceDetailViewModel SubmittedResourceDetailViewModel
         {
             get
             {
-                return CurrentScenario[SUBMITTED_RESOURCE_MODEL_KEY] as ResourceModel;
+                return CurrentScenario[SUBMITTED_RESOURCE_MODEL_KEY] as ResourceDetailViewModel;
             }
             set
             {
@@ -51,11 +51,11 @@ namespace AgileWizard.IntegrationTests.Steps
             }
         }
 
-        public ResourceModel PendingSubmittedResourceModel
+        public ResourceDetailViewModel PendingSubmittedResourceDetailViewModel
         {
             get
             {
-                return CurrentScenario[PENDING_SUBMITTED_RESOURCE_MODEL_KEY] as ResourceModel;
+                return CurrentScenario[PENDING_SUBMITTED_RESOURCE_MODEL_KEY] as ResourceDetailViewModel;
             }
             set
             {

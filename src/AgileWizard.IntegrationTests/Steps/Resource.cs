@@ -25,7 +25,7 @@ namespace AgileWizard.IntegrationTests.Steps
         [Given(@"new resource with  title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)' and tags - '(.+)'")]
         public void GivenNewResourceWithTitleContentAuthorAndTags(string title, string content, string author, string tags)
         {
-            var resourceModel = new ResourceModel
+            var resourceModel = new ResourceDetailViewModel
                                  {
                                      Tags = tags,
                                      Title = title,
@@ -33,13 +33,13 @@ namespace AgileWizard.IntegrationTests.Steps
                                      Content = content,
                                      SubmitUser = SubmitUser
                                  };
-            SubmittedResourceModel = resourceModel;
+            SubmittedResourceDetailViewModel = resourceModel;
         }
 
         [Given(@"reference url - '(\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])'")]
         public void GivenRefereceUrl(string referenceUrl)
         {
-            var resourceModel = SubmittedResourceModel;
+            var resourceModel = SubmittedResourceDetailViewModel;
             resourceModel.ReferenceUrl = referenceUrl;
         }
 
@@ -52,7 +52,7 @@ namespace AgileWizard.IntegrationTests.Steps
             var resourceRepository = ObjectFactory.GetInstance<IResourceRepository>();
             var resourceId = actionResult.RouteValues["id"].ToString();
             var actualResource = resourceRepository.GetResourceById(resourceId);
-            var submittedResourceModel = SubmittedResourceModel;
+            var submittedResourceModel = SubmittedResourceDetailViewModel;
 
             Assert.Equal(actualResource.Title, submittedResourceModel.Title);
             Assert.Equal(actualResource.Content, submittedResourceModel.Content);
@@ -82,12 +82,12 @@ namespace AgileWizard.IntegrationTests.Steps
         [When(@"modify the resource")]
         public void WhenModifyTheResource(Table table)
         {
-            var resourceModel = table.CreateInstance<ResourceModel>();
+            var resourceModel = table.CreateInstance<ResourceDetailViewModel>();
             var resource = ExistingResource;
             var id = resource.Id.Substring(10);
             var controller = ObjectFactory.GetInstance<ResourceController>();
             var actionResult = controller.Edit(id, resourceModel);
-            SubmittedResourceModel = resourceModel;
+            SubmittedResourceDetailViewModel = resourceModel;
             ActionResult = actionResult;
         }
 
@@ -103,7 +103,7 @@ namespace AgileWizard.IntegrationTests.Steps
         {
             var actionResult = ActionResult as ViewResult;
             var resourceRepository = ObjectFactory.GetInstance<IResourceRepository>();
-            var actualResource = actionResult.ViewData.Model as ResourceModel;
+            var actualResource = actionResult.ViewData.Model as ResourceDetailViewModel;
             var existingResource = ExistingResource;
 
             Assert.Equal(actualResource.Title, existingResource.Title);
@@ -126,7 +126,7 @@ namespace AgileWizard.IntegrationTests.Steps
         [Given(@"new resource with  title - (.+) and content - (.+) and author - (.+) and tags - (.+) and reference url - (\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])")]
         public void GivenNewResourceWithTitleAndContentAndAuthorAndTagsAndReferenceUrl(string title, string content, string author, string tags, string referenceurl)
         {
-            var resourceModel = new ResourceModel
+            var resourceModel = new ResourceDetailViewModel
                             {
                                 Tags = tags,
                                 Title = title,
@@ -135,7 +135,7 @@ namespace AgileWizard.IntegrationTests.Steps
                                 ReferenceUrl = referenceurl,
                             };
 
-            PendingSubmittedResourceModel = resourceModel;
+            PendingSubmittedResourceDetailViewModel = resourceModel;
         }
 
         [When(@"submit resource to system")]
@@ -173,7 +173,7 @@ namespace AgileWizard.IntegrationTests.Steps
         private void CreateResource()
         {
             var resourceController = ObjectFactory.GetInstance<ResourceController>();
-            var pendingSubmittedResourceModel = PendingSubmittedResourceModel;
+            var pendingSubmittedResourceModel = PendingSubmittedResourceDetailViewModel;
 
             ActionResult = resourceController.Create(pendingSubmittedResourceModel);
         }

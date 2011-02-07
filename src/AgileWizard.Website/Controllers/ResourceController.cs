@@ -45,16 +45,16 @@ namespace AgileWizard.Website.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Create(ResourceModel model)
+        public ActionResult Create(ResourceDetailViewModel detailViewModel)
         {
             var resource = ResourceService.AddResource(new Resource
                 {
-                    Title = model.Title,
-                    Content = model.Content,
-                    Author = model.Author,
+                    Title = detailViewModel.Title,
+                    Content = detailViewModel.Content,
+                    Author = detailViewModel.Author,
                     SubmitUser = SessionStateRepository.CurrentUser.UserName,
-                    Tags = model.Tags.ToTagList(),
-                    ReferenceUrl = model.ReferenceUrl
+                    Tags = detailViewModel.Tags.ToTagList(),
+                    ReferenceUrl = detailViewModel.ReferenceUrl
                 });
 
             return RedirectToAction("Details", new { id = resource.Id.Substring(10) });
@@ -63,7 +63,7 @@ namespace AgileWizard.Website.Controllers
         [RequireAuthentication]
         public ActionResult Create()
         {
-            var viewModel = new ResourceModel();
+            var viewModel = new ResourceDetailViewModel();
 
             return View(viewModel);
         }
@@ -74,7 +74,7 @@ namespace AgileWizard.Website.Controllers
 
             ResourceService.AddOnePageView(id, Request.UserHostAddress);
 
-            return View(new ResourceModel
+            return View(new ResourceDetailViewModel
                             {
                                 Id = resource.Id.Substring(10),
                                 Title = resource.Title,
@@ -92,7 +92,7 @@ namespace AgileWizard.Website.Controllers
         public ActionResult Edit(string id)
         {
             var resource = ResourceService.GetResourceById(id);
-            return View(new ResourceModel
+            return View(new ResourceDetailViewModel
             {
                 Id = resource.Id,
                 Title = resource.Title,
@@ -106,16 +106,16 @@ namespace AgileWizard.Website.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Edit(string id, ResourceModel model)
+        public ActionResult Edit(string id, ResourceDetailViewModel detailViewModel)
         {
             ResourceService.UpdateResource(id, new Resource
             {
-                Title = model.Title,
-                Content = model.Content,
-                Author = model.Author,
+                Title = detailViewModel.Title,
+                Content = detailViewModel.Content,
+                Author = detailViewModel.Author,
                 SubmitUser = SessionStateRepository.CurrentUser.UserName,
-                ReferenceUrl = model.ReferenceUrl,
-                Tags = model.Tags.ToTagList()
+                ReferenceUrl = detailViewModel.ReferenceUrl,
+                Tags = detailViewModel.Tags.ToTagList()
             });
 
             return RedirectToAction("Details", new { id });

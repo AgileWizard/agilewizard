@@ -40,7 +40,7 @@ namespace AgileWizard.Website.Tests
                                              ReferenceUrl = REFERENCE_URL,
                                              SubmitUser = SUBMITUSER
                                          };
-        private readonly ResourceModel _resourceModel = new ResourceModel()
+        private readonly ResourceDetailViewModel _resourceDetailViewModel = new ResourceDetailViewModel()
                                                   {
                                                       Id = ID,
                                                       Title = TITLE,
@@ -70,7 +70,7 @@ namespace AgileWizard.Website.Tests
 
 
             //Act
-            var actionResult = resourceControllerSUT.Create(_resourceModel);
+            var actionResult = resourceControllerSUT.Create(_resourceDetailViewModel);
 
             //Assert
             _resourceService.VerifyAll();
@@ -134,7 +134,7 @@ namespace AgileWizard.Website.Tests
             _resourceService.Setup(s => s.UpdateResource(ID, It.Is<Resource>(r => r.Title == TITLE && r.Content == CONTENT && r.Author == AUTHOR && r.ReferenceUrl == REFERENCE_URL && r.SubmitUser == User.DefaultUser().UserName))).Verifiable();
 
             //Act
-            var actionResult = resourceControllerSUT.Edit(ID, _resourceModel);
+            var actionResult = resourceControllerSUT.Edit(ID, _resourceDetailViewModel);
 
             //Assert
             _resourceService.VerifyAll();
@@ -197,8 +197,8 @@ namespace AgileWizard.Website.Tests
             Assert.IsType<ViewResult>(actionResult);
             var viewResult = (ViewResult)actionResult;
             Assert.Empty(viewResult.ViewName);
-            Assert.IsAssignableFrom<ResourceModel>(viewResult.ViewData.Model);
-            var viewModel = (ResourceModel)viewResult.ViewData.Model;
+            Assert.IsAssignableFrom<ResourceDetailViewModel>(viewResult.ViewData.Model);
+            var viewModel = (ResourceDetailViewModel)viewResult.ViewData.Model;
             Assert.Equal(title, viewModel.Title);
         }
 
@@ -221,10 +221,10 @@ namespace AgileWizard.Website.Tests
 
         private void ResourceRepositoryWillBeCalled()
         {
-            _resourceService.Setup(x => x.AddResource(It.Is<Resource>(r => r.Title == _resourceModel.Title
-                && r.Author == _resourceModel.Author
-                && r.Content == _resourceModel.Content
-                && r.ReferenceUrl == _resourceModel.ReferenceUrl
+            _resourceService.Setup(x => x.AddResource(It.Is<Resource>(r => r.Title == _resourceDetailViewModel.Title
+                && r.Author == _resourceDetailViewModel.Author
+                && r.Content == _resourceDetailViewModel.Content
+                && r.ReferenceUrl == _resourceDetailViewModel.ReferenceUrl
                 && r.SubmitUser == _sessionStateRepository.Object.CurrentUser.UserName
                 && r.Tags.Count == 0))).Returns(_resource).Verifiable();
         }
