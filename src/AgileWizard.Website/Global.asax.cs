@@ -94,6 +94,9 @@ namespace AgileWizard.Website
 
             Mapper.CreateMap<ResourceDetailViewModel, Resource>()
                 .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.ToTagList()));
+
+            Mapper.CreateMap<Resource, ResourceDetailViewModel>()
+                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.ToTagString()));
         }
 
         public static IDocumentSession CurrentSession

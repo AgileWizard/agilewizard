@@ -6,7 +6,6 @@ using AgileWizard.Website.Attributes;
 using AgileWizard.Website.Models;
 using AutoMapper;
 using Raven.Client;
-using AgileWizard.Website.Helper;
 
 namespace AgileWizard.Website.Controllers
 {
@@ -60,51 +59,27 @@ namespace AgileWizard.Website.Controllers
         {
             var resource = ResourceService.GetResourceById(id);
 
+            var resourceDetailieViewModel = Mapper.Map<Resource, ResourceDetailViewModel>(resource);
+
             ResourceService.AddOnePageView(id, Request.UserHostAddress);
 
-            return View(new ResourceDetailViewModel
-                            {
-                                Id = resource.Id.Substring(10),
-                                Title = resource.Title,
-                                Content = resource.Content,
-                                Author = resource.Author,
-                                CreateTime = resource.CreateTime,
-                                SubmitUser = resource.SubmitUser,
-                                Tags = resource.Tags.ToTagString(),
-                                ReferenceUrl = resource.ReferenceUrl,
-                                PageView = resource.PageView
-                            });
+            return View(resourceDetailieViewModel);
         }
 
         [RequireAuthentication]
         public ActionResult Edit(string id)
         {
             var resource = ResourceService.GetResourceById(id);
-            return View(new ResourceDetailViewModel
-            {
-                Id = resource.Id,
-                Title = resource.Title,
-                Content = resource.Content,
-                Author = resource.Author,
-                CreateTime = resource.CreateTime,
-                ReferenceUrl = resource.ReferenceUrl,
-                Tags = resource.Tags == null ? string.Empty : resource.Tags.ToTagString()
-            });
+            var resourceDetailieViewModel = Mapper.Map<Resource, ResourceDetailViewModel>(resource);
+            return View(resourceDetailieViewModel);
         }
 
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult Edit(string id, ResourceDetailViewModel detailViewModel)
         {
-            ResourceService.UpdateResource(id, new Resource
-            {
-                Title = detailViewModel.Title,
-                Content = detailViewModel.Content,
-                Author = detailViewModel.Author,
-                SubmitUser = SessionStateRepository.CurrentUser.UserName,
-                ReferenceUrl = detailViewModel.ReferenceUrl,
-                Tags = detailViewModel.Tags.ToTagList()
-            });
+            var resource = Mapper.Map<ResourceDetailViewModel, Resource>(detailViewModel);
+            ResourceService.UpdateResource(id, resource);
 
             return RedirectToAction("Details", new { id });
         }

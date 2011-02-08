@@ -137,7 +137,7 @@ namespace AgileWizard.Website.Tests
         {
             //Arrange
             _sessionStateRepository.Setup(s => s.CurrentUser).Returns(User.DefaultUser());
-            _resourceService.Setup(s => s.UpdateResource(ID, It.Is<Resource>(r => r.Title == TITLE && r.Content == CONTENT && r.Author == AUTHOR && r.ReferenceUrl == REFERENCE_URL && r.SubmitUser == User.DefaultUser().UserName))).Verifiable();
+            _resourceService.Setup(s => s.UpdateResource(ID, It.IsAny<Resource>())).Verifiable();
 
             //Act
             var actionResult = resourceControllerSUT.Edit(ID, _resourceDetailViewModel);

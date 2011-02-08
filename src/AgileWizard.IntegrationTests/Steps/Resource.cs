@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using AgileWizard.Domain.Repositories;
+using AgileWizard.Domain.Users;
 using AgileWizard.IntegrationTests.PageObject;
 using AgileWizard.Website.Controllers;
 using AgileWizard.Website.Models;
@@ -20,20 +19,20 @@ namespace AgileWizard.IntegrationTests.Steps
     [Binding]
     public partial class ResourceSteps
     {
-        private const string SubmitUser = "agilewizard";
+        private string SubmitUser;
         
         [Given(@"new resource with  title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)' and tags - '(.+)'")]
         public void GivenNewResourceWithTitleContentAuthorAndTags(string title, string content, string author, string tags)
         {
-            var resourceModel = new ResourceDetailViewModel
+            var resourceDetailViewModel = new ResourceDetailViewModel
                                  {
                                      Tags = tags,
                                      Title = title,
                                      Author = author,
                                      Content = content,
-                                     SubmitUser = SubmitUser
+                                     SubmitUser = User.DefaultUser().UserName
                                  };
-            SubmittedResourceDetailViewModel = resourceModel;
+            SubmittedResourceDetailViewModel = resourceDetailViewModel;
         }
 
         [Given(@"reference url - '(\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])'")]
@@ -70,7 +69,7 @@ namespace AgileWizard.IntegrationTests.Steps
             {
                 if (row["Field"] == "Tags")
                 {
-                    resource.Tags = row["Value"].Split(',').Select(s => new Resource.ResourceTag() { Name = s }).ToList();
+                    resource.Tags = row["Value"].Split(',').Select(s => new Resource.ResourceTag { Name = s }).ToList();
                 }
             }
             var repository = ObjectFactory.GetInstance<IResourceRepository>();
@@ -102,7 +101,7 @@ namespace AgileWizard.IntegrationTests.Steps
         public void ThenShowEditForTheTitleContentAuthorAndTags()
         {
             var actionResult = ActionResult as ViewResult;
-            var resourceRepository = ObjectFactory.GetInstance<IResourceRepository>();
+            ObjectFactory.GetInstance<IResourceRepository>();
             var actualResource = actionResult.ViewData.Model as ResourceDetailViewModel;
             var existingResource = ExistingResource;
 
