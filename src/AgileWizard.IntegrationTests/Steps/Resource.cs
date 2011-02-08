@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using AgileWizard.Domain.Repositories;
-using AgileWizard.Domain.Users;
 using AgileWizard.IntegrationTests.PageObject;
 using AgileWizard.Website.Controllers;
 using AgileWizard.Website.Models;
@@ -9,7 +8,6 @@ using TechTalk.SpecFlow;
 using Xunit;
 using AgileWizard.Website.Helper;
 using TechTalk.SpecFlow.Assist;
-using System.Linq;
 using AgileWizard.Domain.Models;
 using Raven.Client;
 using AgileWizard.Data;
@@ -20,74 +18,27 @@ namespace AgileWizard.IntegrationTests.Steps
     public partial class ResourceSteps
     {
         private string SubmitUser;
-        
-        [Given(@"new resource with  title - '([\w\s]+)' and content - '([\w\s]+)' and author - '([\w\s]+)' and tags - '(.+)'")]
-        public void GivenNewResourceWithTitleContentAuthorAndTags(string title, string content, string author, string tags)
+
+        #region Add Resource
+        [Given(@"new resource with  title - (.+) and content - (.+) and author - (.+) and tags - (.+) and reference url - (\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])")]
+        public void GivenNewResourceWithTitleAndContentAndAuthorAndTagsAndReferenceUrl(string title, string content, string author, string tags, string referenceurl)
         {
-            var resourceDetailViewModel = new ResourceDetailViewModel
-                                 {
-                                     Tags = tags,
-                                     Title = title,
-                                     Author = author,
-                                     Content = content,
-                                     SubmitUser = User.DefaultUser().UserName
-                                 };
-            SubmittedResourceDetailViewModel = resourceDetailViewModel;
-        }
-
-        [Given(@"reference url - '(\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])'")]
-        public void GivenRefereceUrl(string referenceUrl)
-        {
-            var resourceModel = SubmittedResourceDetailViewModel;
-            resourceModel.ReferenceUrl = referenceUrl;
-        }
-
-
-
-        [Then(@"display the title, content, author and submit user and tags")]
-        public void ThenDisplayDetailInformation()
-        {
-            var actionResult = ActionResult as RedirectToRouteResult;
-            var resourceRepository = ObjectFactory.GetInstance<IResourceRepository>();
-            var resourceId = actionResult.RouteValues["id"].ToString();
-            var actualResource = resourceRepository.GetResourceById(resourceId);
-            var submittedResourceModel = SubmittedResourceDetailViewModel;
-
-            Assert.Equal(actualResource.Title, submittedResourceModel.Title);
-            Assert.Equal(actualResource.Content, submittedResourceModel.Content);
-            Assert.Equal(actualResource.Author, submittedResourceModel.Author);
-            Assert.Equal(actualResource.SubmitUser, SubmitUser);
-            Assert.Equal(actualResource.ReferenceUrl, submittedResourceModel.ReferenceUrl);
-            Assert.Equal(actualResource.Tags.Count, submittedResourceModel.Tags.ToTagList().Count);
-        }
-
-        [Given(@"there is a resource")]
-        public void GivenThereIsAResource(Table table)
-        {
-            var resource = table.CreateInstance<Resource>();
-            foreach (var row in table.Rows)
+            var resourceModel = new ResourceDetailViewModel
             {
-                if (row["Field"] == "Tags")
-                {
-                    resource.Tags = row["Value"].Split(',').Select(s => new Resource.ResourceTag { Name = s }).ToList();
-                }
-            }
-            var repository = ObjectFactory.GetInstance<IResourceRepository>();
-            resource = repository.Add(resource);
-            repository.Save();
-            ExistingResource = resource;
+                Tags = tags,
+                Title = title,
+                Author = author,
+                Content = content,
+                ReferenceUrl = referenceurl,
+            };
+
+            PendingSubmittedResourceDetailViewModel = resourceModel;
         }
 
-        [When(@"modify the resource")]
-        public void WhenModifyTheResource(Table table)
+        [When(@"submit resource to system")]
+        public void WhenSubmitResourceToSystem()
         {
-            var resourceModel = table.CreateInstance<ResourceDetailViewModel>();
-            var resource = ExistingResource;
-            var id = resource.Id.Substring(10);
-            var controller = ObjectFactory.GetInstance<ResourceController>();
-            var actionResult = controller.Edit(id, resourceModel);
-            SubmittedResourceDetailViewModel = resourceModel;
-            ActionResult = actionResult;
+            CreateResource();
         }
 
         [Then(@"navigate to edit page")]
@@ -96,20 +47,17 @@ namespace AgileWizard.IntegrationTests.Steps
             var actionResult = ActionResult as ViewResult;
             Assert.Empty(actionResult.ViewName);
         }
+        #endregion
 
-        [Then(@"show edit for the title, content, author and tags")]
-        public void ThenShowEditForTheTitleContentAuthorAndTags()
+        #region Edit Resource
+        [Given(@"there is a resource")]
+        public void GivenThereIsAResource(Table table)
         {
-            var actionResult = ActionResult as ViewResult;
-            ObjectFactory.GetInstance<IResourceRepository>();
-            var actualResource = actionResult.ViewData.Model as ResourceDetailViewModel;
-            var existingResource = ExistingResource;
-
-            Assert.Equal(actualResource.Title, existingResource.Title);
-            Assert.Equal(actualResource.Author, existingResource.Author);
-            Assert.Equal(actualResource.Content, existingResource.Content);
-            Assert.Equal(actualResource.ReferenceUrl, existingResource.ReferenceUrl);
-            Assert.Equal(actualResource.Tags.ToTagList().Count, existingResource.Tags.Count);
+            var resource = GetResource(table);
+            var repository = ObjectFactory.GetInstance<IResourceRepository>();
+            resource = repository.Add(resource);
+            repository.Save();
+            ExistingResource = resource;
         }
 
         [When(@"open the resource to edit")]
@@ -122,35 +70,50 @@ namespace AgileWizard.IntegrationTests.Steps
             ActionResult = actionResult;
         }
 
-        [Given(@"new resource with  title - (.+) and content - (.+) and author - (.+) and tags - (.+) and reference url - (\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])")]
-        public void GivenNewResourceWithTitleAndContentAndAuthorAndTagsAndReferenceUrl(string title, string content, string author, string tags, string referenceurl)
+         [Then(@"show edit for the title, content, author and tags")]
+        public void ThenShowEditForTheTitleContentAuthorAndTags()
         {
-            var resourceModel = new ResourceDetailViewModel
-                            {
-                                Tags = tags,
-                                Title = title,
-                                Author = author,
-                                Content = content,
-                                ReferenceUrl = referenceurl,
-                            };
+            var actionResult = ActionResult as ViewResult;
+            ObjectFactory.GetInstance<IResourceRepository>();
+            var actualResource = actionResult.ViewData.Model as ResourceDetailViewModel;
 
-            PendingSubmittedResourceDetailViewModel = resourceModel;
+            AssertResource(ExistingResource, actualResource);
         }
 
-        [When(@"submit resource to system")]
-        public void WhenSubmitResourceToSystem()
-        {
-            CreateResource();
-        }
+         [When(@"modify the resource")]
+         public void WhenModifyTheResource(Table table)
+         {
+             var resourceModel = table.CreateInstance<ResourceDetailViewModel>();
+             var resource = ExistingResource;
+             var id = resource.Id.Substring(10);
+             var controller = ObjectFactory.GetInstance<ResourceController>();
+             var actionResult = controller.Edit(id, resourceModel);
+             SubmittedResourceDetailViewModel = resourceModel;
+             ActionResult = actionResult;
+         }
 
-        [Then(@"navigate to details page")]
-        public void ThenNavigateToDetailsPage()
-        {
-            var resourceDetail = new ResourceDetail();
-            var actionResult = ActionResult;
-            resourceDetail.AssertAction(actionResult as RedirectToRouteResult);
-        }
+         [Then(@"navigate to details page")]
+         public void ThenNavigateToDetailsPage()
+         {
+             var resourceDetail = new ResourceDetail();
+             var actionResult = ActionResult;
+             resourceDetail.AssertAction(actionResult as RedirectToRouteResult);
+         }
 
+         [Then(@"display the title, content, author and submit user and tags")]
+         public void ThenDisplayDetailInformation()
+         {
+             var actionResult = ActionResult as RedirectToRouteResult;
+             var resourceRepository = ObjectFactory.GetInstance<IResourceRepository>();
+             var resourceId = actionResult.RouteValues["id"].ToString();
+             var actualResource = resourceRepository.GetResourceById(resourceId);
+             var submittedResourceModel = SubmittedResourceDetailViewModel;
+
+             AssertResource(actualResource, submittedResourceModel);
+         }
+        #endregion 
+
+        
         [When(@"I wait for non-stale data")]
         public void WhenIWaitForNonStaleData()
         {
@@ -183,6 +146,35 @@ namespace AgileWizard.IntegrationTests.Steps
             {
                 return ScenarioContext.Current; 
             } 
+        }
+
+
+        private Resource GetResource(Table table)
+        {
+            var resource = table.CreateInstance<Resource>();
+            ProcessResourceTag(table, resource);
+            return resource;
+        }
+
+        private void ProcessResourceTag(Table table, Resource resource)
+        {
+            foreach (var row in table.Rows)
+            {
+                if (row["Field"] == "Tags")
+                {
+                    resource.Tags = row["Value"].ToTagList();
+                }
+            }
+        }
+
+        private void AssertResource(Resource actualResource, ResourceDetailViewModel submittedResourceModel)
+        {
+            Assert.Equal(actualResource.Title, submittedResourceModel.Title);
+            Assert.Equal(actualResource.Content, submittedResourceModel.Content);
+            Assert.Equal(actualResource.Author, submittedResourceModel.Author);
+            Assert.Equal(actualResource.SubmitUser, SubmitUser);
+            Assert.Equal(actualResource.ReferenceUrl, submittedResourceModel.ReferenceUrl);
+            Assert.Equal(actualResource.Tags.Count, submittedResourceModel.Tags.ToTagList().Count);
         }
     }
 }
