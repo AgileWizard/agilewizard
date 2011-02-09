@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using AgileWizard.Website.Models;
 using AgileWizard.Domain.Models;
+using TechTalk.SpecFlow;
 
 namespace AgileWizard.IntegrationTests.Steps
 {
@@ -56,6 +57,14 @@ namespace AgileWizard.IntegrationTests.Steps
             set
             {
                 CurrentScenario[PENDING_SUBMITTED_RESOURCE_MODEL_KEY] = value;
+            }
+        }
+
+        private ScenarioContext CurrentScenario
+        {
+            get
+            {
+                return ScenarioContext.Current;
             }
         }
     }
