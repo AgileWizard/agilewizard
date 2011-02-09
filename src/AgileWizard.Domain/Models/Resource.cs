@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AgileWizard.Domain.Helper;
 
 namespace AgileWizard.Domain.Models
 {
@@ -39,5 +40,28 @@ namespace AgileWizard.Domain.Models
             public string Name { get; set; }
         }
 
+        #region Test Utility Methods
+
+        private const string DOCUMENT_ID = "resources/1";
+        private const string TITLE = "title";
+        private const string CONTENT = "content";
+        private const string AUTHOR = "author";
+        private const string SUBMITUSER = "submitUser";
+        private const string REFERENCE_URL = "http://www.cnblogs.com/tengzy/";
+        
+        internal static Resource DefaultResource()
+        {
+            return new Resource
+            {
+                Id = DOCUMENT_ID,
+                Title = TITLE,
+                Content = CONTENT,
+                Author = AUTHOR,
+                ReferenceUrl = REFERENCE_URL,
+                SubmitUser = SUBMITUSER,
+                Tags = "TDD,Shanghai".ToTagList()
+            };
+        }
+        #endregion
     }
 }

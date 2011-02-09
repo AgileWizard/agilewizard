@@ -8,8 +8,8 @@ using AgileWizard.Domain.Users;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
 using AgileWizard.Website.Controllers;
-using AgileWizard.Website.Helper;
 using AgileWizard.Website.Models;
+using AgileWizard.Website.Tests.Helper;
 using Moq;
 using Raven.Client;
 using Xunit;
@@ -18,38 +18,14 @@ namespace AgileWizard.Website.Tests
 {
     public class ResourceControllerTest
     {
-        private const string ID = "1";
-        private const string DOCUMENT_ID = "resources/1";
-        private const string TITLE = "title";
-        private const string CONTENT = "content";
-        private const string AUTHOR = "author";
-        private const string SUBMITUSER = "submitUser";
-        private const string REFERENCE_URL = "http://www.cnblogs.com/tengzy/";
-
         private readonly Mock<IResourceService> _resourceService;
         private readonly Mock<IDocumentSession> _documentSession;
         private readonly Mock<ISessionStateRepository> _sessionStateRepository;
         private readonly ResourceController resourceControllerSUT;
 
-        private readonly Resource _resource = new Resource
-                                                  {
-                                             Id = DOCUMENT_ID,
-                                             Title = TITLE,
-                                             Content = CONTENT,
-                                             Author = AUTHOR,
-                                             ReferenceUrl = REFERENCE_URL,
-                                             SubmitUser = SUBMITUSER,
-                                             Tags = "TDD,Shanghai".ToTagList()
-                                         };
-        private readonly ResourceDetailViewModel _resourceDetailViewModel = new ResourceDetailViewModel
-                                                                                {
-                                                      Id = ID,
-                                                      Title = TITLE,
-                                                      Content = CONTENT,
-                                                      Author = AUTHOR,
-                                                      ReferenceUrl = REFERENCE_URL,
-                                                      Tags = "TDD,Shanghai"
-                                                  };
+        private readonly Resource _resource = Resource.DefaultResource();
+
+        private readonly ResourceDetailViewModel _resourceDetailViewModel = ResourceModelTestHelper.BuildDefaultResourceDetailViewModel();
 
         public ResourceControllerTest()
         {
@@ -75,7 +51,7 @@ namespace AgileWizard.Website.Tests
 
             //Assert
             _resourceService.VerifyAll();
-            ShouldRedirectToActionDetails(actionResult, ID);
+            ShouldRedirectToActionDetails(actionResult, Resource.DefaultResource().Id);
         }
 
         private void WithDefaultUser()
@@ -104,18 +80,18 @@ namespace AgileWizard.Website.Tests
         public void detail_action_should_return_a_view_for_a_resource()
         {
             //Arrange
-            _resourceService.Setup(s => s.GetResourceById(ID)).Returns(_resource);
+            _resourceService.Setup(s => s.GetResourceById(Resource.DefaultResource().Id)).Returns(_resource);
             var request = new Mock<HttpRequestBase>();
             var context = new Mock<HttpContextBase>();
             context.SetupGet(x => x.Request).Returns(request.Object);
             resourceControllerSUT.ControllerContext = new ControllerContext(context.Object, new RouteData(), resourceControllerSUT);
-            _resourceService.Setup(s => s.AddOnePageView(ID, It.IsAny<string>())).Verifiable();
+            _resourceService.Setup(s => s.AddOnePageView(Resource.DefaultResource().Id, It.IsAny<string>())).Verifiable();
 
             //Act
-            var actionResult = resourceControllerSUT.Details(ID);
+            var actionResult = resourceControllerSUT.Details(Resource.DefaultResource().Id);
 
             //Assert
-            ShouldShowDefaultViewWithModel(TITLE, actionResult);
+            ShouldShowDefaultViewWithModel(Resource.DefaultResource().Title, actionResult);
             _resourceService.VerifyAll();
         }
 
@@ -123,13 +99,13 @@ namespace AgileWizard.Website.Tests
         public void edit_action_should_return_a_view_for_a_resource()
         {
             //Arrange
-            _resourceService.Setup(s => s.GetResourceById(ID)).Returns(_resource);
+            _resourceService.Setup(s => s.GetResourceById(Resource.DefaultResource().Id)).Returns(_resource);
 
             //Act
-            var actionResult = resourceControllerSUT.Edit(ID);
+            var actionResult = resourceControllerSUT.Edit(Resource.DefaultResource().Id);
 
             //Assert
-            ShouldShowDefaultViewWithModel(TITLE, actionResult);
+            ShouldShowDefaultViewWithModel(Resource.DefaultResource().Title, actionResult);
         }
 
         [Fact]
@@ -137,14 +113,14 @@ namespace AgileWizard.Website.Tests
         {
             //Arrange
             _sessionStateRepository.Setup(s => s.CurrentUser).Returns(User.DefaultUser());
-            _resourceService.Setup(s => s.UpdateResource(ID, It.IsAny<Resource>())).Verifiable();
+            _resourceService.Setup(s => s.UpdateResource(Resource.DefaultResource().Id, It.IsAny<Resource>())).Verifiable();
 
             //Act
-            var actionResult = resourceControllerSUT.Edit(ID, _resourceDetailViewModel);
+            var actionResult = resourceControllerSUT.Edit(Resource.DefaultResource().Id, _resourceDetailViewModel);
 
             //Assert
             _resourceService.VerifyAll();
-            ShouldRedirectToActionDetails(actionResult, ID);
+            ShouldRedirectToActionDetails(actionResult, Resource.DefaultResource().Id);
         }
 
         [Fact]

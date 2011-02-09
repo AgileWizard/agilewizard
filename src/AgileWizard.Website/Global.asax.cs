@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using AgileWizard.Domain.Helper;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.QueryIndexes;
 using AgileWizard.Website.Helper;

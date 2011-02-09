@@ -42,6 +42,17 @@ namespace AgileWizard.Website.Models
         [LocalizedDisplayName("ReferenceUrl", NameResourceType = typeof(ResourceName))]
         [RegularExpression(@"\b(\w*)://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|]")]
         public string ReferenceUrl { get; set; }
+
+        public ResourceDetailViewModel()
+        {
+        }
+
+        #region Test Utility Methods
+        internal ResourceDetailViewModel(Resource resource)
+        {
+            Mapper.Map<Resource, ResourceDetailViewModel>(resource);
+        }
+        #endregion
     }
 
     public class ResourceListViewModel : ResourceViewModel

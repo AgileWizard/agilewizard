@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainRegistry.cs" />
+    <Compile Include="Helper\TagHelper.cs" />
     <Compile Include="Models\ResourceCounter.cs" />
     <Compile Include="Models\ResourceLog.cs" />
     <Compile Include="Models\Tag.cs" />
