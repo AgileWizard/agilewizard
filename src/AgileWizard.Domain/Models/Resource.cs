@@ -42,6 +42,7 @@ namespace AgileWizard.Domain.Models
 
         #region Test Utility Methods
 
+        internal const string ID = "1";
         private const string DOCUMENT_ID = "resources/1";
         private const string TITLE = "title";
         private const string CONTENT = "content";

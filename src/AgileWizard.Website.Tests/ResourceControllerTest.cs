@@ -51,7 +51,7 @@ namespace AgileWizard.Website.Tests
 
             //Assert
             _resourceService.VerifyAll();
-            ShouldRedirectToActionDetails(actionResult, Resource.DefaultResource().Id);
+            ShouldRedirectToActionDetails(actionResult, Resource.ID);
         }
 
         private void WithDefaultUser()
@@ -80,15 +80,15 @@ namespace AgileWizard.Website.Tests
         public void detail_action_should_return_a_view_for_a_resource()
         {
             //Arrange
-            _resourceService.Setup(s => s.GetResourceById(Resource.DefaultResource().Id)).Returns(_resource);
+            _resourceService.Setup(s => s.GetResourceById(Resource.ID)).Returns(_resource);
             var request = new Mock<HttpRequestBase>();
             var context = new Mock<HttpContextBase>();
             context.SetupGet(x => x.Request).Returns(request.Object);
             resourceControllerSUT.ControllerContext = new ControllerContext(context.Object, new RouteData(), resourceControllerSUT);
-            _resourceService.Setup(s => s.AddOnePageView(Resource.DefaultResource().Id, It.IsAny<string>())).Verifiable();
+            _resourceService.Setup(s => s.AddOnePageView(Resource.ID, It.IsAny<string>())).Verifiable();
 
             //Act
-            var actionResult = resourceControllerSUT.Details(Resource.DefaultResource().Id);
+            var actionResult = resourceControllerSUT.Details(Resource.ID);
 
             //Assert
             ShouldShowDefaultViewWithModel(Resource.DefaultResource().Title, actionResult);
@@ -99,10 +99,10 @@ namespace AgileWizard.Website.Tests
         public void edit_action_should_return_a_view_for_a_resource()
         {
             //Arrange
-            _resourceService.Setup(s => s.GetResourceById(Resource.DefaultResource().Id)).Returns(_resource);
+            _resourceService.Setup(s => s.GetResourceById(Resource.ID)).Returns(_resource);
 
             //Act
-            var actionResult = resourceControllerSUT.Edit(Resource.DefaultResource().Id);
+            var actionResult = resourceControllerSUT.Edit(Resource.ID);
 
             //Assert
             ShouldShowDefaultViewWithModel(Resource.DefaultResource().Title, actionResult);
@@ -113,14 +113,14 @@ namespace AgileWizard.Website.Tests
         {
             //Arrange
             _sessionStateRepository.Setup(s => s.CurrentUser).Returns(User.DefaultUser());
-            _resourceService.Setup(s => s.UpdateResource(Resource.DefaultResource().Id, It.IsAny<Resource>())).Verifiable();
+            _resourceService.Setup(s => s.UpdateResource(Resource.ID, It.IsAny<Resource>())).Verifiable();
 
             //Act
-            var actionResult = resourceControllerSUT.Edit(Resource.DefaultResource().Id, _resourceDetailViewModel);
+            var actionResult = resourceControllerSUT.Edit(Resource.ID, _resourceDetailViewModel);
 
             //Assert
             _resourceService.VerifyAll();
-            ShouldRedirectToActionDetails(actionResult, Resource.DefaultResource().Id);
+            ShouldRedirectToActionDetails(actionResult, Resource.ID);
         }
 
         [Fact]
