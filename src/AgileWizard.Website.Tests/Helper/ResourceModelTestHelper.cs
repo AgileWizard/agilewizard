@@ -7,7 +7,15 @@ namespace AgileWizard.Website.Tests.Helper
     {
         public static ResourceDetailViewModel BuildDefaultResourceDetailViewModel()
         {
-            return new ResourceDetailViewModel(Resource.DefaultResource());
+            return new ResourceDetailViewModel()
+                       {
+                           Id = Resource.DefaultResource().Id,
+                           Title = Resource.DefaultResource().Title,
+                           Content = Resource.DefaultResource().Content,
+                           Author = Resource.DefaultResource().Author,
+                           ReferenceUrl = Resource.DefaultResource().ReferenceUrl,
+                           Tags = "TDD,Shanghai"
+                       };
         }
     }
 }
