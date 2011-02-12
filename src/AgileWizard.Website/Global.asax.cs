@@ -94,9 +94,11 @@ namespace AgileWizard.Website
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => Utils.FetchFirstImageUrl(src.Content)));
 
             Mapper.CreateMap<ResourceDetailViewModel, Resource>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => string.Format("resources/{0}", src.Id)))
                 .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.ToTagList()));
 
             Mapper.CreateMap<Resource, ResourceDetailViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.Substring(10)))
                 .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.ToTagString()));
         }
 
