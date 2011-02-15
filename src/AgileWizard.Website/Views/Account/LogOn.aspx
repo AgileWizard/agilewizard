@@ -7,7 +7,7 @@
 <asp:Content ID="loginContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: AccountString.LogOnTitle%></h2>
     <p>
-        <%: AccountString.PleaseEnterUserNameAndPassword %> <%: AccountString.RegisterPleaseClick %><%: Html.ActionLink(AccountString.RegisterLink, "Register") %>
+        <%: AccountString.PleaseEnterUserNameAndPassword %> <%--<%: AccountString.RegisterPleaseClick %><%: Html.ActionLink(AccountString.RegisterLink, "Register") %>--%>
     </p>
 
     <% using (Html.BeginForm()) { %>
@@ -32,10 +32,10 @@
                     <%: Html.ValidationMessageFor(m => m.Password) %>
                 </div>
                 
-                <div class="editor-label">
+              <%--  <div class="editor-label">
                     <%: Html.CheckBoxFor(m => m.RememberMe) %>
                     <%: Html.LabelFor(m => m.RememberMe) %>
-                </div>
+                </div>--%>
                 
                 <p>
                     <input id="submit_button" type="submit" value="<%: AccountString.LogOnButtonText %>" />

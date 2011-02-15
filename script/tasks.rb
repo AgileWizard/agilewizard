@@ -1,9 +1,11 @@
 desc "Build the agile wizard teamcity file"
-msbuild :compile do |msb|
-  msb.solution = SOLUTION
-  msb.verbosity = "minimal"
-  msb.targets :clean, :build
-  msb.properties :configuration => :release,:platform => 'Any CPU'
+msbuild :compile, :mode do |msb, args|
+	args.with_defaults(:mode =>  COMILE_MODE)
+	
+	msb.solution = SOLUTION
+	msb.verbosity = "minimal"
+	msb.targets :clean, :build
+	msb.parameters  ["/P:Configuration=" + args[:mode]]
 end
 
 task :test=>[:buildDeploymentPackage,
@@ -17,6 +19,7 @@ end
 desc 'starting to build deployment package for the website project'
 msbuild :buildDeploymentPackage do |msb|
   puts "building deployment package"
+    
   msb.solution = WEBSITE_PROJ
   msb.verbosity = "Quiet"
   msb.targets :publish
