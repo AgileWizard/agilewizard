@@ -29,11 +29,7 @@
             </h2>
             <div class="time">
                 &copy; <a href="" title="<%:item.Author%>"><%:item.Author%></a> / 
-                <%:item.CreateTime.ToString("yyyy.MM.dd")%> / <%:item.CreateTime.ToShortTimeString()%> / 
-                <%
-       if (item.Tags.Count > 0)
-       {%><a href=""><%:item.Tags[0].Name%></a><%
-       }%>
+                <%:item.CreateTime.ToString("yyyy.MM.dd")%> / <%:item.CreateTime.ToShortTimeString()%> 
             </div>
             <%=item.Content%>
             <% if (Request.IsAuthenticated) { %><div class="admin"><%:Html.ActionLink(ResourceString.Edit, "Edit", "Resource", new {id = item.Id}, new {Class= "admin-action"})%></div><% } %>
