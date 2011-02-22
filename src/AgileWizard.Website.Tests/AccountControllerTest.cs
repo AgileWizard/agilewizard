@@ -23,7 +23,6 @@ namespace AgileWizard.Website.Tests
                               {
                                   UserName = _userName,
                                   Password = _password,
-                                  RememberMe = false,
                               };
 
             _userAuthenticationService = new Mock<IUserAuthenticationService>();
@@ -74,7 +73,7 @@ namespace AgileWizard.Website.Tests
 
         private void SetUpExpectationOnUserAuthentication(bool expectation)
         {
-            _userAuthenticationService.Setup(x => x.SignIn(_userName, _password, _rememberMe)).Returns(expectation);
+            _userAuthenticationService.Setup(x => x.SignIn(_userName, _password)).Returns(expectation);
         }
 
         private void VerifyOnControllerSUTAction()

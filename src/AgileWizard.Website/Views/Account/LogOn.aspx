@@ -31,12 +31,6 @@
                     <%: Html.PasswordFor(m => m.Password, new { id="password_field" }) %>
                     <%: Html.ValidationMessageFor(m => m.Password) %>
                 </div>
-                
-                <div class="editor-label">
-                    <%: Html.CheckBoxFor(m => m.RememberMe) %>
-                    <%: Html.LabelFor(m => m.RememberMe) %>
-                </div>
-                
                 <p>
                     <input id="submit_button" type="submit" value="<%: AccountString.LogOnButtonText %>" />
                 </p>

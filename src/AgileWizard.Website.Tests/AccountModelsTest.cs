@@ -31,11 +31,5 @@ namespace AgileWizard.Website.Tests
         {
             Assert.Equal("Password", GetNameValueOfGlobalizedDisplayNameAttribute("Password"));
         }
-
-        [Fact]
-        public void should_define_rememberme_property_with_GlobalizedDisplayNameAttribute()
-        {
-            Assert.Equal("RememberMe", GetNameValueOfGlobalizedDisplayNameAttribute("RememberMe"));
-        }
     }
 }

@@ -22,12 +22,12 @@ namespace AgileWizard.Domain.Services
             FormsAuthenticationService = formsAuthenticationService;
         }
       
-        public bool SignIn(string userName, string password, bool rememberMe)
+        public bool SignIn(string userName, string password)
         {
             bool match = IsMatch(userName, password);
             if (match)
             {
-                FormsAuthenticationService.SignIn(userName, rememberMe);
+                FormsAuthenticationService.SignIn(userName);
 
                 SessionStateRepository.CurrentUser = _user; 
             }

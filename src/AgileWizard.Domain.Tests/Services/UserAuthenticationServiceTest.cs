@@ -12,7 +12,6 @@ namespace AgileWizard.Domain.Tests.Services
         private const string _userName = "agilewizard";
         private const string _password = "agilewizard";
         private const string _nonExistignUserName = "non_existing";
-        private const bool _rememberMe = false;
         private readonly User _user = new User { UserName = "agilewizard", Password = "agilewizard" };
         private readonly Mock<IUserRepository> _userRepositoryMock;
         private readonly Mock<IFormsAuthenticationService> _formAuthenticationServiceMock;
@@ -33,7 +32,7 @@ namespace AgileWizard.Domain.Tests.Services
         {
             SetUpUserExpectationForExistingUser();
 
-            Assert.True(_userAuthenticationServiceSUT.SignIn(_userName, _password, _rememberMe));
+            Assert.True(_userAuthenticationServiceSUT.SignIn(_userName, _password));
         }
 
         [Fact]
@@ -41,7 +40,7 @@ namespace AgileWizard.Domain.Tests.Services
         {
             SetUpEmptyUserExpectationForNonExistingUser();
 
-            Assert.False(_userAuthenticationServiceSUT.SignIn(_nonExistignUserName, _password, _rememberMe));
+            Assert.False(_userAuthenticationServiceSUT.SignIn(_nonExistignUserName, _password));
         }
 
         [Fact]
@@ -51,7 +50,7 @@ namespace AgileWizard.Domain.Tests.Services
 
             SetUpUserExpectationForExistingUser();
 
-            Assert.False(_userAuthenticationServiceSUT.SignIn(_userName, wrongPassword, _rememberMe));
+            Assert.False(_userAuthenticationServiceSUT.SignIn(_userName, wrongPassword));
         }
 
         [Fact]
@@ -61,7 +60,7 @@ namespace AgileWizard.Domain.Tests.Services
 
             FormsAuthenticationServiceShouldBeCalledWhenSuccessfulSignIn();
 
-            _userAuthenticationServiceSUT.SignIn(_userName, _password, _rememberMe);
+            _userAuthenticationServiceSUT.SignIn(_userName, _password);
 
             _formAuthenticationServiceMock.Verify();
         }
@@ -73,7 +72,7 @@ namespace AgileWizard.Domain.Tests.Services
 
             FormsAuthenticationServiceShouldNotBeCalledWhenWrongSignIn();
 
-            _userAuthenticationServiceSUT.SignIn(_nonExistignUserName, _password, _rememberMe);
+            _userAuthenticationServiceSUT.SignIn(_nonExistignUserName, _password);
 
             _formAuthenticationServiceMock.VerifyAll();
         }
@@ -83,7 +82,7 @@ namespace AgileWizard.Domain.Tests.Services
         {
             SetUpEmptyUserExpectationForNonExistingUser();
 
-            _userAuthenticationServiceSUT.SignIn(_nonExistignUserName, _password, _rememberMe);
+            _userAuthenticationServiceSUT.SignIn(_nonExistignUserName, _password);
 
             Assert.False(_userAuthenticationServiceSUT.IsAuthenticated);
         }
@@ -93,7 +92,7 @@ namespace AgileWizard.Domain.Tests.Services
         {
             SetUpUserExpectationForExistingUser();
 
-            _userAuthenticationServiceSUT.SignIn(_userName, _password, _rememberMe);
+            _userAuthenticationServiceSUT.SignIn(_userName, _password);
 
             Assert.True(_userAuthenticationServiceSUT.IsAuthenticated);
         }
@@ -115,7 +114,7 @@ namespace AgileWizard.Domain.Tests.Services
 
             FormsAuthenticationServiceShouldBeCalledWhenSuccessfulSignIn();
 
-            _userAuthenticationServiceSUT.SignIn(_userName, _password, _rememberMe);
+            _userAuthenticationServiceSUT.SignIn(_userName, _password);
 
             _userAuthenticationServiceSUT.SignOut();
 
@@ -124,7 +123,7 @@ namespace AgileWizard.Domain.Tests.Services
 
         private void FormsAuthenticationServiceShouldNotBeCalledWhenWrongSignIn()
         {
-            _formAuthenticationServiceMock.Verify(x => x.SignIn(_nonExistignUserName, false), Times.Never());
+            _formAuthenticationServiceMock.Verify(x => x.SignIn(_nonExistignUserName), Times.Never());
         }
 
         private void SetUpUserExpectationForExistingUser()
@@ -141,7 +140,7 @@ namespace AgileWizard.Domain.Tests.Services
 
         private void FormsAuthenticationServiceShouldBeCalledWhenSuccessfulSignIn()
         {
-            _formAuthenticationServiceMock.Setup(x => x.SignIn(_userName, false)).Verifiable();
+            _formAuthenticationServiceMock.Setup(x => x.SignIn(_userName)).Verifiable();
         }
 
         private void FormsAuthenticationServiceSignOutShouldBeCalledWhenSignOut()

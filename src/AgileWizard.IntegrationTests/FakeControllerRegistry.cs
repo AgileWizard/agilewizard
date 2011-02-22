@@ -20,7 +20,7 @@ namespace AgileWizard.IntegrationTests
         {
             #region IFormsAuthenticationService Members
 
-            public void SignIn(string userName, bool createPersistentCookie)
+            public void SignIn(string userName)
             {
 
             }
