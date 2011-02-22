@@ -6,9 +6,6 @@
 
 <asp:Content ID="loginContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: AccountString.LogOnTitle%></h2>
-    <p>
-        <%: AccountString.PleaseEnterUserNameAndPassword %> <%: AccountString.RegisterPleaseClick %><%: Html.ActionLink(AccountString.RegisterLink, "Register") %>
-    </p>
 
     <% using (Html.BeginForm()) { %>
         <%: Html.ValidationSummary(true, AccountString.LoginFailedAndTryAgain) %>
