@@ -98,6 +98,105 @@ namespace AgileWizard.Domain.Tests.Services
             ResourceShouldBeUpdated(_resource, resourceToUpdate);
         }
 
+        [Fact]
+        public void Can_add_one_page_view()
+        {
+            //Arrange
+            _repository.Setup(r => r.InsertResourceLog(It.Is<ResourceLog>(l => l.Name == "PageView" && l.ResourceId == ID))).Verifiable();
+
+            //Act
+            _service.AddOnePageView(ID, "127.0.0.1");
+
+            //Assert
+            _repository.VerifyAll();
+        }
+
+        [Fact]
+        public void Can_like_one_resource()
+        {
+            //Arrange
+            _repository.Setup(r => r.InsertResourceLog(It.Is<ResourceLog>(l => l.Name == "Like" && l.ResourceId == ID))).Verifiable();
+
+            //Act
+            _service.LikeThisResource(ID, "127.0.0.1");
+
+            //Assert
+            _repository.VerifyAll();
+        }
+
+        [Fact]
+        public void Can_dislike_one_resource()
+        {
+            //Arrange
+            _repository.Setup(r => r.InsertResourceLog(It.Is<ResourceLog>(l => l.Name == "Dislike" && l.ResourceId == ID))).Verifiable();
+
+            //Act
+            _service.DislikeThisResource(ID, "127.0.0.1");
+
+            //Assert
+            _repository.VerifyAll();
+        }
+
+        [Fact]
+        public void Can_get_page_views_count()
+        {
+            //Arrange
+            const int COUNT = 10;
+            var counter = new ResourceCounter { ResourceId = ID, Count = COUNT, Name = "PageView"};
+            _repository.Setup(r => r.GetResourceCounter(ID, "PageView")).Returns(counter);
+
+            //Act
+            var actualCount = _service.GetPageViewsCount(ID);
+
+            //Assert
+            Assert.Equal(COUNT, actualCount);
+        }
+
+        [Fact]
+        public void Can_get_likes_count()
+        {
+            //Arrange
+            const int COUNT = 10;
+            var counter = new ResourceCounter { ResourceId = ID, Count = COUNT, Name = "Like" };
+            _repository.Setup(r => r.GetResourceCounter(ID, "Like")).Returns(counter);
+
+            //Act
+            var actualCount = _service.GetLikesCount(ID);
+
+            //Assert
+            Assert.Equal(COUNT, actualCount);
+        }
+
+        [Fact]
+        public void Can_get_dislikes_count()
+        {
+            //Arrange
+            const int COUNT = 10;
+            var counter = new ResourceCounter { ResourceId = ID, Count = COUNT, Name = "Dislike" };
+            _repository.Setup(r => r.GetResourceCounter(ID, "Dislike")).Returns(counter);
+
+            //Act
+            var actualCount = _service.GetDislikesCount(ID);
+
+            //Assert
+            Assert.Equal(COUNT, actualCount);
+        }
+
+        [Fact]
+        public void should_return_resource_by_given_tag()
+        {
+            // Arrange
+            var expectedResources = new List<Resource>();
+            _repository.Setup(r => r.GetResourceListByTag("agile")).Returns(expectedResources);
+
+            // Act
+            var result = _service.GetResourceListByTag("agile");
+
+            // Assert
+            Assert.Same(expectedResources, result);
+            _repository.VerifyAll();
+        }
+
         private void ResourceShouldBeUpdated(Resource resource, Resource resourceToUpdate)
         {
             Assert.Equal(resourceToUpdate.Title, resource.Title);

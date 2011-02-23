@@ -2,10 +2,53 @@
 {
 }
 
+.button-group
+{
+	float: right;
+	white-space: nowrap;
+}
+
+.button
+{
+	margin: 0px;
+	padding: 0 6px;
+	border: 1px solid #CCC;
+	color: Black;
+	background-color: #F6F6F6;
+	vertical-align: middle;
+	cursor: pointer;
+	overflow: visible;
+	height: 24px;
+}
+
+.button img
+{
+	background-image: url('Images/button-icon.png');
+	width: 16px;
+	height: 19px;
+}
+
+.icon-like
+{
+	background-position: -136px -38px;
+}
+
+.icon-dislike
+{
+	background-position: -136px 1px;
+}
+
 .Content
 {
 	font-family: 微软雅黑, arial, 宋体, sans-serif;
 	color: Black;
+	min-height: 400px;
+	height: auto;
+}
+
+* html .Content
+{
+	height: 400px;
 }
 
 .Information
@@ -35,6 +78,8 @@
 	overflow: hidden;
 	margin-left: 10px;
 	padding-right: 5px;
+	margin-bottom:10px;
+	padding-bottom:10px;
 }
 
 .resource-item .thumbs img
@@ -55,29 +100,42 @@
 	background-color: #BBB;
 	color: white;
 	float: right;
-	font-size: 14px;
+    font-family: Arial, 微软雅黑, Sans-Serif;
+	font-size: 16px;
+	font-weight:bolder;
 	line-height: 1em;
 	padding: 3px 10px;
+	margin-right: 1px;
 	text-align: center;
 	width: 40px;
 	height: 30px;
 }
+.resource-item .actionResult
+{
+	font-size: 12px;
+    font-family: 微软雅黑, Arial, Sans-Serif;
+	font-weight:normal;
+}
 
 .resource-item .like
 {
-	background-color: #C8A64A;
+	background-color: #cba94c;
 }
 
-.resource-item .unlike
+.resource-item .dislike
 {
-	background-color: #2C630D;
+	background-color: #376717;
 }
 
 .resource-item .pageview
 {
-	background-color: #224282;
+	background-color: #244483;
 }
 
+.resource-item .pageviewHot
+{	
+    background-color: #780000;
+}
 
 .resource-item .h2
 {

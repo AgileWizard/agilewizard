@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Users;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
 using AgileWizard.Website.Controllers;
 using AgileWizard.Website.Models;
+using AgileWizard.Website.Tests.Helper;
 using Moq;
 using Raven.Client;
 using Xunit;
@@ -16,36 +18,14 @@ namespace AgileWizard.Website.Tests
 {
     public class ResourceControllerTest
     {
-        private const string ID = "1";
-        private const string DOCUMENT_ID = "resources/1";
-        private const string TITLE = "title";
-        private const string CONTENT = "content";
-        private const string AUTHOR = "author";
-        private const string SUBMITUSER = "submitUser";
-        private const string REFERENCE_URL = "http://www.cnblogs.com/tengzy/";
-
         private readonly Mock<IResourceService> _resourceService;
         private readonly Mock<IDocumentSession> _documentSession;
         private readonly Mock<ISessionStateRepository> _sessionStateRepository;
         private readonly ResourceController resourceControllerSUT;
 
-        private readonly Resource _resource = new Resource()
-                                         {
-                                             Id = DOCUMENT_ID,
-                                             Title = TITLE,
-                                             Content = CONTENT,
-                                             Author = AUTHOR,
-                                             ReferenceUrl = REFERENCE_URL,
-                                             SubmitUser = SUBMITUSER
-                                         };
-        private readonly ResourceModel _resourceModel = new ResourceModel()
-                                                  {
-                                                      Id = ID,
-                                                      Title = TITLE,
-                                                      Content = CONTENT,
-                                                      Author = AUTHOR,
-                                                      ReferenceUrl = REFERENCE_URL
-                                                  };
+        private readonly Resource _resource = Resource.DefaultResource();
+
+        private readonly ResourceDetailViewModel _resourceDetailViewModel = ResourceModelTestHelper.BuildDefaultResourceDetailViewModel();
 
         public ResourceControllerTest()
         {
@@ -62,17 +42,21 @@ namespace AgileWizard.Website.Tests
         public void when_add_resource()
         {
             //Arrange
-            _sessionStateRepository.Setup(s => s.CurrentUser).Returns(User.DefaultUser());
+            WithDefaultUser();
 
             ResourceRepositoryWillBeCalled();
 
-
             //Act
-            var actionResult = resourceControllerSUT.Create(_resourceModel);
+            var actionResult = resourceControllerSUT.Create(_resourceDetailViewModel);
 
             //Assert
             _resourceService.VerifyAll();
-            ShouldRedirectToActionDetails(actionResult, ID);
+            ShouldRedirectToActionDetails(actionResult, Resource.ID);
+        }
+
+        private void WithDefaultUser()
+        {
+            _sessionStateRepository.Setup(s => s.CurrentUser).Returns(User.DefaultUser());
         }
 
         [Fact]
@@ -96,26 +80,32 @@ namespace AgileWizard.Website.Tests
         public void detail_action_should_return_a_view_for_a_resource()
         {
             //Arrange
-            _resourceService.Setup(s => s.GetResourceById(ID)).Returns(_resource);
+            _resourceService.Setup(s => s.GetResourceById(Resource.ID)).Returns(_resource);
+            var request = new Mock<HttpRequestBase>();
+            var context = new Mock<HttpContextBase>();
+            context.SetupGet(x => x.Request).Returns(request.Object);
+            resourceControllerSUT.ControllerContext = new ControllerContext(context.Object, new RouteData(), resourceControllerSUT);
+            _resourceService.Setup(s => s.AddOnePageView(Resource.ID, It.IsAny<string>())).Verifiable();
 
             //Act
-            var actionResult = resourceControllerSUT.Details(ID);
+            var actionResult = resourceControllerSUT.Details(Resource.ID);
 
             //Assert
-            ShouldShowDefaultViewWithModel(TITLE, actionResult);
+            ShouldShowDefaultViewWithModel(Resource.DefaultResource().Title, actionResult);
+            _resourceService.VerifyAll();
         }
 
         [Fact]
         public void edit_action_should_return_a_view_for_a_resource()
         {
             //Arrange
-            _resourceService.Setup(s => s.GetResourceById(ID)).Returns(_resource);
+            _resourceService.Setup(s => s.GetResourceById(Resource.ID)).Returns(_resource);
 
             //Act
-            var actionResult = resourceControllerSUT.Details(ID);
+            var actionResult = resourceControllerSUT.Edit(Resource.ID);
 
             //Assert
-            ShouldShowDefaultViewWithModel(TITLE, actionResult);
+            ShouldShowDefaultViewWithModel(Resource.DefaultResource().Title, actionResult);
         }
 
         [Fact]
@@ -123,14 +113,14 @@ namespace AgileWizard.Website.Tests
         {
             //Arrange
             _sessionStateRepository.Setup(s => s.CurrentUser).Returns(User.DefaultUser());
-            _resourceService.Setup(s => s.UpdateResource(ID, It.Is<Resource>(r => r.Title == TITLE && r.Content == CONTENT && r.Author == AUTHOR && r.ReferenceUrl == REFERENCE_URL && r.SubmitUser == User.DefaultUser().UserName))).Verifiable();
+            _resourceService.Setup(s => s.UpdateResource(Resource.ID, It.IsAny<Resource>())).Verifiable();
 
             //Act
-            var actionResult = resourceControllerSUT.Edit(ID, _resourceModel);
+            var actionResult = resourceControllerSUT.Edit(Resource.ID, _resourceDetailViewModel);
 
             //Assert
             _resourceService.VerifyAll();
-            ShouldRedirectToActionDetails(actionResult, ID);
+            ShouldRedirectToActionDetails(actionResult, Resource.ID);
         }
 
         [Fact]
@@ -150,6 +140,29 @@ namespace AgileWizard.Website.Tests
             ShouldShowResourceListUserControlWithModel(actionResult);
         }
 
+        [Fact]
+        public void should_return_resource_list_by_given_tag()
+        {
+            // Arrange
+            _resource.Tags = new List<Resource.ResourceTag>
+            {
+                new Resource.ResourceTag
+                {
+                    Name = "agile",
+                }
+            };
+
+            var resources = new List<Resource> { _resource };
+            _resourceService.Setup(s => s.GetResourceListByTag("agile")).Returns(resources);
+
+            // Act
+            var viewResult = resourceControllerSUT.ListByTag("agile") as ViewResult;
+
+            // Assert
+            var viewModel = (IEnumerable<ResourceListViewModel>)viewResult.ViewData.Model;
+            Assert.Equal("agile", viewModel.First().Tags[0].Name);
+        }
+
         private void ShouldShowResourceListUserControlWithModel(ActionResult actionResult)
         {
             Assert.IsType<PartialViewResult>(actionResult);
@@ -166,8 +179,8 @@ namespace AgileWizard.Website.Tests
             Assert.IsType<ViewResult>(actionResult);
             var viewResult = (ViewResult)actionResult;
             Assert.Empty(viewResult.ViewName);
-            Assert.IsAssignableFrom<ResourceModel>(viewResult.ViewData.Model);
-            var viewModel = (ResourceModel)viewResult.ViewData.Model;
+            Assert.IsAssignableFrom<ResourceDetailViewModel>(viewResult.ViewData.Model);
+            var viewModel = (ResourceDetailViewModel)viewResult.ViewData.Model;
             Assert.Equal(title, viewModel.Title);
         }
 
@@ -190,12 +203,7 @@ namespace AgileWizard.Website.Tests
 
         private void ResourceRepositoryWillBeCalled()
         {
-            _resourceService.Setup(x => x.AddResource(It.Is<Resource>(r => r.Title == _resourceModel.Title
-                && r.Author == _resourceModel.Author
-                && r.Content == _resourceModel.Content
-                && r.ReferenceUrl == _resourceModel.ReferenceUrl
-                && r.SubmitUser == _sessionStateRepository.Object.CurrentUser.UserName
-                && r.Tags.Count == 0))).Returns(_resource).Verifiable();
+            _resourceService.Setup(x => x.AddResource(It.IsAny<Resource>())).Returns(_resource).Verifiable();
         }
     }
 }

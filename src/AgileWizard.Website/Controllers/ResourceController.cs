@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
@@ -10,7 +6,6 @@ using AgileWizard.Website.Attributes;
 using AgileWizard.Website.Models;
 using AutoMapper;
 using Raven.Client;
-using AgileWizard.Website.Helper;
 
 namespace AgileWizard.Website.Controllers
 {
@@ -44,17 +39,10 @@ namespace AgileWizard.Website.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Create(ResourceModel model)
+        public ActionResult Create(ResourceDetailViewModel detailViewModel)
         {
-            var resource = ResourceService.AddResource(new Resource
-                {
-                    Title = model.Title,
-                    Content = model.Content,
-                    Author = model.Author,
-                    SubmitUser = SessionStateRepository.CurrentUser.UserName,
-                    Tags = model.Tags.ToTagList(),
-                    ReferenceUrl = model.ReferenceUrl
-                });
+            var resource = Mapper.Map<ResourceDetailViewModel, Resource>(detailViewModel);
+            resource = ResourceService.AddResource(resource);
 
             return RedirectToAction("Details", new { id = resource.Id.Substring(10) });
         }
@@ -62,7 +50,7 @@ namespace AgileWizard.Website.Controllers
         [RequireAuthentication]
         public ActionResult Create()
         {
-            var viewModel = new ResourceModel();
+            var viewModel = new ResourceDetailViewModel();
 
             return View(viewModel);
         }
@@ -70,48 +58,28 @@ namespace AgileWizard.Website.Controllers
         public ActionResult Details(string id)
         {
             var resource = ResourceService.GetResourceById(id);
-            return View(new ResourceModel
-                            {
-                                Id = resource.Id,
-                                Title = resource.Title,
-                                Content = resource.Content,
-                                Author = resource.Author,
-                                CreateTime = resource.CreateTime,
-                                SubmitUser = resource.SubmitUser,
-                                Tags = resource.Tags.ToTagString(),
-                                ReferenceUrl = resource.ReferenceUrl
-                            });
+
+            var resourceDetailieViewModel = Mapper.Map<Resource, ResourceDetailViewModel>(resource);
+
+            ResourceService.AddOnePageView(id, Request.UserHostAddress);
+
+            return View(resourceDetailieViewModel);
         }
 
         [RequireAuthentication]
         public ActionResult Edit(string id)
         {
             var resource = ResourceService.GetResourceById(id);
-            return View(new ResourceModel
-            {
-                Id = resource.Id,
-                Title = resource.Title,
-                Content = resource.Content,
-                Author = resource.Author,
-                CreateTime = resource.CreateTime,
-                ReferenceUrl = resource.ReferenceUrl,
-                Tags = resource.Tags == null ? string.Empty : resource.Tags.ToTagString()
-            });
+            var resourceDetailieViewModel = Mapper.Map<Resource, ResourceDetailViewModel>(resource);
+            return View(resourceDetailieViewModel);
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Edit(string id, ResourceModel model)
+        public ActionResult Edit(string id, ResourceDetailViewModel detailViewModel)
         {
-            ResourceService.UpdateResource(id, new Resource
-            {
-                Title = model.Title,
-                Content = model.Content,
-                Author = model.Author,
-                SubmitUser = SessionStateRepository.CurrentUser.UserName,
-                ReferenceUrl = model.ReferenceUrl,
-                Tags = model.Tags.ToTagList()
-            });
+            var resource = Mapper.Map<ResourceDetailViewModel, Resource>(detailViewModel);
+            ResourceService.UpdateResource(id, resource);
 
             return RedirectToAction("Details", new { id });
         }
@@ -120,6 +88,37 @@ namespace AgileWizard.Website.Controllers
         {
             ResourceList resourceList = GetResourceList();
             return PartialView("ResourceList", resourceList);
+        }
+
+        [HttpPost]
+        public ActionResult Like(string id)
+        {
+            ResourceService.LikeThisResource(id, Request.UserHostAddress);
+            return Json(null);
+        }
+
+        [HttpPost]
+        public ActionResult Dislike(string id)
+        {
+            ResourceService.DislikeThisResource(id, Request.UserHostAddress);
+            return Json(null);
+        }
+
+        // id = tagName
+        public ActionResult ListByTag(string id)
+        {
+            ResourceList resourceList = GetResourceListByTag(id);
+            return View(resourceList);
+        }
+
+        private ResourceList GetResourceListByTag(string tagName)
+        {
+            var resources = ResourceService.GetResourceListByTag(tagName);
+            var resourceList = new ResourceList(resources)
+            {
+                TotalCount = ResourceService.GetResourcesTotalCountForTag(tagName)
+            };
+            return resourceList;
         }
     }
 }

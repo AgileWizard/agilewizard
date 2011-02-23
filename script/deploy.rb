@@ -1,14 +1,15 @@
 require  "albacore"
 require 'fileutils'
 if not((defined? ROOT)) then
-	load 'varConfig.rb'
+	load File.join(File.dirname(__FILE__), 'varConfig.rb')
 end
 load 'publish.rb'
 
 # Configuration
+SITE_NAME = "Agile wizard"
 APPLICATION_DIR = "C:/inetpub/wwwroot/Agile wizard"
-APPLICATION_BACKUP_DIR = 'C:/backups'
-RAVENDB_DATA_BACKUP_DIR = 'C:/backups'
+APPLICATION_BACKUP_DIR = 'C:/backups/app'
+RAVENDB_DATA_BACKUP_DIR = 'C:/backups/data'
 
 time = Time.new
 

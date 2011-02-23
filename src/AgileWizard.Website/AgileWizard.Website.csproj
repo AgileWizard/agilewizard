@@ -87,6 +87,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MvcControllerBase.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
+    <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -100,7 +101,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\arrow.gif" />
+    <Content Include="Content\Images\button-icon.png" />
     <Content Include="Content\Images\default_resource_icon.jpg" />
+    <Content Include="Content\Images\empty.gif" />
     <Content Include="Content\Images\footer_bg.png" />
     <Content Include="Content\Images\header_bg.png" />
     <Content Include="Content\Images\home_pic.png" />
@@ -374,6 +377,7 @@
     <Content Include="Views\Resource\Details.aspx" />
     <Content Include="Views\Resource\Edit.aspx" />
     <Content Include="Views\Resource\Index.aspx" />
+    <Content Include="Views\Resource\ListByTag.aspx" />
     <Content Include="Views\Shared\Footer.ascx" />
     <Content Include="Views\Shared\HtmlEditor.ascx" />
     <Content Include="Views\Shared\ResourceList.ascx" />

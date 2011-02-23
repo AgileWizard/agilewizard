@@ -4,7 +4,10 @@ using System.Linq;
 using System.Text;
 using TechTalk.SpecFlow;
 using StructureMap;
-using AgileWizard.Domain.Repositories;
+using AgileWizard.Domain.Services;
+using Xunit;
+using AgileWizard.Website.Helper;
+using AgileWizard.IntegrationTests.Helpers;
 
 namespace AgileWizard.IntegrationTests.Steps
 {
@@ -14,14 +17,26 @@ namespace AgileWizard.IntegrationTests.Steps
         [Then("tag list is available")]
         public void TagListIsAvailable()
         {
-            var tagRepository = ObjectFactory.GetInstance<ITagRepository>();
+            var tagService = ObjectFactory.GetInstance<ITagService>();
 
-            var list = tagRepository.GetTagList(10);
+            var list = tagService.GetTagList(10);
+
+            Assert.NotEqual(0, list.Count);
 
             foreach (var tag in list)
             {
                 Console.WriteLine("[{0:yyyy/MM/dd HH:mm:ss} - {1} ({2})]", tag.LastUpdateTime, tag.Name, tag.TotalCount);
             }
         }
+
+        [Then(@"the tag list should contain '(.+)' tag")]
+        public void TheTagListShouldContainTag(string tagName)
+        {
+            var tagList = TagsHelper.GetTagList(10);
+
+            Assert.True(tagList.Contains(tagName));
+        }
+
+
     }
 }

@@ -129,6 +129,9 @@
   <data name="CreateResourceTitle" xml:space="preserve">
     <value>创建资源</value>
   </data>
+  <data name="Dislike" xml:space="preserve">
+    <value>踩</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>编辑</value>
   </data>
@@ -149,8 +152,5 @@
   </data>
   <data name="TotalResourceCount" xml:space="preserve">
     <value>资源总数</value>
-  </data>
-  <data name="Unlike" xml:space="preserve">
-    <value>踩</value>
   </data>
 </root>
