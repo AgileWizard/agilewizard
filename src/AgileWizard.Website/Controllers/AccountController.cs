@@ -27,7 +27,7 @@ namespace AgileWizard.Website.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (UserAuthenticationService.SignIn(model.UserName, model.Password, model.RememberMe))
+                if (UserAuthenticationService.SignIn(model.UserName, model.Password))
                 {
                     return RedirectToAction("Index", "Home");
                 }

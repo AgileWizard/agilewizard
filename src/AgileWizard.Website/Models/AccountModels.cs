@@ -20,9 +20,6 @@ namespace AgileWizard.Website.Models
         [DataType(DataType.Password)]
         [LocalizedDisplayName("Password", NameResourceType = typeof(AccountName))]
         public string Password { get; set; }
-
-        [LocalizedDisplayName("RememberMe", NameResourceType = typeof(AccountName))]
-        public bool RememberMe { get; set; }
     }
     #endregion
 
@@ -31,11 +28,11 @@ namespace AgileWizard.Website.Models
 
     public class FormsAuthenticationService : IFormsAuthenticationService
     {
-        public void SignIn(string userName, bool createPersistentCookie)
+        public void SignIn(string userName)
         {
             Contract.Requires(String.IsNullOrEmpty(userName));
 
-            FormsAuthentication.SetAuthCookie(userName, createPersistentCookie);
+            FormsAuthentication.SetAuthCookie(userName, false);
         }
 
         public void SignOut()

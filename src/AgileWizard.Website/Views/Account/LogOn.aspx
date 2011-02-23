@@ -6,9 +6,6 @@
 
 <asp:Content ID="loginContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: AccountString.LogOnTitle%></h2>
-    <p>
-        <%: AccountString.PleaseEnterUserNameAndPassword %> <%--<%: AccountString.RegisterPleaseClick %><%: Html.ActionLink(AccountString.RegisterLink, "Register") %>--%>
-    </p>
 
     <% using (Html.BeginForm()) { %>
         <%: Html.ValidationSummary(true, AccountString.LoginFailedAndTryAgain) %>
@@ -31,12 +28,6 @@
                     <%: Html.PasswordFor(m => m.Password, new { id="password_field" }) %>
                     <%: Html.ValidationMessageFor(m => m.Password) %>
                 </div>
-                
-              <%--  <div class="editor-label">
-                    <%: Html.CheckBoxFor(m => m.RememberMe) %>
-                    <%: Html.LabelFor(m => m.RememberMe) %>
-                </div>--%>
-                
                 <p>
                     <input id="submit_button" type="submit" value="<%: AccountString.LogOnButtonText %>" />
                 </p>
