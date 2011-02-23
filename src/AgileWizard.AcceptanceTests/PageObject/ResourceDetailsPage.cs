@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using AgileWizard.AcceptanceTests.Helper;
+using AgileWizard.Locale.Resources.Views;
 using WatiN.Core;
 using Xunit;
-
-using AgileWizard.AcceptanceTests.Helper;
 using AgileWizard.AcceptanceTests.Data;
 
 namespace AgileWizard.AcceptanceTests.PageObject
 {
     [Page(UrlRegex = @".+/Resource/Details/\d+")]
-    public class ResourceDetailsPage : WatiN.Core.Page
+    public class ResourceDetailsPage : Page
 
     {
         public string Title
@@ -56,15 +51,20 @@ namespace AgileWizard.AcceptanceTests.PageObject
             }
         }
 
-
-
         public void AssertPageData(ResourceData data)
         {
-            Assert.Equal(data.Title, this.Title);
-            Assert.Equal(this.Author, data.Author);
-            Assert.Equal(this.ReferenceUrl, data.ReferenceUrl);
-            Assert.Equal(this.Tags, data.Tags);
-            Assert.Equal(data.Content, this.Content);
+            Assert.Equal(data.Title, Title);
+            Assert.Equal(Author, data.Author);
+            Assert.Equal(ReferenceUrl, data.ReferenceUrl);
+            //ToDo extract tag string from resource tags
+            //Assert.Equal(Tags, data.Tags);
+            Assert.Equal(data.Content, Content);
          }
+
+        public void GoToTagList(string tagName)
+        {
+            var browser = BrowserHelper.Browser;
+            browser.Link(l => l.Text == tagName).Click();
+        }
     }
 }

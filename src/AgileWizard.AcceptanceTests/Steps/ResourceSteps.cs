@@ -75,6 +75,26 @@ namespace AgileWizard.AcceptanceTests.Steps
             ShowDetailPageAndValidateData(table);
         }
 
+        [Then(@"go to resource list of tag '(.+)'")]
+        public void ThenGoToResourceListOfTag(string tagName)
+        {
+            var detailPage = BrowserHelper.Browser.Page<ResourceDetailsPage>();
+            detailPage.GoToTagList(tagName);
+        }
+
+        [Then(@"Then resource list of tag '(.+)' should have 1 item")]
+        public void ThenThenResourceListOfTagShouldHave1Item(string tagName)
+        {
+            _listPage.AssertTotalResourceCount();
+        }
+
+
+        [Then(@"resource list of tag 'TestTag' should have 1 item")]
+        public void ThenResourceListOfTagTestTagShouldHave1Item(string tagName)
+        {
+            _listPage.AssertTotalResourceCount();
+        }
+        
         private void ShowDetailPageAndValidateData(Table table)
         {
             ResourceDetailsPage detailPage = BrowserHelper.Browser.Page<ResourceDetailsPage>();

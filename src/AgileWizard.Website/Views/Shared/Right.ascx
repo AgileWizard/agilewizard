@@ -7,7 +7,7 @@
         {
     %>
     <div class="tag-row">
-        <a href="<%: Url.Action("ListByTag", "Resource", new {id=tag.Name}) %>"><span class="tag-name"><%: tag.Name %></span></a>
+        <a href="<%: Url.Action("ListByTag", "Resource", new {tagName =tag.Name}) %>"><span class="tag-name"><%: tag.Name %></span></a>
         <span>× <%: tag.TotalCount %></span>
     </div>
     <%} %>

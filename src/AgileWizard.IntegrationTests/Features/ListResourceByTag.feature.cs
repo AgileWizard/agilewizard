@@ -27,7 +27,8 @@ namespace AgileWizard.IntegrationTests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "List Resource By Tag", "As a website user\nI want to see resources by given tag", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "List Resource By Tag", "As a website user\r\nI want to see resources by given tag\r\nthe case of tag should b" +
+                    "e ignored, no matter UPPER case or lower case", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -62,7 +63,7 @@ namespace AgileWizard.IntegrationTests.Features
         public virtual void GroupResourceByTag()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Group resource by tag", ((string[])(null)));
-#line 5
+#line 6
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -80,12 +81,16 @@ this.ScenarioSetup(scenarioInfo);
             table1.AddRow(new string[] {
                         "Tags",
                         "TDD"});
-#line 6
+#line 7
  testRunner.Given("there is a resource", ((string)(null)), table1);
-#line 12
- testRunner.When("I wait for non-stale data");
 #line 13
+ testRunner.When("I wait for non-stale data");
+#line 14
  testRunner.Then("the tag list should contain \'TDD\' tag");
+#line 15
+ testRunner.Then("resource list of tag \'TDD\' should have 1 item");
+#line 16
+ testRunner.Then("resource list of tag \'tdd\' should have 1 item");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -96,7 +101,7 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void ListResourcesByGivenTag()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("List resources by given tag", ((string[])(null)));
-#line 16
+#line 19
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -114,11 +119,11 @@ this.ScenarioSetup(scenarioInfo);
             table2.AddRow(new string[] {
                         "Tags",
                         "coding-dojo"});
-#line 17
+#line 20
  testRunner.Given("there is a resource", ((string)(null)), table2);
-#line 23
+#line 26
  testRunner.When("I wait for non-stale data");
-#line 24
+#line 27
  testRunner.Then("resource list of tag \'coding-dojo\' should have 1 item");
 #line hidden
             testRunner.CollectScenarioErrors();

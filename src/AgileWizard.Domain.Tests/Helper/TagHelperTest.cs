@@ -1,4 +1,5 @@
 ﻿using AgileWizard.Domain.Helper;
+using AgileWizard.Domain.Models;
 using Xunit;
 
 namespace AgileWizard.Domain.Tests.Helper
@@ -14,6 +15,14 @@ namespace AgileWizard.Domain.Tests.Helper
             Assert.Equal("Agile", tags[0].Name);
             Assert.Equal("Shanghai", tags[1].Name);
             Assert.Equal("Wen", tags[2].Name);
+        }
+
+        [Fact]
+        public void can_set_tag_from_tagstring()
+        {
+            Resource resource = Resource.DefaultResource().WithTag("testtag");
+
+            Assert.True(resource.Tags.Exists(t => t.Name == "testtag"));
         }
     }
 }

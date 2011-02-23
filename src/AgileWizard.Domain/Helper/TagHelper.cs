@@ -19,5 +19,11 @@ namespace AgileWizard.Domain.Helper
 
             return tagList;
         }
+
+        public static Resource WithTag(this Resource resource, string tagName)
+        {
+            resource.Tags.AddRange(tagName.ToTagList());
+            return resource;
+        }
     }
 }
