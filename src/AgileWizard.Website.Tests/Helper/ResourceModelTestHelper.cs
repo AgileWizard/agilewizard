@@ -1,4 +1,5 @@
-﻿using AgileWizard.Domain.Models;
+﻿using AgileWizard.Domain.Helper;
+using AgileWizard.Domain.Models;
 using AgileWizard.Website.Models;
 
 namespace AgileWizard.Website.Tests.Helper

@@ -104,10 +104,9 @@ namespace AgileWizard.Website.Controllers
             return Json(null);
         }
 
-        // id = tagName
-        public ActionResult ListByTag(string id)
+        public ActionResult ListByTag(string tagName)
         {
-            ResourceList resourceList = GetResourceListByTag(id);
+            ResourceList resourceList = GetResourceListByTag(tagName);
             return View(resourceList);
         }
 

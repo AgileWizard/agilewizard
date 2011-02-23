@@ -9,7 +9,7 @@ using WatiN.Core;
 
 namespace AgileWizard.AcceptanceTests.PageObject
 {
-    [Page(UrlRegex = @"Resource(/Index)?$")]
+    [Page(UrlRegex = @"Resource(/((Index)|(ListByTag\?tagName=\w+)))?$")]
     public class ResourceListPage : Page
     {
         public Link CreateResourceLink

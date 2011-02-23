@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AgileWizard.Domain.Helper;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.QueryIndexes;
 using AgileWizard.Domain.Repositories;
@@ -65,7 +66,7 @@ namespace AgileWizard.Domain.Tests.Repositories
         [Fact]
         public void can_get_first_100_list_of_resources()
         {
-            _session.SetupQueryResult<Resource>(typeof(ResourceIndexByTitle).Name, 101.CountOfResouces());
+            _session.SetupQueryResult(typeof(ResourceIndexByTitle).Name, 101.CountOfResouces("tag"));
 
             var resources = _resourceRepositorySUT.GetResourceList();
 
@@ -76,7 +77,7 @@ namespace AgileWizard.Domain.Tests.Repositories
         [Fact]
         public void can_calculate_resources_total_count()
         {
-            _session.SetupQueryResult<Resource>(typeof(ResourceIndexByTitle).Name, 200.CountOfResouces());
+            _session.SetupQueryResult(typeof(ResourceIndexByTitle).Name, 200.CountOfResouces("tag"));
 
             int count = _resourceRepositorySUT.GetResourcesTotalCount();
 
@@ -87,7 +88,7 @@ namespace AgileWizard.Domain.Tests.Repositories
         [Fact]
         public void resource_list_should_sort_descending()
         {
-            _session.SetupQueryResult<Resource>(typeof(ResourceIndexByTitle).Name, 101.CountOfResouces());
+            _session.SetupQueryResult(typeof(ResourceIndexByTitle).Name, 101.CountOfResouces("tag"));
 
             var resources = _resourceRepositorySUT.GetResourceList();
 
@@ -130,8 +131,8 @@ namespace AgileWizard.Domain.Tests.Repositories
             const string ID = "1";
             const string COUNTER_NAME = "PageView";
             const int COUNT = 10;
-            var counters = new ResourceCounter[] { new ResourceCounter { Name = COUNTER_NAME, ResourceId = ID, Count = COUNT } };
-            _session.SetupLuceneQueryResult<ResourceCounter>(typeof(ResourceLogAggregateIndex).Name, counters);
+            var counters = new[] { new ResourceCounter { Name = COUNTER_NAME, ResourceId = ID, Count = COUNT } };
+            _session.SetupLuceneQueryResult(typeof(ResourceLogAggregateIndex).Name, counters);
 
             //Act
             var counter = _resourceRepositorySUT.GetResourceCounter(ID, COUNTER_NAME);
@@ -146,7 +147,7 @@ namespace AgileWizard.Domain.Tests.Repositories
         public void should_return_resource_by_given_tag()
         {
             // Arrange
-            _session.SetupQueryResult<Resource>(typeof(ResourceIndexByTag).Name, 10.CountOfResouces("agile"));
+            _session.SetupQueryResult(typeof(ResourceIndexByTag).Name, 10.CountOfResouces("agile"));
 
             // Act
             var result = _resourceRepositorySUT.GetResourceListByTag("agile");
@@ -156,6 +157,22 @@ namespace AgileWizard.Domain.Tests.Repositories
             
         }
 
+        [Fact]
+        public void case_of_tag_letter_will_be_ignored()
+        {
+            // Arrange
+            List<Resource> resourceList = GetResourceListWithLowerAndUpperCaseTag();
+            _session.SetupQueryResult(typeof(ResourceIndexByTag).Name, resourceList);
+
+            // Act
+            var result = _resourceRepositorySUT.GetResourceListByTag("case");
+
+            // Assert
+            Assert.Equal(2, result.Count);
+
+        }
+
+        
         private void AssertResourceOrderByLastupdateTimeDescending(List<Resource> resources)
         {
             using (IEnumerator<Resource> e = resources.GetEnumerator())
@@ -164,7 +181,7 @@ namespace AgileWizard.Domain.Tests.Repositories
                 bool hasNext = true;
                 while (hasNext)
                 {
-                    hasNext = e.MoveNext();
+                    e.MoveNext();
                     current = e.Current;
                     hasNext = e.MoveNext();
                     if (hasNext)
@@ -177,17 +194,25 @@ namespace AgileWizard.Domain.Tests.Repositories
         {
             return string.Format("resources/{0}", id);
         }
+
+        private List<Resource> GetResourceListWithLowerAndUpperCaseTag()
+        {
+            var resource1 = Resource.DefaultResource().WithTag("case");
+            var resource2 = Resource.DefaultResource().WithTag("CASE");
+
+            var resourceList = new List<Resource>();
+            resourceList.Add(resource1);
+            resourceList.Add(resource2);
+            return resourceList;
+        }
+
     }
 
     internal static class ResourcesGenerator
     {
-        internal static IEnumerable<Resource> CountOfResouces(this int totalCount, params string[] tags)
+        internal static IEnumerable<Resource> CountOfResouces(this int totalCount, string tags)
         {
-            var tagList = new List<Resource.ResourceTag>();
-            foreach (var tag in tags)
-            {
-                tagList.Add(new Resource.ResourceTag { Name = tag });
-            }
+            var tagList = tags.ToTagList();
 
             for (int i = 0; i < totalCount; i++)
                 yield return new Resource

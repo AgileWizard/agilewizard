@@ -1,6 +1,7 @@
 ﻿Feature: List Resource By Tag
 	As a website user
 	I want to see resources by given tag
+	the case of tag should be ignored, no matter UPPER case or lower case
 
 Scenario: Group resource by tag
 	Given there is a resource
@@ -11,6 +12,8 @@ Scenario: Group resource by tag
 	|	Tags			|	TDD						|
 	When I wait for non-stale data
 	Then the tag list should contain 'TDD' tag
+	Then resource list of tag 'TDD' should have 1 item
+	Then resource list of tag 'tdd' should have 1 item
 
 
 Scenario: List resources by given tag
@@ -22,4 +25,7 @@ Scenario: List resources by given tag
 	|	Tags			|	coding-dojo			|
 	When I wait for non-stale data
 	Then resource list of tag 'coding-dojo' should have 1 item
+
+
+
 

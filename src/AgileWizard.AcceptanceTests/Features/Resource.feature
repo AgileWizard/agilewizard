@@ -38,3 +38,5 @@ Scenario: Add and edit Resource
 		| Author		| Test Author						|
 		| ReferenceUrl	| http://testurl.com/				|
 		| Tags 			| TestTag							|
+	Then go to resource list of tag 'TestTag'
+	Then Then resource list of tag 'TestTag' should have 1 item

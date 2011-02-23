@@ -161,6 +161,10 @@ this.ScenarioSetup(scenarioInfo);
                         "TestTag"});
 #line 34
  testRunner.Then("page should be redirected to details page", ((string)(null)), table4);
+#line 41
+ testRunner.Then("go to resource list of tag \'TestTag\'");
+#line 42
+ testRunner.Then("Then resource list of tag \'TestTag\' should have 1 item");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

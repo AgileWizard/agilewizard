@@ -80,7 +80,7 @@ namespace AgileWizard.IntegrationTests.Steps
          [When(@"modify the resource")]
          public void WhenModifyTheResource(Table table)
          {
-             SubmittedResourceDetailViewModel = table.CreateInstance<ResourceDetailViewModel>();
+             SubmittedResourceDetailViewModel = GetResourceDetailViewModel(table);
 
              var id = GetExistingResourceID();
              
@@ -148,6 +148,24 @@ namespace AgileWizard.IntegrationTests.Steps
                 if (row["Field"] == "Tags")
                 {
                     resource.Tags = row["Value"].ToTagList();
+                }
+            }
+        }
+
+        private ResourceDetailViewModel GetResourceDetailViewModel(Table table)
+        {
+            var resource = table.CreateInstance<ResourceDetailViewModel>();
+            ProcessResourceDetailViewModelTag(table, resource);
+            return resource;
+        }
+
+        private void ProcessResourceDetailViewModelTag(Table table, ResourceDetailViewModel resource)
+        {
+            foreach (var row in table.Rows)
+            {
+                if (row["Field"] == "Tags")
+                {
+                    resource.Tags = row["Value"];
                 }
             }
         }

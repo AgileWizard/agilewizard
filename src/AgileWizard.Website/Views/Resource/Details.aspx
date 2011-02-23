@@ -1,4 +1,5 @@
 <%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage<AgileWizard.Website.Models.ResourceDetailViewModel>" MasterPageFile="~/Views/Shared/Site.Master" %>
+<%@ Import Namespace="AgileWizard.Domain.Helper" %>
 <asp:Content runat="server" ID="Title" ContentPlaceHolderID="TitleContent">
     <%: Model.Title %>
 </asp:Content>
@@ -22,7 +23,20 @@
     </div>
     <br />
     <div id="content_field" class="Content"><%=Model.Content %></div>
-    <div class="TagsArea"><%:ResourceName.Tags %>:<span id="tags_field" class="Tags"><%:Model.Tags %></span></div>
+   <div class="TagsArea"><%:ResourceName.Tags %>:
+   <div class="tag-container">
+            <%
+                var tagList = Model.Tags.ToTagList();
+               foreach (var tag in tagList)
+               {
+            %>
+            <div class="tag-row">
+               <a href="<%:Url.Action("ListByTag", "Resource", new {tagName = tag.Name})%>"> <span class="tag-name"><%: tag.Name %></span></a>
+            </div>
+            <%} %>
+        </div>  
+        </div>
+        <span class="break"></span>
     <script type="text/javascript">
         $(function () {
             $("#like").click(function () {
