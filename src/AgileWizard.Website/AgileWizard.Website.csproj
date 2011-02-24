@@ -109,6 +109,7 @@
     <Content Include="Content\Images\home_pic.png" />
     <Content Include="Content\Images\logo_f.png" />
     <Content Include="Content\Images\logo_t.png" />
+    <Content Include="Content\Images\main_bg.png" />
     <Content Include="Content\Resource.css" />
     <Content Include="Content\Tag.css" />
     <Content Include="Global.asax" />
