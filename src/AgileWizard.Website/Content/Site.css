@@ -11,7 +11,7 @@ to use a different color start by replacing all instances of
 ----------------------------------------------------------*/
 body
 {
-	background-color: #ffffff;
+	background-color: #fff;
 	font-size: 12px;
 	font-family: Verdana, 宋体, Sans-Serif;
 	margin: 0;
@@ -99,7 +99,7 @@ page width. Or, you can specify an exact pixel width. */
 {
 	background-image:url(Images/header_bg.png);
 	background-repeat:repeat-x;
-	height:64px;
+	height:69px;
 	position: relative;
 	margin-bottom: 0px;
 	color: #000;
@@ -110,10 +110,13 @@ page width. Or, you can specify an exact pixel width. */
 {
 	background-color: #fff;
 	margin:auto;
+	margin-top:2px;
 	width:1000px;
-	min-height: 700px;
-	height:auto;
+	height: auto;
+    min-height:100%;
 	overflow:hidden;
+	background-image:url(Images/main_bg.png);
+	background-repeat:repeat-y;
 }
 
 * html #main
@@ -298,7 +301,7 @@ div#main_left
 {
 	float:left;
 	width:702px;
-	margin:3px 3px;
+	margin:0px 3px;
 	height:100%;
 	overflow:hidden;
 	_margin:0px;
@@ -307,10 +310,11 @@ div#main_left
 div#main_right
 {
 	float:right;
-	background-color:#d9d9d9;
 	width:292px;
 	overflow:hidden;
-	height:540px;
+	height:100%;
+	min-height:600px;
+	margin:0px;
 }
 
 div#footer_container

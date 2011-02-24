@@ -93,18 +93,18 @@
 .resource-item .indexs
 {
 	min-height: 75px;
+	padding-right:13px;
 }
 
 .resource-item .counter
 {
-	background-color: #BBB;
 	color: white;
 	float: right;
     font-family: Arial, 微软雅黑, Sans-Serif;
 	font-size: 16px;
 	font-weight:bolder;
 	line-height: 1em;
-	padding: 3px 10px;
+	padding: 2px 5px;
 	margin-right: 1px;
 	text-align: center;
 	width: 40px;
