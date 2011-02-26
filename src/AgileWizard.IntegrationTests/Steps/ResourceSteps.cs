@@ -18,8 +18,6 @@ namespace AgileWizard.IntegrationTests.Steps
     [Binding]
     public partial class ResourceSteps
     {
-        private string SubmitUser;
-
         #region Add Resource
         [Given(@"new resource with  title - (.+) and content - (.+) and author - (.+) and tags - (.+) and reference url - (\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])")]
         public void GivenNewResourceWithTitleAndContentAndAuthorAndTagsAndReferenceUrl(string title, string content, string author, string tags, string referenceurl)
@@ -110,9 +108,10 @@ namespace AgileWizard.IntegrationTests.Steps
          [When(@"I wait for non-stale data")]
         public void WhenIWaitForNonStaleData()
         {
+            var documentStore = ObjectFactory.GetInstance<IDocumentStore>();
             var documentSession = ObjectFactory.GetInstance<IDocumentSession>();
-
-            DataManager.WaitForNonStaleResults(documentSession);
+            
+            new DataManager(documentStore).WaitForNonStaleResults(documentSession);
         }
 
         [Then(@"resource list of tag '(.+)' should have (\d+) item")]
@@ -175,7 +174,6 @@ namespace AgileWizard.IntegrationTests.Steps
             Assert.Equal(resource.Title, resourceDetailViewModel.Title);
             Assert.Equal(resource.Content, resourceDetailViewModel.Content);
             Assert.Equal(resource.Author, resourceDetailViewModel.Author);
-            Assert.Equal(resource.SubmitUser, SubmitUser);
             Assert.Equal(resource.ReferenceUrl, resourceDetailViewModel.ReferenceUrl);
             Assert.Equal(resource.Tags.Count, resourceDetailViewModel.Tags.ToTagList().Count);
         }

@@ -35,6 +35,7 @@ namespace AgileWizard.Website
                 ObjectFactory.Configure(x =>
                 {
                     x.For<IDocumentSession>().HttpContextScoped().Use(documentSession);
+                    x.For<IDocumentStore>().HttpContextScoped().Use(_documentStore);
                 }
                 );
             };

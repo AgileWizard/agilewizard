@@ -67,7 +67,7 @@ namespace AgileWizard.Domain.Repositories
 
         public ResourceCounter GetResourceCounter(string resourceId, string counterName)
         {
-            var query = _documentSession.LuceneQuery<ResourceCounter>(typeof (ResourceLogAggregateIndex).Name);
+            var query = _documentSession.Advanced.LuceneQuery<ResourceCounter>(typeof (ResourceLogAggregateIndex).Name);
             return query.SingleOrDefault(c => c.Name == counterName && c.ResourceId == resourceId);
         }
 

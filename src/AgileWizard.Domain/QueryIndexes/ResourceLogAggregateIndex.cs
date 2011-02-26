@@ -5,6 +5,7 @@ using System.Text;
 using AgileWizard.Domain.Models;
 using Raven.Client.Indexes;
 using Raven.Database.Indexing;
+using Raven.Client.Document;
 
 namespace AgileWizard.Domain.QueryIndexes
 {
@@ -27,7 +28,7 @@ namespace AgileWizard.Domain.QueryIndexes
                                                         ResourceId = g.Key.ResourceId,
                                                         Count = logCount
                                                     }
-                       }.ToIndexDefinition(DocumentStore.Conventions);
+                       }.ToIndexDefinition(new DocumentConvention());
         }
     }
 }

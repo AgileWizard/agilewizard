@@ -25,7 +25,7 @@ namespace AgileWizard.IntegrationTests.Steps
 
             foreach (var tag in list)
             {
-                Console.WriteLine("[{0:yyyy/MM/dd HH:mm:ss} - {1} ({2})]", tag.LastUpdateTime, tag.Name, tag.TotalCount);
+                Console.WriteLine("[{0:yyyy/MM/dd HH:mm:ss} - {1} ({2})]", tag.LastUpdateTicks, tag.Name, tag.TotalCount);
             }
         }
 

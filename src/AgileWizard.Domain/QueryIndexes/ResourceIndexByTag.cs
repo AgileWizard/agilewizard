@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Raven.Client.Indexes;
-using Raven.Database.Indexing;
+using Raven.Database;
 using AgileWizard.Domain.Models;
+using Raven.Client.Document;
+using Raven.Database.Indexing;
 
 namespace AgileWizard.Domain.QueryIndexes
 {
@@ -18,7 +20,7 @@ namespace AgileWizard.Domain.QueryIndexes
                                    from tag in resource.Tags
                                    select new { Name = tag.Name.ToLower() },
             }
-            .ToIndexDefinition(DocumentStore.Conventions);
+            .ToIndexDefinition(new DocumentConvention());
         }
     }
 }

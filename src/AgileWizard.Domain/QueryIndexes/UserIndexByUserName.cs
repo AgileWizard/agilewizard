@@ -2,6 +2,7 @@
 using AgileWizard.Domain.Users;
 using Raven.Database.Indexing;
 using Raven.Client.Indexes;
+using Raven.Client.Document;
 
 namespace AgileWizard.Domain.QueryIndexes
 {
@@ -14,7 +15,7 @@ namespace AgileWizard.Domain.QueryIndexes
                 Map = users => from user in users
                               select new {user.UserName }
             }
-            .ToIndexDefinition(DocumentStore.Conventions);
+            .ToIndexDefinition(new DocumentConvention());
         }
 
     }

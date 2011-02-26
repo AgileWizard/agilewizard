@@ -35,6 +35,7 @@ namespace AgileWizard.IntegrationTests
             ObjectFactory.Configure(x =>
             {
                 x.For<IDocumentSession>().Use(documentSession);
+                x.For<IDocumentStore>().Use(documentStore);
             }
             );
 
