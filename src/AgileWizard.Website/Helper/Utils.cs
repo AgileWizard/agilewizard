@@ -26,6 +26,8 @@ namespace AgileWizard.Website.Helper
 
         public static string FetchFirstImageUrl(string content)
         {
+            if (string.IsNullOrWhiteSpace(content))
+                return null;
             var matchResult = RegexImgSrc.Match(content);
             if (matchResult.Success)
             {

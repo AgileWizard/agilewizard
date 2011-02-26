@@ -88,5 +88,16 @@ namespace AgileWizard.Website.Tests
 
             Assert.Null(result);
         }
+
+        [Fact]
+        public void Should_get_null_when_content_is_empty()
+        {
+            const string content = "";
+
+            var result = Utils.FetchFirstImageUrl(content);
+
+            Assert.Null(result);
+        }
+
     }
 }
