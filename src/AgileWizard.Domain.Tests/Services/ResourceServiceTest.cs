@@ -69,12 +69,27 @@ namespace AgileWizard.Domain.Tests.Services
         }
 
         [Fact]
-        public void When_get_a_resource_should_increment_hit()
+        public void When_get_a_resource_should_increment_page_view()
         {
             //Arrange
-            _repository.Setup(r => r.GetResourceById(ID)).Verifiable();
-            _repository.Setup(
-                r => r.InsertResourceLog(It.Is<ResourceLog>(l => l.Name == ResourceService.PAGE_VIEW_COUNTER_NAME))).Verifiable();
+            var resource = Resource.DefaultResource();
+            const int pageView = 1;
+            resource.PageView = pageView;
+            _repository.Setup(r => r.GetResourceById(ID)).Returns(resource);
+            
+            //Act
+            var actualResource = _service.GetResourceById(ID);
+
+            //Assert
+            Assert.Equal(pageView + 1, actualResource.PageView);
+        }
+
+        [Fact]
+        public void When_get_a_resource_should_save_incremented_page_view()
+        {
+            //Arrange
+            _repository.Setup(r => r.GetResourceById(ID)).Returns(Resource.DefaultResource);
+            _repository.Setup(r => r.Save()).Verifiable();
 
             //Act
             _service.GetResourceById(ID);

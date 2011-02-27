@@ -29,6 +29,5 @@ Scenario: Edit a resource
 	|	Author			|	Ron Jeffries					|
 	|	ReferenceUrl	|	http://xprogramming.com			|
 	|	Tags			|	Test,Integration,XP				|
-	Then navigate to details page
-	And display the title, content, author and submit user and tags
+	Then navigate to details page with id
 

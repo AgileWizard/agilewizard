@@ -27,7 +27,7 @@ namespace AgileWizard.IntegrationTests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Edit resource", "As a admin,\nI can edit title, content, tag of a resource", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Edit resource", "As a admin,\r\nI can edit title, content, tag of a resource", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -146,9 +146,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 25
  testRunner.When("modify the resource", ((string)(null)), table3);
 #line 32
- testRunner.Then("navigate to details page");
-#line 33
- testRunner.And("display the title, content, author and submit user and tags");
+ testRunner.Then("navigate to details page with id");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

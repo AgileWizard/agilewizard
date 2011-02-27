@@ -1,4 +1,7 @@
-﻿namespace AgileWizard.IntegrationTests.PageObject
+﻿using System;
+using System.Web.Mvc;
+
+namespace AgileWizard.IntegrationTests.PageObject
 {
     public class ResourceDetail:IntegrationTestBase
     {
@@ -8,6 +11,12 @@
         public ResourceDetail()
             : base(_controllerName, _actionName)
         {
+        }
+
+        public void AssertAction(RedirectToRouteResult actionResult, string id)
+        {
+            AssertAction(actionResult);
+            ActionResultCompare(actionResult, "id", id);
         }
     }
 }

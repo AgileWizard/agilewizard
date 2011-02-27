@@ -34,7 +34,7 @@ namespace AgileWizard.IntegrationTests.PageObject
             ActionResultCompare(actionResult, _controller, ControllerName);
         }
 
-        private void ActionResultCompare(RedirectToRouteResult actionResult, string itemName, string expected)
+        protected void ActionResultCompare(RedirectToRouteResult actionResult, string itemName, string expected)
         {
             Assert.Equal(expected, (string)actionResult.RouteValues[itemName], StringComparer.OrdinalIgnoreCase);
         }

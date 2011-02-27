@@ -26,8 +26,10 @@ namespace AgileWizard.Domain.Services
 
         public Resource GetResourceById(string id)
         {
-            AddOnePageView(id, string.Empty);
-            return _repository.GetResourceById(id);
+            var resource = _repository.GetResourceById(id);
+            resource.PageView++;
+            _repository.Save();
+            return resource;
         }
 
         public IList<Resource> GetResourceList()

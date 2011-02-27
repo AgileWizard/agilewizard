@@ -88,23 +88,36 @@ namespace AgileWizard.IntegrationTests.Steps
              ActionResult = controller.Edit(id, SubmittedResourceDetailViewModel);
          }
 
-         [Then(@"navigate to details page")]
-         public void ThenNavigateToDetailsPage()
+         [Then(@"navigate to details page with id")]
+         public void ThenNavigateToDetailsPageWithId()
          {
              var resourceDetail = new ResourceDetail();
+             var id = GetExistingResourceID();
 
-             resourceDetail.AssertAction(ActionResult as RedirectToRouteResult);
+             resourceDetail.AssertAction(ActionResult as RedirectToRouteResult, id);
+
+         }
+
+        #endregion 
+
+         #region View resource
+         [When(@"view the resource")]
+         public void WhenViewTheResource()
+         {
+             var id = GetExistingResourceID();
+
+             var controller = ObjectFactory.GetInstance<ResourceController>();
+             ActionResult = controller.Details(id);
          }
 
          [Then(@"display the title, content, author and submit user and tags")]
          public void ThenDisplayDetailInformation()
          {
-             var actualResource = GetResourceBasedOnActionResultFromRepository();
+             var actualResource = GetResourceDetailViewModelFromActionResult();
 
-             AssertResource(actualResource, SubmittedResourceDetailViewModel);
+             AssertResource(ExistingResource, actualResource);
          }
-
-        #endregion 
+         #endregion
 
          #region Tag
          [When(@"I wait for non-stale data")]
@@ -180,12 +193,10 @@ namespace AgileWizard.IntegrationTests.Steps
             Assert.Equal(resource.Tags.Count, resourceDetailViewModel.Tags.ToTagList().Count);
         }
 
-        private Resource GetResourceBasedOnActionResultFromRepository()
+        private ResourceDetailViewModel GetResourceDetailViewModelFromActionResult()
         {
-            var actionResult = ActionResult as RedirectToRouteResult;
-            var resourceRepository = ObjectFactory.GetInstance<IResourceRepository>();
-            var resourceId = actionResult.RouteValues["id"].ToString();
-            return resourceRepository.GetResourceById(resourceId);
+            var actionResult = ActionResult as ViewResult;
+            return actionResult.ViewData.Model as ResourceDetailViewModel;
         }
 
         private string GetExistingResourceID()

@@ -87,6 +87,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Tag.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\ViewResource.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewResource.feature</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\TagExtension.cs" />
     <Compile Include="PageObject\Home.cs" />
     <Compile Include="PageObject\IntegrationTestBase.cs" />
@@ -134,6 +139,10 @@
     <None Include="Features\Tag.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Tag.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\ViewResource.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ViewResource.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup />
