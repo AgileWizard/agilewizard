@@ -161,6 +161,19 @@ namespace AgileWizard.Website.Tests
             Assert.Equal("agile", viewModel.First().Tags[0].Name);
         }
 
+        [Fact]
+        public void like_a_resource()
+        {
+            //Arrange
+            _resourceService.Setup(r => r.LikeThisResource(Resource.ID)).Verifiable();
+
+            //Act
+            resourceControllerSUT.Like(Resource.ID);
+
+            //Assert
+            _resourceService.VerifyAll();
+        }
+
         private void ShouldShowResourceListUserControlWithModel(ActionResult actionResult)
         {
             Assert.IsType<PartialViewResult>(actionResult);

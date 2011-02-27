@@ -56,14 +56,11 @@ namespace AgileWizard.Domain.Services
 
         }
 
-        public void AddOnePageView(string resourceId, string userIP)
+        public void LikeThisResource(string resourceId)
         {
-            WriteLogForResourceCounter(PAGE_VIEW_COUNTER_NAME, resourceId, userIP);
-        }
-
-        public void LikeThisResource(string resourceId, string userIP)
-        {
-            WriteLogForResourceCounter(LIKE_COUNTER_NAME, resourceId, userIP);
+            var resource = _repository.GetResourceById(resourceId);
+            resource.Like++;
+            _repository.Save();
         }
 
         public void DislikeThisResource(string resourceId, string userIP)

@@ -91,7 +91,7 @@ namespace AgileWizard.Website.Controllers
         [HttpPost]
         public ActionResult Like(string id)
         {
-            ResourceService.LikeThisResource(id, Request.UserHostAddress);
+            ResourceService.LikeThisResource(id);
             return Json(null);
         }
 

@@ -18,6 +18,14 @@ namespace AgileWizard.IntegrationTests.Steps
     [Binding]
     public partial class ResourceSteps
     {
+        private ResourceController Controller
+        {
+            get
+            {
+                return ObjectFactory.GetInstance<ResourceController>();
+            }
+        }
+
         #region Add Resource
         [Given(@"new resource with  title - (.+) and content - (.+) and author - (.+) and tags - (.+) and reference url - (\b\w*://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|])")]
         public void GivenNewResourceWithTitleAndContentAndAuthorAndTagsAndReferenceUrl(string title, string content, string author, string tags, string referenceurl)
@@ -73,8 +81,7 @@ namespace AgileWizard.IntegrationTests.Steps
         {
             string id = GetExistingResourceID();
 
-            var controller = ObjectFactory.GetInstance<ResourceController>(); 
-            ActionResult = controller.Edit(id);
+            ActionResult = Controller.Edit(id);
         }
 
         [Then(@"show edit for the title, content, author and tags")]
@@ -92,8 +99,7 @@ namespace AgileWizard.IntegrationTests.Steps
 
              var id = GetExistingResourceID();
              
-             var controller = ObjectFactory.GetInstance<ResourceController>();
-             ActionResult = controller.Edit(id, SubmittedResourceDetailViewModel);
+             ActionResult = Controller.Edit(id, SubmittedResourceDetailViewModel);
          }
 
          [Then(@"navigate to details page with id")]
@@ -114,8 +120,7 @@ namespace AgileWizard.IntegrationTests.Steps
          {
              var id = GetExistingResourceID();
 
-             var controller = ObjectFactory.GetInstance<ResourceController>();
-             ActionResult = controller.Details(id);
+             ActionResult = Controller.Details(id);
          }
 
          [Then(@"display the title, content, author and submit user and tags")]
@@ -148,20 +153,35 @@ namespace AgileWizard.IntegrationTests.Steps
         [Then(@"resource list of tag '(.+)' should have (\d+) item")]
         public void ResourceListOfTagShouldHaveItem(string tagName, int count)
         {
-            var controller = ObjectFactory.GetInstance<ResourceController>();
-
-            var viewResult = controller.ListByTag(tagName) as ViewResult;
+            var viewResult = Controller.ListByTag(tagName) as ViewResult;
 
             Assert.Equal(count, (viewResult.ViewData.Model as ResourceList).Count);
+        }
+        #endregion
+
+        #region Like/Dislike resource
+        [Then(@"like number is (\d)")]
+        public void ThenLikeNumberIs(int likeCount)
+        {
+            var id = GetExistingResourceID();
+            var repository = ObjectFactory.GetInstance<IResourceRepository>();
+            var resource = repository.GetResourceById(id);
+            Assert.Equal(likeCount, resource.Like);
+        }
+
+        [When(@"like the resource")]
+        public void WhenLikeTheResource()
+        {
+            var id = GetExistingResourceID();
+
+            ActionResult = Controller.Like(id);
         }
         #endregion
 
         #region Private Resource Procedures
         private void CreateResource()
         {
-            var resourceController = ObjectFactory.GetInstance<ResourceController>();
-
-            ActionResult = resourceController.Create(PendingSubmittedResourceDetailViewModel);
+            ActionResult = Controller.Create(PendingSubmittedResourceDetailViewModel);
         }
 
         private Resource GetResource(Table table)

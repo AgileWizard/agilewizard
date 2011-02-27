@@ -26,6 +26,8 @@ namespace AgileWizard.Domain.Models
 
         public int PageView { get; set; }
 
+        public int Like { get; set; }
+
         public class ResourceTag
         {
             public string Name { get; set; }

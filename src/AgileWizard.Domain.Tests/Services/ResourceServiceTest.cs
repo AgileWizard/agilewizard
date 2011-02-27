@@ -89,13 +89,12 @@ namespace AgileWizard.Domain.Tests.Services
         {
             //Arrange
             _repository.Setup(r => r.GetResourceById(ID)).Returns(Resource.DefaultResource);
-            _repository.Setup(r => r.Save()).Verifiable();
 
             //Act
             _service.GetResourceById(ID);
 
             //Assert
-            _repository.VerifyAll();
+            _repository.Verify(r => r.Save());
         }
 
         [Fact]
@@ -129,29 +128,32 @@ namespace AgileWizard.Domain.Tests.Services
         }
 
         [Fact]
-        public void Can_add_one_page_view()
+        public void When_like_a_resource_increment_like_number()
         {
             //Arrange
-            _repository.Setup(r => r.InsertResourceLog(It.Is<ResourceLog>(l => l.Name == "PageView" && l.ResourceId == ID))).Verifiable();
+            var resource = Resource.DefaultResource();
+            const int like = 1;
+            resource.Like = like;
+            _repository.Setup(r => r.GetResourceById(ID)).Returns(resource);
 
             //Act
-            _service.AddOnePageView(ID, "127.0.0.1");
+            _service.LikeThisResource(ID);
 
             //Assert
-            _repository.VerifyAll();
+            Assert.Equal(like + 1, resource.Like);
         }
 
         [Fact]
-        public void Can_like_one_resource()
+        public void When_like_a_resource_incremented_like_number_should_be_saved()
         {
             //Arrange
-            _repository.Setup(r => r.InsertResourceLog(It.Is<ResourceLog>(l => l.Name == "Like" && l.ResourceId == ID))).Verifiable();
+            _repository.Setup(r => r.GetResourceById(ID)).Returns(Resource.DefaultResource());
 
             //Act
-            _service.LikeThisResource(ID, "127.0.0.1");
+            _service.LikeThisResource(ID);
 
             //Assert
-            _repository.VerifyAll();
+            _repository.Verify(r => r.Save());
         }
 
         [Fact]
