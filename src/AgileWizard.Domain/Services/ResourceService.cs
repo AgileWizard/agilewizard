@@ -7,7 +7,7 @@ namespace AgileWizard.Domain.Services
 {
     public class ResourceService : IResourceService
     {
-        private const string PAGE_VIEW_COUNTER_NAME = "PageView";
+        internal const string PAGE_VIEW_COUNTER_NAME = "PageView";
         private const string LIKE_COUNTER_NAME = "Like";
         private const string DISLIKE_COUNTER_NAME = "Dislike";
         private IResourceRepository _repository;
@@ -26,6 +26,7 @@ namespace AgileWizard.Domain.Services
 
         public Resource GetResourceById(string id)
         {
+            AddOnePageView(id, string.Empty);
             return _repository.GetResourceById(id);
         }
 

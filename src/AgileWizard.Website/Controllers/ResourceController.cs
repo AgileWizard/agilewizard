@@ -61,8 +61,6 @@ namespace AgileWizard.Website.Controllers
 
             var resourceDetailieViewModel = Mapper.Map<Resource, ResourceDetailViewModel>(resource);
 
-            ResourceService.AddOnePageView(id, Request.UserHostAddress);
-
             return View(resourceDetailieViewModel);
         }
 

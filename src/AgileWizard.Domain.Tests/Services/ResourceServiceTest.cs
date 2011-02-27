@@ -69,6 +69,21 @@ namespace AgileWizard.Domain.Tests.Services
         }
 
         [Fact]
+        public void When_get_a_resource_should_increment_hit()
+        {
+            //Arrange
+            _repository.Setup(r => r.GetResourceById(ID)).Verifiable();
+            _repository.Setup(
+                r => r.InsertResourceLog(It.Is<ResourceLog>(l => l.Name == ResourceService.PAGE_VIEW_COUNTER_NAME))).Verifiable();
+
+            //Act
+            _service.GetResourceById(ID);
+
+            //Assert
+            _repository.VerifyAll();
+        }
+
+        [Fact]
         public void Can_get_a_list_of_resources()
         {
             //Arrange

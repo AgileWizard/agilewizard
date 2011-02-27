@@ -85,14 +85,12 @@ namespace AgileWizard.Website.Tests
             var context = new Mock<HttpContextBase>();
             context.SetupGet(x => x.Request).Returns(request.Object);
             resourceControllerSUT.ControllerContext = new ControllerContext(context.Object, new RouteData(), resourceControllerSUT);
-            _resourceService.Setup(s => s.AddOnePageView(Resource.ID, It.IsAny<string>())).Verifiable();
 
             //Act
             var actionResult = resourceControllerSUT.Details(Resource.ID);
 
             //Assert
             ShouldShowDefaultViewWithModel(Resource.DefaultResource().Title, actionResult);
-            _resourceService.VerifyAll();
         }
 
         [Fact]
