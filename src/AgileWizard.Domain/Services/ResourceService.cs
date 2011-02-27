@@ -17,9 +17,11 @@ namespace AgileWizard.Domain.Services
             _repository = repository;
         }
 
-        public Resource AddResource(Resource source)
+        public Resource AddResource(Resource resource)
         {
-            var resource = _repository.Add(source);
+            resource.CreateTime = DateTime.Now;
+            resource.LastUpdateTime = DateTime.Now;
+            resource = _repository.Add(resource);
             _repository.Save();
             return resource;
         }
@@ -63,38 +65,12 @@ namespace AgileWizard.Domain.Services
             _repository.Save();
         }
 
-        public void DislikeThisResource(string resourceId, string userIP)
+        public void DislikeThisResource(string resourceId)
         {
-            WriteLogForResourceCounter(DISLIKE_COUNTER_NAME, resourceId, userIP);
+            var resource = _repository.GetResourceById(resourceId);
+            resource.Dislike++;
+            _repository.Save();
         }
-
-        public int GetLikesCount(string resourceId)
-        {
-            return GetResourceCounter(resourceId, LIKE_COUNTER_NAME);
-        }
-
-        public int GetDislikesCount(string resourceId)
-        {
-            return GetResourceCounter(resourceId, DISLIKE_COUNTER_NAME);
-        }
-
-        public int GetPageViewsCount(string resourceId)
-        {
-            return GetResourceCounter(resourceId, PAGE_VIEW_COUNTER_NAME);
-        }
-
-        private void WriteLogForResourceCounter(string counterName, string resourceId, string userIP)
-        {
-            var pageViewLog = new ResourceLog { IP = userIP, Name = counterName, ResourceId = resourceId };
-            _repository.InsertResourceLog(pageViewLog);
-        }
-
-        private int GetResourceCounter(string resourceId, string counterName)
-        {
-            var counter = _repository.GetResourceCounter(resourceId, counterName);
-            return counter == null ? 0 : counter.Count;
-        }
-
 
         public List<Resource> GetResourceListByTag(string tagName)
         {

@@ -39,62 +39,35 @@ namespace AgileWizard.Domain.Tests.Services
             _resource.LastUpdateTime = _prepareTime;
         }
 
+        #region CRUD
         [Fact]
         public void Can_add_resource()
         {
-            var source = new Resource();
+            var resource = new Resource();
             //Arrange
-            _repository.Setup(r => r.Add(source)).Returns(_resource).Verifiable();
-            _repository.Setup(r => r.Save()).Verifiable();
+            _repository.Setup(r => r.Add(resource)).Returns(_resource);
 
             //Act
-            var resource = _service.AddResource(source);
+            var actualResource = _service.AddResource(resource);
 
             //Assert
-            _repository.VerifyAll();
-            Assert.Equal(_resource, resource);
+            _repository.Verify(r => r.Add(resource));
+            _repository.Verify(r => r.Save());
+            Assert.Equal(_resource, actualResource);
         }
 
         [Fact]
         public void Given_an_id_should_return_a_resource()
         {
             //Arrange
-            _repository.Setup(r => r.GetResourceById(ID)).Returns(Resource.DefaultResource).Verifiable();
-
-            //Act
-            _service.GetResourceById(ID);
-
-            //Assert
-            _repository.VerifyAll();
-        }
-
-        [Fact]
-        public void When_get_a_resource_should_increment_page_view()
-        {
-            //Arrange
             var resource = Resource.DefaultResource();
-            const int pageView = 1;
-            resource.PageView = pageView;
             _repository.Setup(r => r.GetResourceById(ID)).Returns(resource);
-            
+
             //Act
             var actualResource = _service.GetResourceById(ID);
 
             //Assert
-            Assert.Equal(pageView + 1, actualResource.PageView);
-        }
-
-        [Fact]
-        public void When_get_a_resource_should_save_incremented_page_view()
-        {
-            //Arrange
-            _repository.Setup(r => r.GetResourceById(ID)).Returns(Resource.DefaultResource);
-
-            //Act
-            _service.GetResourceById(ID);
-
-            //Assert
-            _repository.Verify(r => r.Save());
+            Assert.Equal(resource, actualResource);
         }
 
         [Fact]
@@ -117,14 +90,44 @@ namespace AgileWizard.Domain.Tests.Services
             //Arrange
             var resourceToUpdate = new Resource() { Title = "Title to update", Content = "Content to update" };
             _repository.Setup(r => r.GetResourceById(ID)).Returns(_resource);
-            _repository.Setup(r => r.Save()).Verifiable();
 
             //Act
             _service.UpdateResource(ID, resourceToUpdate);
 
             //Assert
-            _repository.VerifyAll();
+            _repository.Verify(r => r.Save());
             ResourceShouldBeUpdated(_resource, resourceToUpdate);
+        } 
+        #endregion
+
+        #region Like/Dislike/PageView
+        [Fact]
+        public void When_get_a_resource_should_increment_page_view()
+        {
+            //Arrange
+            var resource = Resource.DefaultResource();
+            const int pageView = 1;
+            resource.PageView = pageView;
+            _repository.Setup(r => r.GetResourceById(ID)).Returns(resource);
+
+            //Act
+            var actualResource = _service.GetResourceById(ID);
+
+            //Assert
+            Assert.Equal(pageView + 1, actualResource.PageView);
+        }
+
+        [Fact]
+        public void When_get_a_resource_should_save_incremented_page_view()
+        {
+            //Arrange
+            _repository.Setup(r => r.GetResourceById(ID)).Returns(Resource.DefaultResource);
+
+            //Act
+            _service.GetResourceById(ID);
+
+            //Assert
+            _repository.Verify(r => r.Save());
         }
 
         [Fact]
@@ -157,63 +160,35 @@ namespace AgileWizard.Domain.Tests.Services
         }
 
         [Fact]
-        public void Can_dislike_one_resource()
+        public void When_dislike_a_resource_increment_dislike_number()
         {
             //Arrange
-            _repository.Setup(r => r.InsertResourceLog(It.Is<ResourceLog>(l => l.Name == "Dislike" && l.ResourceId == ID))).Verifiable();
+            var resource = Resource.DefaultResource();
+            const int dislike = 1;
+            resource.Dislike = dislike;
+            _repository.Setup(r => r.GetResourceById(ID)).Returns(resource);
 
             //Act
-            _service.DislikeThisResource(ID, "127.0.0.1");
+            _service.DislikeThisResource(ID);
 
             //Assert
-            _repository.VerifyAll();
+            Assert.Equal(dislike + 1, resource.Dislike);
         }
 
         [Fact]
-        public void Can_get_page_views_count()
+        public void When_dislike_a_resource_incremented_dislike_number_should_be_saved()
         {
             //Arrange
-            const int COUNT = 10;
-            var counter = new ResourceCounter { ResourceId = ID, Count = COUNT, Name = "PageView"};
-            _repository.Setup(r => r.GetResourceCounter(ID, "PageView")).Returns(counter);
+            _repository.Setup(r => r.GetResourceById(ID)).Returns(Resource.DefaultResource());
 
             //Act
-            var actualCount = _service.GetPageViewsCount(ID);
+            _service.DislikeThisResource(ID);
 
             //Assert
-            Assert.Equal(COUNT, actualCount);
+            _repository.Verify(r => r.Save());
         }
 
-        [Fact]
-        public void Can_get_likes_count()
-        {
-            //Arrange
-            const int COUNT = 10;
-            var counter = new ResourceCounter { ResourceId = ID, Count = COUNT, Name = "Like" };
-            _repository.Setup(r => r.GetResourceCounter(ID, "Like")).Returns(counter);
-
-            //Act
-            var actualCount = _service.GetLikesCount(ID);
-
-            //Assert
-            Assert.Equal(COUNT, actualCount);
-        }
-
-        [Fact]
-        public void Can_get_dislikes_count()
-        {
-            //Arrange
-            const int COUNT = 10;
-            var counter = new ResourceCounter { ResourceId = ID, Count = COUNT, Name = "Dislike" };
-            _repository.Setup(r => r.GetResourceCounter(ID, "Dislike")).Returns(counter);
-
-            //Act
-            var actualCount = _service.GetDislikesCount(ID);
-
-            //Assert
-            Assert.Equal(COUNT, actualCount);
-        }
-
+        #endregion
         [Fact]
         public void should_return_resource_by_given_tag()
         {
@@ -226,7 +201,6 @@ namespace AgileWizard.Domain.Tests.Services
 
             // Assert
             Assert.Same(expectedResources, result);
-            _repository.VerifyAll();
         }
 
         private void ResourceShouldBeUpdated(Resource resource, Resource resourceToUpdate)

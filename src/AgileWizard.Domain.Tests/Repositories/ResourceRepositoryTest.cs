@@ -4,6 +4,7 @@ using AgileWizard.Domain.Helper;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.QueryIndexes;
 using AgileWizard.Domain.Repositories;
+using Moq;
 using Xunit;
 
 namespace AgileWizard.Domain.Tests.Repositories
@@ -21,32 +22,13 @@ namespace AgileWizard.Domain.Tests.Repositories
         public void add_resource()
         {
             //Arrange
-            const string TITLE = "title";
-            const string CONTENT = "content";
-            const string AUTHOR = "author";
-            const string SUBMITUSER = "submit user";
-            const string REFERENCEURL = "http://a.b.com";
-            _session.SetupStoreExpectation<Resource>(r => r.Title == TITLE && r.Content == CONTENT && r.Author == AUTHOR && r.SubmitUser == SUBMITUSER);
-
-            var source = new Resource
-            {
-                Title = TITLE,
-                Content = CONTENT,
-                Author = AUTHOR,
-                SubmitUser = SUBMITUSER,
-                Tags = new List<Resource.ResourceTag>(),
-                ReferenceUrl = REFERENCEURL
-            };
+            var resource = Resource.DefaultResource();
 
             //Act
-            var resource = _resourceRepositorySUT.Add(source);
+            var actualResource = _resourceRepositorySUT.Add(resource);
 
             //Assert
-            _session.VerifyAll();
-            Assert.Equal(TITLE, resource.Title);
-            Assert.Equal(CONTENT, resource.Content);
-            Assert.Equal(AUTHOR, resource.Author);
-            Assert.Equal(SUBMITUSER, resource.SubmitUser);
+            _session.Verify(r => r.Store(resource));
         }
 
         [Fact]
@@ -107,40 +89,6 @@ namespace AgileWizard.Domain.Tests.Repositories
 
             //Assert
             _session.VerifyAll();
-        }
-
-        [Fact]
-        public void Can_record_logs_for_counter()
-        {
-            //Arrange
-            var resourceLog = new ResourceLog { Name = "PageView", IP = "127.0.0.1", ResourceId = "80000" };
-            _session.Setup(s => s.Store(resourceLog)).Verifiable();
-            _session.Setup(s => s.SaveChanges()).Verifiable();
-
-            //Act
-            _resourceRepositorySUT.InsertResourceLog(resourceLog);
-
-            //Assert
-            _session.VerifyAll();
-        }
-
-        [Fact]
-        public void Can_get_resource_counter()
-        {
-            //Arrange
-            const string ID = "1";
-            const string COUNTER_NAME = "PageView";
-            const int COUNT = 10;
-            var counters = new[] { new ResourceCounter { Name = COUNTER_NAME, ResourceId = ID, Count = COUNT } };
-            _session.SetupLuceneQueryResult(typeof(ResourceLogAggregateIndex).Name, counters);
-
-            //Act
-            var counter = _resourceRepositorySUT.GetResourceCounter(ID, COUNTER_NAME);
-
-            //Assert
-            Assert.Equal(ID, counter.ResourceId);
-            Assert.Equal(COUNTER_NAME, counter.Name);
-            Assert.Equal(COUNT, counter.Count);
         }
 
         [Fact]

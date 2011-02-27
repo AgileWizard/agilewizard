@@ -12,10 +12,7 @@ namespace AgileWizard.Domain.Services
         int GetResourcesTotalCountForTag(string tagName);
         void UpdateResource(string id, Resource resource);
         void LikeThisResource(string resourceId);
-        void DislikeThisResource(string resourceId, string userIP);
-        int GetLikesCount(string resourceId);
-        int GetDislikesCount(string resourceId);
-        int GetPageViewsCount(string resourceId);
+        void DislikeThisResource(string resourceId);
 
         List<Resource> GetResourceListByTag(string tagName);
     }

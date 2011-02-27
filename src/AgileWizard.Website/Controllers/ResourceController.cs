@@ -98,7 +98,7 @@ namespace AgileWizard.Website.Controllers
         [HttpPost]
         public ActionResult Dislike(string id)
         {
-            ResourceService.DislikeThisResource(id, Request.UserHostAddress);
+            ResourceService.DislikeThisResource(id);
             return Json(null);
         }
 

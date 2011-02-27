@@ -18,19 +18,8 @@ namespace AgileWizard.Domain.Repositories
             _documentSession = documentSession;
         }
 
-        public Resource Add(Resource source)
+        public Resource Add(Resource resource)
         {
-            var resource = new Resource
-                               {
-                                   Title = source.Title,
-                                   Content = source.Content,
-                                   Author = source.Author,
-                                   CreateTime = DateTime.Now,
-                                   LastUpdateTime = DateTime.Now,
-                                   SubmitUser = source.SubmitUser,
-                                   Tags = source.Tags,
-                                   ReferenceUrl = source.ReferenceUrl
-                               };
 
             _documentSession.Store(resource);
             return resource;
@@ -57,18 +46,6 @@ namespace AgileWizard.Domain.Repositories
         public void Save()
         {
             _documentSession.SaveChanges();
-        }
-
-        public void InsertResourceLog(ResourceLog resourceLog)
-        {
-            _documentSession.Store(resourceLog);
-            _documentSession.SaveChanges();
-        }
-
-        public ResourceCounter GetResourceCounter(string resourceId, string counterName)
-        {
-            var query = _documentSession.Advanced.LuceneQuery<ResourceCounter>(typeof (ResourceLogAggregateIndex).Name);
-            return query.SingleOrDefault(c => c.Name == counterName && c.ResourceId == resourceId);
         }
 
         public List<Resource> GetResourceListByTag(string tagName)

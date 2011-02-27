@@ -61,9 +61,8 @@ namespace AgileWizard.IntegrationTests.Features
         [Xunit.TraitAttribute("Description", "Like a resource")]
         public virtual void LikeAResource()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Like a resource", new string[] {
-                        "mytag"});
-#line 6
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Like a resource", ((string[])(null)));
+#line 5
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -84,16 +83,57 @@ this.ScenarioSetup(scenarioInfo);
             table1.AddRow(new string[] {
                         "Tags",
                         "Test,Integration"});
-#line 7
+#line 6
  testRunner.Given("there is a resource", ((string)(null)), table1);
+#line 13
+ testRunner.When("like the resource");
 #line 14
- testRunner.When("like the resource");
-#line 15
  testRunner.Then("like number is 1");
-#line 16
+#line 15
  testRunner.When("like the resource");
-#line 17
+#line 16
  testRunner.Then("like number is 2");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "Like/Dislike resource")]
+        [Xunit.TraitAttribute("Description", "Dislike a resource")]
+        public virtual void DislikeAResource()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Dislike a resource", ((string[])(null)));
+#line 18
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table2.AddRow(new string[] {
+                        "Title",
+                        "Resource Title"});
+            table2.AddRow(new string[] {
+                        "Content",
+                        "Resource Content"});
+            table2.AddRow(new string[] {
+                        "Author",
+                        "Jackon Zhang"});
+            table2.AddRow(new string[] {
+                        "ReferenceUrl",
+                        "http://www.neodream.info/blog"});
+            table2.AddRow(new string[] {
+                        "Tags",
+                        "Test,Integration"});
+#line 19
+ testRunner.Given("there is a resource", ((string)(null)), table2);
+#line 26
+ testRunner.When("dislike the resource");
+#line 27
+ testRunner.Then("dislike number is 1");
+#line 28
+ testRunner.When("dislike the resource");
+#line 29
+ testRunner.Then("dislike number is 2");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

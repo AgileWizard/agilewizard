@@ -81,10 +81,6 @@ namespace AgileWizard.Website.Tests
         {
             //Arrange
             _resourceService.Setup(s => s.GetResourceById(Resource.ID)).Returns(_resource);
-            var request = new Mock<HttpRequestBase>();
-            var context = new Mock<HttpContextBase>();
-            context.SetupGet(x => x.Request).Returns(request.Object);
-            resourceControllerSUT.ControllerContext = new ControllerContext(context.Object, new RouteData(), resourceControllerSUT);
 
             //Act
             var actionResult = resourceControllerSUT.Details(Resource.ID);
@@ -110,14 +106,12 @@ namespace AgileWizard.Website.Tests
         public void post_edit_action_should_get_original_resource_and_update_it()
         {
             //Arrange
-            _sessionStateRepository.Setup(s => s.CurrentUser).Returns(User.DefaultUser());
-            _resourceService.Setup(s => s.UpdateResource(Resource.ID, It.IsAny<Resource>())).Verifiable();
 
             //Act
             var actionResult = resourceControllerSUT.Edit(Resource.ID, _resourceDetailViewModel);
 
             //Assert
-            _resourceService.VerifyAll();
+            _resourceService.Verify(s => s.UpdateResource(Resource.ID, It.IsAny<Resource>()));
             ShouldRedirectToActionDetails(actionResult, Resource.ID);
         }
 
@@ -165,14 +159,26 @@ namespace AgileWizard.Website.Tests
         public void like_a_resource()
         {
             //Arrange
-            _resourceService.Setup(r => r.LikeThisResource(Resource.ID)).Verifiable();
 
             //Act
             resourceControllerSUT.Like(Resource.ID);
 
             //Assert
-            _resourceService.VerifyAll();
+            _resourceService.Verify(r => r.LikeThisResource(Resource.ID));
         }
+
+        [Fact]
+        public void dislike_a_resource()
+        {
+            //Arrange
+
+            //Act
+            resourceControllerSUT.Dislike(Resource.ID);
+
+            //Assert
+            _resourceService.Verify(r => r.DislikeThisResource(Resource.ID));
+        }
+
 
         private void ShouldShowResourceListUserControlWithModel(ActionResult actionResult)
         {

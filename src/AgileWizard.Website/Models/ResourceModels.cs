@@ -32,6 +32,8 @@ namespace AgileWizard.Website.Models
         public string SubmitUser { get; set; }
 
         public int PageView { get; set; }
+        public int Like { get; set; }
+        public int Dislike { get; set; }
     }
 
     public class ResourceDetailViewModel : ResourceViewModel

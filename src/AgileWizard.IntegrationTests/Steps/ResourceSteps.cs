@@ -176,6 +176,23 @@ namespace AgileWizard.IntegrationTests.Steps
 
             ActionResult = Controller.Like(id);
         }
+
+        [Then(@"dislike number is (\d)")]
+        public void ThenDislikeNumberIs(int dislikeCount)
+        {
+            var id = GetExistingResourceID();
+            var repository = ObjectFactory.GetInstance<IResourceRepository>();
+            var resource = repository.GetResourceById(id);
+            Assert.Equal(dislikeCount, resource.Dislike);
+        }
+
+        [When(@"dislike the resource")]
+        public void WhenDislikeTheResource()
+        {
+            var id = GetExistingResourceID();
+
+            ActionResult = Controller.Dislike(id);
+        }
         #endregion
 
         #region Private Resource Procedures

@@ -28,6 +28,8 @@ namespace AgileWizard.Domain.Models
 
         public int Like { get; set; }
 
+        public int Dislike { get; set; }
+
         public class ResourceTag
         {
             public string Name { get; set; }
