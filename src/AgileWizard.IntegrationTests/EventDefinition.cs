@@ -30,21 +30,33 @@ namespace AgileWizard.IntegrationTests
                 x.AddRegistry(new FakeControllerRegistry());
                 x.AddRegistry(new DomainRegistry());
             });
+            ObjectFactory.Configure(x => x.For<IDocumentStore>().Use(documentStore));
 
-            var documentSession = documentStore.OpenSession();
-            ObjectFactory.Configure(x =>
-            {
-                x.For<IDocumentSession>().Use(documentSession);
-                x.For<IDocumentStore>().Use(documentStore);
-            }
-            );
 
             MvcApplication.ConfigAutoMapper();
+        }
+
+        [BeforeScenario]
+        public static void BeforeScenario()
+        {
+            var documentStore = ObjectFactory.GetInstance<IDocumentStore>();
+            var documentSession = documentStore.OpenSession();
+            ObjectFactory.Configure(x => x.For<IDocumentSession>().Use(documentSession));
+
+        }
+
+        [AfterScenario]
+        public static void AfterScenario()
+        {
+            var documentSession = ObjectFactory.GetInstance<IDocumentSession>();
+            documentSession.Dispose();
         }
 
         [AfterTestRun]
         public static void AfterTestRun()
         {
+            var documentStore = ObjectFactory.GetInstance<IDocumentStore>();
+            documentStore.Dispose();
         }
     }
 }

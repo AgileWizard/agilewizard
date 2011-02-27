@@ -46,6 +46,16 @@ namespace AgileWizard.IntegrationTests.Steps
             var actionResult = ActionResult as ViewResult;
             Assert.Empty(actionResult.ViewName);
         }
+
+        [Then(@"navigate to details page")]
+        public void ThenNavigateToDetailsPage()
+        {
+            var resourceDetail = new ResourceDetail();
+
+            resourceDetail.AssertAction(ActionResult as RedirectToRouteResult);
+
+        }
+
         #endregion
 
         #region Edit Resource

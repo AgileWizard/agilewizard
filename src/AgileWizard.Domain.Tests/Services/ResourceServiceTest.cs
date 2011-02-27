@@ -59,7 +59,7 @@ namespace AgileWizard.Domain.Tests.Services
         public void Given_an_id_should_return_a_resource()
         {
             //Arrange
-            _repository.Setup(r => r.GetResourceById(ID)).Verifiable();
+            _repository.Setup(r => r.GetResourceById(ID)).Returns(Resource.DefaultResource).Verifiable();
 
             //Act
             _service.GetResourceById(ID);
