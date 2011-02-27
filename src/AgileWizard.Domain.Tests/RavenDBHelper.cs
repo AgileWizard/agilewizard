@@ -30,7 +30,7 @@ namespace AgileWizard.Domain.Tests
             documentQueryMock.Setup(x => x.GetEnumerator()).Returns(() => result.GetEnumerator());
             //documentQueryMock.Setup(x => x.Customize(It.IsAny<Action<Object>>()).GetEnumerator()).Returns(() => result.GetEnumerator());
 
-            documentSession.Setup(s => s.LuceneQuery<T>(indexName)).Returns(documentQueryMock.Object).Verifiable();
+            documentSession.Setup(s => s.Advanced.LuceneQuery<T>(indexName)).Returns(documentQueryMock.Object).Verifiable();
 
             return documentSession;
         }

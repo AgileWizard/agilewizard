@@ -5,7 +5,7 @@ using System.Text;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Users;
 using Raven.Client;
-using Raven.Database.Data;
+using Raven.Database;
 using AgileWizard.Domain;
 using AgileWizard.Domain.QueryIndexes;
 using Raven.Client.Indexes;
@@ -14,8 +14,6 @@ namespace AgileWizard.Data
 {
     public class DataManager
     {
-        public const string PermantIndex = "Raven/DocumentsByEntityName";
-
         private IDocumentStore DocumentStore { get; set; }
 
         public DataManager(IDocumentStore store)
@@ -25,7 +23,12 @@ namespace AgileWizard.Data
 
         public void ClearAllDocuments()
         {
-            DocumentStore.DatabaseCommands.DeleteByIndex(PermantIndex, new IndexQuery(), true);
+            var indexes = GetAllIndexNames();
+
+            foreach (var x in indexes)
+            {
+                DocumentStore.DatabaseCommands.DeleteByIndex(x, new Raven.Database.Data.IndexQuery(), true);
+            }
         }
 
         public void InitData()
@@ -43,31 +46,19 @@ namespace AgileWizard.Data
 
             WaitForNonStaleResults(session);
 
-            session.Clear();
+            session.Advanced.Clear();
         }
 
-        public static void WaitForNonStaleResults(IDocumentSession session)
+        public void WaitForNonStaleResults(IDocumentSession session)
         {
             var indexNames = GetAllIndexNames();
 
-            indexNames.ForEach(x => session.LuceneQuery<dynamic>(x).WaitForNonStaleResults().FirstOrDefault());
+            indexNames.ForEach(x => session.Advanced.LuceneQuery<dynamic>(x).WaitForNonStaleResults().FirstOrDefault());
         }
 
-        private static List<string> GetAllIndexNames()
+        private List<string> GetAllIndexNames()
         {
-            var types = typeof(IndexRegister).Assembly.GetTypes();
-            var type = typeof(AbstractIndexCreationTask);
-
-            var indexNames = new List<string>();
-            foreach (var x in types)
-            {
-                if (type.IsAssignableFrom(x))
-                {
-                    indexNames.Add(x.Name);
-                }
-            }
-
-            return indexNames;
+            return DocumentStore.DatabaseCommands.GetIndexNames(0, int.MaxValue).ToList<string>();
         }
 
         public IList<User> AddUsers()

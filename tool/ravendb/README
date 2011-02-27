@@ -4,3 +4,38 @@ http://builds.hibernatingrhinos.com/builds/ravendb
 How to Run RavenDB, check http://ravendb.net/documentation
 
 You may run Raven Server as windows service, see details at http://ravendb.net/documentation/docs-deployment-service
+
+
+
+---------
+
+RavenSmuggler is an import/export tool.
+See details here http://ravendb.net/documentation/smuggler
+
+Export:
+
+   RavenSmuggler out http://localhost:8080 dump.raven
+
+Import:
+
+   RavenSmuggler in http://localhost:8080 dump.raven
+
+
+
+应用场景：
+  从RavenDB的193版本升级到287版本，数据格式不兼容，需要导入导出
+
+准备：
+a. 安全起见，备份Ravendb Server所在目录，包含程序和数据
+b. 分别在两个目录安装RavenDB 193和287版本的Server
+
+导入导出步骤：
+1. 启动RavenDB 193版本Server
+2. 用Smuggler导出数据：RavenSmuggler out http://localhost:8080 dump.raven
+3. 关闭193版本Server
+4. 启动Ravendb 287版本Server
+5. 用Smuggler导入数据：RavenSmuggler in http://localhost:8080 dump.raven
+6. 关闭287版本Server后重开
+
+整个升级过程结束
+

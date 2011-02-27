@@ -3,18 +3,18 @@ using AgileWizard.Domain.Models;
 using Raven.Client.Indexes;
 using Raven.Database.Indexing;
 
+
+
 namespace AgileWizard.Domain.QueryIndexes
 {
-    public class ResourceIndexByTitle : AbstractIndexCreationTask
+    public class ResourceIndexByTitle : AbstractIndexCreationTask<Resource>
     {
-        public override IndexDefinition CreateIndexDefinition()
+        public ResourceIndexByTitle()
         {
-            return new IndexDefinition<Resource>
-            {
-                Map = resources => from resource in resources
-                                   select new { Title = resource.Title }
-            }
-            .ToIndexDefinition(DocumentStore.Conventions);
+            Map = resources => from resource in resources
+                               select new { Title = resource.Title };
+
+            Index(x => x.Title, FieldIndexing.Analyzed);
         }
     }
 }

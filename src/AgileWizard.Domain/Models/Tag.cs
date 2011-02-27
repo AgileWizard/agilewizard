@@ -11,15 +11,6 @@ namespace AgileWizard.Domain.Models
 
         public int TotalCount { get; set; }
 
-        public DateTime LastUpdateTime
-        {
-            get
-            {
-                // plus 1/1/2011
-                return new DateTime(2011, 1, 1).AddSeconds(ShortTicks);
-            }
-        }
-
-        public int ShortTicks { get; set; }
+        public long LastUpdateTicks { get; set; }
     }
 }
