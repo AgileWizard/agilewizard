@@ -93,6 +93,47 @@ this.ScenarioSetup(scenarioInfo);
             testRunner.CollectScenarioErrors();
         }
         
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "View Resource")]
+        [Xunit.TraitAttribute("Description", "Increment page view when view a resource")]
+        public virtual void IncrementPageViewWhenViewAResource()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Increment page view when view a resource", ((string[])(null)));
+#line 16
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table2.AddRow(new string[] {
+                        "Title",
+                        "Resource Title"});
+            table2.AddRow(new string[] {
+                        "Content",
+                        "Resource Content"});
+            table2.AddRow(new string[] {
+                        "Author",
+                        "Jackon Zhang"});
+            table2.AddRow(new string[] {
+                        "ReferenceUrl",
+                        "http://www.neodream.info/blog"});
+            table2.AddRow(new string[] {
+                        "Tags",
+                        "Test,Integration"});
+#line 17
+ testRunner.Given("there is a resource", ((string)(null)), table2);
+#line 24
+ testRunner.When("view the resource");
+#line 25
+ testRunner.Then("page view number should be 1");
+#line 26
+ testRunner.When("view the resource");
+#line 27
+ testRunner.Then("page view number should be 2");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.4.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable

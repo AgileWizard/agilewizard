@@ -117,6 +117,14 @@ namespace AgileWizard.IntegrationTests.Steps
 
              AssertResource(ExistingResource, actualResource);
          }
+
+         [Then(@"page view number should be (\d)")]
+         public void ThenPageViewNumberShouldBeIncremented(int pageView)
+         {
+             var actualResource = GetResourceDetailViewModelFromActionResult();
+
+             Assert.Equal(pageView, actualResource.PageView);
+         }
          #endregion
 
          #region Tag
