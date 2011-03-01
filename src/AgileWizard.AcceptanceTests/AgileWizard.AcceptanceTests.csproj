@@ -56,6 +56,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\AccountData.cs" />
     <Compile Include="Data\ResourceData.cs" />
     <Compile Include="EventDefinition.cs" />
     <Compile Include="Features\Resource.feature.cs">
@@ -63,9 +64,15 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Features\Account.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Account.feature</DependentUpon>
+    </Compile>
     <Compile Include="Helper\AssertHelper.cs" />
     <Compile Include="Helper\BrowserHelper.cs" />
-    <Compile Include="PageObject\AccountPage.cs" />
+    <Compile Include="PageObject\AccountCreateEditPage.cs" />
+    <Compile Include="PageObject\AccountLogonPage.cs" />
     <Compile Include="Helper\RuntimeHelper.cs" />
     <Compile Include="PageObject\ResourceCreateEditPage.cs" />
     <Compile Include="PageObject\ResourceDetailsPage.cs" />
@@ -75,6 +82,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Steps\SharedSteps.cs" />
+    <Compile Include="Steps\AccountSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AgileWizard.Data\AgileWizard.Data.csproj">
@@ -97,6 +105,10 @@
     <None Include="Features\Resource.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Resource.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Account.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Account.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup />
