@@ -27,8 +27,8 @@ namespace AgileWizard.AcceptanceTests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Account", "In order to manage accounts\nAs an admin\nI should be able to add/inactive account " +
-                    "onto website", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Account", "In order to manage accounts\r\nAs an admin\r\nI should be able to add/inactive accoun" +
+                    "t onto website", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         

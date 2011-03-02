@@ -48,5 +48,17 @@ namespace AgileWizard.Website.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Create(AccountCreateModel accountCreateModel)
+        {
+            return View();
+        }
     }
 }

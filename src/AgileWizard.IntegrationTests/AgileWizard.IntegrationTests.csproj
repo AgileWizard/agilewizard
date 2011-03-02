@@ -98,6 +98,7 @@
       <DependentUpon>ViewResource.feature</DependentUpon>
     </Compile>
     <Compile Include="Helpers\TagExtension.cs" />
+    <Compile Include="PageObject\AccountCreate.cs" />
     <Compile Include="PageObject\Home.cs" />
     <Compile Include="PageObject\IntegrationTestBase.cs" />
     <Compile Include="PageObject\ResourceDetail.cs" />
