@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
-
 using AgileWizard.AcceptanceTests.Helper;
-using AgileWizard.Locale.Resources.Models;
 using AgileWizard.Locale.Resources.Views;
 using Xunit;
 using WatiN.Core;
@@ -17,15 +14,6 @@ namespace AgileWizard.AcceptanceTests.PageObject
             get
             {
                 return Document.Link(Find.ById("create_link"));
-            }
-        }
-
-        public int TotalCount
-        {
-            get
-            {
-                string totalCount = Document.Span(Find.ById("total_count")).Text;
-                return Int32.Parse(totalCount);
             }
         }
 
@@ -46,11 +34,6 @@ namespace AgileWizard.AcceptanceTests.PageObject
         {
             var browser = BrowserHelper.Browser;
             browser.Link(l => l.Text == ResourceString.Edit.Trim() && l.Parent.PreviousSibling.PreviousSibling.Text.Trim() == title).Click();
-        }
-
-        public void AssertTotalResourceCount()
-        {
-            Assert.True(this.TotalCount > 0);
         }
 
         public void AssertCulture()

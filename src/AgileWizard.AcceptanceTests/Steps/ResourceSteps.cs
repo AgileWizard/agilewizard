@@ -3,7 +3,6 @@ using AgileWizard.AcceptanceTests.PageObject;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using AgileWizard.AcceptanceTests.Data;
-using Xunit;
 
 namespace AgileWizard.AcceptanceTests.Steps
 {
@@ -11,8 +10,8 @@ namespace AgileWizard.AcceptanceTests.Steps
     [Binding]
     public class ResourceSteps
     {
-        private ResourceCreateEditPage _resourceCreateOrEditPage = null;
-        private ResourceListPage _listPage = null;
+        private ResourceCreateEditPage _resourceCreateOrEditPage;
+        private ResourceListPage _listPage;
 
         [Given(@"open adding-resource page")]
         public void GivenOpenAddingResourcePage()
@@ -47,7 +46,6 @@ namespace AgileWizard.AcceptanceTests.Steps
             _listPage = BrowserHelper.Browser.Page<ResourceListPage>();
             
             _listPage.AssertCulture();
-            _listPage.AssertTotalResourceCount();
         }
 
         [Then(@"go resource edit page with title - (.+)")]
@@ -85,16 +83,9 @@ namespace AgileWizard.AcceptanceTests.Steps
         [Then(@"Then resource list of tag '(.+)' should have 1 item")]
         public void ThenThenResourceListOfTagShouldHave1Item(string tagName)
         {
-            _listPage.AssertTotalResourceCount();
+            //_listPage.AssertTotalResourceCount();
         }
 
-
-        [Then(@"resource list of tag 'TestTag' should have 1 item")]
-        public void ThenResourceListOfTagTestTagShouldHave1Item(string tagName)
-        {
-            _listPage.AssertTotalResourceCount();
-        }
-        
         private void ShowDetailPageAndValidateData(Table table)
         {
             ResourceDetailsPage detailPage = BrowserHelper.Browser.Page<ResourceDetailsPage>();

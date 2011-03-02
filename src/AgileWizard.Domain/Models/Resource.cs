@@ -60,4 +60,25 @@ namespace AgileWizard.Domain.Models
         }
         #endregion
     }
+
+    internal static class ResourcesGenerator
+    {
+        internal static IEnumerable<Resource> CountOfResouces(this int totalCount, string tags)
+        {
+            var tagList = tags.ToTagList();
+
+            for (int i = 0; i < totalCount; i++)
+                yield return new Resource
+                {
+                    Author = "agilewizard",
+                    Content = "agilewizard blog number" + i,
+                    CreateTime = DateTime.Now,
+                    LastUpdateTime = DateTime.Now,
+                    Title = "agilewizard",
+                    Id = "ID00000000" + (i + 1),
+                    SubmitUser = "user",
+                    Tags = tagList,
+                };
+        }
+    }
 }

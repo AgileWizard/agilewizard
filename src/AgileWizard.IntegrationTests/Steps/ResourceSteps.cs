@@ -7,7 +7,6 @@ using AgileWizard.Website.Models;
 using StructureMap;
 using TechTalk.SpecFlow;
 using Xunit;
-using AgileWizard.Website.Helper;
 using TechTalk.SpecFlow.Assist;
 using AgileWizard.Domain.Models;
 using Raven.Client;
@@ -194,6 +193,34 @@ namespace AgileWizard.IntegrationTests.Steps
             ActionResult = Controller.Dislike(id);
         }
         #endregion
+
+        #region Resoure List
+        [Given(@"there are (\d+) resources")]
+        public void GivenThereAreResources(int numberOfResources)
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"there will be (\d+) resources on the page")]
+        public void ThenThereWillBeResourcesOnThePage(int numberOfResources)
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [When(@"next page")]
+        public void WhenNextPage()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"no more page")]
+        public void ThenNoMorePage()
+        {
+            ScenarioContext.Current.Pending();
+        }
+        #endregion
+
+
 
         #region Private Resource Procedures
         private void CreateResource()

@@ -59,6 +59,7 @@
     <Compile Include="AccountModelsTest.cs" />
     <Compile Include="Helper\ResourceModelTestHelper.cs" />
     <Compile Include="Helper\TagHelperTest.cs" />
+    <Compile Include="PageObject\DetailPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AccountControllerTest.cs" />
     <Compile Include="ResourceControllerTest.cs" />

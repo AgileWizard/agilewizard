@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.QueryIndexes;
 using Raven.Client;
 using System.Linq;
-using Raven.Client.Linq;
 
 namespace AgileWizard.Domain.Repositories
 {
@@ -35,12 +33,6 @@ namespace AgileWizard.Domain.Repositories
         {
             var query = (IEnumerable<Resource>)_documentSession.Query<Resource>(typeof(ResourceIndexByTitle).Name);
             return query.OrderByDescending(x => x.LastUpdateTime).Take(_maxItemsInList).ToList();
-        }
-
-        public int GetResourcesTotalCount()
-        {
-            var query = (IEnumerable<Resource>)_documentSession.Query<Resource>(typeof(ResourceIndexByTitle).Name);
-            return query.Count();
         }
 
         public void Save()

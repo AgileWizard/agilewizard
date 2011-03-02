@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AgileWizard.Domain.Helper;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.QueryIndexes;
 using AgileWizard.Domain.Repositories;
-using Moq;
 using Xunit;
 
 namespace AgileWizard.Domain.Tests.Repositories
@@ -53,17 +51,6 @@ namespace AgileWizard.Domain.Tests.Repositories
             var resources = _resourceRepositorySUT.GetResourceList();
 
             Assert.Equal(resources.Count, 100);
-            _session.VerifyAll();
-        }
-
-        [Fact]
-        public void can_calculate_resources_total_count()
-        {
-            _session.SetupQueryResult(typeof(ResourceIndexByTitle).Name, 200.CountOfResouces("tag"));
-
-            int count = _resourceRepositorySUT.GetResourcesTotalCount();
-
-            Assert.Equal(count, 200);
             _session.VerifyAll();
         }
 
@@ -152,28 +139,6 @@ namespace AgileWizard.Domain.Tests.Repositories
             resourceList.Add(resource1);
             resourceList.Add(resource2);
             return resourceList;
-        }
-
-    }
-
-    internal static class ResourcesGenerator
-    {
-        internal static IEnumerable<Resource> CountOfResouces(this int totalCount, string tags)
-        {
-            var tagList = tags.ToTagList();
-
-            for (int i = 0; i < totalCount; i++)
-                yield return new Resource
-                {
-                    Author = "agilewizard",
-                    Content = "agilewizard blog number" + i,
-                    CreateTime = DateTime.Now,
-                    LastUpdateTime = DateTime.Now,
-                    Title = "agilewizard",
-                    Id = (i + 1).ToString(),
-                    SubmitUser = "user",
-                    Tags = tagList,
-                };
         }
     }
 }

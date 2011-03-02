@@ -8,7 +8,6 @@ namespace AgileWizard.Domain.Services
         Resource AddResource(Resource resource);
         Resource GetResourceById(string id);
         IList<Resource> GetResourceList();
-        int GetResourcesTotalCount();
         int GetResourcesTotalCountForTag(string tagName);
         void UpdateResource(string id, Resource resource);
         void LikeThisResource(string resourceId);

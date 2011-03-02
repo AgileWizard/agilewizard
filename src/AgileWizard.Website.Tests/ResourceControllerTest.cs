@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Users;
 using AgileWizard.Domain.Repositories;
@@ -10,6 +8,7 @@ using AgileWizard.Domain.Services;
 using AgileWizard.Website.Controllers;
 using AgileWizard.Website.Models;
 using AgileWizard.Website.Tests.Helper;
+using AgileWizard.Website.Tests.PageObject;
 using Moq;
 using Raven.Client;
 using Xunit;
@@ -32,11 +31,10 @@ namespace AgileWizard.Website.Tests
             _resourceService = new Mock<IResourceService>();
             _documentSession = new Mock<IDocumentSession>();
             _sessionStateRepository = new Mock<ISessionStateRepository>();
-            MvcApplication.ConfigAutoMapper();
+            ResourceMapper.ConfigAutoMapper();
 
             resourceControllerSUT = new ResourceController(_resourceService.Object, _documentSession.Object, _sessionStateRepository.Object);
         }
-
 
         [Fact]
         public void when_add_resource()
@@ -48,9 +46,9 @@ namespace AgileWizard.Website.Tests
 
             //Act
             var actionResult = resourceControllerSUT.Create(_resourceDetailViewModel);
-
             //Assert
-            _resourceService.VerifyAll();
+            _resourceService.Verify(x=>x.AddResource(It.IsAny<Resource>()));
+
             ShouldRedirectToActionDetails(actionResult, Resource.ID);
         }
 
@@ -63,11 +61,7 @@ namespace AgileWizard.Website.Tests
         public void index_action_should_return_a_view_of_a_list_of_resouces()
         {
             //Arrange
-            var resources = new List<Resource>
-                                {
-                                    _resource
-                                };
-            _resourceService.Setup(s => s.GetResourceList()).Returns(resources);
+            SetUpDefaultResourceListExpectation();
 
             //Act
             var actionResult = resourceControllerSUT.Index();
@@ -119,11 +113,7 @@ namespace AgileWizard.Website.Tests
         public void render_user_control_for_resource_list()
         {
             //Arrange
-            var resources = new List<Resource>
-                                {
-                                    _resource
-                                };
-            _resourceService.Setup(s => s.GetResourceList()).Returns(resources);
+            SetUpDefaultResourceListExpectation();
 
             //Act
             var actionResult = resourceControllerSUT.ResourceList();
@@ -179,7 +169,6 @@ namespace AgileWizard.Website.Tests
             _resourceService.Verify(r => r.DislikeThisResource(Resource.ID));
         }
 
-
         private void ShouldShowResourceListUserControlWithModel(ActionResult actionResult)
         {
             Assert.IsType<PartialViewResult>(actionResult);
@@ -208,19 +197,23 @@ namespace AgileWizard.Website.Tests
             Assert.Empty(viewResult.ViewName);
             Assert.IsAssignableFrom<IEnumerable<ResourceListViewModel>>(viewResult.ViewData.Model);
             var viewModel = (IEnumerable<ResourceListViewModel>)viewResult.ViewData.Model;
-            Assert.Equal("1", viewModel.First().Id);
+            Assert.True(viewModel.First().Id.EndsWith("1"), "model ID is " + viewModel.First().Id);
         }
 
         private void ShouldRedirectToActionDetails(ActionResult actionResult, string id)
         {
-            Assert.IsType<RedirectToRouteResult>(actionResult);
-            Assert.Equal("Details", ((RedirectToRouteResult)actionResult).RouteValues["action"].ToString());
-            Assert.Equal(id, ((RedirectToRouteResult)actionResult).RouteValues["id"].ToString());
+            DetailPage.AssertRedirection(actionResult, id);
         }
 
         private void ResourceRepositoryWillBeCalled()
         {
-            _resourceService.Setup(x => x.AddResource(It.IsAny<Resource>())).Returns(_resource).Verifiable();
+            _resourceService.Setup(x => x.AddResource(It.IsAny<Resource>())).Returns(_resource);
+        }
+
+        private void SetUpDefaultResourceListExpectation()
+        {
+            var resources = 10.CountOfResouces("tag");
+            _resourceService.Setup(s => s.GetResourceList()).Returns(resources.ToList());
         }
     }
 }

@@ -82,10 +82,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LikeDislikeResource.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\ListResourceByTag.feature.cs">
+    <Compile Include="Features\Resource List.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ListResourceByTag.feature</DependentUpon>
+      <DependentUpon>Resource List.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Tag.feature.cs">
       <AutoGen>True</AutoGen>
@@ -141,9 +141,9 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>LikeDislikeResource.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\ListResourceByTag.feature">
+    <None Include="Features\Resource List.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ListResourceByTag.feature.cs</LastGenOutput>
+      <LastGenOutput>Resource List.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Tag.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

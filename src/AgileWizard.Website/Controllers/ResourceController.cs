@@ -4,7 +4,6 @@ using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
 using AgileWizard.Website.Attributes;
 using AgileWizard.Website.Models;
-using AutoMapper;
 using Raven.Client;
 
 namespace AgileWizard.Website.Controllers
@@ -23,27 +22,16 @@ namespace AgileWizard.Website.Controllers
 
         public ActionResult Index()
         {
-            ResourceList resourceList = GetResourceList();
+            var resourceList = GetResourceList();
             return View(resourceList);
-        }
-
-        private ResourceList GetResourceList()
-        {
-            var resources = ResourceService.GetResourceList();
-            var resourceList = new ResourceList(resources)
-                                   {
-                                       TotalCount = ResourceService.GetResourcesTotalCount()
-                                   };
-            return resourceList;
         }
 
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult Create(ResourceDetailViewModel detailViewModel)
         {
-            var resource = Mapper.Map<ResourceDetailViewModel, Resource>(detailViewModel);
+            var resource = ResourceMapper.MapFromDetailViewModelToDomain(detailViewModel);
             resource = ResourceService.AddResource(resource);
-
             return RedirectToAction("Details", new { id = resource.Id.Substring(10) });
         }
 
@@ -51,16 +39,13 @@ namespace AgileWizard.Website.Controllers
         public ActionResult Create()
         {
             var viewModel = new ResourceDetailViewModel();
-
             return View(viewModel);
         }
 
         public ActionResult Details(string id)
         {
             var resource = ResourceService.GetResourceById(id);
-
-            var resourceDetailieViewModel = Mapper.Map<Resource, ResourceDetailViewModel>(resource);
-
+            ResourceDetailViewModel resourceDetailieViewModel = ResourceMapper.MapFromDomainToDetailViewModel(resource);
             return View(resourceDetailieViewModel);
         }
 
@@ -68,7 +53,7 @@ namespace AgileWizard.Website.Controllers
         public ActionResult Edit(string id)
         {
             var resource = ResourceService.GetResourceById(id);
-            var resourceDetailieViewModel = Mapper.Map<Resource, ResourceDetailViewModel>(resource);
+            var resourceDetailieViewModel = ResourceMapper.MapFromDomainToDetailViewModel(resource);
             return View(resourceDetailieViewModel);
         }
 
@@ -76,15 +61,16 @@ namespace AgileWizard.Website.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(string id, ResourceDetailViewModel detailViewModel)
         {
-            var resource = Mapper.Map<ResourceDetailViewModel, Resource>(detailViewModel);
+            Resource resource = ResourceMapper.MapFromDetailViewModelToDomain(detailViewModel);
             ResourceService.UpdateResource(id, resource);
 
             return RedirectToAction("Details", new { id });
         }
 
+
         public ActionResult ResourceList()
         {
-            ResourceList resourceList = GetResourceList();
+            var resourceList = GetResourceList();
             return PartialView("ResourceList", resourceList);
         }
 
@@ -104,17 +90,21 @@ namespace AgileWizard.Website.Controllers
 
         public ActionResult ListByTag(string tagName)
         {
-            ResourceList resourceList = GetResourceListByTag(tagName);
+            var resourceList = GetResourceListByTag(tagName);
             return View(resourceList);
+        }
+
+        private ResourceList GetResourceList()
+        {
+            var resources = ResourceService.GetResourceList();
+            var resourceList = new ResourceList(resources);
+            return resourceList;
         }
 
         private ResourceList GetResourceListByTag(string tagName)
         {
             var resources = ResourceService.GetResourceListByTag(tagName);
-            var resourceList = new ResourceList(resources)
-            {
-                TotalCount = ResourceService.GetResourcesTotalCountForTag(tagName)
-            };
+            var resourceList = new ResourceList(resources);
             return resourceList;
         }
     }

@@ -5,7 +5,6 @@ using StructureMap;
 using AgileWizard.Domain;
 using AgileWizard.Domain.QueryIndexes;
 using Raven.Client;
-using AgileWizard.Website;
 using AgileWizard.Website.Models;
 
 namespace AgileWizard.IntegrationTests
@@ -33,7 +32,7 @@ namespace AgileWizard.IntegrationTests
             ObjectFactory.Configure(x => x.For<IDocumentStore>().Use(documentStore));
 
 
-            MvcApplication.ConfigAutoMapper();
+            ResourceMapper.ConfigAutoMapper();
         }
 
         [BeforeScenario]

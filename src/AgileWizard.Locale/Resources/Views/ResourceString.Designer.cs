@@ -158,14 +158,5 @@ namespace AgileWizard.Locale.Resources.Views {
                 return ResourceManager.GetString("Save", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 资源总数.
-        /// </summary>
-        public static string TotalResourceCount {
-            get {
-                return ResourceManager.GetString("TotalResourceCount", resourceCulture);
-            }
-        }
     }
 }

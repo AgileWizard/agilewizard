@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<AgileWizard.Website.Models.ResourceList>" %>
-<%@ Import Namespace="AgileWizard.Domain.Services" %>
 <link href="../../Content/Resource.css" rel="stylesheet" type="text/css" />
 <% foreach (var item in Model)
    {%>

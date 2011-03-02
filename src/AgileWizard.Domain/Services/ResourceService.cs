@@ -8,8 +8,6 @@ namespace AgileWizard.Domain.Services
     public class ResourceService : IResourceService
     {
         internal const string PAGE_VIEW_COUNTER_NAME = "PageView";
-        private const string LIKE_COUNTER_NAME = "Like";
-        private const string DISLIKE_COUNTER_NAME = "Dislike";
         private IResourceRepository _repository;
 
         public ResourceService(IResourceRepository repository)
@@ -37,11 +35,6 @@ namespace AgileWizard.Domain.Services
         public IList<Resource> GetResourceList()
         {
             return _repository.GetResourceList();
-        }
-
-        public int GetResourcesTotalCount()
-        {
-            return _repository.GetResourcesTotalCount();
         }
 
         public void UpdateResource(string id, Resource resource)

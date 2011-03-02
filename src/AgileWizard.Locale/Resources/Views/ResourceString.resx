@@ -150,7 +150,4 @@
   <data name="Save" xml:space="preserve">
     <value>保存</value>
   </data>
-  <data name="TotalResourceCount" xml:space="preserve">
-    <value>资源总数</value>
-  </data>
 </root>

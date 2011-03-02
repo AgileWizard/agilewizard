@@ -72,8 +72,5 @@ namespace AgileWizard.Website.Models
         {
             Mapper.Map<IList<Resource>, IList<ResourceListViewModel>>(resources, this);
         }
-
-        public int TotalCount { set; get; }
-
     }
 }

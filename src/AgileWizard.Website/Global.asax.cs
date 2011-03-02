@@ -2,12 +2,8 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using AgileWizard.Domain.Helper;
-using AgileWizard.Domain.Models;
 using AgileWizard.Domain.QueryIndexes;
-using AgileWizard.Website.Helper;
 using AgileWizard.Website.Models;
-using AutoMapper;
 using Raven.Client.Document;
 using Raven.Client;
 using AgileWizard.Website.Controllers;
@@ -73,7 +69,8 @@ namespace AgileWizard.Website
             RegisterRoutes(RouteTable.Routes);
 
             RegisterIoC();
-            ConfigAutoMapper();
+
+            ResourceMapper.ConfigAutoMapper();
         }
 
         private static void RegisterIoC()
@@ -85,22 +82,6 @@ namespace AgileWizard.Website
             });
 
             ControllerBuilder.Current.SetControllerFactory(new StructureMapControllerFactory());
-        }
-
-        public static void ConfigAutoMapper()
-        {
-            Mapper.CreateMap<Resource, ResourceListViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.Substring(10)))
-                .ForMember(dest => dest.Content, opt => opt.MapFrom(src => Utils.ExcerptContent(src.Content, 200)))
-                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => Utils.FetchFirstImageUrl(src.Content)));
-
-            Mapper.CreateMap<ResourceDetailViewModel, Resource>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => string.Format("resources/{0}", src.Id)))
-                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.ToTagList()));
-
-            Mapper.CreateMap<Resource, ResourceDetailViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.Substring(10)))
-                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.ToTagString()));
         }
 
         public static IDocumentSession CurrentSession

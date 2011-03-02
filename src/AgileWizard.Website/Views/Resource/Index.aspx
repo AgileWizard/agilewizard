@@ -11,11 +11,5 @@
         <%: Html.ActionLink(ResourceString.CreateResourceLink, "Create", null, new { @class="link", @id="create_link"})%>
         </p>
         <%}%>
-
-    <p>
-        <span class="display-label">
-            <%: ResourceString.TotalResourceCount %></span> <span id="total_count" class="totalResourceCount">
-                <%: Model.TotalCount %></span>
-    </p>
     <div><%: Html.Partial("ResourceList", Model) %></div>
 </asp:Content>
