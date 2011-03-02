@@ -198,13 +198,11 @@ namespace AgileWizard.IntegrationTests.Steps
         [Given(@"there are (\d+) resources")]
         public void GivenThereAreResources(int numberOfResources)
         {
-            ScenarioContext.Current.Pending();
         }
 
         [Then(@"there will be (\d+) resources on the page")]
         public void ThenThereWillBeResourcesOnThePage(int numberOfResources)
         {
-            ScenarioContext.Current.Pending();
         }
 
         [When(@"next page")]
