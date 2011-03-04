@@ -3,7 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using AgileWizard.Domain.QueryIndexes;
-using AgileWizard.Website.Models;
+using AgileWizard.Website.Mapper;
 using Raven.Client.Document;
 using Raven.Client;
 using AgileWizard.Website.Controllers;

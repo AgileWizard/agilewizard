@@ -8,5 +8,5 @@
         <img src="../../Content/Images/home_pic.png" alt="" align=middle />
     </div>
    
-    <div><% Html.RenderAction("ResourceList", "Resource"); %></div>
+    <div><% Html.RenderAction("Index", "Resource"); %></div>
 </asp:Content>

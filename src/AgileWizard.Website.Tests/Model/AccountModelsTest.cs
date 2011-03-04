@@ -1,11 +1,8 @@
-﻿using System;
-using System.Reflection;
-using Xunit;
-
+﻿using Xunit;
 using AgileWizard.Website.Models;
 using AgileWizard.Locale;
 
-namespace AgileWizard.Website.Tests
+namespace AgileWizard.Website.Tests.Model
 {
     public class LogOnModelsTest
     {

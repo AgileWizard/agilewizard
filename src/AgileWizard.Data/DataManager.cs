@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Users;
 using Raven.Client;
-using Raven.Database;
-using AgileWizard.Domain;
-using AgileWizard.Domain.QueryIndexes;
-using Raven.Client.Indexes;
 
 namespace AgileWizard.Data
 {
@@ -18,7 +13,7 @@ namespace AgileWizard.Data
 
         public DataManager(IDocumentStore store)
         {
-            this.DocumentStore = store;
+            DocumentStore = store;
         }
 
         public void ClearAllDocuments()
@@ -36,7 +31,7 @@ namespace AgileWizard.Data
             var session = DocumentStore.OpenSession();
             var entities = new List<object>();
             entities.AddRange(AddUsers());
-            entities.AddRange(AddResources());
+            //entities.AddRange(AddResources());
             foreach (var x in entities)
             {
                 session.Store(x);

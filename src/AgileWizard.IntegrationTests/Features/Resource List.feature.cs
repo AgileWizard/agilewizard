@@ -126,52 +126,42 @@ this.ScenarioSetup(scenarioInfo);
             testRunner.CollectScenarioErrors();
         }
         
-        [Xunit.FactAttribute(Skip="Ignored")]
-        [Xunit.TraitAttribute("FeatureTitle", "Resource List")]
-        [Xunit.TraitAttribute("Description", "resource list paging multiple page")]
-        public virtual void ResourceListPagingMultiplePage()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("resource list paging multiple page", new string[] {
-                        "Ignore"});
-#line 27
-this.ScenarioSetup(scenarioInfo);
-#line 28
- testRunner.Given("there are 41 resources");
-#line 29
- testRunner.When("I wait for non-stale data");
-#line 30
- testRunner.Then("there will be 20 resources on the page");
-#line 31
- testRunner.When("next page");
-#line 32
- testRunner.Then("there will be 40 resources on the page");
-#line 33
- testRunner.When("next page");
-#line 34
- testRunner.Then("there will be 41 resources on the page");
-#line 35
- testRunner.And("no more page");
-#line hidden
-            testRunner.CollectScenarioErrors();
-        }
-        
-        [Xunit.FactAttribute(Skip="Ignored")]
+        [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "Resource List")]
         [Xunit.TraitAttribute("Description", "resource list paging single page")]
         public virtual void ResourceListPagingSinglePage()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("resource list paging single page", new string[] {
-                        "Ignore"});
-#line 38
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("resource list paging single page", ((string[])(null)));
+#line 26
 this.ScenarioSetup(scenarioInfo);
-#line 39
- testRunner.Given("there are 1 resources");
-#line 40
+#line 27
+ testRunner.Given("there are 1 pages of resources");
+#line 28
  testRunner.When("I wait for non-stale data");
-#line 41
+#line 29
  testRunner.Then("there will be 1 resources on the page");
-#line 42
- testRunner.And("no more page");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "Resource List")]
+        [Xunit.TraitAttribute("Description", "resource list paging multiple page")]
+        public virtual void ResourceListPagingMultiplePage()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("resource list paging multiple page", ((string[])(null)));
+#line 31
+this.ScenarioSetup(scenarioInfo);
+#line 32
+ testRunner.Given("there are 2 pages of resources");
+#line 33
+ testRunner.When("I wait for non-stale data");
+#line 34
+ testRunner.Then("there will be 20 resources on the page");
+#line 35
+ testRunner.When("next page");
+#line 36
+ testRunner.Then("there will be 1 more resources on the page");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

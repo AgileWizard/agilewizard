@@ -32,9 +32,9 @@ namespace AgileWizard.Domain.Services
             return resource;
         }
 
-        public IList<Resource> GetResourceList()
+        public IList<Resource> GetResourceList(int currentPage)
         {
-            return _repository.GetResourceList();
+            return _repository.GetResourceList(currentPage);
         }
 
         public void UpdateResource(string id, Resource resource)

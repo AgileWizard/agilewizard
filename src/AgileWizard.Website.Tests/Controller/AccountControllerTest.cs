@@ -5,7 +5,7 @@ using AgileWizard.Website.Models;
 using AgileWizard.Website.Controllers;
 using AgileWizard.Domain.Repositories;
 
-namespace AgileWizard.Website.Tests
+namespace AgileWizard.Website.Tests.Controller
 {
     public class AccountControllerTest
     {
@@ -15,7 +15,6 @@ namespace AgileWizard.Website.Tests
         private readonly Mock<ISessionStateRepository> _sessionStateRepository;
         private readonly LogOnModel _logOnModel;
         private readonly AccountController _accountControllerSUT;
-        private const bool _rememberMe = false;
 
         public AccountControllerTest()
         {

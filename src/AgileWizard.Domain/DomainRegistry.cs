@@ -1,6 +1,4 @@
-﻿using AgileWizard.Domain.Repositories;
-using AgileWizard.Domain.Services;
-using StructureMap.Configuration.DSL;
+﻿using StructureMap.Configuration.DSL;
 
 namespace AgileWizard.Domain
 {

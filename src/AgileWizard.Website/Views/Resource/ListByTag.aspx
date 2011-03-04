@@ -11,5 +11,5 @@
         <%: Html.ActionLink(ResourceString.CreateResourceLink, "Create", null, new { @class="link", @id="create_link"})%>
         </p>
         <%}%>
-    <div><%: Html.Partial("ResourceList", Model) %></div>
+    <%: Html.Partial("ResourceList", Model) %>
 </asp:Content>

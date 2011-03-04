@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<AgileWizard.Website.Models.ResourceList>" %>
 <link href="../../Content/Resource.css" rel="stylesheet" type="text/css" />
+<div id="ResourceListContainer">
 <% foreach (var item in Model)
    {%>
     <div class="resource-item">
@@ -47,3 +48,7 @@
         <span class="break"></span>
     </div>
 <% } %>
+</div>
+<div>
+
+</div>

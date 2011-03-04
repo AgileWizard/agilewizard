@@ -3,6 +3,7 @@ using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
 using AgileWizard.Website.Attributes;
+using AgileWizard.Website.Mapper;
 using AgileWizard.Website.Models;
 using Raven.Client;
 
@@ -22,7 +23,8 @@ namespace AgileWizard.Website.Controllers
 
         public ActionResult Index()
         {
-            var resourceList = GetResourceList();
+            const int firstPage = 0;
+            var resourceList = GetResourceList(firstPage);
             return View(resourceList);
         }
 
@@ -34,6 +36,7 @@ namespace AgileWizard.Website.Controllers
             resource = ResourceService.AddResource(resource);
             return RedirectToAction("Details", new { id = resource.Id.Substring(10) });
         }
+        #region CRUD
 
         [RequireAuthentication]
         public ActionResult Create()
@@ -67,13 +70,14 @@ namespace AgileWizard.Website.Controllers
             return RedirectToAction("Details", new { id });
         }
 
-
-        public ActionResult ResourceList()
+        public ActionResult ResourceList(int currentPage)
         {
-            var resourceList = GetResourceList();
+            var resourceList = GetResourceList(currentPage);
             return PartialView("ResourceList", resourceList);
         }
+        #endregion
 
+        #region Like / Dislike
         [HttpPost]
         public ActionResult Like(string id)
         {
@@ -87,25 +91,31 @@ namespace AgileWizard.Website.Controllers
             ResourceService.DislikeThisResource(id);
             return Json(null);
         }
+        #endregion
 
+        #region Tag
         public ActionResult ListByTag(string tagName)
         {
             var resourceList = GetResourceListByTag(tagName);
             return View(resourceList);
         }
+        #endregion
 
-        private ResourceList GetResourceList()
+        #region Private functions
+
+        private ResourceList GetResourceList(int currentPage)
         {
-            var resources = ResourceService.GetResourceList();
-            var resourceList = new ResourceList(resources);
+            var resources = ResourceService.GetResourceList(currentPage);
+            var resourceList = new ResourceList(resources, currentPage);
             return resourceList;
         }
 
         private ResourceList GetResourceListByTag(string tagName)
         {
             var resources = ResourceService.GetResourceListByTag(tagName);
-            var resourceList = new ResourceList(resources);
+            var resourceList = new ResourceList(resources, 0);
             return resourceList;
-        }
+        } 
+        #endregion
     }
 }

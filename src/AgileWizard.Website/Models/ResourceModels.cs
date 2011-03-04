@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using AgileWizard.Domain.Models;
 using AgileWizard.Locale;
 using AgileWizard.Locale.Resources.Models;
-using AutoMapper;
+using AgileWizard.Website.Mapper;
 
 namespace AgileWizard.Website.Models
 {
@@ -52,7 +52,7 @@ namespace AgileWizard.Website.Models
         #region Test Utility Methods
         internal ResourceDetailViewModel(Resource resource)
         {
-            Mapper.Map<Resource, ResourceDetailViewModel>(resource);
+            ResourceMapper.MapFromDomainToDetailViewModel(resource);
         }
         #endregion
     }
@@ -68,9 +68,12 @@ namespace AgileWizard.Website.Models
 
     public class ResourceList : List<ResourceListViewModel>
     {
-        public ResourceList(IList<Resource> resources)
+        public int CurrentPage { get; set; }
+
+        public ResourceList(IList<Resource> resources, int currentPage)
         {
-            Mapper.Map<IList<Resource>, IList<ResourceListViewModel>>(resources, this);
+            ResourceMapper.MapFromDomainListToListViewModel(resources, this);
+            CurrentPage = currentPage;
         }
     }
 }

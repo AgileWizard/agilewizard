@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AgileWizard.Website.Helper;
+﻿using AgileWizard.Website.Helper;
 using Xunit;
 
-namespace AgileWizard.Website.Tests
+namespace AgileWizard.Website.Tests.Helper
 {
     public class UtilsTest
     {

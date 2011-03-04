@@ -18,5 +18,17 @@ namespace AgileWizard.Website.Tests.Helper
                            Tags = "TDD,Shanghai"
                        };
         }
+
+        public static ResourceListViewModel BuildDefaultResourceListViewModel()
+        {
+            return new ResourceListViewModel()
+                       {
+                           Id = Resource.DefaultResource().Id,
+                           Title = Resource.DefaultResource().Title,
+                           Content = Resource.DefaultResource().Content,
+                           Author = Resource.DefaultResource().Author,
+                           Tags = "TDD,Shanghai".ToTagList()
+            };
+        }
     }
 }

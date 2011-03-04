@@ -93,8 +93,9 @@
     </Compile>
     <Compile Include="Helper\TagsHelper.cs" />
     <Compile Include="Helper\Utils.cs" />
+    <Compile Include="Mapper\IResourceMapper.cs" />
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\ResourceMapper.cs" />
+    <Compile Include="Mapper\ResourceMapper.cs" />
     <Compile Include="Models\ResourceModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\StructureMapControllerFactory.cs" />

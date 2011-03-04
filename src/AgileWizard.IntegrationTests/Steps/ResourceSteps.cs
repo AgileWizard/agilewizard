@@ -3,6 +3,7 @@ using AgileWizard.Domain.Helper;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.IntegrationTests.PageObject;
 using AgileWizard.Website.Controllers;
+using AgileWizard.Website.Mapper;
 using AgileWizard.Website.Models;
 using StructureMap;
 using TechTalk.SpecFlow;
@@ -17,7 +18,14 @@ namespace AgileWizard.IntegrationTests.Steps
     [Binding]
     public partial class ResourceSteps
     {
-        private ResourceController Controller
+        private readonly IResourceRepository _repository;
+
+        public ResourceSteps()
+        {
+            _repository = ObjectFactory.GetInstance<IResourceRepository>();
+        }
+
+        private static ResourceController Controller
         {
             get
             {
@@ -60,7 +68,6 @@ namespace AgileWizard.IntegrationTests.Steps
             var resourceDetail = new ResourceDetail();
 
             resourceDetail.AssertAction(ActionResult as RedirectToRouteResult);
-
         }
 
         #endregion
@@ -70,9 +77,8 @@ namespace AgileWizard.IntegrationTests.Steps
         public void GivenThereIsAResource(Table table)
         {
             var newResource = GetResource(table);
-            var repository = ObjectFactory.GetInstance<IResourceRepository>();
-            ExistingResource = repository.Add(newResource);
-            repository.Save();
+            ExistingResource = _repository.Add(newResource);
+            _repository.Save();
         }
 
         [When(@"open the resource to edit")]
@@ -108,7 +114,6 @@ namespace AgileWizard.IntegrationTests.Steps
              var id = GetExistingResourceID();
 
              resourceDetail.AssertAction(ActionResult as RedirectToRouteResult, id);
-
          }
 
         #endregion 
@@ -154,7 +159,7 @@ namespace AgileWizard.IntegrationTests.Steps
         {
             var viewResult = Controller.ListByTag(tagName) as ViewResult;
 
-            Assert.Equal(count, (viewResult.ViewData.Model as ResourceList).Count);
+            AssertCountOfResourceList(count, viewResult);
         }
         #endregion
 
@@ -195,30 +200,39 @@ namespace AgileWizard.IntegrationTests.Steps
         #endregion
 
         #region Resoure List
-        [Given(@"there are (\d+) resources")]
-        public void GivenThereAreResources(int numberOfResources)
+        [Given(@"there are (\d+) pages of resources")]
+        public void GivenThereAreThreePagesOfResources(int totalPages)
         {
+            var totalResources = 20*totalPages - 19;
+            var resources = totalResources.CountOfResouces("");
+            foreach(var resource in resources)
+            {
+                _repository.Add(resource);
+                _repository.Save();
+            }
         }
 
         [Then(@"there will be (\d+) resources on the page")]
         public void ThenThereWillBeResourcesOnThePage(int numberOfResources)
         {
+            var viewResult = Controller.Index() as ViewResult;
+            CurrentPage = 0;
+            AssertCountOfResourceList(numberOfResources, viewResult);
         }
 
         [When(@"next page")]
         public void WhenNextPage()
         {
-            ScenarioContext.Current.Pending();
+            CurrentPage++;
         }
 
-        [Then(@"no more page")]
-        public void ThenNoMorePage()
+        [Then(@"there will be (\d+) more resources on the page")]
+        public void ThenThereWillBeMoreResourcesOnThePage(int numberOfResources)
         {
-            ScenarioContext.Current.Pending();
+            ActionResult = Controller.ResourceList(CurrentPage);
+            AssertCountOfResourceList(numberOfResources, ActionResult as ViewResultBase);
         }
         #endregion
-
-
 
         #region Private Resource Procedures
         private void CreateResource()
@@ -232,6 +246,14 @@ namespace AgileWizard.IntegrationTests.Steps
             ProcessResourceTag(table, resource);
             return resource;
         }
+       
+        private ResourceDetailViewModel GetResourceDetailViewModel(Table table)
+        {
+            var resource = table.CreateInstance<Resource>();
+            ProcessResourceTag(table, resource);
+            var resourceDetailModel = ResourceMapper.MapFromDomainToDetailViewModel(resource);
+            return resourceDetailModel;
+        }
 
         private void ProcessResourceTag(Table table, Resource resource)
         {
@@ -244,23 +266,17 @@ namespace AgileWizard.IntegrationTests.Steps
             }
         }
 
-        private ResourceDetailViewModel GetResourceDetailViewModel(Table table)
-        {
-            var resource = table.CreateInstance<ResourceDetailViewModel>();
-            ProcessResourceDetailViewModelTag(table, resource);
-            return resource;
-        }
-
-        private void ProcessResourceDetailViewModelTag(Table table, ResourceDetailViewModel resource)
-        {
-            foreach (var row in table.Rows)
-            {
-                if (row["Field"] == "Tags")
-                {
-                    resource.Tags = row["Value"];
-                }
-            }
-        }
+        //private void ProcessResourceDetailViewModelTag(Table table, ResourceDetailViewModel resourceDetailViewModel)
+        //{
+        //    var resource = new 
+        //    foreach (var row in table.Rows)
+        //    {
+        //        if (row["Field"] == "Tags")
+        //        {
+        //            resource.Tags = row["Value"];
+        //        }
+        //    }
+        //}
 
         private void AssertResource(Resource resource, ResourceDetailViewModel resourceDetailViewModel)
         {
@@ -281,6 +297,12 @@ namespace AgileWizard.IntegrationTests.Steps
         {
             return ExistingResource.Id.Substring(10);
         }
+
+        private void AssertCountOfResourceList(int count, ViewResultBase viewResult)
+        {
+            Assert.Equal(count, (viewResult.ViewData.Model as ResourceList).Count);
+        }
+
         #endregion
     }
 }

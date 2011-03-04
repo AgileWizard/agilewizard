@@ -1,11 +1,11 @@
-﻿using TechTalk.SpecFlow;
+﻿using AgileWizard.Website.Mapper;
+using TechTalk.SpecFlow;
 using Raven.Client.Document;
 using AgileWizard.Data;
 using StructureMap;
 using AgileWizard.Domain;
 using AgileWizard.Domain.QueryIndexes;
 using Raven.Client;
-using AgileWizard.Website.Models;
 
 namespace AgileWizard.IntegrationTests
 {
@@ -18,10 +18,6 @@ namespace AgileWizard.IntegrationTests
             var documentStore = new DocumentStore { Url = "http://localhost:8080/" };
             documentStore.Initialize();
 
-            var dataManager = new DataManager(documentStore);
-            dataManager.ClearAllDocuments();
-            dataManager.InitData();
-
             new IndexRegister().RegisterAt(documentStore);
 
             ObjectFactory.Configure(x =>
@@ -30,7 +26,6 @@ namespace AgileWizard.IntegrationTests
                 x.AddRegistry(new DomainRegistry());
             });
             ObjectFactory.Configure(x => x.For<IDocumentStore>().Use(documentStore));
-
 
             ResourceMapper.ConfigAutoMapper();
         }
@@ -42,6 +37,9 @@ namespace AgileWizard.IntegrationTests
             var documentSession = documentStore.OpenSession();
             ObjectFactory.Configure(x => x.For<IDocumentSession>().Use(documentSession));
 
+            var dataManager = new DataManager(documentStore);
+            dataManager.ClearAllDocuments();
+            dataManager.InitData();
         }
 
         [AfterScenario]

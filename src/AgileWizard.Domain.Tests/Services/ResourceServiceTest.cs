@@ -10,25 +10,11 @@ namespace AgileWizard.Domain.Tests.Services
 {
     public class ResourceServiceTest
     {
-        private const string ID = "1";
-        private const string DOCUMENT_ID = "resources/1";
-        private const string TITLE = "title";
-        private const string CONTENT = "content";
-        private const string AUTHOR = "author";
-        private const string SUBMITUSER = "submituser";
-
         private Mock<IResourceRepository> _repository;
         private IResourceService _service;
 
         private readonly DateTime _prepareTime = DateTime.Now.AddSeconds(-1);
-        private Resource _resource = new Resource()
-                                                  {
-                                                      Id = DOCUMENT_ID,
-                                                      Title = TITLE,
-                                                      Content = CONTENT,
-                                                      Author = AUTHOR,
-                                                      SubmitUser = SUBMITUSER
-                                                  };
+        private Resource _resource = Resource.DefaultResource();
 
         public ResourceServiceTest()
         {
@@ -43,15 +29,14 @@ namespace AgileWizard.Domain.Tests.Services
         [Fact]
         public void Can_add_resource()
         {
-            var resource = new Resource();
             //Arrange
-            _repository.Setup(r => r.Add(resource)).Returns(_resource);
+            _repository.Setup(r => r.Add(_resource)).Returns(_resource);
 
             //Act
-            var actualResource = _service.AddResource(resource);
+            var actualResource = _service.AddResource(_resource);
 
             //Assert
-            _repository.Verify(r => r.Add(resource));
+            _repository.Verify(r => r.Add(_resource));
             _repository.Verify(r => r.Save());
             Assert.Equal(_resource, actualResource);
         }
@@ -60,14 +45,13 @@ namespace AgileWizard.Domain.Tests.Services
         public void Given_an_id_should_return_a_resource()
         {
             //Arrange
-            var resource = Resource.DefaultResource();
-            _repository.Setup(r => r.GetResourceById(ID)).Returns(resource);
+            SetGetResourceByIDReturnDefaultResource();
 
             //Act
-            var actualResource = _service.GetResourceById(ID);
+            var actualResource = _service.GetResourceById(Resource.ID);
 
             //Assert
-            Assert.Equal(resource, actualResource);
+            Assert.Equal(_resource, actualResource);
         }
 
         [Fact]
@@ -75,10 +59,10 @@ namespace AgileWizard.Domain.Tests.Services
         {
             //Arrange
             var expectedResources = new List<Resource>();
-            _repository.Setup(r => r.GetResourceList()).Returns(expectedResources);
+            _repository.Setup(r => r.GetResourceList(0)).Returns(expectedResources);
 
             //Act
-            var actualResources = _service.GetResourceList();
+            var actualResources = _service.GetResourceList(0);
 
             //Assert
             Assert.Equal(expectedResources, actualResources);
@@ -88,14 +72,15 @@ namespace AgileWizard.Domain.Tests.Services
         public void Can_update_resource()
         {
             //Arrange
-            var resourceToUpdate = new Resource() { Title = "Title to update", Content = "Content to update" };
-            _repository.Setup(r => r.GetResourceById(ID)).Returns(_resource);
+            var resourceToUpdate = new Resource { Title = "Title to update", Content = "Content to update" };
+            SetGetResourceByIDReturnDefaultResource();
 
             //Act
-            _service.UpdateResource(ID, resourceToUpdate);
+            _service.UpdateResource(Resource.ID, resourceToUpdate);
 
             //Assert
             _repository.Verify(r => r.Save());
+
             ResourceShouldBeUpdated(_resource, resourceToUpdate);
         } 
         #endregion
@@ -105,13 +90,13 @@ namespace AgileWizard.Domain.Tests.Services
         public void When_get_a_resource_should_increment_page_view()
         {
             //Arrange
-            var resource = Resource.DefaultResource();
             const int pageView = 1;
-            resource.PageView = pageView;
-            _repository.Setup(r => r.GetResourceById(ID)).Returns(resource);
+            _resource.PageView = pageView;
+
+            SetGetResourceByIDReturnDefaultResource();
 
             //Act
-            var actualResource = _service.GetResourceById(ID);
+            var actualResource = _service.GetResourceById(Resource.ID);
 
             //Assert
             Assert.Equal(pageView + 1, actualResource.PageView);
@@ -121,10 +106,10 @@ namespace AgileWizard.Domain.Tests.Services
         public void When_get_a_resource_should_save_incremented_page_view()
         {
             //Arrange
-            _repository.Setup(r => r.GetResourceById(ID)).Returns(Resource.DefaultResource);
+            SetGetResourceByIDReturnDefaultResource();
 
             //Act
-            _service.GetResourceById(ID);
+            _service.GetResourceById(Resource.ID);
 
             //Assert
             _repository.Verify(r => r.Save());
@@ -134,26 +119,25 @@ namespace AgileWizard.Domain.Tests.Services
         public void When_like_a_resource_increment_like_number()
         {
             //Arrange
-            var resource = Resource.DefaultResource();
             const int like = 1;
-            resource.Like = like;
-            _repository.Setup(r => r.GetResourceById(ID)).Returns(resource);
+            _resource.Like = like;
+            SetGetResourceByIDReturnDefaultResource();
 
             //Act
-            _service.LikeThisResource(ID);
+            _service.LikeThisResource(Resource.ID);
 
             //Assert
-            Assert.Equal(like + 1, resource.Like);
+            Assert.Equal(like + 1, _resource.Like);
         }
 
         [Fact]
         public void When_like_a_resource_incremented_like_number_should_be_saved()
         {
             //Arrange
-            _repository.Setup(r => r.GetResourceById(ID)).Returns(Resource.DefaultResource());
+            SetGetResourceByIDReturnDefaultResource();
 
             //Act
-            _service.LikeThisResource(ID);
+            _service.LikeThisResource(Resource.ID);
 
             //Assert
             _repository.Verify(r => r.Save());
@@ -163,32 +147,33 @@ namespace AgileWizard.Domain.Tests.Services
         public void When_dislike_a_resource_increment_dislike_number()
         {
             //Arrange
-            var resource = Resource.DefaultResource();
             const int dislike = 1;
-            resource.Dislike = dislike;
-            _repository.Setup(r => r.GetResourceById(ID)).Returns(resource);
+            _resource.Dislike = dislike;
+            SetGetResourceByIDReturnDefaultResource();
 
             //Act
-            _service.DislikeThisResource(ID);
+            _service.DislikeThisResource(Resource.ID);
 
             //Assert
-            Assert.Equal(dislike + 1, resource.Dislike);
+            Assert.Equal(dislike + 1, _resource.Dislike);
         }
 
         [Fact]
         public void When_dislike_a_resource_incremented_dislike_number_should_be_saved()
         {
             //Arrange
-            _repository.Setup(r => r.GetResourceById(ID)).Returns(Resource.DefaultResource());
+            SetGetResourceByIDReturnDefaultResource();
 
             //Act
-            _service.DislikeThisResource(ID);
+            _service.DislikeThisResource(Resource.ID);
 
             //Assert
             _repository.Verify(r => r.Save());
         }
 
         #endregion
+
+        #region Tag
         [Fact]
         public void should_return_resource_by_given_tag()
         {
@@ -202,7 +187,9 @@ namespace AgileWizard.Domain.Tests.Services
             // Assert
             Assert.Same(expectedResources, result);
         }
+        #endregion
 
+        #region Private functions
         private void ResourceShouldBeUpdated(Resource resource, Resource resourceToUpdate)
         {
             Assert.Equal(resourceToUpdate.Title, resource.Title);
@@ -210,5 +197,11 @@ namespace AgileWizard.Domain.Tests.Services
             Assert.Equal(_prepareTime, resource.CreateTime);
             Assert.True(resource.LastUpdateTime > _prepareTime);
         }
+
+        private void SetGetResourceByIDReturnDefaultResource()
+        {
+            _repository.Setup(r => r.GetResourceById(Resource.ID)).Returns(_resource);
+        } 
+        #endregion
     }
 }
