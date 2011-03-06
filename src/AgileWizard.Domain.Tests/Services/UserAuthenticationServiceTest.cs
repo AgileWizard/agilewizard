@@ -121,6 +121,38 @@ namespace AgileWizard.Domain.Tests.Services
             Assert.False(_userAuthenticationServiceSUT.IsAuthenticated);
         }
 
+        [Fact]
+        public void ExistUser_would_return_true_when_the_user_already_exist()
+        {
+            SetUpUserExpectationForExistingUser();
+
+            var exist = _userAuthenticationServiceSUT.ExistUser(_userName);
+
+            Assert.True(exist);
+        }
+
+        [Fact]
+        public void ExistUser_would_return_false_when_the_user_does_not_exist()
+        {
+            SetUpEmptyUserExpectationForNonExistingUser();
+
+            var exist = _userAuthenticationServiceSUT.ExistUser(_nonExistignUserName);
+
+            Assert.False(exist);
+        }
+
+        [Fact]
+        public void MatchPasswordRule_should_return_false_when_password_is_empty()
+        {
+            Assert.False(_userAuthenticationServiceSUT.MatchPasswordRule(string.Empty));
+        }
+
+        [Fact]
+        public void MatchPasswordRule_should_return_false_when_password_length_less_than_six()
+        {
+            Assert.False(_userAuthenticationServiceSUT.MatchPasswordRule("5555"));
+        }
+
         private void FormsAuthenticationServiceShouldNotBeCalledWhenWrongSignIn()
         {
             _formAuthenticationServiceMock.Verify(x => x.SignIn(_nonExistignUserName), Times.Never());
