@@ -4,6 +4,8 @@ using Moq;
 using AgileWizard.Website.Models;
 using AgileWizard.Website.Controllers;
 using AgileWizard.Domain.Repositories;
+using System;
+using System.Web.Mvc;
 
 namespace AgileWizard.Website.Tests
 {
@@ -54,17 +56,73 @@ namespace AgileWizard.Website.Tests
         [Fact]
         public void logoff_should_call_userauthentication_to_signout()
         {
-            _userAuthenticationService.Setup(x=>x.SignOut()).Verifiable();
+            _userAuthenticationService.Setup(x => x.SignOut()).Verifiable();
 
             _accountControllerSUT.LogOff();
 
             _userAuthenticationService.VerifyAll();
         }
 
+        #region Create user tests
+        [Fact]
+        public void create_new_account_should_check_the_user_if_exist_or_not()
+        {
+            _userAuthenticationService.Setup(x => x.ExistUser(_userName)).Returns(true).Verifiable();
+
+            var actionResult = TryToCreateUser(_userName, _password);
+
+            _userAuthenticationService.VerifyAll();
+        }
+
+
+        private ActionResult TryToCreateUser(string userName, string password)
+        {
+            var result = _accountControllerSUT.Create(new AccountCreateModel
+            {
+                UserName = userName,
+                Password = password
+            });
+
+            return result;
+        }
+
+        [Fact]
+        public void create_new_account_should_success_when_the_user_is_not_exist_and_with_valid_password()
+        {
+            var userName = Guid.NewGuid().ToString();
+            var password = Guid.NewGuid().ToString();
+
+            _userAuthenticationService.Setup(x => x.ExistUser(userName)).Returns(false).Verifiable();
+
+            var result = TryToCreateUser(userName, password);
+            ShouldRedirectToCreateComplete(result);
+
+            VerifyServiceExpectations();
+        }
+
+        private void ShouldRedirectToCreateComplete(ActionResult result)
+        {
+            Assert.IsType<RedirectToRouteResult>(result);
+            Assert.Equal("CreateComplete", ((RedirectToRouteResult)result).RouteValues["action"].ToString());
+        }
+
+
+        [Fact]
+        public void create_new_account_should_check_password_if_match_the_rule()
+        {
+            _userAuthenticationService.Setup(x => x.MatchPasswordRule(_password)).Returns(true).Verifiable();
+
+            var actionResult = TryToCreateUser(_userName, _password);
+
+            _userAuthenticationService.VerifyAll();
+        }
+
+        #endregion
+
         private void SetUpSuccessfulExpectationOnUserAuthentication()
-       {
-           SetUpExpectationOnUserAuthentication(true);
-       }
+        {
+            SetUpExpectationOnUserAuthentication(true);
+        }
 
         private void SetUpFailureExpectationOnUserAuthentication()
         {

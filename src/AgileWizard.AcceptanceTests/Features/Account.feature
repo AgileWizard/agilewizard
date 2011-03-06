@@ -16,6 +16,6 @@ Scenario: Add User
 	Then open login page
 	Then input account name and password
 	| Field			| Value							|
-	| Name			| testaccount						|
+	| Name			| testaccount					|
 	| Password		| testpassword					|
 	Then login successfully

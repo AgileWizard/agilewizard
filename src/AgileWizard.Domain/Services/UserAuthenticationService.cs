@@ -21,7 +21,7 @@ namespace AgileWizard.Domain.Services
             SessionStateRepository = sessionStateRepository;
             FormsAuthenticationService = formsAuthenticationService;
         }
-      
+
         public bool SignIn(string userName, string password)
         {
             bool match = IsMatch(userName, password);
@@ -29,7 +29,7 @@ namespace AgileWizard.Domain.Services
             {
                 FormsAuthenticationService.SignIn(userName);
 
-                SessionStateRepository.CurrentUser = _user; 
+                SessionStateRepository.CurrentUser = _user;
             }
             return match;
         }
@@ -41,6 +41,19 @@ namespace AgileWizard.Domain.Services
             SessionStateRepository.CurrentUser = null;
         }
 
+        public bool ExistUser(string userName)
+        {
+            var user = UserRepository.GetUserByName(userName);
+
+            var exist = false;
+            if (string.Compare(user.UserName, userName, System.StringComparison.OrdinalIgnoreCase) == 0)
+            {
+                exist = true;
+            }
+
+            return exist;
+        }
+
         private bool IsMatch(string userName, string password)
         {
             _user = UserRepository.GetUserByName(userName);
@@ -48,5 +61,15 @@ namespace AgileWizard.Domain.Services
             return _user.Password == password;
         }
 
+
+        public bool MatchPasswordRule(string password)
+        {
+            var valid = true;
+            if (string.IsNullOrEmpty(password)) valid = false;
+
+            if (password.Length < 6) valid = false;
+
+            return valid;
+        }
     }
 }

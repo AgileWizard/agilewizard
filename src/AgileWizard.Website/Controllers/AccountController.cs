@@ -2,6 +2,7 @@
 using AgileWizard.Domain.Services;
 using AgileWizard.Website.Models;
 using AgileWizard.Domain.Repositories;
+using AgileWizard.Locale.Resources.Views;
 
 namespace AgileWizard.Website.Controllers
 {
@@ -39,7 +40,7 @@ namespace AgileWizard.Website.Controllers
 
         private void ShowLoginError()
         {
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            ModelState.AddModelError("", AccountString.UserOrPasswordIsIncorrect);
         }
 
         public ActionResult LogOff()
@@ -58,7 +59,32 @@ namespace AgileWizard.Website.Controllers
         [HttpPost]
         public ActionResult Create(AccountCreateModel accountCreateModel)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                CheckUserExistOrNot(accountCreateModel);
+
+                CheckPasswordStrategy(accountCreateModel);
+            }
+
+
+            return RedirectToAction("CreateComplete");
         }
+
+        private void CheckUserExistOrNot(AccountCreateModel accountCreateModel)
+        {
+            if (UserAuthenticationService.ExistUser(accountCreateModel.UserName))
+            {
+                ModelState.AddModelError("UserName", AccountString.UserAlreadyExist);
+            }
+        }
+
+        private void CheckPasswordStrategy(AccountCreateModel accountCreateModel)
+        {
+            if (UserAuthenticationService.MatchPasswordRule(accountCreateModel.Password) == false)
+            {
+                ModelState.AddModelError("Password", AccountString.NotMatchPasswordRule);
+            }
+        }
+
     }
 }
