@@ -3,6 +3,7 @@ using AgileWizard.Domain.Services;
 using AgileWizard.Website.Models;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Locale.Resources.Views;
+using AgileWizard.Domain.Users;
 
 namespace AgileWizard.Website.Controllers
 {
@@ -59,32 +60,38 @@ namespace AgileWizard.Website.Controllers
         [HttpPost]
         public ActionResult Create(AccountCreateModel accountCreateModel)
         {
+            var user = default(User);
+
             if (ModelState.IsValid)
             {
-                CheckUserExistOrNot(accountCreateModel);
+                user = AutoMapper.Mapper.Map<AccountCreateModel, User>(accountCreateModel);
 
-                CheckPasswordStrategy(accountCreateModel);
+                user = UserAuthenticationService.Create(user, this.ModelState);
             }
 
-
-            return RedirectToAction("CreateComplete");
-        }
-
-        private void CheckUserExistOrNot(AccountCreateModel accountCreateModel)
-        {
-            if (UserAuthenticationService.ExistUser(accountCreateModel.UserName))
+            if (user != null)
             {
-                ModelState.AddModelError("UserName", AccountString.UserAlreadyExist);
+                return RedirectToAction("CreateComplete");
             }
+
+            return View(accountCreateModel);
         }
 
-        private void CheckPasswordStrategy(AccountCreateModel accountCreateModel)
-        {
-            if (UserAuthenticationService.MatchPasswordRule(accountCreateModel.Password) == false)
-            {
-                ModelState.AddModelError("Password", AccountString.NotMatchPasswordRule);
-            }
-        }
+        //private void CheckUserExistOrNot(AccountCreateModel accountCreateModel)
+        //{
+        //    if (UserAuthenticationService.ExistUser(accountCreateModel.UserName))
+        //    {
+        //        ModelState.AddModelError("UserName", AccountString.UserAlreadyExist);
+        //    }
+        //}
+
+        //private void CheckPasswordStrategy(AccountCreateModel accountCreateModel)
+        //{
+        //    if (UserAuthenticationService.MatchPasswordRule(accountCreateModel.Password) == false)
+        //    {
+        //        ModelState.AddModelError("Password", AccountString.NotMatchPasswordRule);
+        //    }
+        //}
 
     }
 }

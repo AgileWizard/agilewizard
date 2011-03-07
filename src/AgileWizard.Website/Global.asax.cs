@@ -13,6 +13,7 @@ using Raven.Client;
 using AgileWizard.Website.Controllers;
 using StructureMap;
 using AgileWizard.Domain;
+using AgileWizard.Domain.Users;
 
 namespace AgileWizard.Website
 {
@@ -101,6 +102,10 @@ namespace AgileWizard.Website
             Mapper.CreateMap<Resource, ResourceDetailViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.Substring(10)))
                 .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.ToTagString()));
+
+            Mapper.CreateMap<User, AccountCreateModel>();
+
+            Mapper.CreateMap<AccountCreateModel, User>();
         }
 
         public static IDocumentSession CurrentSession

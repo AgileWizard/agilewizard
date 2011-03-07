@@ -1,13 +1,12 @@
-﻿namespace AgileWizard.Domain.Services
+﻿using System.Web.Mvc;
+using AgileWizard.Domain.Users;
+namespace AgileWizard.Domain.Services
 {
     public interface IUserAuthenticationService
     {
         bool IsAuthenticated { get; }
         bool SignIn(string userName, string password);
         void SignOut();
-
-        bool ExistUser(string userName);
-
-        bool MatchPasswordRule(string password);
+        User Create(User user, ModelStateDictionary stateDictionary);
     }
 }

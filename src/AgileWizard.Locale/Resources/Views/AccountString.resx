@@ -150,4 +150,7 @@
   <data name="UserOrPasswordIsIncorrect" xml:space="preserve">
     <value>用户名或密码错误</value>
   </data>
+  <data name="UserNameCanNotBeNull" xml:space="preserve">
+    <value>用户名不能为空</value>
+  </data>
 </root>

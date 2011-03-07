@@ -6,6 +6,7 @@ using AgileWizard.Website.Controllers;
 using AgileWizard.Domain.Repositories;
 using System;
 using System.Web.Mvc;
+using AgileWizard.Domain.Users;
 
 namespace AgileWizard.Website.Tests
 {
@@ -31,6 +32,8 @@ namespace AgileWizard.Website.Tests
             _sessionStateRepository = new Mock<ISessionStateRepository>();
 
             _accountControllerSUT = new AccountController(_userAuthenticationService.Object, _sessionStateRepository.Object);
+
+            MvcApplication.ConfigAutoMapper();
         }
 
         [Fact]
@@ -65,15 +68,35 @@ namespace AgileWizard.Website.Tests
 
         #region Create user tests
         [Fact]
-        public void create_new_account_should_check_the_user_if_exist_or_not()
+        public void create_new_account_should_call_repository_add_method()
         {
-            _userAuthenticationService.Setup(x => x.ExistUser(_userName)).Returns(true).Verifiable();
+            _userAuthenticationService.Setup(x => x.Create(It.IsAny<User>(), It.IsAny<ModelStateDictionary>())).Returns(default(User)).Verifiable();
 
             var actionResult = TryToCreateUser(_userName, _password);
 
             _userAuthenticationService.VerifyAll();
         }
 
+        [Fact]
+        public void create_new_account_fail_should_redirect_itself()
+        {
+            _userAuthenticationService.Setup(x => x.Create(It.IsAny<User>(), It.IsAny<ModelStateDictionary>())).Returns(default(User)).Verifiable();
+
+            var actionResult = TryToCreateUser(_userName, _password);
+
+            ShouldShowCurrentViewWithModel(actionResult);
+
+            _userAuthenticationService.VerifyAll();
+        }
+
+        private void ShouldShowCurrentViewWithModel(ActionResult actionResult)
+        {
+            Assert.IsType<ViewResult>(actionResult);
+            var viewResult = (ViewResult)actionResult;
+
+            Assert.Empty(viewResult.ViewName);
+            Assert.IsAssignableFrom<AccountCreateModel>(viewResult.ViewData.Model);
+        }
 
         private ActionResult TryToCreateUser(string userName, string password)
         {
@@ -87,14 +110,11 @@ namespace AgileWizard.Website.Tests
         }
 
         [Fact]
-        public void create_new_account_should_success_when_the_user_is_not_exist_and_with_valid_password()
+        public void create_new_account_success_should_redirect_to_complete_page()
         {
-            var userName = Guid.NewGuid().ToString();
-            var password = Guid.NewGuid().ToString();
+            _userAuthenticationService.Setup(x => x.Create(It.IsAny<User>(), It.IsAny<ModelStateDictionary>())).Returns(new User()).Verifiable();
+            var result = TryToCreateUser(_userName, _password);
 
-            _userAuthenticationService.Setup(x => x.ExistUser(userName)).Returns(false).Verifiable();
-
-            var result = TryToCreateUser(userName, password);
             ShouldRedirectToCreateComplete(result);
 
             VerifyServiceExpectations();
@@ -104,17 +124,6 @@ namespace AgileWizard.Website.Tests
         {
             Assert.IsType<RedirectToRouteResult>(result);
             Assert.Equal("CreateComplete", ((RedirectToRouteResult)result).RouteValues["action"].ToString());
-        }
-
-
-        [Fact]
-        public void create_new_account_should_check_password_if_match_the_rule()
-        {
-            _userAuthenticationService.Setup(x => x.MatchPasswordRule(_password)).Returns(true).Verifiable();
-
-            var actionResult = TryToCreateUser(_userName, _password);
-
-            _userAuthenticationService.VerifyAll();
         }
 
         #endregion

@@ -4,6 +4,9 @@ using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
 using Moq;
 using Xunit;
+using System.Web.Mvc;
+using AgileWizard.Locale.Resources.Views;
+using System;
 
 namespace AgileWizard.Domain.Tests.Services
 {
@@ -122,35 +125,58 @@ namespace AgileWizard.Domain.Tests.Services
         }
 
         [Fact]
-        public void ExistUser_would_return_true_when_the_user_already_exist()
+        public void CreateUser_would_report_error_if_user_name_is_null_or_empty()
+        {
+            var modelError = new ModelStateDictionary();
+            _userAuthenticationServiceSUT.Create(null, modelError);
+
+            Assert.True(modelError.ContainsKey(UserAuthenticationService.PROP_USERNAME));
+            Assert.True(modelError.ContainsError(UserAuthenticationService.PROP_USERNAME, AccountString.UserNameCanNotBeNull));
+        }
+
+        [Fact]
+        public void CreateUser_would_report_error_if_user_exist_already()
         {
             SetUpUserExpectationForExistingUser();
 
-            var exist = _userAuthenticationServiceSUT.ExistUser(_userName);
+            var modelError = new ModelStateDictionary();
+            _userAuthenticationServiceSUT.Create(new User { UserName = _userName }, modelError);
 
-            Assert.True(exist);
+            Assert.True(modelError.ContainsKey(UserAuthenticationService.PROP_USERNAME));
+            Assert.True(modelError.ContainsError(UserAuthenticationService.PROP_USERNAME, AccountString.UserAlreadyExist));
         }
 
         [Fact]
-        public void ExistUser_would_return_false_when_the_user_does_not_exist()
+        public void CreateUser_would_report_error_if_password_not_valid()
         {
             SetUpEmptyUserExpectationForNonExistingUser();
 
-            var exist = _userAuthenticationServiceSUT.ExistUser(_nonExistignUserName);
+            var modelError = new ModelStateDictionary();
+            _userAuthenticationServiceSUT.Create(new User { UserName = _nonExistignUserName, Password = "222" }, modelError);
 
-            Assert.False(exist);
+            Assert.True(modelError.ContainsKey(UserAuthenticationService.PROP_PASSWORD));
+            Assert.True(modelError.ContainsError(UserAuthenticationService.PROP_PASSWORD, AccountString.NotMatchPasswordRule));
         }
 
         [Fact]
-        public void MatchPasswordRule_should_return_false_when_password_is_empty()
+        public void CreateUser_should_call_repository_add_func_when_check_passed()
         {
-            Assert.False(_userAuthenticationServiceSUT.MatchPasswordRule(string.Empty));
+            // setup 
+            SetUpEmptyUserExpectationForNonExistingUser();
+
+            var modelError = new ModelStateDictionary();
+            var user = new User { UserName = _nonExistignUserName, Password = Guid.NewGuid().ToString()};
+            _userAuthenticationServiceSUT.Create( user, modelError);
+
+            // Assert
+            Assert.True(modelError.Count == 0);
+            _userRepositoryMock.Verify(a => a.Add(user));
         }
 
         [Fact]
-        public void MatchPasswordRule_should_return_false_when_password_length_less_than_six()
+        public void CreateUser_should_return_false_when_password_length_less_than_six()
         {
-            Assert.False(_userAuthenticationServiceSUT.MatchPasswordRule("5555"));
+            //Assert.False(_userAuthenticationServiceSUT.MatchPasswordRule("5555"));
         }
 
         private void FormsAuthenticationServiceShouldNotBeCalledWhenWrongSignIn()
@@ -179,6 +205,6 @@ namespace AgileWizard.Domain.Tests.Services
         {
             _formAuthenticationServiceMock.Setup(x => x.SignOut()).Verifiable();
         }
-       
+
     }
 }

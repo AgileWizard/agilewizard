@@ -151,6 +151,15 @@ namespace AgileWizard.Locale.Resources.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 用户名不能为空.
+        /// </summary>
+        public static string UserNameCanNotBeNull {
+            get {
+                return ResourceManager.GetString("UserNameCanNotBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 用户名或密码错误.
         /// </summary>
         public static string UserOrPasswordIsIncorrect {

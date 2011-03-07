@@ -1,5 +1,8 @@
 ﻿using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Users;
+using System.Web.Mvc;
+using AgileWizard.Locale.Resources.Views;
+using System.Collections.Generic;
 
 namespace AgileWizard.Domain.Services
 {
@@ -9,6 +12,9 @@ namespace AgileWizard.Domain.Services
         public IUserRepository UserRepository { get; set; }
         private ISessionStateRepository SessionStateRepository { get; set; }
         private IFormsAuthenticationService FormsAuthenticationService { get; set; }
+
+        internal const string PROP_USERNAME = "UserName";
+        internal const string PROP_PASSWORD = "Password";
 
         public bool IsAuthenticated
         {
@@ -41,18 +47,59 @@ namespace AgileWizard.Domain.Services
             SessionStateRepository.CurrentUser = null;
         }
 
-        public bool ExistUser(string userName)
-        {
-            var user = UserRepository.GetUserByName(userName);
 
-            var exist = false;
-            if (string.Compare(user.UserName, userName, System.StringComparison.OrdinalIgnoreCase) == 0)
+        public User Create(User user, ModelStateDictionary stateDictionary)
+        {
+            if (user == null) user = new User();
+
+            var createdUser = default(User);
+
+            CheckUserNameCanNotBeNull(user, stateDictionary);
+            CheckUserExist(user, stateDictionary);
+            CheckPasswordRuleMatched(user, stateDictionary);
+
+            if (stateDictionary.Count == 0)
             {
-                exist = true;
+                createdUser = UserRepository.Add(user);
             }
 
-            return exist;
+            return createdUser;
         }
+
+        #region Create user private methods
+
+        private static void CheckUserNameCanNotBeNull(User user, ModelStateDictionary modelErrors)
+        {
+            if (string.IsNullOrEmpty(user.UserName))
+            {
+                modelErrors.AddModelError(PROP_USERNAME, AccountString.UserNameCanNotBeNull);
+            }
+        }
+
+        private void CheckUserExist(User user, ModelStateDictionary modelErrors)
+        {
+            var existedUser = UserRepository.GetUserByName(user.UserName);
+
+            if (existedUser != null && string.Compare(existedUser.UserName, user.UserName, System.StringComparison.OrdinalIgnoreCase) == 0)
+            {
+                modelErrors.AddModelError(PROP_USERNAME, AccountString.UserAlreadyExist);
+            }
+        }
+
+        private static void CheckPasswordRuleMatched(User user, ModelStateDictionary modelErrors)
+        {
+            var valid = true;
+            var password = user.Password;
+            if (string.IsNullOrEmpty(password)) valid = false;
+
+            if (string.IsNullOrEmpty(password) || password.Length < 6) valid = false;
+
+            if (valid == false)
+            {
+                modelErrors.AddModelError(PROP_PASSWORD, AccountString.NotMatchPasswordRule);
+            }
+        }
+        #endregion
 
         private bool IsMatch(string userName, string password)
         {
@@ -62,14 +109,5 @@ namespace AgileWizard.Domain.Services
         }
 
 
-        public bool MatchPasswordRule(string password)
-        {
-            var valid = true;
-            if (string.IsNullOrEmpty(password)) valid = false;
-
-            if (password.Length < 6) valid = false;
-
-            return valid;
-        }
     }
 }

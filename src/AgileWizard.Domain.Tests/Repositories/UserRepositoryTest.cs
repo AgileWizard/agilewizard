@@ -43,5 +43,19 @@ namespace AgileWizard.Domain.Tests.Repositories
             _session.VerifyAll();
 
         }
+
+
+        [Fact]
+        public void add_user()
+        {
+            //Arrange
+            var user = User.DefaultUser();
+
+            //Act
+            var actualUser = _userRepositorySUT.Add(user);
+
+            //Assert
+            _session.Verify(r => r.Store(user));
+        }
     }
 }

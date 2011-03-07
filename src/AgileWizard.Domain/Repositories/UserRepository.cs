@@ -24,5 +24,10 @@ namespace AgileWizard.Domain.Repositories
             return user ?? User.EmptyUser();
         }
 
+        public User Add(User user)
+        {
+            _documentSession.Store(user);
+            return user;
+        }
     }
 }

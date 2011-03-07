@@ -56,6 +56,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -91,6 +92,12 @@
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Models\Resource.cs" />
     <Compile Include="Users\User.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AgileWizard.Locale\AgileWizard.Locale.csproj">
+      <Project>{087C421B-B96C-41A9-9593-548913174FDA}</Project>
+      <Name>AgileWizard.Locale</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
