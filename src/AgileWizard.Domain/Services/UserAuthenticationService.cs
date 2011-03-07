@@ -61,6 +61,8 @@ namespace AgileWizard.Domain.Services
             if (stateDictionary.Count == 0)
             {
                 createdUser = UserRepository.Add(user);
+
+                UserRepository.Save();
             }
 
             return createdUser;

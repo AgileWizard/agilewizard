@@ -171,6 +171,7 @@ namespace AgileWizard.Domain.Tests.Services
             // Assert
             Assert.True(modelError.Count == 0);
             _userRepositoryMock.Verify(a => a.Add(user));
+            _userRepositoryMock.Verify(a => a.Save());
         }
 
         [Fact]

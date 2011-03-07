@@ -18,7 +18,7 @@ Scenario Outline: Failure login
 	| agilewizard |  wrongone  |
 
 Scenario: Create a new account
-	When Logon with correct username and password
+	When logon with correct username and password
 	And try to create a account with following value
 	| Field			| Value			|
 	| UserName		| testaccount	|

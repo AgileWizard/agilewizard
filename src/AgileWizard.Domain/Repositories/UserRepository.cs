@@ -29,5 +29,11 @@ namespace AgileWizard.Domain.Repositories
             _documentSession.Store(user);
             return user;
         }
+
+
+        public void Save()
+        {
+            _documentSession.SaveChanges();
+        }
     }
 }

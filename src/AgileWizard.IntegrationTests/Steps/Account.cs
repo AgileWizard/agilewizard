@@ -69,10 +69,9 @@ namespace AgileWizard.IntegrationTests.Steps
         [Then(@"create the account successfully")]
         public void ThenCreateAccountSuccessfully()
         {
-            Assert.IsType<ViewResult>(_actionResult);
-            var accountCreatePage = new AccountCreate();
+            Assert.IsType<RedirectToRouteResult>(_actionResult);
+            var accountCreatePage = new AccountCreateComplete();
             accountCreatePage.AssertNavigation(_actionResult as RedirectToRouteResult);
-            accountCreatePage.AssertEmptyData<object>(_actionResult);
 
         }
 

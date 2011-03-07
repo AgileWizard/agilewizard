@@ -7,5 +7,7 @@ namespace AgileWizard.Domain.Repositories
         User GetUserByName(string userName);
 
         User Add(User user);
+
+        void Save();
     }
 }

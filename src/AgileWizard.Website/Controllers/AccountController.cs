@@ -71,7 +71,7 @@ namespace AgileWizard.Website.Controllers
 
             if (user != null)
             {
-                return RedirectToAction("CreateComplete");
+                return RedirectToAction("CreateComplete", "Account");
             }
 
             return View(accountCreateModel);
