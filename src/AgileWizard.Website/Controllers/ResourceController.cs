@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
@@ -13,19 +14,27 @@ namespace AgileWizard.Website.Controllers
     {
         private IResourceService ResourceService { get; set; }
         private IDocumentSession DocumentSession { get; set; }
+        public IResourceMapper ResourceMapper { get; set; }
 
-        public ResourceController(IResourceService resourceService, IDocumentSession documentSession, ISessionStateRepository sessionStateRepository)
+        public ResourceController(IResourceService resourceService, 
+            IDocumentSession documentSession, 
+            ISessionStateRepository sessionStateRepository, 
+            IResourceMapper resourceMapper)
             : base(sessionStateRepository)
         {
             ResourceService = resourceService;
             DocumentSession = documentSession;
+            ResourceMapper = resourceMapper;
         }
 
         public ActionResult Index()
         {
             const int firstPage = 0;
-            var resourceList = GetResourceList(firstPage);
-            return View(resourceList);
+            var resources = ResourceService.GetResourceList(firstPage);
+            //var resourceList = new ResourceList(resources, currentPage);
+            ViewData["currentPage"] = 0;
+            var resourceListViewModel = ResourceMapper.MapFromDomainListToListViewModel(resources);
+            return View(resourceListViewModel);
         }
 
         [HttpPost]
@@ -73,6 +82,7 @@ namespace AgileWizard.Website.Controllers
         public ActionResult ResourceList(int currentPage)
         {
             var resourceList = GetResourceList(currentPage);
+            ViewData["currentPage"] = currentPage;
             return PartialView("ResourceList", resourceList);
         }
         #endregion
@@ -103,18 +113,18 @@ namespace AgileWizard.Website.Controllers
 
         #region Private functions
 
-        private ResourceList GetResourceList(int currentPage)
+        private IList<ResourceListViewModel> GetResourceList(int currentPage)
         {
             var resources = ResourceService.GetResourceList(currentPage);
-            var resourceList = new ResourceList(resources, currentPage);
-            return resourceList;
+            var resourceListViewModel = ResourceMapper.MapFromDomainListToListViewModel(resources);
+            return resourceListViewModel;
         }
 
-        private ResourceList GetResourceListByTag(string tagName)
+        private IList<ResourceListViewModel> GetResourceListByTag(string tagName)
         {
             var resources = ResourceService.GetResourceListByTag(tagName);
-            var resourceList = new ResourceList(resources, 0);
-            return resourceList;
+            var resourceListViewModel = ResourceMapper.MapFromDomainListToListViewModel(resources);
+            return resourceListViewModel;
         } 
         #endregion
     }

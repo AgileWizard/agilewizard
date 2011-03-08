@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using AgileWizard.Domain.Helper;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.IntegrationTests.PageObject;
@@ -19,10 +20,12 @@ namespace AgileWizard.IntegrationTests.Steps
     public partial class ResourceSteps
     {
         private readonly IResourceRepository _repository;
+        private readonly IResourceMapper _resourceMapper;
 
         public ResourceSteps()
         {
             _repository = ObjectFactory.GetInstance<IResourceRepository>();
+            _resourceMapper = ObjectFactory.GetInstance<IResourceMapper>();
         }
 
         private static ResourceController Controller
@@ -185,8 +188,7 @@ namespace AgileWizard.IntegrationTests.Steps
         public void ThenDislikeNumberIs(int dislikeCount)
         {
             var id = GetExistingResourceID();
-            var repository = ObjectFactory.GetInstance<IResourceRepository>();
-            var resource = repository.GetResourceById(id);
+            var resource = _repository.GetResourceById(id);
             Assert.Equal(dislikeCount, resource.Dislike);
         }
 
@@ -251,7 +253,7 @@ namespace AgileWizard.IntegrationTests.Steps
         {
             var resource = table.CreateInstance<Resource>();
             ProcessResourceTag(table, resource);
-            var resourceDetailModel = ResourceMapper.MapFromDomainToDetailViewModel(resource);
+            var resourceDetailModel = _resourceMapper.MapFromDomainToDetailViewModel(resource);
             return resourceDetailModel;
         }
 
@@ -300,7 +302,7 @@ namespace AgileWizard.IntegrationTests.Steps
 
         private void AssertCountOfResourceList(int count, ViewResultBase viewResult)
         {
-            Assert.Equal(count, (viewResult.ViewData.Model as ResourceList).Count);
+            Assert.Equal(count, (viewResult.ViewData.Model as IList<ResourceListViewModel>).Count);
         }
 
         #endregion

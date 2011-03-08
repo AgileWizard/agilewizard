@@ -7,21 +7,21 @@ using AgileWizard.Website.Models;
 
 namespace AgileWizard.Website.Mapper
 {
-    public class ResourceMapper 
+    public class ResourceMapper : IResourceMapper
     {
-        public static ResourceDetailViewModel MapFromDomainToDetailViewModel(Resource resource)
+        public ResourceDetailViewModel MapFromDomainToDetailViewModel(Resource resource)
         {
             return AutoMapper.Mapper.Map<Resource, ResourceDetailViewModel>(resource);
         }
 
-        public static Resource MapFromDetailViewModelToDomain(ResourceDetailViewModel detailViewModel)
+        public Resource MapFromDetailViewModelToDomain(ResourceDetailViewModel detailViewModel)
         {
             return AutoMapper.Mapper.Map<ResourceDetailViewModel, Resource>(detailViewModel);
         }
 
-        public static IList<ResourceListViewModel> MapFromDomainListToListViewModel(IList<Resource> resources, IList<ResourceListViewModel> resourceListViewModels)
+        public IList<ResourceListViewModel> MapFromDomainListToListViewModel(IList<Resource> resources)
         {
-            return AutoMapper.Mapper.Map(resources, resourceListViewModels);
+            return AutoMapper.Mapper.Map<IList<Resource>, IList<ResourceListViewModel>>(resources);
         }
 
         public static void ConfigAutoMapper()
@@ -33,11 +33,11 @@ namespace AgileWizard.Website.Mapper
 
             AutoMapper.Mapper.CreateMap<ResourceDetailViewModel, Resource>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => string.Format("resources/{0}", src.Id)))
-                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => TagHelper.ToTagList(src.Tags)));
+                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.ToTagList()));
 
             AutoMapper.Mapper.CreateMap<Resource, ResourceDetailViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.Substring(10)))
-                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => TagsHelper.ToTagString(src.Tags)));
+                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.ToTagString()));
         }
     }
 }

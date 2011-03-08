@@ -8,6 +8,6 @@ namespace AgileWizard.Website.Mapper
     {
         ResourceDetailViewModel MapFromDomainToDetailViewModel(Resource resource);
         Resource MapFromDetailViewModelToDomain(ResourceDetailViewModel detailViewModel);
-        IList<ResourceListViewModel> MapFromDomainListToListViewModel(IList<Resource> resources, IList<ResourceListViewModel> resourceListViewModels);
+        IList<ResourceListViewModel> MapFromDomainListToListViewModel(IList<Resource> resources);
     }
 }

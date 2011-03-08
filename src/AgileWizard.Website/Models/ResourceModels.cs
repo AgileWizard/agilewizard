@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using AgileWizard.Domain.Helper;
 using AgileWizard.Domain.Models;
 using AgileWizard.Locale;
 using AgileWizard.Locale.Resources.Models;
-using AgileWizard.Website.Mapper;
 
 namespace AgileWizard.Website.Models
 {
@@ -45,14 +45,28 @@ namespace AgileWizard.Website.Models
         [RegularExpression(@"\b(\w*)://[-A-z0-9+&@#/%?=~_|!:,.;]*[-A-z0-9+&@#/%=~_|]")]
         public string ReferenceUrl { get; set; }
 
-        public ResourceDetailViewModel()
-        {
-        }
-
         #region Test Utility Methods
-        internal ResourceDetailViewModel(Resource resource)
+
+        internal const string ID = "1";
+        private const string DOCUMENT_ID = "resources/1";
+        private const string TITLE = "title";
+        private const string CONTENT = "content";
+        private const string AUTHOR = "author";
+        private const string SUBMITUSER = "submitUser";
+        private const string REFERENCE_URL = "http://www.cnblogs.com/tengzy/";
+        
+        internal static ResourceDetailViewModel DefaultResourceDetailViewModel()
         {
-            ResourceMapper.MapFromDomainToDetailViewModel(resource);
+            return new ResourceDetailViewModel
+                       {
+                           Id = DOCUMENT_ID,
+                           Title = TITLE,
+                           Content = CONTENT,
+                           Author = AUTHOR,
+                           ReferenceUrl = REFERENCE_URL,
+                           SubmitUser = SUBMITUSER,
+                           Tags = "TDD,Shanghai"
+                       };
         }
         #endregion
     }
@@ -63,17 +77,5 @@ namespace AgileWizard.Website.Models
         public List<Resource.ResourceTag> Tags { get; set; }
 
         public string ImageUrl { get; set; }
-    }
-
-
-    public class ResourceList : List<ResourceListViewModel>
-    {
-        public int CurrentPage { get; set; }
-
-        public ResourceList(IList<Resource> resources, int currentPage)
-        {
-            ResourceMapper.MapFromDomainListToListViewModel(resources, this);
-            CurrentPage = currentPage;
-        }
     }
 }

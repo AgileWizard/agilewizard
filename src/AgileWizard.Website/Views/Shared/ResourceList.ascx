@@ -1,6 +1,5 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<AgileWizard.Website.Models.ResourceList>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IList<AgileWizard.Website.Models.ResourceListViewModel>>" %>
 <link href="../../Content/Resource.css" rel="stylesheet" type="text/css" />
-<div id="ResourceListContainer">
 <% foreach (var item in Model)
    {%>
     <div class="resource-item">
@@ -29,7 +28,7 @@
             </h2>
             <div class="time">
                 &copy; <a href="" title="<%:item.Author%>"><%:item.Author%></a> / 
-                <%:item.CreateTime.ToString("yyyy.MM.dd")%> / <%:item.CreateTime.ToShortTimeString()%> 
+                <%:item.CreateTime.ToString("yyyy.MM.dd")%> / <%:item.CreateTime.ToShortTimeString()%> l
             </div>
             <%=item.Content%>
             <% if (Request.IsAuthenticated) { %><div class="admin"><%:Html.ActionLink(ResourceString.Edit, "Edit", "Resource", new {id = item.Id}, new {Class= "admin-action"})%></div><% } %>
@@ -48,7 +47,3 @@
         <span class="break"></span>
     </div>
 <% } %>
-</div>
-<div>
-
-</div>

@@ -1,19 +1,25 @@
 ﻿using System.Web.Mvc;
+using AgileWizard.Domain.Models;
 using Xunit;
 
 namespace AgileWizard.Website.Tests.PageObject
 {
-    public class DetailPage
+    public class DetailPage : OneResourcePageBase
     {
         private const string actionName = "Details";
         private const string ActionText = "action";
         private const string IDText = "id";
 
-        public static void AssertRedirection(ActionResult actionResult, string id)
+        public DetailPage(ActionResult actionResult) 
+            : base(actionResult)
+        {}
+
+        public void AssertRedirection()
         {
-            Assert.IsType<RedirectToRouteResult>(actionResult);
-            Assert.Equal(actionName, ((RedirectToRouteResult)actionResult).RouteValues[ActionText].ToString());
-            Assert.Equal(id, ((RedirectToRouteResult)actionResult).RouteValues[IDText].ToString());
+            Assert.IsType<RedirectToRouteResult>(_actionResult);
+            Assert.Equal(actionName, ((RedirectToRouteResult)_actionResult).RouteValues[ActionText].ToString());
+            Assert.Equal(Resource.ID, ((RedirectToRouteResult)_actionResult).RouteValues[IDText].ToString());
         }
+
     }
 }

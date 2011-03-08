@@ -8,7 +8,7 @@ namespace AgileWizard.Domain
         {
             Scan(x => 
             { 
-                x.TheCallingAssembly();
+                x.AssembliesFromApplicationBaseDirectory();
                 x.WithDefaultConventions();
             });
         }

@@ -53,6 +53,9 @@ namespace AgileWizard.IntegrationTests
         public static void AfterTestRun()
         {
             var documentStore = ObjectFactory.GetInstance<IDocumentStore>();
+            var dataManager = new DataManager(documentStore);
+            dataManager.ClearAllDocuments();
+
             documentStore.Dispose();
         }
     }

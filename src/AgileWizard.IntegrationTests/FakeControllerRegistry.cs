@@ -1,8 +1,8 @@
 ﻿using AgileWizard.Data;
 using AgileWizard.Domain.Services;
 using AgileWizard.Domain.Users;
+using AgileWizard.Website.Mapper;
 using StructureMap.Configuration.DSL;
-using AgileWizard.Website.Models;
 using AgileWizard.Domain.Repositories;
 
 namespace AgileWizard.IntegrationTests
@@ -13,7 +13,7 @@ namespace AgileWizard.IntegrationTests
         {
             For<IFormsAuthenticationService>().Use<FakeFormsAuthenticationService>();
             For<ISessionStateRepository>().Use<FakeSessoinStateRepository>().SetProperty(x=>x.CurrentUser = User.DefaultUser());
-
+            For<IResourceMapper>().Use<ResourceMapper>();
         }
 
         public class FakeFormsAuthenticationService : IFormsAuthenticationService

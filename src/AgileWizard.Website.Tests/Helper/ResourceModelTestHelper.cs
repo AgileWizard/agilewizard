@@ -30,5 +30,6 @@ namespace AgileWizard.Website.Tests.Helper
                            Tags = "TDD,Shanghai".ToTagList()
             };
         }
+
     }
 }

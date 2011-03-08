@@ -8,6 +8,7 @@ using Raven.Client.Document;
 using Raven.Client;
 using AgileWizard.Website.Controllers;
 using StructureMap;
+using StructureMap.Configuration.DSL;
 using AgileWizard.Domain;
 
 namespace AgileWizard.Website
@@ -81,6 +82,7 @@ namespace AgileWizard.Website
                 x.AddRegistry(new DomainRegistry());
             });
 
+            
             ControllerBuilder.Current.SetControllerFactory(new StructureMapControllerFactory());
         }
 
