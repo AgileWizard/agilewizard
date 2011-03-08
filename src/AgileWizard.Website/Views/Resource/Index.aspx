@@ -16,7 +16,7 @@
         <%var nPage = (int)ViewData["currentPage"]; %>
         $(function () {
             $('#more').click(function () {
-                $.get('/Resource/ResourceList', {currentPage:<%=nPage %>}, function(data){
+                $.get('/Resource/ResourceList', {currentPage:<%= (nPage + 1) %>}, function(data){
                     $('#resource-list-container').append(data);
                 });
             });

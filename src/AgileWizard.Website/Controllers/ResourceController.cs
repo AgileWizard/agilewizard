@@ -82,7 +82,12 @@ namespace AgileWizard.Website.Controllers
         public ActionResult ResourceList(int currentPage)
         {
             var resourceList = GetResourceList(currentPage);
-            ViewData["currentPage"] = currentPage;
+
+            if (resourceList.Count > 0)
+            {
+                ViewData["currentPage"] = currentPage;
+            }
+
             return PartialView("ResourceList", resourceList);
         }
         #endregion
