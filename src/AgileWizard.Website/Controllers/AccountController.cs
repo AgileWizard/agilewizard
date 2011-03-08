@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
-using AgileWizard.Domain.Services;
-using AgileWizard.Website.Models;
 using AgileWizard.Domain.Repositories;
-using AgileWizard.Locale.Resources.Views;
+using AgileWizard.Domain.Services;
 using AgileWizard.Domain.Users;
+using AgileWizard.Locale.Resources.Views;
+using AgileWizard.Website.Models;
 
 namespace AgileWizard.Website.Controllers
 {

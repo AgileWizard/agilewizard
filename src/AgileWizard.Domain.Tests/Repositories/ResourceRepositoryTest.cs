@@ -4,7 +4,6 @@ using AgileWizard.Domain.Helper;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.QueryIndexes;
 using AgileWizard.Domain.Repositories;
-using Moq;
 using Xunit;
 
 namespace AgileWizard.Domain.Tests.Repositories

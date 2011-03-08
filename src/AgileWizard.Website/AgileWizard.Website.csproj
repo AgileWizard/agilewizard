@@ -385,7 +385,9 @@
     <Content Include="Views\Shared\HtmlEditor.ascx" />
     <Content Include="Views\Shared\ResourceList.ascx" />
     <Content Include="Views\Shared\Right.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
