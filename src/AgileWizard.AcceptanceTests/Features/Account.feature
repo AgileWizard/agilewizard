@@ -9,13 +9,13 @@ Scenario: Add User
 	And open adding-user page
 	And enter data in account page
 	| Field			| Value							|
-	| Name			| testaccount					|
+	| UserName			| testaccount					|
 	| Password		| testpassword					|
-	When press submit button
+	Then press submit button to create user
 	Then logout the current account
 	Then open login page
 	Then input account name and password
 	| Field			| Value							|
-	| Name			| testaccount					|
+	| UserName			| testaccount					|
 	| Password		| testpassword					|
 	Then login successfully

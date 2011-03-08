@@ -55,6 +55,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
@@ -71,6 +72,8 @@
     <Compile Include="Models\Tag.cs" />
     <Compile Include="QueryIndexes\ResourceIndexByTag.cs" />
     <Compile Include="QueryIndexes\TagAggregateIndex.cs" />
+    <Compile Include="Repositories\ConfigurationRepository.cs" />
+    <Compile Include="Repositories\IConfigurationRepository.cs" />
     <Compile Include="Repositories\IResourceRepository.cs" />
     <Compile Include="Repositories\ISessionStateRepository.cs" />
     <Compile Include="Repositories\ITagRepository.cs" />

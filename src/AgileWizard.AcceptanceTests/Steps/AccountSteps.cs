@@ -17,7 +17,7 @@ namespace AgileWizard.AcceptanceTests.Steps
         private AccountCreateEditPage _accountCreateOrEditPage;
         private AccountLogonPage _accountLogonPage;
 
-        [Given(@"open adding-account page")]
+        [Given(@"open adding-user page")]
         public void GivenOpenAddingResourcePage()
         {
             BrowserHelper.OpenPage("Account/Create");
@@ -31,7 +31,7 @@ namespace AgileWizard.AcceptanceTests.Steps
             _accountCreateOrEditPage.FillData(data);
         }
 
-        [Given(@"press submit button")]
+        [Then(@"press submit button to create user")]
         public void GivenPressSubmitButton()
         {
             _accountCreateOrEditPage.Submit();
@@ -43,13 +43,13 @@ namespace AgileWizard.AcceptanceTests.Steps
             BrowserHelper.OpenPage("Account/Logoff");
         }
 
-        [Given(@"open login page")]
+        [Then(@"open login page")]
         public void OpenLoginPage()
         {
             BrowserHelper.OpenPage("Account/Logon");
         }
 
-        [Given(@"input account name and password")]
+        [Then(@"input account name and password")]
         public void InputUserNameAndPassword(Table table)
         {
             var data = table.CreateInstance<AccountData>();
@@ -58,7 +58,12 @@ namespace AgileWizard.AcceptanceTests.Steps
 
             _accountLogonPage.UserName = data.UserName;
             _accountLogonPage.Password = data.Password;
+        }
 
+        [Then(@"logout the current account")]
+        public void ThenLogoutCurrentAccount()
+        {
+            BrowserHelper.OpenPage("Account/Logoff");
         }
 
         [Then(@"login successfully")]

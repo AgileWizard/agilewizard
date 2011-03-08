@@ -1,8 +1,10 @@
-﻿using AgileWizard.Domain.Repositories;
+﻿using System.Linq;
+using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Users;
 using System.Web.Mvc;
 using AgileWizard.Locale.Resources.Views;
 using System.Collections.Generic;
+using System;
 
 namespace AgileWizard.Domain.Services
 {
@@ -12,20 +14,23 @@ namespace AgileWizard.Domain.Services
         public IUserRepository UserRepository { get; set; }
         private ISessionStateRepository SessionStateRepository { get; set; }
         private IFormsAuthenticationService FormsAuthenticationService { get; set; }
+        private IConfigurationRepository ConfigurationRepository { get; set; }
 
         internal const string PROP_USERNAME = "UserName";
         internal const string PROP_PASSWORD = "Password";
+        internal const string CONFIG_KEY_ADMINUSER = "AdminUser";
 
         public bool IsAuthenticated
         {
             get { return SessionStateRepository.CurrentUser != null; }
         }
 
-        public UserAuthenticationService(IUserRepository userRepository, ISessionStateRepository sessionStateRepository, IFormsAuthenticationService formsAuthenticationService)
+        public UserAuthenticationService(IUserRepository userRepository, ISessionStateRepository sessionStateRepository, IFormsAuthenticationService formsAuthenticationService, IConfigurationRepository configurationRepository)
         {
             UserRepository = userRepository;
             SessionStateRepository = sessionStateRepository;
             FormsAuthenticationService = formsAuthenticationService;
+            ConfigurationRepository = configurationRepository;
         }
 
         public bool SignIn(string userName, string password)
@@ -48,17 +53,18 @@ namespace AgileWizard.Domain.Services
         }
 
 
-        public User Create(User user, ModelStateDictionary stateDictionary)
+        public User Create(User user, string creator, ModelStateDictionary stateDictionary)
         {
             if (user == null) user = new User();
 
             var createdUser = default(User);
 
+            CheckCreatorHasRights(creator, stateDictionary);
             CheckUserNameCanNotBeNull(user, stateDictionary);
             CheckUserExist(user, stateDictionary);
             CheckPasswordRuleMatched(user, stateDictionary);
 
-            if (stateDictionary.Count == 0)
+            if (stateDictionary.IsValid)
             {
                 createdUser = UserRepository.Add(user);
 
@@ -69,6 +75,20 @@ namespace AgileWizard.Domain.Services
         }
 
         #region Create user private methods
+
+        private void CheckCreatorHasRights(string creator, ModelStateDictionary modelErrors)
+        {
+            const char SPLIT = ',';
+            var value = this.ConfigurationRepository.GetValue(CONFIG_KEY_ADMINUSER);
+            if (string.IsNullOrEmpty(value) == false)
+            {
+                var adminUsers = value.ToLower().Split(SPLIT).ToList<string>();
+                if (adminUsers.Contains(creator.ToLower()) == false)
+                {
+                    modelErrors.AddModelError(string.Empty, AccountString.CreatorLackOfRight);
+                }
+            }
+        }
 
         private static void CheckUserNameCanNotBeNull(User user, ModelStateDictionary modelErrors)
         {

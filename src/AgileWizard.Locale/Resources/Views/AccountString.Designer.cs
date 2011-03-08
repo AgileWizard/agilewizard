@@ -70,11 +70,38 @@ namespace AgileWizard.Locale.Resources.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 创建用户成功.
+        /// </summary>
+        public static string CreateAccountCompleteTitle {
+            get {
+                return ResourceManager.GetString("CreateAccountCompleteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 添加新用户.
         /// </summary>
         public static string CreateAccountTitle {
             get {
                 return ResourceManager.GetString("CreateAccountTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 创建用户失败：.
+        /// </summary>
+        public static string CreateUserFailed {
+            get {
+                return ResourceManager.GetString("CreateUserFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 当前用户无权限创建新用户.
+        /// </summary>
+        public static string CreatorLackOfRight {
+            get {
+                return ResourceManager.GetString("CreatorLackOfRight", resourceCulture);
             }
         }
         

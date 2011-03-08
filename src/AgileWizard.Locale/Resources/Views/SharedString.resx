@@ -120,6 +120,9 @@
   <data name="AboutLink" xml:space="preserve">
     <value>关于</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>返回</value>
+  </data>
   <data name="Error" xml:space="preserve">
     <value>错误</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="ResourceLink" xml:space="preserve">
     <value>资源</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>欢迎</value>

@@ -7,6 +7,6 @@ namespace AgileWizard.Domain.Services
         bool IsAuthenticated { get; }
         bool SignIn(string userName, string password);
         void SignOut();
-        User Create(User user, ModelStateDictionary stateDictionary);
+        User Create(User user, string creator, ModelStateDictionary stateDictionary);
     }
 }

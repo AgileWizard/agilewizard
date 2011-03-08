@@ -375,6 +375,7 @@
     <Content Include="Scripts\tiny_mce\utils\mctabs.js" />
     <Content Include="Scripts\tiny_mce\utils\validate.js" />
     <Content Include="Views\Account\Create.aspx" />
+    <Content Include="Views\Account\CreateComplete.aspx" />
     <Content Include="Views\Resource\Create.aspx" />
     <Content Include="Views\Resource\Details.aspx" />
     <Content Include="Views\Resource\Edit.aspx" />

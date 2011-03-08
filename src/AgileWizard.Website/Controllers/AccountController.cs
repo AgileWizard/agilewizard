@@ -66,7 +66,8 @@ namespace AgileWizard.Website.Controllers
             {
                 user = AutoMapper.Mapper.Map<AccountCreateModel, User>(accountCreateModel);
 
-                user = UserAuthenticationService.Create(user, this.ModelState);
+                var currentUser = SessionStateRepository.CurrentUser == null ? string.Empty : SessionStateRepository.CurrentUser.UserName;
+                user = UserAuthenticationService.Create(user, currentUser, this.ModelState);
             }
 
             if (user != null)
@@ -77,21 +78,9 @@ namespace AgileWizard.Website.Controllers
             return View(accountCreateModel);
         }
 
-        //private void CheckUserExistOrNot(AccountCreateModel accountCreateModel)
-        //{
-        //    if (UserAuthenticationService.ExistUser(accountCreateModel.UserName))
-        //    {
-        //        ModelState.AddModelError("UserName", AccountString.UserAlreadyExist);
-        //    }
-        //}
-
-        //private void CheckPasswordStrategy(AccountCreateModel accountCreateModel)
-        //{
-        //    if (UserAuthenticationService.MatchPasswordRule(accountCreateModel.Password) == false)
-        //    {
-        //        ModelState.AddModelError("Password", AccountString.NotMatchPasswordRule);
-        //    }
-        //}
-
+        public ActionResult CreateComplete()
+        {
+            return View();
+        }
     }
 }

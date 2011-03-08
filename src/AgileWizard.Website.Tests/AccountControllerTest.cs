@@ -70,7 +70,7 @@ namespace AgileWizard.Website.Tests
         [Fact]
         public void create_new_account_should_call_repository_add_method()
         {
-            _userAuthenticationService.Setup(x => x.Create(It.IsAny<User>(), It.IsAny<ModelStateDictionary>())).Returns(default(User)).Verifiable();
+            _userAuthenticationService.Setup(x => x.Create(It.IsAny<User>(), It.IsAny<string>(), It.IsAny<ModelStateDictionary>())).Returns(default(User)).Verifiable();
 
             var actionResult = TryToCreateUser(_userName, _password);
 
@@ -80,7 +80,7 @@ namespace AgileWizard.Website.Tests
         [Fact]
         public void create_new_account_fail_should_redirect_itself()
         {
-            _userAuthenticationService.Setup(x => x.Create(It.IsAny<User>(), It.IsAny<ModelStateDictionary>())).Returns(default(User)).Verifiable();
+            _userAuthenticationService.Setup(x => x.Create(It.IsAny<User>(), It.IsAny<string>(), It.IsAny<ModelStateDictionary>())).Returns(default(User)).Verifiable();
 
             var actionResult = TryToCreateUser(_userName, _password);
 
@@ -112,7 +112,7 @@ namespace AgileWizard.Website.Tests
         [Fact]
         public void create_new_account_success_should_redirect_to_complete_page()
         {
-            _userAuthenticationService.Setup(x => x.Create(It.IsAny<User>(), It.IsAny<ModelStateDictionary>())).Returns(new User()).Verifiable();
+            _userAuthenticationService.Setup(x => x.Create(It.IsAny<User>(), It.IsAny<string>(), It.IsAny<ModelStateDictionary>())).Returns(new User()).Verifiable();
             var result = TryToCreateUser(_userName, _password);
 
             ShouldRedirectToCreateComplete(result);
