@@ -1,7 +1,7 @@
-﻿using AgileWizard.Domain.Services;
-using StructureMap.Configuration.DSL;
+﻿using AgileWizard.Domain.Repositories;
+using AgileWizard.Domain.Services;
 using AgileWizard.Website.Models;
-using AgileWizard.Domain.Repositories;
+using StructureMap.Configuration.DSL;
 
 namespace AgileWizard.Website
 {

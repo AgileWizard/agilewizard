@@ -28,6 +28,7 @@ namespace AgileWizard.IntegrationTests
             ObjectFactory.Configure(x => x.For<IDocumentStore>().Use(documentStore));
 
             ResourceMapper.ConfigAutoMapper();
+            AccountMapper.ConfigAutoMapper();
         }
 
         [BeforeScenario]

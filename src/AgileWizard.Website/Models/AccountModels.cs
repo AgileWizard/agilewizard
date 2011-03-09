@@ -23,8 +23,14 @@ namespace AgileWizard.Website.Models
     }
     #endregion
 
+    #region AccountCreateModel
+    public class AccountCreateModel : LogOnModel
+    {
+    }
+    #endregion
+
     #region Services
-    
+
 
     public class FormsAuthenticationService : IFormsAuthenticationService
     {

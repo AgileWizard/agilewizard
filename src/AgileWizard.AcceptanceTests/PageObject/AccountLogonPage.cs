@@ -5,7 +5,7 @@ using Xunit;
 namespace AgileWizard.AcceptanceTests.PageObject
 {
     [Page(UrlRegex = @"(A|a)ccount/(L|l)og(O|o)n")]
-    public class AccountPage : Page
+    public class AccountLogonPage : Page
     {
         public string UserName
         {
@@ -31,25 +31,9 @@ namespace AgileWizard.AcceptanceTests.PageObject
             }
         }
 
-        private Button SubmitButton
-        {
-            get
-            {
-                return Document.Button(Find.ById("submit_button"));
-            }
-        }
-
         public void Submit()
         {
-            this.SubmitButton.Click();
-        }
-        
-        //private const string accountLogonUrl = "Account/Logon";
-
-        //public static void AssertUrl()
-        //{
-        //    var currentUrl = BrowserHelper.Browser.Url;
-        //    Assert.True(currentUrl.EndsWith(accountLogonUrl));
-        //}
+            BrowserHelper.PressSubmitButton();
+        }        
     }
 }

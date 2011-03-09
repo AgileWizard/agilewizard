@@ -1,7 +1,9 @@
 ﻿using System.Web.Mvc;
-using AgileWizard.Domain.Services;
-using AgileWizard.Website.Models;
 using AgileWizard.Domain.Repositories;
+using AgileWizard.Domain.Services;
+using AgileWizard.Domain.Users;
+using AgileWizard.Locale.Resources.Views;
+using AgileWizard.Website.Models;
 
 namespace AgileWizard.Website.Controllers
 {
@@ -39,7 +41,7 @@ namespace AgileWizard.Website.Controllers
 
         private void ShowLoginError()
         {
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            ModelState.AddModelError("", AccountString.UserOrPasswordIsIncorrect);
         }
 
         public ActionResult LogOff()
@@ -47,6 +49,38 @@ namespace AgileWizard.Website.Controllers
             UserAuthenticationService.SignOut();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Create(AccountCreateModel accountCreateModel)
+        {
+            var user = default(User);
+
+            if (ModelState.IsValid)
+            {
+                user = AutoMapper.Mapper.Map<AccountCreateModel, User>(accountCreateModel);
+
+                var currentUser = SessionStateRepository.CurrentUser == null ? string.Empty : SessionStateRepository.CurrentUser.UserName;
+                user = UserAuthenticationService.Create(user, currentUser, this.ModelState);
+            }
+
+            if (user != null)
+            {
+                return RedirectToAction("CreateComplete", "Account");
+            }
+
+            return View(accountCreateModel);
+        }
+
+        public ActionResult CreateComplete()
+        {
+            return View();
         }
     }
 }

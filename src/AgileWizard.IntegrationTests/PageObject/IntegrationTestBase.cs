@@ -6,10 +6,12 @@ namespace AgileWizard.IntegrationTests.PageObject
 {
     public class IntegrationTestBase
     {
-        private static string _action = "action";
+        // route keys
+        private const string _action = "action";
         private const string _controller = "controller";
-        private string ActionName { get; set; }
-        private string ControllerName { get; set; }
+
+        internal string ActionName { get; set; }
+        internal string ControllerName { get; set; }
 
         protected IntegrationTestBase(string controllerName, string actionName)
         {
@@ -34,9 +36,9 @@ namespace AgileWizard.IntegrationTests.PageObject
             ActionResultCompare(actionResult, _controller, ControllerName);
         }
 
-        protected void ActionResultCompare(RedirectToRouteResult actionResult, string itemName, string expected)
+        protected void ActionResultCompare(RedirectToRouteResult actionResult, string routeKey, string expected)
         {
-            Assert.Equal(expected, (string)actionResult.RouteValues[itemName], StringComparer.OrdinalIgnoreCase);
+            Assert.Equal(expected, (string)actionResult.RouteValues[routeKey], StringComparer.OrdinalIgnoreCase);
         }
     }
 }

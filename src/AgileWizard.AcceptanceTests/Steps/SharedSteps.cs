@@ -9,13 +9,13 @@ namespace AgileWizard.AcceptanceTests.Steps
     [Binding]
     public class SharedSteps
     {
-        private AccountPage _accountPage = null;
+        private AccountLogonPage _accountPage = null;
 
         [Given(@"login already")]
         public void GivenLoginAlready()
         {
             BrowserHelper.OpenPage("Account/LogOn");
-            _accountPage = BrowserHelper.Browser.Page<AccountPage>();
+            _accountPage = BrowserHelper.Browser.Page<AccountLogonPage>();
 
             _accountPage.UserName = BrowserHelper.UserName;
             _accountPage.Password = BrowserHelper.Password;
