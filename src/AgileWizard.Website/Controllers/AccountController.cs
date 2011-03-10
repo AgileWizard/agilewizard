@@ -4,6 +4,7 @@ using AgileWizard.Domain.Services;
 using AgileWizard.Domain.Users;
 using AgileWizard.Locale.Resources.Views;
 using AgileWizard.Website.Models;
+using AgileWizard.Website.Mapper;
 
 namespace AgileWizard.Website.Controllers
 {
@@ -12,11 +13,16 @@ namespace AgileWizard.Website.Controllers
     public class AccountController : MvcControllerBase
     {
         private IUserAuthenticationService UserAuthenticationService { get; set; }
+        public IAccountMapper AccountMapper { get; set; }
 
-        public AccountController(IUserAuthenticationService uerAuthenticationService, ISessionStateRepository sessionStateRepository)
+        public AccountController(IUserAuthenticationService uerAuthenticationService, 
+            ISessionStateRepository sessionStateRepository,
+            IAccountMapper accountMapper)
             : base(sessionStateRepository)
         {
             UserAuthenticationService = uerAuthenticationService;
+            AccountMapper = accountMapper;
+
         }
 
         public ActionResult LogOn()
@@ -64,7 +70,7 @@ namespace AgileWizard.Website.Controllers
 
             if (ModelState.IsValid)
             {
-                user = AutoMapper.Mapper.Map<AccountCreateModel, User>(accountCreateModel);
+                user = AccountMapper.MapFromViewModelToDomain(accountCreateModel);
 
                 var currentUser = SessionStateRepository.CurrentUser == null ? string.Empty : SessionStateRepository.CurrentUser.UserName;
                 user = UserAuthenticationService.Create(user, currentUser, this.ModelState);

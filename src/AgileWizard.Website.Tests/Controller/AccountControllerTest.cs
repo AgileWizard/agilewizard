@@ -17,6 +17,7 @@ namespace AgileWizard.Website.Tests.Controller
         private const string _password = "thepassword";
         private readonly Mock<IUserAuthenticationService> _userAuthenticationService;
         private readonly Mock<ISessionStateRepository> _sessionStateRepository;
+        private readonly Mock<IAccountMapper> _accountMapper;
         private readonly LogOnModel _logOnModel;
         private readonly AccountController _accountControllerSUT;
 
@@ -30,8 +31,9 @@ namespace AgileWizard.Website.Tests.Controller
 
             _userAuthenticationService = new Mock<IUserAuthenticationService>();
             _sessionStateRepository = new Mock<ISessionStateRepository>();
+            _accountMapper = new Mock<IAccountMapper>();
 
-            _accountControllerSUT = new AccountController(_userAuthenticationService.Object, _sessionStateRepository.Object);
+            _accountControllerSUT = new AccountController(_userAuthenticationService.Object, _sessionStateRepository.Object, _accountMapper.Object);
 
             AccountMapper.ConfigAutoMapper();
         }

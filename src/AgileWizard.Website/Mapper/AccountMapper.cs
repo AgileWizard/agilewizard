@@ -16,5 +16,14 @@ namespace AgileWizard.Website.Mapper
             AutoMapper.Mapper.CreateMap<AccountCreateModel, User>();
         }
 
+        public AccountCreateModel MapFromDomainToViewModel(User user)
+        {
+            return AutoMapper.Mapper.Map<User, AccountCreateModel>(user);
+        }
+
+        public User MapFromViewModelToDomain(AccountCreateModel model)
+        {
+            return AutoMapper.Mapper.Map<AccountCreateModel, User>(model);
+        }
     }
 }
