@@ -121,7 +121,7 @@
     <value>帐号信息</value>
   </data>
   <data name="LoginFailedAndTryAgain" xml:space="preserve">
-    <value>登录出错了，请检查用户名及密码是否正确。</value>
+    <value>登录出错了：</value>
   </data>
   <data name="LogOnButtonText" xml:space="preserve">
     <value>登录</value>
@@ -137,5 +137,29 @@
   </data>
   <data name="RegisterPleaseClick" xml:space="preserve">
     <value>如果还没有帐号，请点击这里</value>
+  </data>
+  <data name="CreateAccountTitle" xml:space="preserve">
+    <value>添加新用户</value>
+  </data>
+  <data name="NotMatchPasswordRule" xml:space="preserve">
+    <value>密码达不到要求。请确保密码长度大于或等于6位！</value>
+  </data>
+  <data name="UserAlreadyExist" xml:space="preserve">
+    <value>该用户已存在</value>
+  </data>
+  <data name="UserOrPasswordIsIncorrect" xml:space="preserve">
+    <value>用户名或密码错误</value>
+  </data>
+  <data name="UserNameCanNotBeNull" xml:space="preserve">
+    <value>用户名不能为空</value>
+  </data>
+  <data name="CreateAccountCompleteTitle" xml:space="preserve">
+    <value>创建用户成功</value>
+  </data>
+  <data name="CreatorLackOfRight" xml:space="preserve">
+    <value>当前用户无权限创建新用户</value>
+  </data>
+  <data name="CreateUserFailed" xml:space="preserve">
+    <value>创建用户失败：</value>
   </data>
 </root>

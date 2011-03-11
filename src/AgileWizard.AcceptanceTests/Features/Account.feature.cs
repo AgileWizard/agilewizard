@@ -9,29 +9,30 @@
 //  </auto-generated>
 // ------------------------------------------------------------------------------
 #region Designer generated code
-namespace AgileWizard.IntegrationTests.Features
+namespace AgileWizard.AcceptanceTests.Features
 {
     using TechTalk.SpecFlow;
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.4.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class TagFeature : Xunit.IUseFixture<TagFeature.FixtureData>, System.IDisposable
+    public partial class AccountFeature : Xunit.IUseFixture<AccountFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "Tag.feature"
+#line 1 "Account.feature"
 #line hidden
         
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Tag", "As a website user\r\nI want to see list of tags", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Account", "In order to manage accounts\r\nAs an admin\r\nI should be able to add/inactive accoun" +
+                    "t onto website", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
-        public virtual void SetFixture(TagFeature.FixtureData fixtureData)
+        public virtual void SetFixture(AccountFeature.FixtureData fixtureData)
         {
         }
         
@@ -57,35 +58,50 @@ namespace AgileWizard.IntegrationTests.Features
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "Tag")]
-        [Xunit.TraitAttribute("Description", "Tag List")]
-        public virtual void TagList()
+        [Xunit.TraitAttribute("FeatureTitle", "Account")]
+        [Xunit.TraitAttribute("Description", "Add User")]
+        public virtual void AddUser()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Tag List", ((string[])(null)));
-#line 5
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add User", new string[] {
+                        "mytag"});
+#line 7
 this.ScenarioSetup(scenarioInfo);
+#line 8
+ testRunner.Given("login already");
+#line 9
+ testRunner.And("open adding-user page");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
             table1.AddRow(new string[] {
-                        "Title",
-                        "TDD Training Course"});
+                        "UserName",
+                        "testaccount"});
             table1.AddRow(new string[] {
-                        "Content",
-                        "Test-driven development"});
-            table1.AddRow(new string[] {
-                        "Author",
-                        "Author"});
-            table1.AddRow(new string[] {
-                        "Tags",
-                        "TagList"});
-#line 6
- testRunner.Given("there is a resource", ((string)(null)), table1);
-#line 12
- testRunner.When("I wait for non-stale data");
-#line 13
- testRunner.Then("tag list is available");
+                        "Password",
+                        "testpassword"});
+#line 10
+ testRunner.And("enter data in account page", ((string)(null)), table1);
+#line 14
+ testRunner.Then("press submit button to create user");
+#line 15
+ testRunner.Then("logout the current account");
+#line 16
+ testRunner.Then("open login page");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table2.AddRow(new string[] {
+                        "UserName",
+                        "testaccount"});
+            table2.AddRow(new string[] {
+                        "Password",
+                        "testpassword"});
+#line 17
+ testRunner.Then("input account name and password", ((string)(null)), table2);
+#line 21
+ testRunner.Then("login successfully");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -97,12 +113,12 @@ this.ScenarioSetup(scenarioInfo);
             
             public FixtureData()
             {
-                TagFeature.FeatureSetup();
+                AccountFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                TagFeature.FeatureTearDown();
+                AccountFeature.FeatureTearDown();
             }
         }
     }

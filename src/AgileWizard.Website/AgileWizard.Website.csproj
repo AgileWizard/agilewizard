@@ -93,6 +93,8 @@
     </Compile>
     <Compile Include="Helper\TagsHelper.cs" />
     <Compile Include="Helper\Utils.cs" />
+    <Compile Include="Mapper\AccountMapper.cs" />
+    <Compile Include="Mapper\IAccountMapper.cs" />
     <Compile Include="Mapper\IResourceMapper.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Mapper\ResourceMapper.cs" />
@@ -376,6 +378,8 @@
     <Content Include="Scripts\tiny_mce\utils\form_utils.js" />
     <Content Include="Scripts\tiny_mce\utils\mctabs.js" />
     <Content Include="Scripts\tiny_mce\utils\validate.js" />
+    <Content Include="Views\Account\Create.aspx" />
+    <Content Include="Views\Account\CreateComplete.aspx" />
     <Content Include="Views\Resource\Create.aspx" />
     <Content Include="Views\Resource\Details.aspx" />
     <Content Include="Views\Resource\Edit.aspx" />
@@ -385,7 +389,9 @@
     <Content Include="Views\Shared\HtmlEditor.ascx" />
     <Content Include="Views\Shared\ResourceList.ascx" />
     <Content Include="Views\Shared\Right.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
