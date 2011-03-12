@@ -5,6 +5,7 @@ using AgileWizard.Website.Controllers;
 using StructureMap;
 using AgileWizard.Website.Models;
 using System.Web.Mvc;
+using TechTalk.SpecFlow.Assist;
 using Xunit;
 
 namespace AgileWizard.IntegrationTests.Steps
@@ -15,6 +16,9 @@ namespace AgileWizard.IntegrationTests.Steps
         private AccountController _accountController;
         private ActionResult _actionResult;
         private LogOnModel _logOnModel;
+        private AccountCreateModel _accountCreateModel;
+
+        #region Successful login
 
         [When(@"logon with correct username and password")]
         public void WhenLogonWithCorrectUsernameAndPassword()
@@ -28,7 +32,9 @@ namespace AgileWizard.IntegrationTests.Steps
             var home = new Home();
             home.AssertNavigation(_actionResult as RedirectToRouteResult);
         }
+        #endregion
 
+        #region Failure login
         [When(@"logon username - (.+) and password - (.+)")]
         public void WhenLogonUsername(string username, string password)
         {
@@ -47,7 +53,54 @@ namespace AgileWizard.IntegrationTests.Steps
         {
             Assert.True(_accountController.ModelState.Values.Count > 0);
         }
+        #endregion
 
+        #region create a new account
+        [When(@"try to create a account with following value")]
+        public void WhenTryToCreateAccountWithNameAndPassword(Table table)
+        {
+            _accountCreateModel = GetAccountCreateModel(table);
+
+            GetAccountController();
+
+            CreateUser(_accountCreateModel);
+        }
+
+        [Then(@"create the account successfully")]
+        public void ThenCreateAccountSuccessfully()
+        {
+            Assert.IsType<RedirectToRouteResult>(_actionResult);
+            var accountCreatePage = new AccountCreateComplete();
+            accountCreatePage.AssertNavigation(_actionResult as RedirectToRouteResult);
+
+        }
+
+        [Then(@"logout the current user")]
+        public void LogoutCurrentAccount()
+        {
+            this._accountController.LogOff();
+        }
+
+        [Then(@"logon with the following account")]
+        public void LogonWithAccountTable(Table table)
+        {
+            _logOnModel = table.CreateInstance<LogOnModel>();
+
+            Logon();
+        }
+
+        private AccountCreateModel GetAccountCreateModel(Table table)
+        {
+            return table.CreateInstance<AccountCreateModel>();
+        }
+
+        private void CreateUser(AccountCreateModel accountCreateModel)
+        {
+            this._actionResult = this._accountController.Create(accountCreateModel);
+        }
+        #endregion
+
+        #region private
         private void GetAccountController()
         {
             _accountController = ObjectFactory.GetInstance<AccountController>();
@@ -74,5 +127,6 @@ namespace AgileWizard.IntegrationTests.Steps
 
             _actionResult = _accountController.LogOn(_logOnModel);
         }
+        #endregion
     }
 }

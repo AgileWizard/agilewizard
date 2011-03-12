@@ -10,6 +10,8 @@ using AgileWizard.Website.Controllers;
 using StructureMap;
 using StructureMap.Configuration.DSL;
 using AgileWizard.Domain;
+using AgileWizard.Domain.Users;
+using AgileWizard.Website.Models;
 
 namespace AgileWizard.Website
 {
@@ -72,6 +74,7 @@ namespace AgileWizard.Website
             RegisterIoC();
 
             ResourceMapper.ConfigAutoMapper();
+            AccountMapper.ConfigAutoMapper();
         }
 
         private static void RegisterIoC()
@@ -82,7 +85,7 @@ namespace AgileWizard.Website
                 x.AddRegistry(new DomainRegistry());
             });
 
-            
+
             ControllerBuilder.Current.SetControllerFactory(new StructureMapControllerFactory());
         }
 

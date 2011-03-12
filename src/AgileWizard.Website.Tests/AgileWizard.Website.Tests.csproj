@@ -66,6 +66,7 @@
     <Compile Include="Controller\WhenEditResourceUpdate.cs" />
     <Compile Include="Controller\WhenResourceDetailLoad.cs" />
     <Compile Include="Controller\WhenTagListLoad.cs" />
+    <Compile Include="Model\AccountMapperTest.cs" />
     <Compile Include="Model\AccountModelsTest.cs" />
     <Compile Include="Helper\ResourceModelTestHelper.cs" />
     <Compile Include="Model\ResourceMapperTest.cs" />

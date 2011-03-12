@@ -23,8 +23,25 @@ namespace AgileWizard.Website.Models
     }
     #endregion
 
+    #region AccountCreateModel
+    public class AccountCreateModel : LogOnModel
+    {
+        const string USERNAME = "agilewizard";
+        const string PASSWORD = "agilewizard";
+        internal static AccountCreateModel DefaultModel()
+        {
+            return new AccountCreateModel
+            {
+                UserName = USERNAME,
+                Password = PASSWORD
+            };
+        }
+
+    }
+    #endregion
+
     #region Services
-    
+
 
     public class FormsAuthenticationService : IFormsAuthenticationService
     {

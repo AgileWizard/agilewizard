@@ -20,6 +20,11 @@
                     $('#resource-list-container').append(data);
                 });
             });
+            $(window).scroll(function(){
+                if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100){
+                    $("#more").click();
+                }
+            });
         });
     </script>
 </asp:Content>

@@ -117,7 +117,6 @@ namespace AgileWizard.Website.Controllers
         public IList<ResourceListViewModel> GetNextPageOfResource(long ticksOfLastCreateTime)
         {
             var resourceListViewModel = ResourceListViewService.GetNextPageOfResource(ticksOfLastCreateTime);
-
             long ticksOfCreateTime = resourceListViewModel.Count > 0 ? resourceListViewModel[resourceListViewModel.Count - 1].CreateTime.Ticks : 0;
             ViewData[TICKSOFCREATETIME] = ticksOfCreateTime;
             return resourceListViewModel;
