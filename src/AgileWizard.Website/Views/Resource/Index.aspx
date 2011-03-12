@@ -13,10 +13,10 @@
     <div id="resource-list-container"><%: Html.Partial("ResourceList", Model) %></div>
     <div id="more-area"><input type=button id="more" value="More" /></div>
     <script type="text/javascript" language="javascript">
-        <%var nPage = (int)ViewData["currentPage"]; %>
+        <%var nTicks = (long)ViewData["ticksOfLastCreateTime"]; %>
         $(function () {
             $('#more').click(function () {
-                $.get('/Resource/ResourceList', {currentPage:<%= (nPage + 1) %>}, function(data){
+                $.get('/Resource/ResourceList', {ticksOfLastCreateTime:<%=nTicks %>}, function(data){
                     $('#resource-list-container').append(data);
                 });
             });

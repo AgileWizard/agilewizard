@@ -7,7 +7,7 @@ using Xunit;
 
 namespace AgileWizard.Website.Tests.Controller
 {
-    public class WhenTagListLoad : ResourceListBase
+    public class WhenTagListLoad : ResourceListTest
     {
         public WhenTagListLoad()
         {
@@ -17,7 +17,7 @@ namespace AgileWizard.Website.Tests.Controller
             // Act
             _actionResult = resourceControllerSUT.ListByTag("tag") as ViewResult;
 
-            IndexListPage = new IndexListPage(_actionResult);
+            _resourceListPage = new ResourceListPage(_actionResult);
         }
 
         [Fact]
