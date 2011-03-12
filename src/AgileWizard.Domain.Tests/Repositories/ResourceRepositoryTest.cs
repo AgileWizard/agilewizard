@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AgileWizard.Domain.Helper;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.QueryIndexes;
@@ -10,9 +11,9 @@ namespace AgileWizard.Domain.Tests.Repositories
     public class ResourceRepositoryTest : RepositoryTestBase
     {
         private readonly ResourceRepository _resourceRepositorySUT;
-        private int _resourceCountNextPage;
-        private const int _totalCountOfResourceOfLessThanOnePage = 11;
-        private const int _totalCountOfResourceOfThreePages = 41;
+        private IList<Resource> _resourceList;
+        private const int _countOfLessThanOnePageOfResource = 11;
+        private const int _countOfThreePagesOfResources = 41;
 
         public ResourceRepositoryTest()
         {
@@ -51,35 +52,33 @@ namespace AgileWizard.Domain.Tests.Repositories
 
         #region Resource List Paging Ordering
         [Fact]
-        public void when_less_than_one_page_only_retrieve_first_page_of_resource()
+        public void WhenLessThan_OnePage_Retrieve_All()
         {
-            AssertResourcePaging(0, _totalCountOfResourceOfLessThanOnePage);
+            AssertResourcePaging(DateTime.Now.Ticks, _countOfLessThanOnePageOfResource, _countOfLessThanOnePageOfResource);
         }
 
         [Fact]
-        public void when_more_than_one_page_retrieve_first_page_by_default()
+        public void WhenMoreThan_OnePage_RetrieveOnePage()
         {
-            AssertResourcePaging(0, _totalCountOfResourceOfThreePages);
+            AssertResourcePaging(DateTime.Now.Ticks, _countOfThreePagesOfResources, 20);
         }
 
         [Fact]
-        public void when_more_than_two_page_of_resource_can_get_two_page_of_resources()
+        public void ResourceOfNextPage_ShouldOlderThan_NotEqualTo_LastResourceOfCurrentPage()
         {
-            AssertResourcePaging(1, _totalCountOfResourceOfThreePages);
-        }
+            AddResources(_countOfThreePagesOfResources);
 
-        [Fact]
-        public void when_has_three_pages_of_resources_can_get_all_three_pages()
-        {
-            AssertResourcePaging(2, _totalCountOfResourceOfThreePages);
+            var resources = _resourceRepositorySUT.GetNextPageOfResource(_resourceList[20].CreateTime.Ticks);
+
+            Assert.Equal(_resourceList[21].Id, resources[0].Id);
         }
 
         [Fact]
         public void resource_list_should_ordered_by_datetime_descending()
         {
-            AddResources(_totalCountOfResourceOfThreePages);
+            AddResources(_countOfThreePagesOfResources);
 
-            var resources = _resourceRepositorySUT.GetResourceList(0);
+            var resources = _resourceRepositorySUT.GetNextPageOfResource(DateTime.Now.Ticks);
 
             AssertResourceOrderByLastupdateTimeDescending(resources);
 
@@ -158,37 +157,27 @@ namespace AgileWizard.Domain.Tests.Repositories
             var resource1 = Resource.DefaultResource().WithTag("case");
             var resource2 = Resource.DefaultResource().WithTag("CASE");
 
-            var resourceList = new List<Resource>();
-            resourceList.Add(resource1);
-            resourceList.Add(resource2);
+            var resourceList = new List<Resource> {resource1, resource2};
             return resourceList;
         }
 
-        private void AssertResourcePaging(int currentPage, int totalCountOfResource)
+        private void AssertResourcePaging(long ticksOfLastCreateTime, int totalCountOfResource, int expectedCountOfResource)
         {
             AddResources(totalCountOfResource);
 
-            var resources = _resourceRepositorySUT.GetResourceList(currentPage);
+            var resources = _resourceRepositorySUT.GetNextPageOfResource(ticksOfLastCreateTime);
 
-            int expectedCount = GetExpectedCountOfResource(currentPage, totalCountOfResource);
-
-            Assert.Equal(expectedCount, resources.Count);
+            Assert.Equal(expectedCountOfResource, resources.Count);
 
             _session.VerifyAll();
         }
 
         private void AddResources(int count)
         {
-            _session.SetupQueryResult(typeof(ResourceIndexByTitle).Name, count.CountOfResouces("tag"));
+            _resourceList = count.CountOfResouces("tag");
+            _session.SetupQueryResult(typeof(ResourceIndexByTitle).Name, _resourceList);
         }
 
-        private int GetExpectedCountOfResource(int currentPage, int totalCountOfResource)
-        {
-            _resourceCountNextPage = ((totalCountOfResource - currentPage * 20) < 20) ? (totalCountOfResource - currentPage * 20) : 20;
-
-            int resourceCount = _resourceCountNextPage;
-            return resourceCount; 
-        }
         #endregion
     }
 }

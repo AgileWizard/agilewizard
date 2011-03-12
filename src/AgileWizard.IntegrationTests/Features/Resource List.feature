@@ -32,8 +32,16 @@ Scenario: resource list paging multiple page
 	Given there are 2 pages of resources
 	When I wait for non-stale data
 	Then there will be 20 resources on the page
-	When next page
 	Then there will be 1 more resources on the page
+
+@Ignore
+Scenario: tag list should support paging
+	#two pages of resources with tag "Agile"
+	Given there are 2 pages of resources
+	When I wait for non-stale data
+	Then there will be 20 resources on the tag list
+	When next page
+	Then there will be 1 more resources the tag list
 
 
 

@@ -203,10 +203,10 @@ namespace AgileWizard.IntegrationTests.Steps
 
         #region Resoure List
         [Given(@"there are (\d+) pages of resources")]
-        public void GivenThereAreThreePagesOfResources(int totalPages)
+        public void GivenThereArePagesOfResources(int totalPages)
         {
             var totalResources = 20*totalPages - 19;
-            var resources = totalResources.CountOfResouces("");
+            var resources = totalResources.CountOfResouces("Agile");
             foreach(var resource in resources)
             {
                 _repository.Add(resource);
@@ -217,23 +217,26 @@ namespace AgileWizard.IntegrationTests.Steps
         [Then(@"there will be (\d+) resources on the page")]
         public void ThenThereWillBeResourcesOnThePage(int numberOfResources)
         {
-            var viewResult = Controller.Index() as ViewResult;
-            CurrentPage = 0;
-            AssertCountOfResourceList(numberOfResources, viewResult);
-        }
-
-        [When(@"next page")]
-        public void WhenNextPage()
-        {
-            CurrentPage++;
+            ActionResult = Controller.Index() as ViewResult;
+            AssertCountOfResourceList(numberOfResources, ActionResult as ViewResultBase);
         }
 
         [Then(@"there will be (\d+) more resources on the page")]
         public void ThenThereWillBeMoreResourcesOnThePage(int numberOfResources)
         {
-            ActionResult = Controller.ResourceList(CurrentPage);
+            long ticksOfLastCreateTime = GetTicksOfLastCreateTime();
+            ActionResult = Controller.ResourceList(ticksOfLastCreateTime);
             AssertCountOfResourceList(numberOfResources, ActionResult as ViewResultBase);
         }
+
+
+        [Then(@"there will be (\d+) resources on the tag list")]
+        public void ThenThereWillBeResourcesOnTheTagList(int numberOfResources)
+        {
+            //ActionResult = Controller.ListByTag(CurrentPage);
+            AssertCountOfResourceList(numberOfResources, ActionResult as ViewResultBase);
+        }
+
         #endregion
 
         #region Private Resource Procedures
@@ -303,6 +306,12 @@ namespace AgileWizard.IntegrationTests.Steps
         private void AssertCountOfResourceList(int count, ViewResultBase viewResult)
         {
             Assert.Equal(count, (viewResult.ViewData.Model as IList<ResourceListViewModel>).Count);
+        }
+
+        private long GetTicksOfLastCreateTime()
+        {
+            var _viewResult = ActionResult as ViewResult;
+            return (long)_viewResult.ViewData["ticksOfLastCreateTime"];
         }
 
         #endregion

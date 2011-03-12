@@ -15,6 +15,7 @@ namespace AgileWizard.Domain.Tests.Services
 
         private readonly DateTime _prepareTime = DateTime.Now.AddSeconds(-1);
         private Resource _resource = Resource.DefaultResource();
+        private int _ticksOfCreateDateTime;
 
         public ResourceServiceTest()
         {
@@ -58,11 +59,13 @@ namespace AgileWizard.Domain.Tests.Services
         public void Can_get_a_list_of_resources()
         {
             //Arrange
+            _ticksOfCreateDateTime = 0;
+            
             var expectedResources = new List<Resource>();
-            _repository.Setup(r => r.GetResourceList(0)).Returns(expectedResources);
+            _repository.Setup(r => r.GetNextPageOfResource(_ticksOfCreateDateTime)).Returns(expectedResources);
 
             //Act
-            var actualResources = _service.GetResourceList(0);
+            var actualResources = _service.GetNextPageOfResource(_ticksOfCreateDateTime);
 
             //Assert
             Assert.Equal(expectedResources, actualResources);

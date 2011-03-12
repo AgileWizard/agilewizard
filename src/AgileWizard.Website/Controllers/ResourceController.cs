@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
 using AgileWizard.Website.Attributes;
+using AgileWizard.Website.Helper;
 using AgileWizard.Website.Mapper;
 using AgileWizard.Website.Models;
 using Raven.Client;
@@ -12,28 +14,28 @@ namespace AgileWizard.Website.Controllers
 {
     public class ResourceController : MvcControllerBase
     {
+        private const string TICKSOFCREATETIME = "ticksOfLastCreateTime";
         private IResourceService ResourceService { get; set; }
         private IDocumentSession DocumentSession { get; set; }
         public IResourceMapper ResourceMapper { get; set; }
+        public IResourceListViewService ResourceListViewService { get; set; }
 
         public ResourceController(IResourceService resourceService, 
             IDocumentSession documentSession, 
             ISessionStateRepository sessionStateRepository, 
-            IResourceMapper resourceMapper)
+            IResourceMapper resourceMapper,
+            IResourceListViewService resourceListViewService)
             : base(sessionStateRepository)
         {
             ResourceService = resourceService;
             DocumentSession = documentSession;
             ResourceMapper = resourceMapper;
+            ResourceListViewService = resourceListViewService;
         }
 
         public ActionResult Index()
         {
-            const int firstPage = 0;
-            var resources = ResourceService.GetResourceList(firstPage);
-            //var resourceList = new ResourceList(resources, currentPage);
-            ViewData["currentPage"] = 0;
-            var resourceListViewModel = ResourceMapper.MapFromDomainListToListViewModel(resources);
+            var resourceListViewModel = GetNextPageOfResource(DateTime.Now.Ticks);
             return View(resourceListViewModel);
         }
 
@@ -79,10 +81,9 @@ namespace AgileWizard.Website.Controllers
             return RedirectToAction("Details", new { id });
         }
 
-        public ActionResult ResourceList(int currentPage)
+        public ActionResult ResourceList(long ticksOfLastCreateTime)
         {
-            var resourceList = GetResourceList(currentPage);
-            ViewData["currentPage"] = currentPage;
+            var resourceList = GetNextPageOfResource(ticksOfLastCreateTime);
             return PartialView("ResourceList", resourceList);
         }
         #endregion
@@ -113,10 +114,12 @@ namespace AgileWizard.Website.Controllers
 
         #region Private functions
 
-        private IList<ResourceListViewModel> GetResourceList(int currentPage)
+        public IList<ResourceListViewModel> GetNextPageOfResource(long ticksOfLastCreateTime)
         {
-            var resources = ResourceService.GetResourceList(currentPage);
-            var resourceListViewModel = ResourceMapper.MapFromDomainListToListViewModel(resources);
+            var resourceListViewModel = ResourceListViewService.GetNextPageOfResource(ticksOfLastCreateTime);
+
+            long ticksOfCreateTime = resourceListViewModel.Count > 0 ? resourceListViewModel[resourceListViewModel.Count - 1].CreateTime.Ticks : 0;
+            ViewData[TICKSOFCREATETIME] = ticksOfCreateTime;
             return resourceListViewModel;
         }
 

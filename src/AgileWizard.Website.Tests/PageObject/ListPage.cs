@@ -2,7 +2,7 @@
 
 namespace AgileWizard.Website.Tests.PageObject
 {
-    public class ListPage : IndexListPage
+    public class ListPage : ResourceListPage
     {
         public ListPage(ActionResult actionResult) 
             : base(actionResult)

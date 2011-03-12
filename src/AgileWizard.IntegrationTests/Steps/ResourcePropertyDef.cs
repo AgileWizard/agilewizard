@@ -11,7 +11,6 @@ namespace AgileWizard.IntegrationTests.Steps
         private const string EXISTING_RESOURCE_KEY = "ExistingResource";
         private const string SUBMITTED_RESOURCE_MODEL_KEY = "SubmittedResourceModel";
         private const string PENDING_SUBMITTED_RESOURCE_MODEL_KEY = "PendingSubmittedResourceModel";
-        private const string CURRENT_PAGE = "CurrengPage";
 
         public ActionResult ActionResult
         {
@@ -66,18 +65,6 @@ namespace AgileWizard.IntegrationTests.Steps
             get
             {
                 return ScenarioContext.Current;
-            }
-        }
-
-        private int CurrentPage
-        {
-            get
-            {
-                return (int)CurrentScenario[CURRENT_PAGE];
-            }
-            set
-            {
-                CurrentScenario[CURRENT_PAGE] = value;
             }
         }
     }

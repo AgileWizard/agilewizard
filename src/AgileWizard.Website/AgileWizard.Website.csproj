@@ -91,6 +91,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\IResourceListViewService.cs" />
+    <Compile Include="Helper\ResourceListViewService.cs" />
     <Compile Include="Helper\TagsHelper.cs" />
     <Compile Include="Helper\Utils.cs" />
     <Compile Include="Mapper\IResourceMapper.cs" />

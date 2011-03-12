@@ -9,5 +9,5 @@
     </div>
    
     <div><%
-             Html.RenderAction("ResourceList", "Resource", new {currentPage = "0"}); %></div>
+             Html.RenderAction("ResourceList", "Resource", new { ticksOfLastCreateTime = DateTime.Now.Ticks }); %></div>
 </asp:Content>

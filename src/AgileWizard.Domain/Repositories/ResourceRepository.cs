@@ -9,7 +9,6 @@ namespace AgileWizard.Domain.Repositories
     public class ResourceRepository : IResourceRepository
     {
         private readonly IDocumentSession _documentSession;
-        private int _countOfResourceToSkip;
         private const int _maxItemsInList = 20;
 
         public ResourceRepository(IDocumentSession documentSession)
@@ -30,13 +29,11 @@ namespace AgileWizard.Domain.Repositories
             return _documentSession.Load<Resource>(string.Format("resources/{0}", id));
         }
 
-        public List<Resource> GetResourceList(int startingPage)
+        public List<Resource> GetNextPageOfResource(long ticksOfLastCreateTime)
         {
             var query = (IEnumerable<Resource>)_documentSession.Query<Resource>(typeof(ResourceIndexByTitle).Name);
 
-            _countOfResourceToSkip = startingPage * _maxItemsInList;
-            
-            return query.OrderByDescending(x => x.LastUpdateTime).Skip(_countOfResourceToSkip).Take(_maxItemsInList).ToList();
+            return query.Where(x=>x.CreateTime.Ticks < ticksOfLastCreateTime).OrderByDescending(x => x.CreateTime).Take(_maxItemsInList).ToList();
         }
 
         public void Save()

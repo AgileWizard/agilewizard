@@ -56,8 +56,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\ListResource.cs" />
-    <Compile Include="Controller\ListResourceBase.cs" />
+    <Compile Include="Controller\ResourceListTest.cs" />
     <Compile Include="Controller\OneResourceLoadBase.cs" />
     <Compile Include="Controller\OneResourceUpdateBase.cs" />
     <Compile Include="Controller\ResourceControllerTestBase.cs" />
@@ -65,8 +64,6 @@
     <Compile Include="Controller\WhenDislikeAResource.cs" />
     <Compile Include="Controller\WhenEditResourceLoad.cs" />
     <Compile Include="Controller\WhenEditResourceUpdate.cs" />
-    <Compile Include="Controller\WhenIndexLoad.cs" />
-    <Compile Include="Controller\WhenListPaging.cs" />
     <Compile Include="Controller\WhenResourceDetailLoad.cs" />
     <Compile Include="Controller\WhenTagListLoad.cs" />
     <Compile Include="Model\AccountModelsTest.cs" />
@@ -74,7 +71,7 @@
     <Compile Include="Model\ResourceMapperTest.cs" />
     <Compile Include="PageObject\DetailPage.cs" />
     <Compile Include="PageObject\EditPage.cs" />
-    <Compile Include="PageObject\IndexListPage.cs" />
+    <Compile Include="PageObject\ResourceListPage.cs" />
     <Compile Include="PageObject\ListPage.cs" />
     <Compile Include="PageObject\OneResourcePageBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,6 +79,7 @@
     <Compile Include="Controller\WhenLikeAResource.cs" />
     <Compile Include="Helper\TagHelperTest.cs" />
     <Compile Include="Helper\UtilsTest.cs" />
+    <Compile Include="ResourceListViewServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AgileWizard.Domain\AgileWizard.Domain.csproj">

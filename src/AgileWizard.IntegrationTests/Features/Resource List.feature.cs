@@ -159,9 +159,30 @@ this.ScenarioSetup(scenarioInfo);
 #line 34
  testRunner.Then("there will be 20 resources on the page");
 #line 35
- testRunner.When("next page");
-#line 36
  testRunner.Then("there will be 1 more resources on the page");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [Xunit.FactAttribute(Skip="Ignored")]
+        [Xunit.TraitAttribute("FeatureTitle", "Resource List")]
+        [Xunit.TraitAttribute("Description", "tag list should support paging")]
+        public virtual void TagListShouldSupportPaging()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("tag list should support paging", new string[] {
+                        "Ignore"});
+#line 38
+this.ScenarioSetup(scenarioInfo);
+#line 40
+ testRunner.Given("there are 2 pages of resources");
+#line 41
+ testRunner.When("I wait for non-stale data");
+#line 42
+ testRunner.Then("there will be 20 resources on the tag list");
+#line 43
+ testRunner.When("next page");
+#line 44
+ testRunner.Then("there will be 1 more resources the tag list");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

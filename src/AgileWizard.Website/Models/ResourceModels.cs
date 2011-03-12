@@ -8,7 +8,6 @@ using AgileWizard.Locale.Resources.Models;
 
 namespace AgileWizard.Website.Models
 {
-
     public class ResourceViewModel
     {
         [LocalizedDisplayName("Id", NameResourceType = typeof(ResourceName))]
@@ -77,5 +76,29 @@ namespace AgileWizard.Website.Models
         public List<Resource.ResourceTag> Tags { get; set; }
 
         public string ImageUrl { get; set; }
+    }
+
+    public static class ResourceListViewModelGenerator
+    {
+        public static IList<ResourceListViewModel> CountOfResourceListViewModelInList(this int totalCount)
+        {
+            IList<ResourceListViewModel> resourceListViewModels = new List<ResourceListViewModel>();
+
+            for (int i = 0; i < totalCount; i++)
+            {
+                var resourceListViewModel = new ResourceListViewModel
+                                                {
+                                                    Author = "agilewizard",
+                                                    Content = "agilewizard blog number" + i,
+                                                    CreateTime = DateTime.Now.AddMinutes(-i-1),
+                                                    Title = "agilewizard",
+                                                    Id = "ID00000000" + (i + 1),
+                                                    SubmitUser = "user",
+                                                    Tags = "tag".ToTagList(),
+                                                };
+                resourceListViewModels.Add(resourceListViewModel);
+            }
+            return resourceListViewModels;
+        }
     }
 }
