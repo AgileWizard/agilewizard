@@ -61,6 +61,15 @@ namespace AgileWizard.Locale.Resources.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 简介.
+        /// </summary>
+        public static string Bio {
+            get {
+                return ResourceManager.GetString("Bio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 密 码.
         /// </summary>
         public static string Password {
@@ -75,6 +84,15 @@ namespace AgileWizard.Locale.Resources.Models {
         public static string RememberMe {
             get {
                 return ResourceManager.GetString("RememberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RSS.
+        /// </summary>
+        public static string Rss {
+            get {
+                return ResourceManager.GetString("Rss", resourceCulture);
             }
         }
         

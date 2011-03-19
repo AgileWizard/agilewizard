@@ -37,6 +37,12 @@ namespace AgileWizard.Website.Models
             };
         }
 
+        [LocalizedDisplayName("Rss", NameResourceType = typeof(AccountName))]
+        public string Rss { get; set; }
+
+        [LocalizedDisplayName("Bio", NameResourceType = typeof(AccountName))]
+        public string Bio { get; set; }
+
     }
     #endregion
 

@@ -27,6 +27,21 @@
             <%: Html.PasswordFor(m => m.Password)%>
             <%: Html.ValidationMessageFor(m => m.Password)%>
         </div>
+        <div class="editor-label">
+            <%: Html.LabelFor(m => m.Rss) %>
+        </div>
+        <div class="editor-field">
+            <%: Html.TextBoxFor(m => m.Rss) %>
+            <%: Html.ValidationMessageFor(m => m.Rss) %>
+        </div>
+        <div class="editor-label">
+            <%: Html.LabelFor(m => m.Bio) %>
+        </div>
+        <div class="editor-field">
+            <%: Html.TextAreaFor(m => m.Bio) %>
+            <%: Html.ValidationMessageFor(m => m.Bio) %>
+        </div>
+
         <p>
             <input id="submit_button" type="submit" value="<%: SharedString.Save %>" />
         </p>
