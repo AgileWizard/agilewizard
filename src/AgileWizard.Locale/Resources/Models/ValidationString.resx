@@ -117,6 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EmailIncorrectFormat" xml:space="preserve">
+    <value>邮箱格式不正确。</value>
+  </data>
+  <data name="EmailIsRequired" xml:space="preserve">
+    <value>邮箱是必填项。</value>
+    <comment>在attribute中不能组装字符串。</comment>
+  </data>
+  <data name="IncorrectFormat" xml:space="preserve">
+    <value>{0}格式不正确。</value>
+  </data>
+  <data name="PasswordIsRequired" xml:space="preserve">
+    <value>密码是必填项。</value>
+  </data>
   <data name="Required" xml:space="preserve">
     <value>{0}必填。</value>
   </data>

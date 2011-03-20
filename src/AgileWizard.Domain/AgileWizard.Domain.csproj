@@ -67,6 +67,10 @@
   <ItemGroup>
     <Compile Include="DomainRegistry.cs" />
     <Compile Include="Expression\QueryExpressionBuilder.cs" />
+    <Compile Include="Helper\Gravatar.cs" />
+    <Compile Include="Helper\IAvatar.cs" />
+    <Compile Include="Helper\Hash.cs" />
+    <Compile Include="Helper\IHash.cs" />
     <Compile Include="Helper\TagHelper.cs" />
     <Compile Include="Models\ResourceCounter.cs" />
     <Compile Include="Models\ResourceLog.cs" />

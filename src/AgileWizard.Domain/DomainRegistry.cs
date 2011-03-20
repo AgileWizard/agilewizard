@@ -1,4 +1,5 @@
-﻿using StructureMap.Configuration.DSL;
+﻿using AgileWizard.Domain.Helper;
+using StructureMap.Configuration.DSL;
 
 namespace AgileWizard.Domain
 {
@@ -11,6 +12,8 @@ namespace AgileWizard.Domain
                 x.AssembliesFromApplicationBaseDirectory();
                 x.WithDefaultConventions();
             });
+
+            For<IAvatar>().Use<Gravatar>();
         }
     }
 }

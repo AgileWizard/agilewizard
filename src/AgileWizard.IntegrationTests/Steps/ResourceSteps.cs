@@ -234,7 +234,7 @@ namespace AgileWizard.IntegrationTests.Steps
         {
             //var ticksOfLastCreateTime = GetTicksOfLastCreateTime();
             //ActionResult = Controller.ListByTag("Agile");
-            AssertCountOfResourceList(numberOfResources, ActionResult as ViewResultBase);
+            //AssertCountOfResourceList(numberOfResources, ActionResult as ViewResultBase);
         }
         #endregion
 

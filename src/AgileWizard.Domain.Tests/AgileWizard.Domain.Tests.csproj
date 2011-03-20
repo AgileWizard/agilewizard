@@ -50,6 +50,8 @@
   <ItemGroup>
     <Compile Include="Expression\QueryByExpression_ResourceListBuilderTest.cs" />
     <Compile Include="Expression\QueryExpression_TagListBuilderTest.cs" />
+    <Compile Include="Helper\GravatarHelperTest.cs" />
+    <Compile Include="Helper\HashTest.cs" />
     <Compile Include="Helper\TagHelperTest.cs" />
     <Compile Include="Helper\ModelErrorCollectionExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
