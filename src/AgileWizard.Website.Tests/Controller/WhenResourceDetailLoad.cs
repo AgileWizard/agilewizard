@@ -1,4 +1,4 @@
-﻿using AgileWizard.Domain.Models;
+using AgileWizard.Domain.Models;
 using AgileWizard.Website.Tests.PageObject;
 using Xunit;
 
@@ -9,7 +9,7 @@ namespace AgileWizard.Website.Tests.Controller
         private readonly DetailPage _detailPage;
         public WhenResourceDetailLoad()
         {
-            _actionResult = resourceControllerSUT.Details(Resource.ID);
+            _actionResult = _resourceControllerSUT.Details(Resource.ID);
 
             _detailPage = new DetailPage(_actionResult);
         }

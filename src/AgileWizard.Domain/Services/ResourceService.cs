@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using AgileWizard.Domain.Expression;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Repositories;
 
@@ -32,11 +34,6 @@ namespace AgileWizard.Domain.Services
             return resource;
         }
 
-        public IList<Resource> GetNextPageOfResource(long ticksOfLastCreateTime)
-        {
-            return _repository.GetNextPageOfResource(ticksOfLastCreateTime);
-        }
-
         public void UpdateResource(string id, Resource resource)
         {
             var resourceUpdate = _repository.GetResourceById(id);
@@ -65,14 +62,19 @@ namespace AgileWizard.Domain.Services
             _repository.Save();
         }
 
-        public List<Resource> GetResourceListByTag(string tagName)
+        public IList<Resource> GetResourceListByTag(long ticksOfCreateTime, string tagName)
         {
-            return _repository.GetResourceListByTag(tagName);
+            return _repository.GetList(QueryExpressionBuilder.BuildTagResourceList_QueryExpression(ticksOfCreateTime, tagName)).ToList();
         }
 
         public int GetResourcesTotalCountForTag(string tagName)
         {
             return _repository.GetResourcesTotalCountForTag(tagName);
+        }
+
+        public IList<Resource> GetResourceList(long ticksOfCreateTime)
+        {
+            return _repository.GetList(QueryExpressionBuilder.BuildResourceList_QueryExpression(ticksOfCreateTime)).ToList();
         }
     }
 }

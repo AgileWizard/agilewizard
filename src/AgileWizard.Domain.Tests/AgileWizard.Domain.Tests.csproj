@@ -48,13 +48,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Expression\QueryByExpression_ResourceListBuilderTest.cs" />
+    <Compile Include="Expression\QueryExpression_TagListBuilderTest.cs" />
     <Compile Include="Helper\TagHelperTest.cs" />
-    <Compile Include="ModelErrorCollectionExtension.cs" />
+    <Compile Include="Helper\ModelErrorCollectionExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RavenDBHelper.cs" />
+    <Compile Include="Helper\RavenDBHelper.cs" />
     <Compile Include="Repositories\UserRepositoryTest.cs" />
     <Compile Include="Repositories\RepositoryTestBase.cs" />
     <Compile Include="Repositories\ResourceRepositoryTest.cs" />
+    <Compile Include="ResourceFilterTest.cs" />
     <Compile Include="Services\ResourceServiceTest.cs" />
     <Compile Include="Services\UserAuthenticationServiceTest.cs" />
     <Compile Include="Entities\UserTest.cs" />

@@ -451,3 +451,8 @@ table.contentList
 	width: 100%;
 	padding: 2px;
 }
+
+.hidden
+{
+	display:none;
+}

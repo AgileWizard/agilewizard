@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using AgileWizard.Domain.Helper;
 using AgileWizard.Domain.Repositories;
@@ -147,25 +148,6 @@ namespace AgileWizard.IntegrationTests.Steps
          }
          #endregion
 
-         #region Tag
-         [When(@"I wait for non-stale data")]
-        public void WhenIWaitForNonStaleData()
-        {
-            var documentStore = ObjectFactory.GetInstance<IDocumentStore>();
-            var documentSession = ObjectFactory.GetInstance<IDocumentSession>();
-            
-            new DataManager(documentStore).WaitForNonStaleResults(documentSession);
-        }
-
-        [Then(@"resource list of tag '(.+)' should have (\d+) item")]
-        public void ResourceListOfTagShouldHaveItem(string tagName, int count)
-        {
-            var viewResult = Controller.ListByTag(tagName) as ViewResult;
-
-            AssertCountOfResourceList(count, viewResult);
-        }
-        #endregion
-
         #region Like/Dislike resource
         [Then(@"like number is (\d)")]
         public void ThenLikeNumberIs(int likeCount)
@@ -207,7 +189,7 @@ namespace AgileWizard.IntegrationTests.Steps
         {
             var totalResources = 20*totalPages - 19;
             var resources = totalResources.CountOfResouces("Agile");
-            foreach(var resource in resources)
+            foreach (var resource in resources)
             {
                 _repository.Add(resource);
                 _repository.Save();
@@ -228,15 +210,32 @@ namespace AgileWizard.IntegrationTests.Steps
             ActionResult = Controller.ResourceList(ticksOfLastCreateTime);
             AssertCountOfResourceList(numberOfResources, ActionResult as ViewResultBase);
         }
+        #endregion
 
-
-        [Then(@"there will be (\d+) resources on the tag list")]
-        public void ThenThereWillBeResourcesOnTheTagList(int numberOfResources)
+        #region Tag
+        [When(@"I wait for non-stale data")]
+        public void WhenIWaitForNonStaleData()
         {
-            //ActionResult = Controller.ListByTag(CurrentPage);
-            AssertCountOfResourceList(numberOfResources, ActionResult as ViewResultBase);
+            var documentStore = ObjectFactory.GetInstance<IDocumentStore>();
+            var documentSession = ObjectFactory.GetInstance<IDocumentSession>();
+
+            new DataManager(documentStore).WaitForNonStaleResults(documentSession);
         }
 
+        [Then(@"resource list of tag '(.+)' should have (\d+) item")]
+        public void ResourceListOfTagShouldHaveItem(string tagName, int count)
+        {
+            ActionResult = Controller.ListByTag(tagName) as ViewResult;
+            AssertCountOfResourceList(count, ActionResult as ViewResultBase);
+        }
+
+        [Then(@"next page of resoure list of tag 'Agile' should have (\d+) item")]
+        public void ThenNextPageOfResoureListOfTagAgileShouldHave1Item(int numberOfResources)
+        {
+            //var ticksOfLastCreateTime = GetTicksOfLastCreateTime();
+            //ActionResult = Controller.ListByTag("Agile");
+            AssertCountOfResourceList(numberOfResources, ActionResult as ViewResultBase);
+        }
         #endregion
 
         #region Private Resource Procedures
@@ -270,18 +269,6 @@ namespace AgileWizard.IntegrationTests.Steps
                 }
             }
         }
-
-        //private void ProcessResourceDetailViewModelTag(Table table, ResourceDetailViewModel resourceDetailViewModel)
-        //{
-        //    var resource = new 
-        //    foreach (var row in table.Rows)
-        //    {
-        //        if (row["Field"] == "Tags")
-        //        {
-        //            resource.Tags = row["Value"];
-        //        }
-        //    }
-        //}
 
         private void AssertResource(Resource resource, ResourceDetailViewModel resourceDetailViewModel)
         {

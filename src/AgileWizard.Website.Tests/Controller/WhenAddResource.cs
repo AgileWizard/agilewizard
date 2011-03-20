@@ -1,4 +1,4 @@
-﻿using AgileWizard.Domain.Models;
+using AgileWizard.Domain.Models;
 using AgileWizard.Website.Tests.PageObject;
 using Moq;
 using Xunit;
@@ -13,7 +13,7 @@ namespace AgileWizard.Website.Tests.Controller
             WillSaveResourceToService();
 
             //Act
-            _actionResult = resourceControllerSUT.Create(_resourceDetailViewModel);
+            _actionResult = _resourceControllerSUT.Create(_resourceDetailViewModel);
 
             _detailPage = new DetailPage(_actionResult);
         }

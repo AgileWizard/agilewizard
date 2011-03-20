@@ -12,7 +12,7 @@ namespace AgileWizard.Domain.QueryIndexes
         public ResourceIndexByTitle()
         {
             Map = resources => from resource in resources
-                               select new { Title = resource.Title };
+                               select new {resource.Title };
 
             Index(x => x.Title, FieldIndexing.Analyzed);
         }

@@ -9,7 +9,7 @@ namespace AgileWizard.Website.Tests.Controller
         protected OneResourceLoadBase()
         {
             //Arrange
-            ResourceServiceGetResourceByIDWillBeCalled();
+            ResourceService_GetResourceByID_ShouldBeCalled();
             ResourceMapperDomainToDetailViewModelWillBeCalled();
         }
 

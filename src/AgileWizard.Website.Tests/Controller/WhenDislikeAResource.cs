@@ -1,4 +1,4 @@
-﻿using AgileWizard.Domain.Models;
+using AgileWizard.Domain.Models;
 using Xunit;
 
 namespace AgileWizard.Website.Tests.Controller
@@ -7,7 +7,7 @@ namespace AgileWizard.Website.Tests.Controller
     {
         public WhenDislikeAResource()
         {
-            resourceControllerSUT.Dislike(Resource.ID);
+            _resourceControllerSUT.Dislike(Resource.ID);
         }
 
         [Fact]

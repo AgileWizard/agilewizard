@@ -3,28 +3,5 @@
     <%: ResourceString.Resources%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        <%: ResourceString.Resources%></h2>
-        <%if (Request.IsAuthenticated) {%>
-        <p>
-        <%: Html.ActionLink(ResourceString.CreateResourceLink, "Create", null, new { @class="link", @id="create_link"})%>
-        </p>
-        <%}%>
-    <div id="resource-list-container"><%: Html.Partial("ResourceList", Model) %></div>
-    <div id="more-area"><input type=button id="more" value="More" /></div>
-    <script type="text/javascript" language="javascript">
-        <%var nTicks = (long)ViewData["ticksOfLastCreateTime"]; %>
-        $(function () {
-            $('#more').click(function () {
-                $.get('/Resource/ResourceList', {ticksOfLastCreateTime:<%=nTicks %>}, function(data){
-                    $('#resource-list-container').append(data);
-                });
-            });
-            $(window).scroll(function(){
-                if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100){
-                    $("#more").click();
-                }
-            });
-        });
-    </script>
+   <div id="resource-paging-list-container"><%: Html.Partial("ResourcePagingList", Model) %></div>
 </asp:Content>

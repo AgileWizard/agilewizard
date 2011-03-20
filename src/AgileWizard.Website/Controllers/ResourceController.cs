@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Web.Mvc;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Repositories;
@@ -14,29 +13,22 @@ namespace AgileWizard.Website.Controllers
 {
     public class ResourceController : MvcControllerBase
     {
-        private const string TICKSOFCREATETIME = "ticksOfLastCreateTime";
         private IResourceService ResourceService { get; set; }
         private IDocumentSession DocumentSession { get; set; }
         public IResourceMapper ResourceMapper { get; set; }
-        public IResourceListViewService ResourceListViewService { get; set; }
+        public IResourceListViewProcessor ResourceListViewProcessor { get; set; }
 
         public ResourceController(IResourceService resourceService, 
             IDocumentSession documentSession, 
             ISessionStateRepository sessionStateRepository, 
             IResourceMapper resourceMapper,
-            IResourceListViewService resourceListViewService)
+            IResourceListViewProcessor resourceListViewProcessor)
             : base(sessionStateRepository)
         {
             ResourceService = resourceService;
             DocumentSession = documentSession;
             ResourceMapper = resourceMapper;
-            ResourceListViewService = resourceListViewService;
-        }
-
-        public ActionResult Index()
-        {
-            var resourceListViewModel = GetNextPageOfResource(DateTime.Now.Ticks);
-            return View(resourceListViewModel);
+            ResourceListViewProcessor = resourceListViewProcessor;
         }
 
         [HttpPost]
@@ -81,10 +73,18 @@ namespace AgileWizard.Website.Controllers
             return RedirectToAction("Details", new { id });
         }
 
+        public ActionResult Index()
+        {
+            var resources = ResourceService.GetResourceList(DateTime.Now.Ticks);
+            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData);
+            return View(resourceListViewModel);
+        }
+
         public ActionResult ResourceList(long ticksOfLastCreateTime)
         {
-            var resourceList = GetNextPageOfResource(ticksOfLastCreateTime);
-            return PartialView("ResourceList", resourceList);
+            var resources = ResourceService.GetResourceList(ticksOfLastCreateTime);
+            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData);
+            return PartialView("ResourceList", resourceListViewModel);
         }
         #endregion
 
@@ -107,27 +107,10 @@ namespace AgileWizard.Website.Controllers
         #region Tag
         public ActionResult ListByTag(string tagName)
         {
-            var resourceList = GetResourceListByTag(tagName);
-            return View(resourceList);
+            var resources = ResourceService.GetResourceListByTag(DateTime.Now.Ticks, tagName);
+            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData);
+            return View(resourceListViewModel);
         }
-        #endregion
-
-        #region Private functions
-
-        public IList<ResourceListViewModel> GetNextPageOfResource(long ticksOfLastCreateTime)
-        {
-            var resourceListViewModel = ResourceListViewService.GetNextPageOfResource(ticksOfLastCreateTime);
-            long ticksOfCreateTime = resourceListViewModel.Count > 0 ? resourceListViewModel[resourceListViewModel.Count - 1].CreateTime.Ticks : 0;
-            ViewData[TICKSOFCREATETIME] = ticksOfCreateTime;
-            return resourceListViewModel;
-        }
-
-        private IList<ResourceListViewModel> GetResourceListByTag(string tagName)
-        {
-            var resources = ResourceService.GetResourceListByTag(tagName);
-            var resourceListViewModel = ResourceMapper.MapFromDomainListToListViewModel(resources);
-            return resourceListViewModel;
-        } 
         #endregion
     }
 }

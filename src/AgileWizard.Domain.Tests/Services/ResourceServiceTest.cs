@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AgileWizard.Domain.Expression;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
@@ -15,7 +16,6 @@ namespace AgileWizard.Domain.Tests.Services
 
         private readonly DateTime _prepareTime = DateTime.Now.AddSeconds(-1);
         private Resource _resource = Resource.DefaultResource();
-        private int _ticksOfCreateDateTime;
 
         public ResourceServiceTest()
         {
@@ -56,18 +56,17 @@ namespace AgileWizard.Domain.Tests.Services
         }
 
         [Fact]
-        public void Can_get_a_list_of_resources()
+        public void Get_ListOf_Resources()
         {
-            //Arrange
-            _ticksOfCreateDateTime = 0;
-            
-            var expectedResources = new List<Resource>();
-            _repository.Setup(r => r.GetNextPageOfResource(_ticksOfCreateDateTime)).Returns(expectedResources);
+            // Arrange
+            var expectedResources = 10.CountOfResouces("tag");
+            _repository.Setup(r => r.GetList(It.IsAny<ResourceListQueryExpression>())).Returns(expectedResources);
 
-            //Act
-            var actualResources = _service.GetNextPageOfResource(_ticksOfCreateDateTime);
+            // Act
+            var actualResources = _service.GetResourceList(DateTime.Now.Ticks);
 
-            //Assert
+            // Assert
+            _repository.Verify(r => r.GetList(It.IsAny<ResourceListQueryExpression>()));
             Assert.Equal(expectedResources, actualResources);
         }
 
@@ -180,15 +179,13 @@ namespace AgileWizard.Domain.Tests.Services
         [Fact]
         public void should_return_resource_by_given_tag()
         {
-            // Arrange
-            var expectedResources = new List<Resource>();
-            _repository.Setup(r => r.GetResourceListByTag("agile")).Returns(expectedResources);
+            var expectedResources = 10.CountOfResouces("tag");
+            _repository.Setup(r => r.GetList(It.IsAny<TagResourceListQueryExperssion>())).Returns(expectedResources);
 
-            // Act
-            var result = _service.GetResourceListByTag("agile");
+            var actualResources = _service.GetResourceListByTag(DateTime.Now.Ticks, "tag");
 
-            // Assert
-            Assert.Same(expectedResources, result);
+            _repository.Verify(r => r.GetList(It.IsAny<TagResourceListQueryExperssion>()));
+            Assert.Equal(expectedResources, actualResources);
         }
         #endregion
 

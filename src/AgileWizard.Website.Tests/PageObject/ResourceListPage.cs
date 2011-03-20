@@ -30,7 +30,7 @@ namespace AgileWizard.Website.Tests.PageObject
             var viewResult = (ViewResultBase)_actionResult;
            
              var viewModel = (IList<ResourceListViewModel>)viewResult.ViewData.Model;
-             long ticksOfLastCreateTime = viewModel[viewModel.Count - 1].CreateTime.Ticks;
+             var ticksOfLastCreateTime = viewModel[viewModel.Count - 1].CreateTime.Ticks;
              Assert.Equal(viewResult.ViewData["ticksOfLastCreateTime"], ticksOfLastCreateTime);
         }
 

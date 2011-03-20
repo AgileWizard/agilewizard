@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AgileWizard.Domain.Expression;
 using AgileWizard.Domain.Models;
 
 namespace AgileWizard.Domain.Repositories
@@ -7,9 +8,8 @@ namespace AgileWizard.Domain.Repositories
     {
         Resource Add(Resource resource);
         Resource GetResourceById(string id);
-        List<Resource> GetNextPageOfResource(long ticksOfLastCreateTime);
-        List<Resource> GetResourceListByTag(string tagName);
         int GetResourcesTotalCountForTag(string tagName);
         void Save();
+        IEnumerable<Resource> GetList(QueryExpression queryExpression);
     }
 }

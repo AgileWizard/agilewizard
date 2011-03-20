@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Raven.Client.Indexes;
-using Raven.Database;
 using AgileWizard.Domain.Models;
 using Raven.Client.Document;
 using Raven.Database.Indexing;

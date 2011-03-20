@@ -1,4 +1,4 @@
-﻿using AgileWizard.Domain.Models;
+using AgileWizard.Domain.Models;
 using Xunit;
 
 namespace AgileWizard.Website.Tests.Controller
@@ -7,7 +7,7 @@ namespace AgileWizard.Website.Tests.Controller
     {
         public WhenLikeAResource()
         {
-            resourceControllerSUT.Like(Resource.ID);
+            _resourceControllerSUT.Like(Resource.ID);
         }
 
         [Fact]
@@ -22,7 +22,7 @@ namespace AgileWizard.Website.Tests.Controller
             //Arrange
 
             //Act
-            resourceControllerSUT.Dislike(Resource.ID);
+            _resourceControllerSUT.Dislike(Resource.ID);
 
             //Assert
             _resourceService.Verify(r => r.DislikeThisResource(Resource.ID));

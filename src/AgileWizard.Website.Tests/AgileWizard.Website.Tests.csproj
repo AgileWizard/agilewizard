@@ -56,16 +56,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\ResourceListTest.cs" />
+    <Compile Include="Controller\ResourceList\ResourceListTest.cs" />
     <Compile Include="Controller\OneResourceLoadBase.cs" />
     <Compile Include="Controller\OneResourceUpdateBase.cs" />
     <Compile Include="Controller\ResourceControllerTestBase.cs" />
+    <Compile Include="Controller\ResourceList\WhenIndexLoad.cs" />
+    <Compile Include="Controller\ResourceList\WhenResourceList_OfTag_Loaded.cs" />
     <Compile Include="Controller\WhenAddResource.cs" />
     <Compile Include="Controller\WhenDislikeAResource.cs" />
     <Compile Include="Controller\WhenEditResourceLoad.cs" />
     <Compile Include="Controller\WhenEditResourceUpdate.cs" />
     <Compile Include="Controller\WhenResourceDetailLoad.cs" />
-    <Compile Include="Controller\WhenTagListLoad.cs" />
+    <Compile Include="Helper\ResourceListViewProcessorTest.cs" />
+    <Compile Include="Helper\ResourceListViewProcess_ TicksOfCreateTime_Test.cs" />
     <Compile Include="Model\AccountMapperTest.cs" />
     <Compile Include="Model\AccountModelsTest.cs" />
     <Compile Include="Helper\ResourceModelTestHelper.cs" />
@@ -80,7 +83,6 @@
     <Compile Include="Controller\WhenLikeAResource.cs" />
     <Compile Include="Helper\TagHelperTest.cs" />
     <Compile Include="Helper\UtilsTest.cs" />
-    <Compile Include="ResourceListViewServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AgileWizard.Domain\AgileWizard.Domain.csproj">

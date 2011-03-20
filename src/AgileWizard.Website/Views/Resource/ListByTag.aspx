@@ -4,12 +4,5 @@
     <%: ResourceString.Resources%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        <%: ResourceString.Resources%></h2>
-        <%if (Request.IsAuthenticated) {%>
-        <p>
-        <%: Html.ActionLink(ResourceString.CreateResourceLink, "Create", null, new { @class="link", @id="create_link"})%>
-        </p>
-        <%}%>
-    <%: Html.Partial("ResourceList", Model) %>
+      <div id="resource-paging-list-container"><%: Html.Partial("ResourcePagingList", Model) %></div>
 </asp:Content>

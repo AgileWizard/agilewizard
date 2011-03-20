@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace AgileWizard.Domain.Tests
+namespace AgileWizard.Domain.Tests.Helper
 {
     public static class ModelErrorCollectionExtension
     {

@@ -7,12 +7,12 @@ namespace AgileWizard.Domain.Services
     {
         Resource AddResource(Resource resource);
         Resource GetResourceById(string id);
-        IList<Resource> GetNextPageOfResource(long ticksOfLastCreateTime);
         int GetResourcesTotalCountForTag(string tagName);
         void UpdateResource(string id, Resource resource);
         void LikeThisResource(string resourceId);
         void DislikeThisResource(string resourceId);
 
-        List<Resource> GetResourceListByTag(string tagName);
+        IList<Resource> GetResourceList(long ticksOfCreateTime);
+        IList<Resource> GetResourceListByTag(long ticksOfCreateTime, string tagName);
     }
 }

@@ -1,4 +1,4 @@
-﻿using AgileWizard.Domain.Models;
+using AgileWizard.Domain.Models;
 using AgileWizard.Website.Tests.PageObject;
 using Moq;
 using Xunit;
@@ -9,7 +9,7 @@ namespace AgileWizard.Website.Tests.Controller
     {
         public WhenEditResourceUpdate()
         {
-            _actionResult = resourceControllerSUT.Edit(Resource.ID, _resourceDetailViewModel);
+            _actionResult = _resourceControllerSUT.Edit(Resource.ID, _resourceDetailViewModel);
 
             _detailPage = new DetailPage(_actionResult);
         }

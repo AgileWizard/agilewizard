@@ -15,17 +15,16 @@ namespace AgileWizard.Website.Tests.Controller
     public class ResourceControllerTestBase
     {
         #region Fields
-        
         protected readonly Mock<IResourceService> _resourceService;
         protected readonly Mock<ISessionStateRepository> _sessionStateRepository;
         protected readonly Mock<IDocumentSession> _documentSession;
         protected readonly Mock<IResourceMapper> _resoureMapper;
-        protected readonly Mock<IResourceListViewService> _resourceListViewService;
+        protected Mock<IResourceListViewProcessor> _resourceListViewProcessor;
 
         protected readonly Resource _resource = Resource.DefaultResource();
         protected readonly ResourceDetailViewModel _resourceDetailViewModel = ResourceModelTestHelper.BuildDefaultResourceDetailViewModel();
 
-        protected readonly ResourceController resourceControllerSUT;
+        protected readonly ResourceController _resourceControllerSUT;
 
         protected ActionResult _actionResult;
         #endregion
@@ -36,14 +35,14 @@ namespace AgileWizard.Website.Tests.Controller
             _sessionStateRepository = new Mock<ISessionStateRepository>();
             _documentSession = new Mock<IDocumentSession>();
             _resoureMapper = new Mock<IResourceMapper>();
-            _resourceListViewService = new Mock<IResourceListViewService>();
+            _resourceListViewProcessor = new Mock<IResourceListViewProcessor>();
 
             ResourceMapper.ConfigAutoMapper();
 
-            resourceControllerSUT = new ResourceController(_resourceService.Object, _documentSession.Object, _sessionStateRepository.Object, _resoureMapper.Object, _resourceListViewService.Object);
+            _resourceControllerSUT = new ResourceController(_resourceService.Object, _documentSession.Object, _sessionStateRepository.Object, _resoureMapper.Object, _resourceListViewProcessor.Object);
         }
 
-        protected void ResourceServiceGetResourceByIDWillBeCalled()
+        protected void ResourceService_GetResourceByID_ShouldBeCalled()
         {
             _resourceService.Setup(s => s.GetResourceById(Resource.ID)).Returns(_resource);
         }

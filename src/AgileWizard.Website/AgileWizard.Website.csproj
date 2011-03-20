@@ -91,8 +91,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helper\IResourceListViewService.cs" />
-    <Compile Include="Helper\ResourceListViewService.cs" />
+    <Compile Include="Helper\IResourceListViewProcessor.cs" />
+    <Compile Include="Helper\ResourceListViewProcessor.cs" />
     <Compile Include="Helper\TagsHelper.cs" />
     <Compile Include="Helper\Utils.cs" />
     <Compile Include="Mapper\AccountMapper.cs" />
@@ -106,6 +106,7 @@
     <Compile Include="SessionStateRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Content\Images\arrow.gif" />
     <Content Include="Content\Images\button-icon.png" />
     <Content Include="Content\Images\default_resource_icon.jpg" />
@@ -390,6 +391,7 @@
     <Content Include="Views\Shared\Footer.ascx" />
     <Content Include="Views\Shared\HtmlEditor.ascx" />
     <Content Include="Views\Shared\ResourceList.ascx" />
+    <Content Include="Views\Shared\ResourcePagingList.ascx" />
     <Content Include="Views\Shared\Right.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

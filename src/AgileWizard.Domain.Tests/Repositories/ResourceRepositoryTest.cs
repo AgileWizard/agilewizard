@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AgileWizard.Domain.Helper;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.QueryIndexes;
 using AgileWizard.Domain.Repositories;
+using AgileWizard.Domain.Tests.Helper;
 using Xunit;
 
 namespace AgileWizard.Domain.Tests.Repositories
@@ -12,8 +12,6 @@ namespace AgileWizard.Domain.Tests.Repositories
     {
         private readonly ResourceRepository _resourceRepositorySUT;
         private IList<Resource> _resourceList;
-        private const int _countOfLessThanOnePageOfResource = 11;
-        private const int _countOfThreePagesOfResources = 41;
 
         public ResourceRepositoryTest()
         {
@@ -50,41 +48,6 @@ namespace AgileWizard.Domain.Tests.Repositories
         }
         #endregion
 
-        #region Resource List Paging Ordering
-        [Fact]
-        public void WhenLessThan_OnePage_Retrieve_All()
-        {
-            AssertResourcePaging(DateTime.Now.Ticks, _countOfLessThanOnePageOfResource, _countOfLessThanOnePageOfResource);
-        }
-
-        [Fact]
-        public void WhenMoreThan_OnePage_RetrieveOnePage()
-        {
-            AssertResourcePaging(DateTime.Now.Ticks, _countOfThreePagesOfResources, 20);
-        }
-
-        [Fact]
-        public void ResourceOfNextPage_ShouldOlderThan_NotEqualTo_LastResourceOfCurrentPage()
-        {
-            AddResources(_countOfThreePagesOfResources);
-
-            var resources = _resourceRepositorySUT.GetNextPageOfResource(_resourceList[20].CreateTime.Ticks);
-
-            Assert.Equal(_resourceList[21].Id, resources[0].Id);
-        }
-
-        [Fact]
-        public void resource_list_should_ordered_by_datetime_descending()
-        {
-            AddResources(_countOfThreePagesOfResources);
-
-            var resources = _resourceRepositorySUT.GetNextPageOfResource(DateTime.Now.Ticks);
-
-            AssertResourceOrderByLastupdateTimeDescending(resources);
-
-        }
-        #endregion
-
         #region Save Resource
         [Fact]
         public void resource_can_be_save()
@@ -97,35 +60,6 @@ namespace AgileWizard.Domain.Tests.Repositories
 
             //Assert
             _session.VerifyAll();
-        }
-        #endregion
-
-        #region Tag function
-        [Fact]
-        public void should_return_resource_by_given_tag()
-        {
-            // Arrange
-            _session.SetupQueryResult(typeof(ResourceIndexByTag).Name, 10.CountOfResouces("agile"));
-
-            // Act
-            var result = _resourceRepositorySUT.GetResourceListByTag("agile");
-
-            // Assert
-            Assert.Equal(10, result.Count);
-        }
-
-        [Fact]
-        public void case_of_tag_letter_will_be_ignored()
-        {
-            // Arrange
-            List<Resource> resourceList = GetResourceListWithLowerAndUpperCaseTag();
-            _session.SetupQueryResult(typeof(ResourceIndexByTag).Name, resourceList);
-
-            // Act
-            var result = _resourceRepositorySUT.GetResourceListByTag("case");
-
-            // Assert
-            Assert.Equal(2, result.Count);
         }
         #endregion
 
@@ -159,17 +93,6 @@ namespace AgileWizard.Domain.Tests.Repositories
 
             var resourceList = new List<Resource> {resource1, resource2};
             return resourceList;
-        }
-
-        private void AssertResourcePaging(long ticksOfLastCreateTime, int totalCountOfResource, int expectedCountOfResource)
-        {
-            AddResources(totalCountOfResource);
-
-            var resources = _resourceRepositorySUT.GetNextPageOfResource(ticksOfLastCreateTime);
-
-            Assert.Equal(expectedCountOfResource, resources.Count);
-
-            _session.VerifyAll();
         }
 
         private void AddResources(int count)
