@@ -1,5 +1,4 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<AgileWizard.Website.Models.AccountCreateModel>" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     <%: AccountString.CreateAccountTitle%>
 </asp:Content>
@@ -9,16 +8,16 @@
     <% Html.EnableClientValidation(); %>
     <% using (Html.BeginForm())
        {%>
-        <%: Html.ValidationSummary(true, AccountString.CreateUserFailed) %>
+    <%: Html.ValidationSummary(true, AccountString.CreateUserFailed) %>
     <fieldset>
         <legend>
             <%: AccountString.CreateAccountTitle%></legend>
         <div class="editor-label">
-            <%: Html.LabelFor(m => m.UserName) %>
+            <%: Html.LabelFor(m => m.Email) %>
         </div>
         <div class="editor-field">
-            <%: Html.TextBoxFor(m => m.UserName) %>
-            <%: Html.ValidationMessageFor(m => m.UserName) %>
+            <%: Html.TextBoxFor(m => m.Email) %>
+            <%: Html.ValidationMessageFor(m => m.Email) %>
         </div>
         <div class="editor-label">
             <%: Html.LabelFor(m => m.Password) %>
@@ -49,4 +48,5 @@
     <% } %>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
+   
 </asp:Content>

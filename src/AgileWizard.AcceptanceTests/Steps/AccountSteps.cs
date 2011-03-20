@@ -27,7 +27,7 @@ namespace AgileWizard.AcceptanceTests.Steps
         [Given(@"enter data in account page")]
         public void GivenEnterDataInAccountPage(Table table)
         {
-            var data = table.CreateInstance<AccountData>();
+            var data = table.CreateInstance<AccountCreatData>();
             _accountCreateOrEditPage.FillData(data);
         }
 

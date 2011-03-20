@@ -11,15 +11,15 @@ namespace AgileWizard.AcceptanceTests.PageObject
     [Page(UrlRegex = "Account/Create|Edit")]
     public class AccountCreateEditPage : Page
     {
-        public string UserName
+        public string Email
         {
             get
             {
-                return Document.TextField(Find.ByName("UserName")).Value;
+                return Document.TextField(Find.ByName("Email")).Value;
             }
             set
             {
-                Document.TextField(Find.ByName("UserName")).Value = value;
+                Document.TextField(Find.ByName("Email")).Value = value;
             }
         }
 
@@ -36,9 +36,9 @@ namespace AgileWizard.AcceptanceTests.PageObject
         }
 
 
-        public void FillData(AccountData data)
+        public void FillData(AccountCreatData data)
         {
-            this.UserName = data.UserName;
+            this.Email = data.Email;
             this.Password = data.Password;
         }
 

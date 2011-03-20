@@ -120,6 +120,9 @@
   <data name="Bio" xml:space="preserve">
     <value>简介</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>邮箱</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>密 码</value>
   </data>

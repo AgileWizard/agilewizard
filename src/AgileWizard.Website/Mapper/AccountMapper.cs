@@ -11,9 +11,10 @@ namespace AgileWizard.Website.Mapper
     {
         public static void ConfigAutoMapper()
         {
-            AutoMapper.Mapper.CreateMap<User, AccountCreateModel>();
-
-            AutoMapper.Mapper.CreateMap<AccountCreateModel, User>();
+            AutoMapper.Mapper.CreateMap<User, AccountCreateModel>()
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.UserName));
+            AutoMapper.Mapper.CreateMap<AccountCreateModel, User>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));
         }
 
         public AccountCreateModel MapFromDomainToViewModel(User user)

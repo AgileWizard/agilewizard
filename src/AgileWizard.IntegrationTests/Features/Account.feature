@@ -21,12 +21,12 @@ Scenario: Create a new account
 	When logon with correct username and password
 	And try to create a account with following value
 	| Field			| Value			|
-	| UserName		| testaccount	|
+	| Email			| testaccount@gmail.com	|
 	| Password		| testpassword	|
 	Then create the account successfully
 	Then logout the current user
 	Then logon with the following account
 	| Field			| Value			|
-	| UserName		| testaccount	|
+	| UserName		| testaccount@gmail.com	|
 	| Password		| testpassword	|
 	Then navigate to home page
