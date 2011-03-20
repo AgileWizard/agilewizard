@@ -104,7 +104,7 @@ namespace AgileWizard.Website.Tests.Controller
         {
             var result = _accountControllerSUT.Create(new AccountCreateModel
             {
-                UserName = userName,
+                Email = userName,
                 Password = password
             });
 

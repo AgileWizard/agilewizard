@@ -21,7 +21,7 @@ namespace AgileWizard.Website.Tests.Model
             var user = User.DefaultUser();
             var model = _resourceMapperSUT.MapFromDomainToViewModel(user);
 
-            Assert.Equal(user.UserName, model.UserName);
+            Assert.Equal(user.UserName, model.Email);
             Assert.Equal(user.Password, model.Password);
         }
 
@@ -31,7 +31,7 @@ namespace AgileWizard.Website.Tests.Model
             var user = AccountCreateModel.DefaultModel();
             var model = _resourceMapperSUT.MapFromViewModelToDomain(user);
 
-            Assert.Equal(user.UserName, model.UserName);
+            Assert.Equal(user.Email, model.UserName);
             Assert.Equal(user.Password, model.Password);
         }
     }

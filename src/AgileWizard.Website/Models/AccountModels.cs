@@ -13,8 +13,8 @@ namespace AgileWizard.Website.Models
     public class LogOnModel
     {
         [LocalizedRequiredAttribute]
-        [LocalizedDisplayName("UserName", NameResourceType=typeof(AccountName))]
-        public string UserName { get; set; }
+        [LocalizedDisplayName("UserName", NameResourceType = typeof(AccountName))]
+        public virtual string UserName { get; set; }
 
         [LocalizedRequiredAttribute]
         [DataType(DataType.Password)]
@@ -24,15 +24,16 @@ namespace AgileWizard.Website.Models
     #endregion
 
     #region AccountCreateModel
-    public class AccountCreateModel : LogOnModel
+    public class AccountCreateModel
     {
-        const string USERNAME = "agilewizard";
+        const string EMAIL = "agilewizard@gmail.com";
         const string PASSWORD = "agilewizard";
+
         internal static AccountCreateModel DefaultModel()
         {
             return new AccountCreateModel
             {
-                UserName = USERNAME,
+                Email = EMAIL,
                 Password = PASSWORD
             };
         }
@@ -43,6 +44,17 @@ namespace AgileWizard.Website.Models
         [LocalizedDisplayName("Bio", NameResourceType = typeof(AccountName))]
         public string Bio { get; set; }
 
+        [LocalizedRequiredAttribute]
+        [Required(ErrorMessageResourceName = "EmailIsRequired", ErrorMessageResourceType = typeof(ValidationString))]
+        [LocalizedDisplayName("Email", NameResourceType = typeof(AccountName))]
+        [RegularExpression(@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", ErrorMessageResourceName = "EmailIncorrectFormat", ErrorMessageResourceType = typeof(ValidationString))]
+        public string Email { get; set; }
+
+        [LocalizedRequiredAttribute]
+        [DataType(DataType.Password)]
+        [LocalizedDisplayName("Password", NameResourceType = typeof(AccountName))]
+        [Required(ErrorMessageResourceName = "PasswordIsRequired", ErrorMessageResourceType = typeof(ValidationString))]
+        public string Password { get; set; }
     }
     #endregion
 
