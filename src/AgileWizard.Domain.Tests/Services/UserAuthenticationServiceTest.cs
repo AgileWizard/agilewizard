@@ -1,4 +1,5 @@
 ﻿using AgileWizard.Data;
+using AgileWizard.Domain.Helper;
 using AgileWizard.Domain.Users;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
@@ -19,6 +20,7 @@ namespace AgileWizard.Domain.Tests.Services
         private readonly Mock<IUserRepository> _userRepositoryMock;
         private readonly Mock<IFormsAuthenticationService> _formAuthenticationServiceMock;
         private readonly Mock<IConfigurationRepository> _configurationRepository;
+        private readonly Mock<IAvatar> _avatar;
 
         private readonly UserAuthenticationService _userAuthenticationServiceSUT;
 
@@ -30,7 +32,9 @@ namespace AgileWizard.Domain.Tests.Services
 
             _configurationRepository = new Mock<IConfigurationRepository>();
 
-            _userAuthenticationServiceSUT = new UserAuthenticationService(_userRepositoryMock.Object, new FakeSessoinStateRepository(), _formAuthenticationServiceMock.Object, _configurationRepository.Object);
+            _avatar = new Mock<IAvatar>();
+
+            _userAuthenticationServiceSUT = new UserAuthenticationService(_userRepositoryMock.Object, new FakeSessoinStateRepository(), _formAuthenticationServiceMock.Object, _configurationRepository.Object, _avatar.Object);
 
         }
 
@@ -188,6 +192,21 @@ namespace AgileWizard.Domain.Tests.Services
 
             Assert.True(modelError.ContainsKey(string.Empty));
             Assert.True(modelError.ContainsError(string.Empty, AccountString.CreatorLackOfRight));
+        }
+
+        [Fact]
+        public void CreateUser_should_set_avatar_url()
+        {
+            //Arrange
+            const string AVATAR_URL = "Avatar Url";
+            SetUpEmptyUserExpectationForCreateNewAccountWithValidConditions();
+            var modelError = new ModelStateDictionary();
+            var user = new User { UserName = _nonExistignUserName, Password = Guid.NewGuid().ToString() };
+            _avatar.Setup(a => a.GetAvatarUrl(user.UserName)).Returns(AVATAR_URL);
+
+            _userAuthenticationServiceSUT.Create(user, _userName, modelError);
+
+            _userRepositoryMock.Verify(r => r.Add(It.Is<User>(u => u.AvatarUrl == AVATAR_URL)));
         }
 
         private void FormsAuthenticationServiceShouldNotBeCalledWhenWrongSignIn()

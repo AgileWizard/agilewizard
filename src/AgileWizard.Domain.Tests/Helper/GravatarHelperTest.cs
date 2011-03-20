@@ -15,12 +15,12 @@ namespace AgileWizard.Domain.Tests.Helper
         private const string EXPECTED_URL = "http://gravatar.com/avatar/7b687090ba257bb1205c73e7e03b0527?d=mm";
 
         private Mock<IHash> _hash;
-        private GravatarHelper _gravatar;
+        private IAvatar _gravatar;
 
         public GravatarHelperTest()
         {
             _hash = new Mock<IHash>();
-            _gravatar = new GravatarHelper(EMAIL) { Hash = _hash.Object };
+            _gravatar = new Gravatar(_hash.Object);
         }
 
         [Fact]
@@ -28,7 +28,7 @@ namespace AgileWizard.Domain.Tests.Helper
         {
             _hash.Setup(h => h.MD5(It.IsAny<string>())).Returns(HASH_CODE);
 
-            var url = _gravatar.Url;
+            var url = _gravatar.GetAvatarUrl(EMAIL);
 
             Assert.Equal(EXPECTED_URL_PREFIX, url.Substring(0, 27));
             Assert.Equal(HASH_CODE, url.Substring(27, 32));
@@ -39,7 +39,7 @@ namespace AgileWizard.Domain.Tests.Helper
         {
             _hash.Setup(h => h.MD5(It.IsAny<string>())).Returns(HASH_CODE);
 
-            var url = _gravatar.Url;
+            var url = _gravatar.GetAvatarUrl(EMAIL);
 
             Assert.Equal("?d=mm", url.Substring(59));
         }
@@ -47,18 +47,9 @@ namespace AgileWizard.Domain.Tests.Helper
         [Fact]
         public void Get_hash_code_should_base_on_lowercase()
         {
-            var url = _gravatar.Url;
+            var url = _gravatar.GetAvatarUrl(EMAIL);
 
             _hash.Verify(h => h.MD5(It.Is<string>(s => s == EMAIL.ToLower())));
         }
-
-        [Fact(Skip = "Need configuration for StructureMap")]
-        public void Get_complete_url()
-        {
-            var url = GravatarHelper.AvatarUrl(EMAIL);
-
-            Assert.Equal(EXPECTED_URL, url);
-        }
-
     }
 }

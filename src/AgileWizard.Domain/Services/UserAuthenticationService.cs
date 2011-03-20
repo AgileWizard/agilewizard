@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AgileWizard.Domain.Helper;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Users;
 using System.Web.Mvc;
@@ -15,6 +16,7 @@ namespace AgileWizard.Domain.Services
         private ISessionStateRepository SessionStateRepository { get; set; }
         private IFormsAuthenticationService FormsAuthenticationService { get; set; }
         private IConfigurationRepository ConfigurationRepository { get; set; }
+        protected IAvatar Avatar { get; set; }
 
         internal const string PROP_USERNAME = "UserName";
         internal const string PROP_PASSWORD = "Password";
@@ -25,12 +27,13 @@ namespace AgileWizard.Domain.Services
             get { return SessionStateRepository.CurrentUser != null; }
         }
 
-        public UserAuthenticationService(IUserRepository userRepository, ISessionStateRepository sessionStateRepository, IFormsAuthenticationService formsAuthenticationService, IConfigurationRepository configurationRepository)
+        public UserAuthenticationService(IUserRepository userRepository, ISessionStateRepository sessionStateRepository, IFormsAuthenticationService formsAuthenticationService, IConfigurationRepository configurationRepository, IAvatar avatar)
         {
             UserRepository = userRepository;
             SessionStateRepository = sessionStateRepository;
             FormsAuthenticationService = formsAuthenticationService;
             ConfigurationRepository = configurationRepository;
+            Avatar = avatar;
         }
 
         public bool SignIn(string userName, string password)
@@ -66,6 +69,7 @@ namespace AgileWizard.Domain.Services
 
             if (stateDictionary.IsValid)
             {
+                user.AvatarUrl = Avatar.GetAvatarUrl(user.UserName);
                 createdUser = UserRepository.Add(user);
 
                 UserRepository.Save();

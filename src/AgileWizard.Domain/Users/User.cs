@@ -1,4 +1,6 @@
-﻿namespace AgileWizard.Domain.Users
+﻿using System;
+
+namespace AgileWizard.Domain.Users
 {
     public class User
     {
@@ -6,6 +8,7 @@
         public string Password { get; set; }
         public string Rss { get; set; }
         public string Bio { get; set; }
+        public string AvatarUrl { get; set; }
 
         internal static User DefaultUser()
         {
