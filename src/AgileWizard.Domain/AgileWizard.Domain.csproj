@@ -66,6 +66,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainRegistry.cs" />
+    <Compile Include="Helper\GravatarHelper.cs" />
+    <Compile Include="Helper\Hash.cs" />
+    <Compile Include="Helper\IHash.cs" />
     <Compile Include="Helper\TagHelper.cs" />
     <Compile Include="Models\ResourceCounter.cs" />
     <Compile Include="Models\ResourceLog.cs" />

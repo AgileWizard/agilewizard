@@ -48,6 +48,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\GravatarHelperTest.cs" />
+    <Compile Include="Helper\HashTest.cs" />
     <Compile Include="Helper\TagHelperTest.cs" />
     <Compile Include="ModelErrorCollectionExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
