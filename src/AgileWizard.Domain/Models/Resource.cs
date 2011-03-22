@@ -82,6 +82,8 @@ namespace AgileWizard.Domain.Models
                     Id = "ID00000000" + (i + 1),
                     SubmitUser = "user",
                     Tags = tagList,
+                    // Like incremental
+                    Like =i,
                 });
             }
 

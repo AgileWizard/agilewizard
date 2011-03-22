@@ -10,7 +10,7 @@ namespace AgileWizard.Domain.Expression
     {
         public string IndexName { get; set; }
         public Expression<Func<Resource, bool>> Condition { get; set; }
-        public Expression<Func<Resource, DateTime>> OrderBy { get; set; }
+        public Expression<Func<Resource, long>> OrderByColumn { get; set; }
         public int PageSize { get; set; }
     }
 
@@ -20,7 +20,7 @@ namespace AgileWizard.Domain.Expression
         {
             IndexName = typeof (ResourceIndexByTitle).Name;
             Condition = x => x.CreateTime.Ticks < ticksOfCreateTime;
-            OrderBy = x => x.CreateTime;
+            OrderByColumn = x => x.CreateTime.Ticks;
             PageSize = 20;
         }
     }
@@ -34,8 +34,20 @@ namespace AgileWizard.Domain.Expression
                 x =>
                 x.CreateTime.Ticks < ticksOfCreateTime && x.Tags != null &&
                 x.Tags.Any(y => y.Name.ToLower() == tagName.ToLower());
-            OrderBy = x => x.CreateTime;
+            OrderByColumn = x => x.CreateTime.Ticks;
             PageSize = 20;
+        }
+    }
+
+    public class TopLikeResourceListQueryExperssion : QueryExpression
+    {
+        internal TopLikeResourceListQueryExperssion()
+        {
+            IndexName = typeof(ResourceIndexByTitle).Name;
+            Condition =
+                x => true;
+            OrderByColumn = x => x.Like;
+            PageSize = 3;
         }
     }
 }

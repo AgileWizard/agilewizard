@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AgileWizard.Domain.Expression;
@@ -10,7 +10,7 @@ namespace AgileWizard.Domain.Services
     public class ResourceService : IResourceService
     {
         internal const string PAGE_VIEW_COUNTER_NAME = "PageView";
-        private IResourceRepository _repository;
+        private readonly IResourceRepository _repository;
 
         public ResourceService(IResourceRepository repository)
         {
@@ -65,6 +65,11 @@ namespace AgileWizard.Domain.Services
         public IList<Resource> GetResourceListByTag(long ticksOfCreateTime, string tagName)
         {
             return _repository.GetList(QueryExpressionBuilder.BuildTagResourceList_QueryExpression(ticksOfCreateTime, tagName)).ToList();
+        }
+
+        public IList<Resource> GetLikeList()
+        {
+            return _repository.GetList(QueryExpressionBuilder.BuildTopLikeResourceList_QueryExperssion()).ToList();
         }
 
         public int GetResourcesTotalCountForTag(string tagName)

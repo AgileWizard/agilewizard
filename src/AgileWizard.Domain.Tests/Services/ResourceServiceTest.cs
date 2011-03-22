@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using AgileWizard.Domain.Expression;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Repositories;
@@ -189,6 +188,21 @@ namespace AgileWizard.Domain.Tests.Services
         }
         #endregion
 
+
+        #region Resource recommendation list
+        [Fact]
+        public void ShouldReturn_LikeList()
+        {
+            var expectedResources = 3.CountOfResouces("tag");
+            _repository.Setup(r => r.GetList(It.IsAny<TopLikeResourceListQueryExperssion>())).Returns(expectedResources);
+
+            var actualResources = _service.GetLikeList();
+
+            _repository.Verify(r => r.GetList(It.IsAny<TopLikeResourceListQueryExperssion>()));
+            Assert.Equal(expectedResources, actualResources);
+        } 
+        #endregion
+
         #region Private functions
         private void ResourceShouldBeUpdated(Resource resource, Resource resourceToUpdate)
         {
@@ -204,4 +218,6 @@ namespace AgileWizard.Domain.Tests.Services
         } 
         #endregion
     }
+
+   
 }

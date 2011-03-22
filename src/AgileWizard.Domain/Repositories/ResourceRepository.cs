@@ -37,7 +37,7 @@ namespace AgileWizard.Domain.Repositories
         public IEnumerable<Resource> GetList(QueryExpression queryExpression)
         {
             return _documentSession.Query<Resource>(queryExpression.IndexName).Where(queryExpression.Condition.Compile()).
-                OrderByDescending(queryExpression.OrderBy.Compile()).Take(queryExpression.PageSize);
+                OrderByDescending(queryExpression.OrderByColumn.Compile()).Take(queryExpression.PageSize);
         }
 
         public int GetResourcesTotalCountForTag(string tagName)

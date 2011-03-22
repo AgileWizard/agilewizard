@@ -57,16 +57,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\ResourceList\ResourceListTest.cs" />
-    <Compile Include="Controller\OneResourceLoadBase.cs" />
-    <Compile Include="Controller\OneResourceUpdateBase.cs" />
-    <Compile Include="Controller\ResourceControllerTestBase.cs" />
+    <Compile Include="Controller\ResourceList\ResourceRecommendationTest.cs" />
+    <Compile Include="Controller\Resource\OneResourceLoadBase.cs" />
+    <Compile Include="Controller\Resource\OneResourceUpdateBase.cs" />
+    <Compile Include="Controller\Resource\ResourceControllerTestBase.cs" />
     <Compile Include="Controller\ResourceList\WhenIndexLoad.cs" />
     <Compile Include="Controller\ResourceList\WhenResourceList_OfTag_Loaded.cs" />
-    <Compile Include="Controller\WhenAddResource.cs" />
-    <Compile Include="Controller\WhenDislikeAResource.cs" />
-    <Compile Include="Controller\WhenEditResourceLoad.cs" />
-    <Compile Include="Controller\WhenEditResourceUpdate.cs" />
-    <Compile Include="Controller\WhenResourceDetailLoad.cs" />
+    <Compile Include="Controller\Resource\WhenAddResource.cs" />
+    <Compile Include="Controller\Resource\WhenDislikeAResource.cs" />
+    <Compile Include="Controller\Resource\WhenEditResourceLoad.cs" />
+    <Compile Include="Controller\Resource\WhenEditResourceUpdate.cs" />
+    <Compile Include="Controller\Resource\WhenResourceDetailLoad.cs" />
     <Compile Include="Helper\ResourceListViewProcessorTest.cs" />
     <Compile Include="Helper\ResourceListViewProcess_ TicksOfCreateTime_Test.cs" />
     <Compile Include="Model\AccountMapperTest.cs" />
@@ -80,7 +81,7 @@
     <Compile Include="PageObject\OneResourcePageBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controller\AccountControllerTest.cs" />
-    <Compile Include="Controller\WhenLikeAResource.cs" />
+    <Compile Include="Controller\Resource\WhenLikeAResource.cs" />
     <Compile Include="Helper\TagHelperTest.cs" />
     <Compile Include="Helper\UtilsTest.cs" />
   </ItemGroup>

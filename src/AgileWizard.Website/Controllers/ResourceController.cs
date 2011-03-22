@@ -112,5 +112,12 @@ namespace AgileWizard.Website.Controllers
             return View(resourceListViewModel);
         }
         #endregion
+
+        public ActionResult GetLikeList()
+        {
+            var resources = ResourceService.GetLikeList();
+            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData);
+            return PartialView("ResourceRecommendationList", resourceListViewModel);
+        }
     }
 }

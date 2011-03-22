@@ -392,6 +392,7 @@
     <Content Include="Views\Shared\HtmlEditor.ascx" />
     <Content Include="Views\Shared\ResourceList.ascx" />
     <Content Include="Views\Shared\ResourcePagingList.ascx" />
+    <Content Include="Views\Shared\ResourceRecommendationList.ascx" />
     <Content Include="Views\Shared\Right.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

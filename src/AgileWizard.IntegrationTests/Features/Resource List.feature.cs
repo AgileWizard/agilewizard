@@ -27,7 +27,7 @@ namespace AgileWizard.IntegrationTests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Resource List", "As a visitor\r\nI want to see  list of resources", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Resource list", "As a visitor\r\nI want to see  list of recommended resources", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -57,7 +57,7 @@ namespace AgileWizard.IntegrationTests.Features
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "Resource List")]
+        [Xunit.TraitAttribute("FeatureTitle", "Resource list")]
         [Xunit.TraitAttribute("Description", "resource list paging single page")]
         public virtual void ResourceListPagingSinglePage()
         {
@@ -75,7 +75,7 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "Resource List")]
+        [Xunit.TraitAttribute("FeatureTitle", "Resource list")]
         [Xunit.TraitAttribute("Description", "resource list paging multiple page")]
         public virtual void ResourceListPagingMultiplePage()
         {
@@ -95,7 +95,7 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "Resource List")]
+        [Xunit.TraitAttribute("FeatureTitle", "Resource list")]
         [Xunit.TraitAttribute("Description", "List resources by given tag")]
         public virtual void ListResourcesByGivenTag()
         {
@@ -129,7 +129,7 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [Xunit.FactAttribute(Skip="Ignored")]
-        [Xunit.TraitAttribute("FeatureTitle", "Resource List")]
+        [Xunit.TraitAttribute("FeatureTitle", "Resource list")]
         [Xunit.TraitAttribute("Description", "tag list should support paging")]
         public virtual void TagListShouldSupportPaging()
         {

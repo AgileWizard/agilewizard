@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using AgileWizard.Domain.Helper;
 using AgileWizard.Domain.Repositories;
@@ -197,10 +196,10 @@ namespace AgileWizard.IntegrationTests.Steps
         }
 
         [Then(@"there will be (\d+) resources on the page")]
-        public void ThenThereWillBeResourcesOnThePage(int numberOfResources)
+        public void ThenThereWillBeResourcesOnThePage(int countOfResources)
         {
             ActionResult = Controller.Index() as ViewResult;
-            AssertCountOfResourceList(numberOfResources, ActionResult as ViewResultBase);
+            AssertCountOfResourceList(countOfResources, ActionResult as ViewResultBase);
         }
 
         [Then(@"there will be (\d+) more resources on the page")]
@@ -234,7 +233,21 @@ namespace AgileWizard.IntegrationTests.Steps
         {
             //var ticksOfLastCreateTime = GetTicksOfLastCreateTime();
             //ActionResult = Controller.ListByTag("Agile");
-            //AssertCountOfResourceList(numberOfResources, ActionResult as ViewResultBase);
+            //AssertCountOfResourceList(countOfResources, ActionResult as ViewResultBase);
+        }
+        #endregion
+
+        #region Resource list at home page
+        [When(@"I see top like resources")]
+        public void WhenISeeTopLikeResources()
+        {
+            ActionResult = Controller.GetLikeList() as ViewResult;
+        }
+
+        [Then(@"order by like desc")]
+        public void ThenOrderByLikeDesc()
+        {
+            AssertResourceListViewModelOrderedByLike();
         }
         #endregion
 
@@ -299,6 +312,15 @@ namespace AgileWizard.IntegrationTests.Steps
         {
             var _viewResult = ActionResult as ViewResult;
             return (long)_viewResult.ViewData["ticksOfLastCreateTime"];
+        }
+
+        private void AssertResourceListViewModelOrderedByLike()
+        {
+            var resourceListViewModels =
+                ((ViewResultBase)ActionResult).ViewData.Model as IList<ResourceListViewModel>;
+
+            Assert.True(resourceListViewModels[0].Like > resourceListViewModels[1].Like);
+            Assert.True(resourceListViewModels[1].Like > resourceListViewModels[2].Like);
         }
 
         #endregion

@@ -1,6 +1,6 @@
-﻿Feature: Resource List
+﻿Feature: Resource list
 	As a visitor
-	I want to see  list of resources
+	I want to see  list of recommended resources
 
 Scenario: resource list paging single page
 	Given there are 1 pages of resources
@@ -30,6 +30,8 @@ Scenario: tag list should support paging
 	When I wait for non-stale data
 	Then resource list of tag 'Agile' should have 20 item
 	Then next page of resoure list of tag 'Agile' should have 1 item
+
+
 
 
 

@@ -7,7 +7,8 @@
     <div style="margin-left:8px;">
         <img src="../../Content/Images/home_pic.png" alt="" align=middle />
     </div>
-   
-    <div><%
-             Html.RenderAction("ResourceList", "Resource", new { ticksOfLastCreateTime = DateTime.Now.Ticks }); %></div>
+    <!-- to replace after art design-->
+    <div>Top like resource list</div>
+    <!-- to replace after art design-->
+    <div><%Html.RenderAction("GetLikeList", "Resource"); %></div>
 </asp:Content>

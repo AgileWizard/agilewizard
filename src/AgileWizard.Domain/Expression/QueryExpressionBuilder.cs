@@ -2,14 +2,19 @@
 {
     public class QueryExpressionBuilder
     {
-        public static QueryExpression BuildResourceList_QueryExpression(long ticksOfCreateTime)
+        public static ResourceListQueryExpression BuildResourceList_QueryExpression(long ticksOfCreateTime)
         {
             return new ResourceListQueryExpression(ticksOfCreateTime);
         }
 
-        public static QueryExpression BuildTagResourceList_QueryExpression(long ticksOfCreateTime, string tagName)
+        public static TagResourceListQueryExperssion BuildTagResourceList_QueryExpression(long ticksOfCreateTime, string tagName)
         {
             return new TagResourceListQueryExperssion(ticksOfCreateTime, tagName);
+        }
+
+        public static TopLikeResourceListQueryExperssion BuildTopLikeResourceList_QueryExperssion()
+        {
+            return new TopLikeResourceListQueryExperssion();
         }
     }
 }

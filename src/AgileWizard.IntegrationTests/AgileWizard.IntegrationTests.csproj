@@ -77,6 +77,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EditResource.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\HomeList.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HomeList.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\LikeDislikeResource.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -137,6 +142,10 @@
     <None Include="Features\EditResource.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>EditResource.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\HomeList.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>HomeList.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\LikeDislikeResource.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
