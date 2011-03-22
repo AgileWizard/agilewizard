@@ -40,3 +40,4 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("AgileWizard.Domain.Tests")]
 [assembly: InternalsVisibleTo("AgileWizard.Locale.Tests")]
 [assembly: InternalsVisibleTo("AgileWizard.Website.Tests")]
+[assembly: InternalsVisibleTo("AgileWizard.Data")]

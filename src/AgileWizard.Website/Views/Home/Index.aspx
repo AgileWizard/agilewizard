@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage" %>
+<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     <%: HomeString.IndexTitle %>
@@ -9,5 +9,5 @@
     </div>
    
     <div><%
-             Html.RenderAction("ResourceList", "Resource", new { ticksOfLastCreateTime = DateTime.Now.Ticks }); %></div>
+             Html.RenderAction("ResourceListOfNextPage", "Resource", new { ticksOfLastCreateTime = DateTime.Now.Ticks }); %></div>
 </asp:Content>

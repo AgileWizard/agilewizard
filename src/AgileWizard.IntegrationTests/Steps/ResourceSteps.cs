@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using AgileWizard.Domain.Helper;
 using AgileWizard.Domain.Repositories;
@@ -207,7 +206,9 @@ namespace AgileWizard.IntegrationTests.Steps
         public void ThenThereWillBeMoreResourcesOnThePage(int numberOfResources)
         {
             long ticksOfLastCreateTime = GetTicksOfLastCreateTime();
-            ActionResult = Controller.ResourceList(ticksOfLastCreateTime);
+
+            var noTag = string.Empty;
+            ActionResult = Controller.ResourceListOfNextPage(ticksOfLastCreateTime, noTag);
             AssertCountOfResourceList(numberOfResources, ActionResult as ViewResultBase);
         }
         #endregion

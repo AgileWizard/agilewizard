@@ -23,7 +23,7 @@ Scenario: List resources by given tag
 	When I wait for non-stale data
 	Then resource list of tag 'coding-dojo' should have 1 item
 
-@Ignore
+
 Scenario: tag list should support paging
 	#two pages of resources with tag "Agile"
 	Given there are 2 pages of resources

@@ -128,13 +128,12 @@ this.ScenarioSetup(scenarioInfo);
             testRunner.CollectScenarioErrors();
         }
         
-        [Xunit.FactAttribute(Skip="Ignored")]
+        [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "Resource List")]
         [Xunit.TraitAttribute("Description", "tag list should support paging")]
         public virtual void TagListShouldSupportPaging()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("tag list should support paging", new string[] {
-                        "Ignore"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("tag list should support paging", ((string[])(null)));
 #line 27
 this.ScenarioSetup(scenarioInfo);
 #line 29

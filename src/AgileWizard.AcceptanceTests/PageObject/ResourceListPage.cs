@@ -39,13 +39,23 @@ namespace AgileWizard.AcceptanceTests.PageObject
         public void AssertCulture()
        {
             var expect = ResourceString.Resources;
-            Assert.Equal(this.PageTitle, expect);
+            Assert.Equal(PageTitle, expect);
         }
 
         public void AssertAddAndEditLinkNotShown()
         {
             //BrowserHelper.AssertElementByClassNameNotExist(ResourceString.CreateResourceLink, _createNewResource);
             throw new NotImplementedException();
+        }
+
+        public void NextPage()
+        {
+            BrowserHelper.Browser.Button(b => b.Id == "more").Click();
+        }
+
+        public void AssertCountOfResource(int totalAccount)
+        {
+            Assert.True(BrowserHelper.Browser.ContainsText("number"+(totalAccount - 1).ToString()));
         }
     }
 }

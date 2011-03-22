@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Users;
@@ -44,6 +43,23 @@ namespace AgileWizard.Data
             session.Advanced.Clear();
         }
 
+        public void InitResourceListData()
+        {
+            var session = DocumentStore.OpenSession();
+            var entities = new List<object>();
+            entities.AddRange(AddResources());
+            foreach (var x in entities)
+            {
+                session.Store(x);
+            }
+
+            session.SaveChanges();
+
+            WaitForNonStaleResults(session);
+
+            session.Advanced.Clear();
+        }
+
         public void WaitForNonStaleResults(IDocumentSession session)
         {
             var indexNames = GetAllIndexNames();
@@ -65,47 +81,7 @@ namespace AgileWizard.Data
 
         public IList<Resource> AddResources()
         {
-            return new List<Resource>
-                       {
-                           new Resource
-                               {
-                                   Title = "Embeded Video",
-                                   Tags = new List<Resource.ResourceTag>
-                                   {
-                                       new Resource.ResourceTag
-                                       {
-                                           Name = "test",
-                                       },
-                                       new Resource.ResourceTag
-                                       {
-                                           Name = "html",
-                                       },
-                                   },
-                                   CreateTime = DateTime.Now.AddMinutes(-10),
-                                   LastUpdateTime = DateTime.Now.AddMinutes(-10),
-                                   Content =
-                                       @"<embed src=""http://player.youku.com/player.php/sid/XMjI2MjI2MTQw/v.swf"" quality=""high"" width=""480"" height=""400"" align=""middle"" allowScriptAccess=""sameDomain"" type=""application/x-shockwave-flash""></embed>"
-                               },
-
-                            new Resource
-                            {
-                                Title = "Tag Test",
-                                Tags = new List<Resource.ResourceTag>
-                                {
-                                    new Resource.ResourceTag
-                                    {
-                                        Name = "test",
-                                    },
-                                    new Resource.ResourceTag
-                                    {
-                                        Name = "plain-text",
-                                    },
-                                },
-                                CreateTime = DateTime.Now,
-                                LastUpdateTime = DateTime.Now,
-                                Content = @"just a plain text resource"
-                            }
-                       };
+            return 21.CountOfResouces("Agile");
         }
 
     }

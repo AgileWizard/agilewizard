@@ -30,7 +30,8 @@ namespace AgileWizard.Website.Controllers
             ResourceMapper = resourceMapper;
             ResourceListViewProcessor = resourceListViewProcessor;
         }
-
+       
+        #region CRUD
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult Create(ResourceDetailViewModel detailViewModel)
@@ -39,7 +40,6 @@ namespace AgileWizard.Website.Controllers
             resource = ResourceService.AddResource(resource);
             return RedirectToAction("Details", new { id = resource.Id.Substring(10) });
         }
-        #region CRUD
 
         [RequireAuthentication]
         public ActionResult Create()
@@ -75,14 +75,14 @@ namespace AgileWizard.Website.Controllers
 
         public ActionResult Index()
         {
-            var resources = ResourceService.GetResourceList(DateTime.Now.Ticks);
+            var resources = ResourceService.GetResourceList(DateTime.Now.Ticks, string.Empty);
             var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData);
             return View(resourceListViewModel);
         }
 
-        public ActionResult ResourceList(long ticksOfLastCreateTime)
+        public ActionResult ResourceListOfNextPage(long ticksOfLastCreateTime, string tagName)
         {
-            var resources = ResourceService.GetResourceList(ticksOfLastCreateTime);
+            var resources = ResourceService.GetResourceList(ticksOfLastCreateTime, tagName);
             var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData);
             return PartialView("ResourceList", resourceListViewModel);
         }

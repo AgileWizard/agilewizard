@@ -6,7 +6,6 @@ using AgileWizard.AcceptanceTests.Data;
 
 namespace AgileWizard.AcceptanceTests.Steps
 {
-  
     [Binding]
     public class ResourceSteps
     {
@@ -86,6 +85,35 @@ namespace AgileWizard.AcceptanceTests.Steps
             //_listPage.AssertTotalResourceCount();
         }
 
+        #region Resource List
+
+        [When(@"I go to resource list page")]
+        public void WhenIGoToResourceListPage()
+        {
+            BrowserHelper.OpenPage("Resource");
+            _listPage = BrowserHelper.Browser.Page<ResourceListPage>();
+        }
+
+        [When(@"I go to next page")]
+        public void WhenIGoToNextPage()
+        {
+            _listPage.NextPage();
+        }
+
+        [Then(@"I will see (\d+) resources on the page")]
+        public void ThenIWillSeeResourcesOnThePage(int totalAccount)
+        {
+            _listPage.AssertCountOfResource(totalAccount);
+        }
+        
+        [When(@"I visit resource list of tag page")]
+        public void WhenIVisitResourceListOfTagPage()
+        {
+            BrowserHelper.OpenPage("Resource/ListByTag?tagName=Agile");
+            _listPage = BrowserHelper.Browser.Page<ResourceListPage>();
+        }
+
+        #endregion
         private void ShowDetailPageAndValidateData(Table table)
         {
             ResourceDetailsPage detailPage = BrowserHelper.Browser.Page<ResourceDetailsPage>();
