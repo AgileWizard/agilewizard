@@ -3,11 +3,11 @@ using Xunit;
 
 namespace AgileWizard.Website.Tests.Controller.ResourceList
 {
-    public class ResourceRecommendationTest : ResourceListTest
+    public class ResourceRecommendation_GetHitTest : ResourceListTest
     {
-        public ResourceRecommendationTest()
+        public ResourceRecommendation_GetHitTest()
         {
-            _actionResult = _resourceControllerSUT.GetLikeList();
+            _actionResult = _resourceControllerSUT.GetHitList();
 
             _resourceListPage = new ResourceListPage(_actionResult);
         }
@@ -15,7 +15,7 @@ namespace AgileWizard.Website.Tests.Controller.ResourceList
         [Fact]
         public void ResourceService_GetLikeList_ShouldBeCalled()
         {
-            _resourceService.Verify(x => x.GetLikeList());
+            _resourceService.Verify(x => x.GetHitList());
         }
     }
 }

@@ -72,6 +72,11 @@ namespace AgileWizard.Domain.Services
             return _repository.GetList(QueryExpressionBuilder.BuildTopLikeResourceList_QueryExperssion()).ToList();
         }
 
+        public IList<Resource> GetHitList()
+        {
+            return _repository.GetList(QueryExpressionBuilder.BuildTopHitResourceList_QueryExperssion()).ToList();
+        }
+
         public int GetResourcesTotalCountForTag(string tagName)
         {
             return _repository.GetResourcesTotalCountForTag(tagName);

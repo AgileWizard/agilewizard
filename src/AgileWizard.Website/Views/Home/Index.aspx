@@ -11,4 +11,8 @@
     <div>Top like resource list</div>
     <!-- to replace after art design-->
     <div><%Html.RenderAction("GetLikeList", "Resource"); %></div>
+     <!-- to replace after art design-->
+    <div>Top hit resource list</div>
+    <!-- to replace after art design-->
+   <div><%Html.RenderAction("GetHitList", "Resource"); %></div>
 </asp:Content>

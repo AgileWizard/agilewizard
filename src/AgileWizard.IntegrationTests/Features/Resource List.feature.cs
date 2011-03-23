@@ -69,6 +69,8 @@ this.ScenarioSetup(scenarioInfo);
 #line 7
  testRunner.When("I wait for non-stale data");
 #line 8
+ testRunner.When("I see Index page");
+#line 9
  testRunner.Then("there will be 1 resources on the page");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -80,15 +82,17 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void ResourceListPagingMultiplePage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("resource list paging multiple page", ((string[])(null)));
-#line 10
-this.ScenarioSetup(scenarioInfo);
 #line 11
- testRunner.Given("there are 2 pages of resources");
+this.ScenarioSetup(scenarioInfo);
 #line 12
- testRunner.When("I wait for non-stale data");
+ testRunner.Given("there are 2 pages of resources");
 #line 13
- testRunner.Then("there will be 20 resources on the page");
+ testRunner.When("I wait for non-stale data");
 #line 14
+ testRunner.When("I see Index page");
+#line 15
+ testRunner.Then("there will be 20 resources on the page");
+#line 16
  testRunner.Then("there will be 1 more resources on the page");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -100,7 +104,7 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void ListResourcesByGivenTag()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("List resources by given tag", ((string[])(null)));
-#line 16
+#line 18
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -118,11 +122,11 @@ this.ScenarioSetup(scenarioInfo);
             table1.AddRow(new string[] {
                         "Tags",
                         "coding-dojo"});
-#line 17
+#line 19
  testRunner.Given("there is a resource", ((string)(null)), table1);
-#line 23
+#line 25
  testRunner.When("I wait for non-stale data");
-#line 24
+#line 26
  testRunner.Then("resource list of tag \'coding-dojo\' should have 1 item");
 #line hidden
             testRunner.CollectScenarioErrors();
@@ -135,15 +139,15 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("tag list should support paging", new string[] {
                         "Ignore"});
-#line 27
-this.ScenarioSetup(scenarioInfo);
 #line 29
- testRunner.Given("there are 2 pages of resources");
-#line 30
- testRunner.When("I wait for non-stale data");
+this.ScenarioSetup(scenarioInfo);
 #line 31
- testRunner.Then("resource list of tag \'Agile\' should have 20 item");
+ testRunner.Given("there are 2 pages of resources");
 #line 32
+ testRunner.When("I wait for non-stale data");
+#line 33
+ testRunner.Then("resource list of tag \'Agile\' should have 20 item");
+#line 34
  testRunner.Then("next page of resoure list of tag \'Agile\' should have 1 item");
 #line hidden
             testRunner.CollectScenarioErrors();

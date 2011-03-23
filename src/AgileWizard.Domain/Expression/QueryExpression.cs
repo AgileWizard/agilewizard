@@ -10,6 +10,7 @@ namespace AgileWizard.Domain.Expression
     {
         public string IndexName { get; set; }
         public Expression<Func<Resource, bool>> Condition { get; set; }
+        // use Expression<Func<Resource, long>> to cover two kinds of orderbycolumn which are DateTime and Int, there will be performance loss 
         public Expression<Func<Resource, long>> OrderByColumn { get; set; }
         public int PageSize { get; set; }
     }
@@ -47,6 +48,19 @@ namespace AgileWizard.Domain.Expression
             Condition =
                 x => true;
             OrderByColumn = x => x.Like;
+            PageSize = 3;
+        }
+    }
+
+
+    public class TopHitResourceListQueryExperssion : QueryExpression
+    {
+        internal TopHitResourceListQueryExperssion()
+        {
+            IndexName = typeof(ResourceIndexByTitle).Name;
+            Condition =
+                x => true;
+            OrderByColumn = x => x.PageView;
             PageSize = 3;
         }
     }

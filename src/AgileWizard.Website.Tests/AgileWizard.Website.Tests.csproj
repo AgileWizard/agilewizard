@@ -57,7 +57,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\ResourceList\ResourceListTest.cs" />
-    <Compile Include="Controller\ResourceList\ResourceRecommendationTest.cs" />
+    <Compile Include="Controller\ResourceList\ResourceRecommendation_GetHitTest.cs" />
+    <Compile Include="Controller\ResourceList\ResourceRecommendation_GetLikeTest.cs" />
     <Compile Include="Controller\Resource\OneResourceLoadBase.cs" />
     <Compile Include="Controller\Resource\OneResourceUpdateBase.cs" />
     <Compile Include="Controller\Resource\ResourceControllerTestBase.cs" />

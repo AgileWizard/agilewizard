@@ -27,8 +27,8 @@ namespace AgileWizard.IntegrationTests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Resource lists at Homepage", "In order to see resources of most attention\nAs a visitor\nI want to see top like, " +
-                    "top hit and latest resource on Homepage", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Resource lists at Homepage", "In order to see resources of most attention\r\nAs a visitor\r\nI want to see top like" +
+                    ", top hit and latest resource on Homepage", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -57,23 +57,46 @@ namespace AgileWizard.IntegrationTests.Features
             this.ScenarioTearDown();
         }
         
-        [Xunit.FactAttribute(Skip="Ignored")]
+        [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "Resource lists at Homepage")]
         [Xunit.TraitAttribute("Description", "top like resource list")]
         public virtual void TopLikeResourceList()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("top like resource list", new string[] {
-                        "Ignore"});
-#line 7
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("top like resource list", ((string[])(null)));
+#line 6
 this.ScenarioSetup(scenarioInfo);
-#line 9
+#line 8
  testRunner.Given("there are 2 pages of resources");
+#line 9
+ testRunner.When("I wait for non-stale data");
 #line 10
  testRunner.When("I see top like resources");
 #line 11
  testRunner.Then("there will be 3 resources on the page");
 #line 12
  testRunner.And("order by like desc");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "Resource lists at Homepage")]
+        [Xunit.TraitAttribute("Description", "top hit resource list")]
+        public virtual void TopHitResourceList()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("top hit resource list", ((string[])(null)));
+#line 14
+this.ScenarioSetup(scenarioInfo);
+#line 16
+ testRunner.Given("there are 2 pages of resources");
+#line 17
+ testRunner.When("I wait for non-stale data");
+#line 18
+ testRunner.When("I see top hit resources");
+#line 19
+ testRunner.Then("there will be 3 resources on the page");
+#line 20
+ testRunner.And("order by hit desc");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

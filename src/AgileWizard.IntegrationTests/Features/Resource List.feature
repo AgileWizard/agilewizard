@@ -5,11 +5,13 @@
 Scenario: resource list paging single page
 	Given there are 1 pages of resources
 	When I wait for non-stale data
+	When I see Index page
 	Then there will be 1 resources on the page
 
 Scenario: resource list paging multiple page
 	Given there are 2 pages of resources
 	When I wait for non-stale data
+	When I see Index page
 	Then there will be 20 resources on the page
 	Then there will be 1 more resources on the page
 

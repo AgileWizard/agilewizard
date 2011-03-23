@@ -195,10 +195,15 @@ namespace AgileWizard.IntegrationTests.Steps
             }
         }
 
+        [When(@"I see Index page")]
+        public void WhenISeeIndexPage()
+        {
+            ActionResult = Controller.Index() as ViewResult;
+        }
+
         [Then(@"there will be (\d+) resources on the page")]
         public void ThenThereWillBeResourcesOnThePage(int countOfResources)
         {
-            ActionResult = Controller.Index() as ViewResult;
             AssertCountOfResourceList(countOfResources, ActionResult as ViewResultBase);
         }
 
@@ -241,13 +246,25 @@ namespace AgileWizard.IntegrationTests.Steps
         [When(@"I see top like resources")]
         public void WhenISeeTopLikeResources()
         {
-            ActionResult = Controller.GetLikeList() as ViewResult;
+            ActionResult = Controller.GetLikeList() as ViewResultBase;
         }
 
         [Then(@"order by like desc")]
         public void ThenOrderByLikeDesc()
         {
             AssertResourceListViewModelOrderedByLike();
+        }
+
+        [When(@"I see top hit resources")]
+        public void WhenISeeTopHitResources()
+        {
+            ActionResult = Controller.GetHitList() as ViewResultBase;
+        }
+
+        [Then(@"order by hit desc")]
+        public void ThenOrderByHitDesc()
+        {
+            AssertResourceListViewModelOrderedByHit();
         }
         #endregion
 
@@ -321,6 +338,15 @@ namespace AgileWizard.IntegrationTests.Steps
 
             Assert.True(resourceListViewModels[0].Like > resourceListViewModels[1].Like);
             Assert.True(resourceListViewModels[1].Like > resourceListViewModels[2].Like);
+        }
+
+        private void AssertResourceListViewModelOrderedByHit()
+        {
+            var resourceListViewModels =
+                ((ViewResultBase)ActionResult).ViewData.Model as IList<ResourceListViewModel>;
+
+            Assert.True(resourceListViewModels[0].PageView > resourceListViewModels[1].PageView);
+            Assert.True(resourceListViewModels[1].PageView > resourceListViewModels[2].PageView);
         }
 
         #endregion

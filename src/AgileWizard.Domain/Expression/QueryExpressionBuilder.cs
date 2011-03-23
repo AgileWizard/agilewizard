@@ -1,4 +1,6 @@
-﻿namespace AgileWizard.Domain.Expression
+﻿using System;
+
+namespace AgileWizard.Domain.Expression
 {
     public class QueryExpressionBuilder
     {
@@ -15,6 +17,11 @@
         public static TopLikeResourceListQueryExperssion BuildTopLikeResourceList_QueryExperssion()
         {
             return new TopLikeResourceListQueryExperssion();
+        }
+
+        public static TopHitResourceListQueryExperssion BuildTopHitResourceList_QueryExperssion()
+        {
+            return new TopHitResourceListQueryExperssion();
         }
     }
 }

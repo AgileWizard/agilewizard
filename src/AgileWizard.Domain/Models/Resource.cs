@@ -83,7 +83,9 @@ namespace AgileWizard.Domain.Models
                     SubmitUser = "user",
                     Tags = tagList,
                     // Like incremental
-                    Like =i,
+                    Like = i,
+                    // Hit incremental
+                    PageView = i,
                 });
             }
 

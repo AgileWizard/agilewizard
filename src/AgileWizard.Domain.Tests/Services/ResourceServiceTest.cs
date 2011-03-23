@@ -188,7 +188,6 @@ namespace AgileWizard.Domain.Tests.Services
         }
         #endregion
 
-
         #region Resource recommendation list
         [Fact]
         public void ShouldReturn_LikeList()
@@ -199,6 +198,18 @@ namespace AgileWizard.Domain.Tests.Services
             var actualResources = _service.GetLikeList();
 
             _repository.Verify(r => r.GetList(It.IsAny<TopLikeResourceListQueryExperssion>()));
+            Assert.Equal(expectedResources, actualResources);
+        }
+
+        [Fact]
+        public void ShouldReturn_HitList()
+        {
+            var expectedResources = 3.CountOfResouces("tag");
+            _repository.Setup(r => r.GetList(It.IsAny<TopHitResourceListQueryExperssion>())).Returns(expectedResources);
+
+            var actualResources = _service.GetHitList();
+
+            _repository.Verify(r => r.GetList(It.IsAny<TopHitResourceListQueryExperssion>()));
             Assert.Equal(expectedResources, actualResources);
         } 
         #endregion
@@ -219,5 +230,4 @@ namespace AgileWizard.Domain.Tests.Services
         #endregion
     }
 
-   
 }
