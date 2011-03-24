@@ -15,4 +15,8 @@
     <div>Top hit resource list</div>
     <!-- to replace after art design-->
    <div><%Html.RenderAction("GetHitList", "Resource"); %></div>
+     <!-- to replace after art design-->
+    <div>Top latest resource list</div>
+    <!-- to replace after art design-->
+   <div><%Html.RenderAction("GetLatestList", "Resource"); %></div>
 </asp:Content>

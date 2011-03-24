@@ -211,7 +211,19 @@ namespace AgileWizard.Domain.Tests.Services
 
             _repository.Verify(r => r.GetList(It.IsAny<TopHitResourceListQueryExperssion>()));
             Assert.Equal(expectedResources, actualResources);
-        } 
+        }
+
+        [Fact]
+        public void ShouldReturn_LatestList()
+        {
+            var expectedResources = 3.CountOfResouces("tag");
+            _repository.Setup(r => r.GetList(It.IsAny<TopLatestResourceListQueryExperssion>())).Returns(expectedResources);
+
+            var actualResources = _service.GetLatestList();
+
+            _repository.Verify(r => r.GetList(It.IsAny<TopLatestResourceListQueryExperssion>()));
+            Assert.Equal(expectedResources, actualResources);
+        }
         #endregion
 
         #region Private functions

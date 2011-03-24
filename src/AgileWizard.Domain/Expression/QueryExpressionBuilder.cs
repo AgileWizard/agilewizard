@@ -23,5 +23,10 @@ namespace AgileWizard.Domain.Expression
         {
             return new TopHitResourceListQueryExperssion();
         }
+
+        public static QueryExpression BuildTopLatestResourceList_QueryExperssion()
+        {
+            return new TopLatestResourceListQueryExperssion();
+        }
     }
 }

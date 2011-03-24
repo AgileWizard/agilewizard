@@ -16,5 +16,6 @@ namespace AgileWizard.Domain.Services
         IList<Resource> GetResourceListByTag(long ticksOfCreateTime, string tagName);
         IList<Resource> GetLikeList();
         IList<Resource> GetHitList();
+        IList<Resource> GetLatestList();
     }
 }

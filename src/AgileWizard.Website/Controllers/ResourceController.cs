@@ -126,5 +126,12 @@ namespace AgileWizard.Website.Controllers
             var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData);
             return PartialView("ResourceRecommendationList", resourceListViewModel);
         }
+
+        public ViewResultBase GetLatestList()
+        {
+            var resources = ResourceService.GetLatestList();
+            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData);
+            return PartialView("ResourceRecommendationList", resourceListViewModel);
+        }
     }
 }

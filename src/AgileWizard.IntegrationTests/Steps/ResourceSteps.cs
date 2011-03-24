@@ -266,6 +266,19 @@ namespace AgileWizard.IntegrationTests.Steps
         {
             AssertResourceListViewModelOrderedByHit();
         }
+
+        [When(@"I see the latest resources")]
+        public void WhenISeeTheLatestResources()
+        {
+            ActionResult = Controller.GetLatestList() as ViewResultBase;
+        }
+
+        [Then(@"order by create time desc")]
+        public void ThenOrderByCreateTimeDesc()
+        {
+            AssertResourceListViewModelOrderedByCreatTime();
+        }
+
         #endregion
 
         #region Private Resource Procedures
@@ -347,6 +360,15 @@ namespace AgileWizard.IntegrationTests.Steps
 
             Assert.True(resourceListViewModels[0].PageView > resourceListViewModels[1].PageView);
             Assert.True(resourceListViewModels[1].PageView > resourceListViewModels[2].PageView);
+        }
+
+        private void AssertResourceListViewModelOrderedByCreatTime()
+        {
+            var resourceListViewModels =
+               ((ViewResultBase)ActionResult).ViewData.Model as IList<ResourceListViewModel>;
+
+            Assert.True(resourceListViewModels[0].CreateTime > resourceListViewModels[1].CreateTime);
+            Assert.True(resourceListViewModels[1].CreateTime > resourceListViewModels[2].CreateTime);
         }
 
         #endregion

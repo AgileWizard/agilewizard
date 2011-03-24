@@ -77,6 +77,11 @@ namespace AgileWizard.Domain.Services
             return _repository.GetList(QueryExpressionBuilder.BuildTopHitResourceList_QueryExperssion()).ToList();
         }
 
+        public IList<Resource> GetLatestList()
+        {
+            return _repository.GetList(QueryExpressionBuilder.BuildTopLatestResourceList_QueryExperssion()).ToList();            
+        }
+
         public int GetResourcesTotalCountForTag(string tagName)
         {
             return _repository.GetResourcesTotalCountForTag(tagName);
@@ -86,5 +91,6 @@ namespace AgileWizard.Domain.Services
         {
             return _repository.GetList(QueryExpressionBuilder.BuildResourceList_QueryExpression(ticksOfCreateTime)).ToList();
         }
+
     }
 }

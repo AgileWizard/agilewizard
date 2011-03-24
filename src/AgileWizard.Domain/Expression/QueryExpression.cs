@@ -64,4 +64,16 @@ namespace AgileWizard.Domain.Expression
             PageSize = 3;
         }
     }
+
+    public class TopLatestResourceListQueryExperssion : QueryExpression
+    {
+        internal TopLatestResourceListQueryExperssion()
+        {
+            IndexName = typeof(ResourceIndexByTitle).Name;
+            Condition =
+                x => true;
+            OrderByColumn = x => x.CreateTime.Ticks;
+            PageSize = 3;
+        }
+    }
 }
