@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using AgileWizard.Domain.Expression;
 using AgileWizard.Domain.Models;
 using Xunit;
