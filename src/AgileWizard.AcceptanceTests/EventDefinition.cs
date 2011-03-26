@@ -1,6 +1,8 @@
 ﻿using AgileWizard.AcceptanceTests.Helper;
 using AgileWizard.Data;
+using Raven.Client;
 using Raven.Client.Document;
+using StructureMap;
 using TechTalk.SpecFlow;
 
 namespace AgileWizard.AcceptanceTests
@@ -30,6 +32,10 @@ namespace AgileWizard.AcceptanceTests
             dataManager.ClearAllDocuments();
             dataManager.InitData();
             dataManager.InitResourceListData();
+
+            var documentSession = documentStore.OpenSession();
+
+            new DataManager(documentStore).WaitForNonStaleResults(documentSession);
         }
 
         [AfterTestRun]
