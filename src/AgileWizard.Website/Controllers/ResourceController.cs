@@ -1,4 +1,3 @@
-using System;
 using System.Web.Mvc;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Repositories;
@@ -30,7 +29,8 @@ namespace AgileWizard.Website.Controllers
             ResourceMapper = resourceMapper;
             ResourceListViewProcessor = resourceListViewProcessor;
         }
-
+       
+        #region CRUD
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult Create(ResourceDetailViewModel detailViewModel)
@@ -39,7 +39,6 @@ namespace AgileWizard.Website.Controllers
             resource = ResourceService.AddResource(resource);
             return RedirectToAction("Details", new { id = resource.Id.Substring(10) });
         }
-        #region CRUD
 
         [RequireAuthentication]
         public ActionResult Create()
@@ -75,15 +74,15 @@ namespace AgileWizard.Website.Controllers
 
         public ActionResult Index()
         {
-            var resources = ResourceService.GetResourceList(DateTime.Now.Ticks);
-            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData);
+            var resources = ResourceService.GetFirstPage_OfResource();
+            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData, string.Empty);
             return View(resourceListViewModel);
         }
 
-        public ActionResult ResourceList(long ticksOfLastCreateTime)
+        public ActionResult ResourceListOfNextPage(long ticksOfLastCreateTime, string tagName)
         {
-            var resources = ResourceService.GetResourceList(ticksOfLastCreateTime);
-            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData);
+            var resources = ResourceService.GetResourceList(ticksOfLastCreateTime, tagName);
+            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData, tagName);
             return PartialView("ResourceList", resourceListViewModel);
         }
         #endregion
@@ -107,8 +106,8 @@ namespace AgileWizard.Website.Controllers
         #region Tag
         public ActionResult ListByTag(string tagName)
         {
-            var resources = ResourceService.GetResourceListByTag(DateTime.Now.Ticks, tagName);
-            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData);
+            var resources = ResourceService.GetFirstPage_OfTagResource(tagName);
+            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData, tagName);
             return View(resourceListViewModel);
         }
         #endregion
@@ -116,21 +115,21 @@ namespace AgileWizard.Website.Controllers
         public ActionResult GetLikeList()
         {
             var resources = ResourceService.GetLikeList();
-            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData);
+            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData, string.Empty);
             return PartialView("ResourceRecommendationList", resourceListViewModel);
         }
 
         public ActionResult GetHitList()
         {
             var resources = ResourceService.GetHitList();
-            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData);
+            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData, string.Empty);
             return PartialView("ResourceRecommendationList", resourceListViewModel);
         }
 
         public ViewResultBase GetLatestList()
         {
             var resources = ResourceService.GetLatestList();
-            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData);
+            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData, string.Empty);
             return PartialView("ResourceRecommendationList", resourceListViewModel);
         }
     }

@@ -1,9 +1,7 @@
 ﻿using System;
-using TechTalk.SpecFlow;
 using Xunit;
 using WatiN.Core;
 using AgileWizard.AcceptanceTests.Data;
-using AgileWizard.AcceptanceTests.Helper;
 using System.Diagnostics;
 
 namespace AgileWizard.AcceptanceTests.PageObject

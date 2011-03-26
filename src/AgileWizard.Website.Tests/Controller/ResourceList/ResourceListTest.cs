@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using AgileWizard.Domain.Models;
@@ -22,7 +21,7 @@ namespace AgileWizard.Website.Tests.Controller.ResourceList
         [Fact]
         public void ResoureListViewProcess_Process_ShouldBeCalled()
         {
-            _resourceListViewProcessor.Verify(x => x.Process(It.IsAny<IList<Resource>>(), It.IsAny<ViewDataDictionary>()));
+            _resourceListViewProcessor.Verify(x => x.Process(It.IsAny<IList<Resource>>(), It.IsAny<ViewDataDictionary>(), It.IsAny<string>()));
         }
 
         [Fact]
@@ -34,7 +33,7 @@ namespace AgileWizard.Website.Tests.Controller.ResourceList
         protected void Setup_ResourceListViewProcessor_Expectation()
         {
             var resourceListViewModels = 10.CountOfResourceListViewModelInList();
-            _resourceListViewProcessor.Setup(s => s.Process(It.IsAny<IList<Resource>>(), It.IsAny<ViewDataDictionary>())).Returns(resourceListViewModels);
+            _resourceListViewProcessor.Setup(s => s.Process(It.IsAny<IList<Resource>>(), It.IsAny<ViewDataDictionary>(), It.IsAny<string>())).Returns(resourceListViewModels);
         }
     }
 }

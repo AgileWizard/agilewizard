@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\ResourceList\ResourceListTest.cs" />
+    <Compile Include="Controller\ResourceList\WhenNextPageLoad.cs" />
     <Compile Include="Controller\ResourceList\ResourceRecommendation_GetHitTest.cs" />
     <Compile Include="Controller\ResourceList\ResourceRecommendation_GetLatestTest.cs" />
     <Compile Include="Controller\ResourceList\ResourceRecommendation_GetLikeTest.cs" />

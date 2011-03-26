@@ -94,6 +94,8 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.Then("there will be 20 resources on the page");
 #line 16
  testRunner.Then("there will be 1 more resources on the page");
+#line 17
+ testRunner.Then("there will be 0 more resources on the page");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -104,7 +106,7 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void ListResourcesByGivenTag()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("List resources by given tag", ((string[])(null)));
-#line 18
+#line 19
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -122,23 +124,22 @@ this.ScenarioSetup(scenarioInfo);
             table1.AddRow(new string[] {
                         "Tags",
                         "coding-dojo"});
-#line 19
+#line 20
  testRunner.Given("there is a resource", ((string)(null)), table1);
-#line 25
- testRunner.When("I wait for non-stale data");
 #line 26
+ testRunner.When("I wait for non-stale data");
+#line 27
  testRunner.Then("resource list of tag \'coding-dojo\' should have 1 item");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
         
-        [Xunit.FactAttribute(Skip="Ignored")]
+        [Xunit.FactAttribute()]
         [Xunit.TraitAttribute("FeatureTitle", "Resource list")]
         [Xunit.TraitAttribute("Description", "tag list should support paging")]
         public virtual void TagListShouldSupportPaging()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("tag list should support paging", new string[] {
-                        "Ignore"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("tag list should support paging", ((string[])(null)));
 #line 29
 this.ScenarioSetup(scenarioInfo);
 #line 31
@@ -148,7 +149,9 @@ this.ScenarioSetup(scenarioInfo);
 #line 33
  testRunner.Then("resource list of tag \'Agile\' should have 20 item");
 #line 34
- testRunner.Then("next page of resoure list of tag \'Agile\' should have 1 item");
+ testRunner.Then("there will be 1 more resources on the page");
+#line 35
+ testRunner.Then("there will be 0 more resources on the page");
 #line hidden
             testRunner.CollectScenarioErrors();
         }

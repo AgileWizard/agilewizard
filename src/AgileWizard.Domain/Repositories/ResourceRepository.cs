@@ -18,10 +18,8 @@ namespace AgileWizard.Domain.Repositories
 
         public Resource Add(Resource resource)
         {
-
             _documentSession.Store(resource);
             return resource;
-
         }
 
         public Resource GetResourceById(string id)

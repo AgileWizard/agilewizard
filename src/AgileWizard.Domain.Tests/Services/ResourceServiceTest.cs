@@ -53,22 +53,7 @@ namespace AgileWizard.Domain.Tests.Services
             //Assert
             Assert.Equal(_resource, actualResource);
         }
-
-        [Fact]
-        public void Get_ListOf_Resources()
-        {
-            // Arrange
-            var expectedResources = 10.CountOfResouces("tag");
-            _repository.Setup(r => r.GetList(It.IsAny<ResourceListQueryExpression>())).Returns(expectedResources);
-
-            // Act
-            var actualResources = _service.GetResourceList(DateTime.Now.Ticks);
-
-            // Assert
-            _repository.Verify(r => r.GetList(It.IsAny<ResourceListQueryExpression>()));
-            Assert.Equal(expectedResources, actualResources);
-        }
-
+       
         [Fact]
         public void Can_update_resource()
         {
@@ -174,14 +159,29 @@ namespace AgileWizard.Domain.Tests.Services
 
         #endregion
 
-        #region Tag
+        #region List functions
+        [Fact]
+        public void Get_ListOf_Resources()
+        {
+            // Arrange
+            var expectedResources = 10.CountOfResouces("tag");
+            _repository.Setup(r => r.GetList(It.IsAny<ResourceListQueryExpression>())).Returns(expectedResources);
+
+            // Act
+            var actualResources = _service.GetFirstPage_OfResource();
+
+            // Assert
+            _repository.Verify(r => r.GetList(It.IsAny<ResourceListQueryExpression>()));
+            Assert.Equal(expectedResources, actualResources);
+        }
+
         [Fact]
         public void should_return_resource_by_given_tag()
         {
             var expectedResources = 10.CountOfResouces("tag");
             _repository.Setup(r => r.GetList(It.IsAny<TagResourceListQueryExperssion>())).Returns(expectedResources);
 
-            var actualResources = _service.GetResourceListByTag(DateTime.Now.Ticks, "tag");
+            var actualResources = _service.GetFirstPage_OfTagResource("tag");
 
             _repository.Verify(r => r.GetList(It.IsAny<TagResourceListQueryExperssion>()));
             Assert.Equal(expectedResources, actualResources);

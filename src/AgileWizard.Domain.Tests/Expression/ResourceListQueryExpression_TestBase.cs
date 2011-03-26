@@ -17,7 +17,7 @@ namespace AgileWizard.Domain.Tests.Expression
         }
 
         [Fact]
-        public void OlderBy_CreateTime()
+        public void OlderThan_NotEqualTo_PreviousItem()
         {
             Assert.True(_resources[19].CreateTime > _actualResources[0].CreateTime);
         }
@@ -25,7 +25,7 @@ namespace AgileWizard.Domain.Tests.Expression
         [Fact]
         public void OrderBy_CreateTime_Desc()
         {
-            AssertResource_OrderByLastupdateTime_Descending(_actualResources);
+            AssertResource_OrderByCreateTime_Descending(_actualResources);
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace AgileWizard.Domain.Tests.Expression
             Assert.Equal(20, _actualResources.Count);
         }
 
-        private void AssertResource_OrderByLastupdateTime_Descending(IEnumerable<Resource> resources)
+        private void AssertResource_OrderByCreateTime_Descending(IEnumerable<Resource> resources)
         {
             using (IEnumerator<Resource> e = resources.GetEnumerator())
             {
@@ -46,7 +46,7 @@ namespace AgileWizard.Domain.Tests.Expression
                     current = e.Current;
                     hasNext = e.MoveNext();
                     if (hasNext)
-                        Assert.True(current.LastUpdateTime >= e.Current.LastUpdateTime);
+                        Assert.True(current.CreateTime > e.Current.CreateTime);
                 }
             }
         }

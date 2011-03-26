@@ -29,6 +29,7 @@ namespace AgileWizard.AcceptanceTests
             var dataManager = new DataManager(documentStore);
             dataManager.ClearAllDocuments();
             dataManager.InitData();
+            dataManager.InitResourceListData();
         }
 
         [AfterTestRun]

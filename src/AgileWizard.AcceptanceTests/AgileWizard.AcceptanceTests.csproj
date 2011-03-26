@@ -37,6 +37,10 @@
     <Reference Include="Raven.Client.Lightweight">
       <HintPath>..\..\lib\ravendb\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
+    <Reference Include="StructureMap, Version=2.6.2.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\structuremap\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -68,6 +72,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Account.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\ResourceList.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceList.feature</DependentUpon>
     </Compile>
     <Compile Include="Helper\AssertHelper.cs" />
     <Compile Include="Helper\BrowserHelper.cs" />
@@ -109,6 +118,10 @@
     <None Include="Features\Account.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Account.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\ResourceList.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ResourceList.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup />

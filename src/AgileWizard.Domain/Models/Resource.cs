@@ -77,7 +77,7 @@ namespace AgileWizard.Domain.Models
                     Content = "agilewizard blog number" + i,
                     // one resource per second with the bigger number, the earlier
                     CreateTime = DateTime.Now.AddMinutes(-i-1),
-                    LastUpdateTime = DateTime.Now,
+                    LastUpdateTime = DateTime.Now.AddMinutes(-i - 1),
                     Title = "agilewizard",
                     Id = "ID00000000" + (i + 1),
                     SubmitUser = "user",
