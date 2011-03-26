@@ -31,11 +31,11 @@ namespace AgileWizard.AcceptanceTests
             var dataManager = new DataManager(documentStore);
             dataManager.ClearAllDocuments();
             dataManager.InitData();
-            dataManager.InitResourceListData();
+            //dataManager.InitResourceListData();
 
-            var documentSession = documentStore.OpenSession();
+            //var documentSession = documentStore.OpenSession();
 
-            new DataManager(documentStore).WaitForNonStaleResults(documentSession);
+            //new DataManager(documentStore).WaitForNonStaleResults(documentSession);
         }
 
         [AfterTestRun]

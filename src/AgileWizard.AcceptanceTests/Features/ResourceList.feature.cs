@@ -57,12 +57,13 @@ namespace AgileWizard.AcceptanceTests.Features
             this.ScenarioTearDown();
         }
         
-        [Xunit.FactAttribute()]
+        [Xunit.FactAttribute(Skip="Ignored")]
         [Xunit.TraitAttribute("FeatureTitle", "Resource List")]
         [Xunit.TraitAttribute("Description", "Default resource list")]
         public virtual void DefaultResourceList()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default resource list", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default resource list", new string[] {
+                        "Ignore"});
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -77,12 +78,13 @@ this.ScenarioSetup(scenarioInfo);
             testRunner.CollectScenarioErrors();
         }
         
-        [Xunit.FactAttribute()]
+        [Xunit.FactAttribute(Skip="Ignored")]
         [Xunit.TraitAttribute("FeatureTitle", "Resource List")]
         [Xunit.TraitAttribute("Description", "tag resource list")]
         public virtual void TagResourceList()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("tag resource list", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("tag resource list", new string[] {
+                        "Ignore"});
 #line 13
 this.ScenarioSetup(scenarioInfo);
 #line 15
