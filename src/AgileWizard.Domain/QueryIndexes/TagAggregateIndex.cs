@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Raven.Client.Indexes;
 using Raven.Database.Indexing;
 using AgileWizard.Domain.Models;
-using Raven.Client.Document;
 
 namespace AgileWizard.Domain.QueryIndexes
 {
@@ -28,39 +24,11 @@ namespace AgileWizard.Domain.QueryIndexes
                               {
                                   Name = g.Key,
                                   TotalCount = g.Count(),
-                                  LastUpdateTicks = g.Max(x => (long)x.LastUpdateTicks),
+                                  LastUpdateTicks = g.Max(x => x.LastUpdateTicks),
                               };
 
             Index(x => x.Name, FieldIndexing.NotAnalyzed);
             Index(x => x.LastUpdateTicks, FieldIndexing.Analyzed);
-                 
-
         }
-
-        //public override IndexDefinition CreateIndexDefinition()
-        //{
-        //    return new IndexDefinition<Resource, Tag>
-        //    {
-        //        Map = resources => from resource in resources
-        //                           from tag in resource.Tags
-        //                           select new
-        //                           {
-        //                               Name = tag.Name.ToLower(),
-        //                           },
-
-        //        Reduce = items => from item in items
-        //                          group item by item.Name into g
-        //                          let lastUpdateTime = g.Max(x => x.LastUpdateTime)
-        //                          let totalCount = g.Count()
-        //                          select new
-        //                          {
-        //                              Name = g.Key,
-        //                              TotalCount = totalCount,
-        //                              LastUpdateTime = lastUpdateTime,
-        //                          },
-
-        //    }.ToIndexDefinition(new DocumentConvention());
-
-        //}
     }
 }

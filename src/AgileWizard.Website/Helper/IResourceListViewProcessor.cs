@@ -7,6 +7,6 @@ namespace AgileWizard.Website.Helper
 {
     public interface IResourceListViewProcessor
     {
-        IList<ResourceListViewModel> Process(IList<Resource> resources, ViewDataDictionary viewdata);
+        IList<ResourceListViewModel> Process(IList<Resource> resources, ViewDataDictionary viewdata, string tagName);
     }
 }

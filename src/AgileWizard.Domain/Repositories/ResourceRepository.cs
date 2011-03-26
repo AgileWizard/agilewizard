@@ -18,10 +18,8 @@ namespace AgileWizard.Domain.Repositories
 
         public Resource Add(Resource resource)
         {
-
             _documentSession.Store(resource);
             return resource;
-
         }
 
         public Resource GetResourceById(string id)
@@ -37,7 +35,7 @@ namespace AgileWizard.Domain.Repositories
         public IEnumerable<Resource> GetList(QueryExpression queryExpression)
         {
             return _documentSession.Query<Resource>(queryExpression.IndexName).Where(queryExpression.Condition.Compile()).
-                OrderByDescending(queryExpression.OrderBy.Compile()).Take(queryExpression.PageSize);
+                OrderByDescending(queryExpression.OrderByColumn.Compile()).Take(queryExpression.PageSize);
         }
 
         public int GetResourcesTotalCountForTag(string tagName)

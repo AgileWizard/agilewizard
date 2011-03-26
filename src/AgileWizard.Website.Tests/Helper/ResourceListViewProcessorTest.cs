@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using AgileWizard.Domain.Models;
 using AgileWizard.Website.Helper;
@@ -26,7 +26,7 @@ namespace AgileWizard.Website.Tests.Helper
 
             _viewdata = new ViewDataDictionary();
             _resourceListViewProcessorSUT = new ResourceListViewProcessor( _resoureMapper.Object);
-            _actualResourceListViewModels = _resourceListViewProcessorSUT.Process(_resources, _viewdata);
+            _actualResourceListViewModels = _resourceListViewProcessorSUT.Process(_resources, _viewdata, "Tag");
         }
 
         [Fact]
@@ -42,9 +42,9 @@ namespace AgileWizard.Website.Tests.Helper
         }
 
         [Fact]
-        public void TicksOfCreateTime_ShouldBeSaved_InViewData()
+        public void Tag_ShouldBeKept_InViewData()
         {
-            Assert.NotNull(_viewdata[TICKSOFCREATETIME]);
+            Assert.Equal("Tag", _viewdata["tagName"]);
         }
 
         private void SetUpResourceList()

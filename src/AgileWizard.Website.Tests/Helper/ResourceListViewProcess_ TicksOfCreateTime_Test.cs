@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using AgileWizard.Domain.Models;
 using AgileWizard.Website.Helper;
@@ -67,7 +67,7 @@ namespace AgileWizard.Website.Tests.Helper
         private void ProcessList()
         {
             _resourceListViewProcessorSUT = new ResourceListViewProcessor(_resoureMapper.Object);
-            _resourceListViewProcessorSUT.Process(_resources, _viewdata);
+            _resourceListViewProcessorSUT.Process(_resources, _viewdata, "Tag");
         }
     }
 }

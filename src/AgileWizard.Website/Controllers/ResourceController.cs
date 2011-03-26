@@ -1,4 +1,3 @@
-using System;
 using System.Web.Mvc;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Repositories;
@@ -75,15 +74,15 @@ namespace AgileWizard.Website.Controllers
 
         public ActionResult Index()
         {
-            var resources = ResourceService.GetResourceList(DateTime.Now.Ticks, string.Empty);
-            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData);
+            var resources = ResourceService.GetFirstPage_OfResource();
+            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData, string.Empty);
             return View(resourceListViewModel);
         }
 
         public ActionResult ResourceListOfNextPage(long ticksOfLastCreateTime, string tagName)
         {
             var resources = ResourceService.GetResourceList(ticksOfLastCreateTime, tagName);
-            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData);
+            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData, tagName);
             return PartialView("ResourceList", resourceListViewModel);
         }
         #endregion
@@ -107,10 +106,24 @@ namespace AgileWizard.Website.Controllers
         #region Tag
         public ActionResult ListByTag(string tagName)
         {
-            var resources = ResourceService.GetResourceListByTag(DateTime.Now.Ticks, tagName);
-            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData);
+            var resources = ResourceService.GetFirstPage_OfTagResource(tagName);
+            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData, tagName);
             return View(resourceListViewModel);
         }
         #endregion
+
+        public ActionResult GetLikeList()
+        {
+            var resources = ResourceService.GetLikeList();
+            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData, string.Empty);
+            return PartialView("ResourceRecommendationList", resourceListViewModel);
+        }
+
+        public ActionResult GetHitList()
+        {
+            var resources = ResourceService.GetHitList();
+            var resourceListViewModel = ResourceListViewProcessor.Process(resources, ViewData, string.Empty);
+            return PartialView("ResourceRecommendationList", resourceListViewModel);
+        }
     }
 }

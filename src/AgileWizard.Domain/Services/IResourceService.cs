@@ -13,6 +13,9 @@ namespace AgileWizard.Domain.Services
         void DislikeThisResource(string resourceId);
 
         IList<Resource> GetResourceList(long ticksOfCreateTime, string tagName);
-        IList<Resource> GetResourceListByTag(long ticksOfCreateTime, string tagName);
+        IList<Resource> GetLikeList();
+        IList<Resource> GetHitList();
+        IList<Resource> GetFirstPage_OfResource();
+        IList<Resource> GetFirstPage_OfTagResource(string tagName);
     }
 }

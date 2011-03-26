@@ -3,7 +3,6 @@
 	As a visitor
 	I want to see more resources other than current page
 
-@Ignore
 Scenario: Default resource list
 	# There is add 21 resources with tag 'Agile'
 	When I go to resource list page
@@ -11,7 +10,6 @@ Scenario: Default resource list
 	When I go to next page
 	Then I will see 21 resources on the page
 
-@Ignore
 Scenario: tag resource list
 	# There is add 21 resources with tag 'Agile'
 	When I visit resource list of tag page

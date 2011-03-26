@@ -9,30 +9,30 @@
 //  </auto-generated>
 // ------------------------------------------------------------------------------
 #region Designer generated code
-namespace AgileWizard.AcceptanceTests.Features
+namespace AgileWizard.IntegrationTests.Features
 {
     using TechTalk.SpecFlow;
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.4.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class ResourceListFeature : Xunit.IUseFixture<ResourceListFeature.FixtureData>, System.IDisposable
+    public partial class ResourceListsAtHomepageFeature : Xunit.IUseFixture<ResourceListsAtHomepageFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "ResourceList.feature"
+#line 1 "HomeList.feature"
 #line hidden
         
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Resource List", "In order to see more resources\r\nAs a visitor\r\nI want to see more resources other " +
-                    "than current page", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Resource lists at Homepage", "In order to see resources of most attention\r\nAs a visitor\r\nI want to see top like" +
+                    ", top hit and latest resource on Homepage", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
-        public virtual void SetFixture(ResourceListFeature.FixtureData fixtureData)
+        public virtual void SetFixture(ResourceListsAtHomepageFeature.FixtureData fixtureData)
         {
         }
         
@@ -58,41 +58,45 @@ namespace AgileWizard.AcceptanceTests.Features
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "Resource List")]
-        [Xunit.TraitAttribute("Description", "Default resource list")]
-        public virtual void DefaultResourceList()
+        [Xunit.TraitAttribute("FeatureTitle", "Resource lists at Homepage")]
+        [Xunit.TraitAttribute("Description", "top like resource list")]
+        public virtual void TopLikeResourceList()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default resource list", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("top like resource list", ((string[])(null)));
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.When("I go to resource list page");
+ testRunner.Given("there are 2 pages of resources");
 #line 9
- testRunner.Then("I will see 20 resources on the page");
+ testRunner.When("I wait for non-stale data");
 #line 10
- testRunner.When("I go to next page");
+ testRunner.When("I see top like resources");
 #line 11
- testRunner.Then("I will see 21 resources on the page");
+ testRunner.Then("there will be 3 resources on the page");
+#line 12
+ testRunner.And("order by like desc");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
         
         [Xunit.FactAttribute()]
-        [Xunit.TraitAttribute("FeatureTitle", "Resource List")]
-        [Xunit.TraitAttribute("Description", "tag resource list")]
-        public virtual void TagResourceList()
+        [Xunit.TraitAttribute("FeatureTitle", "Resource lists at Homepage")]
+        [Xunit.TraitAttribute("Description", "top hit resource list")]
+        public virtual void TopHitResourceList()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("tag resource list", ((string[])(null)));
-#line 13
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("top hit resource list", ((string[])(null)));
+#line 14
 this.ScenarioSetup(scenarioInfo);
-#line 15
- testRunner.When("I visit resource list of tag page");
 #line 16
- testRunner.Then("I will see 20 resources on the page");
+ testRunner.Given("there are 2 pages of resources");
 #line 17
- testRunner.When("I go to next page");
+ testRunner.When("I wait for non-stale data");
 #line 18
- testRunner.Then("I will see 21 resources on the page");
+ testRunner.When("I see top hit resources");
+#line 19
+ testRunner.Then("there will be 3 resources on the page");
+#line 20
+ testRunner.And("order by hit desc");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
@@ -104,12 +108,12 @@ this.ScenarioSetup(scenarioInfo);
             
             public FixtureData()
             {
-                ResourceListFeature.FeatureSetup();
+                ResourceListsAtHomepageFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                ResourceListFeature.FeatureTearDown();
+                ResourceListsAtHomepageFeature.FeatureTearDown();
             }
         }
     }

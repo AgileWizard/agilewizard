@@ -195,11 +195,17 @@ namespace AgileWizard.IntegrationTests.Steps
             }
         }
 
-        [Then(@"there will be (\d+) resources on the page")]
-        public void ThenThereWillBeResourcesOnThePage(int numberOfResources)
+        [When(@"I see Index page")]
+        public void WhenISeeIndexPage()
         {
             ActionResult = Controller.Index() as ViewResult;
-            AssertCountOfResourceList(numberOfResources, ActionResult as ViewResultBase);
+            TagName = string.Empty;
+        }
+
+        [Then(@"there will be (\d+) resources on the page")]
+        public void ThenThereWillBeResourcesOnThePage(int countOfResources)
+        {
+            AssertCountOfResourceList(countOfResources, ActionResult as ViewResultBase);
         }
 
         [Then(@"there will be (\d+) more resources on the page")]
@@ -207,8 +213,7 @@ namespace AgileWizard.IntegrationTests.Steps
         {
             long ticksOfLastCreateTime = GetTicksOfLastCreateTime();
 
-            var noTag = string.Empty;
-            ActionResult = Controller.ResourceListOfNextPage(ticksOfLastCreateTime, noTag);
+            ActionResult = Controller.ResourceListOfNextPage(ticksOfLastCreateTime, TagName);
             AssertCountOfResourceList(numberOfResources, ActionResult as ViewResultBase);
         }
         #endregion
@@ -227,15 +232,34 @@ namespace AgileWizard.IntegrationTests.Steps
         public void ResourceListOfTagShouldHaveItem(string tagName, int count)
         {
             ActionResult = Controller.ListByTag(tagName) as ViewResult;
+            TagName = tagName;
             AssertCountOfResourceList(count, ActionResult as ViewResultBase);
         }
+        #endregion
 
-        [Then(@"next page of resoure list of tag 'Agile' should have (\d+) item")]
-        public void ThenNextPageOfResoureListOfTagAgileShouldHave1Item(int numberOfResources)
+        #region Resource list at home page
+        [When(@"I see top like resources")]
+        public void WhenISeeTopLikeResources()
         {
-            //var ticksOfLastCreateTime = GetTicksOfLastCreateTime();
-            //ActionResult = Controller.ListByTag("Agile");
-            //AssertCountOfResourceList(numberOfResources, ActionResult as ViewResultBase);
+            ActionResult = Controller.GetLikeList() as ViewResultBase;
+        }
+
+        [Then(@"order by like desc")]
+        public void ThenOrderByLikeDesc()
+        {
+            AssertResourceListViewModelOrderedByLike();
+        }
+
+        [When(@"I see top hit resources")]
+        public void WhenISeeTopHitResources()
+        {
+            ActionResult = Controller.GetHitList() as ViewResultBase;
+        }
+
+        [Then(@"order by hit desc")]
+        public void ThenOrderByHitDesc()
+        {
+            AssertResourceListViewModelOrderedByHit();
         }
         #endregion
 
@@ -298,8 +322,26 @@ namespace AgileWizard.IntegrationTests.Steps
 
         private long GetTicksOfLastCreateTime()
         {
-            var _viewResult = ActionResult as ViewResult;
+            var _viewResult = ActionResult as ViewResultBase;
             return (long)_viewResult.ViewData["ticksOfLastCreateTime"];
+        }
+
+        private void AssertResourceListViewModelOrderedByLike()
+        {
+            var resourceListViewModels =
+                ((ViewResultBase)ActionResult).ViewData.Model as IList<ResourceListViewModel>;
+
+            Assert.True(resourceListViewModels[0].Like > resourceListViewModels[1].Like);
+            Assert.True(resourceListViewModels[1].Like > resourceListViewModels[2].Like);
+        }
+
+        private void AssertResourceListViewModelOrderedByHit()
+        {
+            var resourceListViewModels =
+                ((ViewResultBase)ActionResult).ViewData.Model as IList<ResourceListViewModel>;
+
+            Assert.True(resourceListViewModels[0].PageView > resourceListViewModels[1].PageView);
+            Assert.True(resourceListViewModels[1].PageView > resourceListViewModels[2].PageView);
         }
 
         #endregion

@@ -79,12 +79,6 @@ namespace AgileWizard.AcceptanceTests.Steps
             detailPage.GoToTagList(tagName);
         }
 
-        [Then(@"Then resource list of tag '(.+)' should have 1 item")]
-        public void ThenThenResourceListOfTagShouldHave1Item(string tagName)
-        {
-            //_listPage.AssertTotalResourceCount();
-        }
-
         #region Resource List
 
         [When(@"I go to resource list page")]
@@ -120,7 +114,5 @@ namespace AgileWizard.AcceptanceTests.Steps
             var data = table.CreateInstance<ResourceData>();
             detailPage.AssertPageData(data);
         }
-
-       
     }
 }

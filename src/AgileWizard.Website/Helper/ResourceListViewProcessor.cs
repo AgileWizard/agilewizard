@@ -17,10 +17,11 @@ namespace AgileWizard.Website.Helper
             ResourceMapper = resourceMapper;
         }
 
-        public IList<ResourceListViewModel> Process(IList<Resource> resources, ViewDataDictionary viewdata)
+        public IList<ResourceListViewModel> Process(IList<Resource> resources, ViewDataDictionary viewdata, string tagName)
         {
             var resourceListViewModel = ResourceMapper.MapFromDomainListToListViewModel(resources);
             StoreTicksOfCreateTimeInViewData(resourceListViewModel, viewdata);
+            viewdata["tagName"] = tagName;
             return resourceListViewModel;
         }
 

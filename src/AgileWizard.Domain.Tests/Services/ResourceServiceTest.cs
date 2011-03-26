@@ -168,7 +168,7 @@ namespace AgileWizard.Domain.Tests.Services
             _repository.Setup(r => r.GetList(It.IsAny<ResourceListQueryExpression>())).Returns(expectedResources);
 
             // Act
-            var actualResources = _service.GetResourceList(DateTime.Now.Ticks, "tagName");
+            var actualResources = _service.GetFirstPage_OfResource();
 
             // Assert
             _repository.Verify(r => r.GetList(It.IsAny<ResourceListQueryExpression>()));
@@ -181,11 +181,37 @@ namespace AgileWizard.Domain.Tests.Services
             var expectedResources = 10.CountOfResouces("tag");
             _repository.Setup(r => r.GetList(It.IsAny<TagResourceListQueryExperssion>())).Returns(expectedResources);
 
-            var actualResources = _service.GetResourceListByTag(DateTime.Now.Ticks, "tag");
+            var actualResources = _service.GetFirstPage_OfTagResource("tag");
 
             _repository.Verify(r => r.GetList(It.IsAny<TagResourceListQueryExperssion>()));
             Assert.Equal(expectedResources, actualResources);
         }
+        #endregion
+
+        #region Resource recommendation list
+        [Fact]
+        public void ShouldReturn_LikeList()
+        {
+            var expectedResources = 3.CountOfResouces("tag");
+            _repository.Setup(r => r.GetList(It.IsAny<TopLikeResourceListQueryExperssion>())).Returns(expectedResources);
+
+            var actualResources = _service.GetLikeList();
+
+            _repository.Verify(r => r.GetList(It.IsAny<TopLikeResourceListQueryExperssion>()));
+            Assert.Equal(expectedResources, actualResources);
+        }
+
+        [Fact]
+        public void ShouldReturn_HitList()
+        {
+            var expectedResources = 3.CountOfResouces("tag");
+            _repository.Setup(r => r.GetList(It.IsAny<TopHitResourceListQueryExperssion>())).Returns(expectedResources);
+
+            var actualResources = _service.GetHitList();
+
+            _repository.Verify(r => r.GetList(It.IsAny<TopHitResourceListQueryExperssion>()));
+            Assert.Equal(expectedResources, actualResources);
+        } 
         #endregion
 
         #region Private functions
@@ -203,4 +229,5 @@ namespace AgileWizard.Domain.Tests.Services
         } 
         #endregion
     }
+
 }

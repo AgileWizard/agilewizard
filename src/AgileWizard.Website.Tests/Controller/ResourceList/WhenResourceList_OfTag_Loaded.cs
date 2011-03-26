@@ -19,13 +19,13 @@ namespace AgileWizard.Website.Tests.Controller.ResourceList
         [Fact]
         public void ResourceService_GetTagListOfFirstPage_ShouldBeCalled()
         {
-            _resourceService.Verify(x=>x.GetResourceListByTag(It.IsAny<long>(), It.IsAny<string>()));
+            _resourceService.Verify(x=>x.GetFirstPage_OfTagResource(It.IsAny<string>()));
         }
 
         private void Setup_ResourceService_GetResourceListByTag_Expectation()
         {
             _resources = 10.CountOfResouces("tag");
-            _resourceService.Setup(x => x.GetResourceListByTag(It.IsAny<long>(), It.IsAny<string>())).Returns(_resources);
+            _resourceService.Setup(x => x.GetFirstPage_OfTagResource(It.IsAny<string>())).Returns(_resources);
         }
     }
 }

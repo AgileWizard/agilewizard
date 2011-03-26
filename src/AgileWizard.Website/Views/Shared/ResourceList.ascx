@@ -47,3 +47,16 @@
         <span class="break"></span>
     </div>
 <% } %>
+<script type="text/javascript">
+      <%var nTicks = (long)ViewData["ticksOfLastCreateTime"]; %>
+      <%var tagName = ViewData["tagName"].ToString(); %>
+        $(function () {
+               $('#more').unbind("click").click(function () {
+                     $("#loadingImg").show();
+                    $.get('/Resource/ResourceListOfNextPage', {ticksOfLastCreateTime:<%=nTicks %>, tagName:"<%=tagName%>"}, function(data){
+                        $('#resource-list-container').append(data);
+                         $("#loadingImg").hide();
+                        });
+                });
+            });
+</script>

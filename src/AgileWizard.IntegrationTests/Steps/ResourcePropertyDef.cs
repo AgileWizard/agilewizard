@@ -7,6 +7,7 @@ namespace AgileWizard.IntegrationTests.Steps
 {
     public partial class ResourceSteps
     {
+        private const string TAGNAME = "tagName";
         private const string ACTION_RESULT_KEY = "ActionResult";
         private const string EXISTING_RESOURCE_KEY = "ExistingResource";
         private const string SUBMITTED_RESOURCE_MODEL_KEY = "SubmittedResourceModel";
@@ -33,6 +34,18 @@ namespace AgileWizard.IntegrationTests.Steps
             set
             {
                 CurrentScenario[EXISTING_RESOURCE_KEY] = value;
+            }
+        }
+
+        public string TagName
+        {
+            get
+            {
+                return CurrentScenario[TAGNAME] as string;
+            }
+            set
+            {
+                CurrentScenario[TAGNAME] = value;
             }
         }
 
