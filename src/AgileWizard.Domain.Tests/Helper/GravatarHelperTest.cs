@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AgileWizard.Domain.Helper;
+﻿using AgileWizard.Domain.Helper;
 using Moq;
 using Xunit;
 

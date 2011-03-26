@@ -1,8 +1,7 @@
-﻿using System;
+﻿using System.Configuration;
 using System.Linq;
-using WatiN.Core;
-using System.Configuration;
 using TechTalk.SpecFlow;
+using WatiN.Core;
 using Xunit;
 
 namespace AgileWizard.AcceptanceTests.Helper

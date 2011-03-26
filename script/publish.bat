@@ -2,7 +2,7 @@
 
 pushd %~dp0
 
-call rake -f "publish.rb"
+call rake publish
 
 popd
 

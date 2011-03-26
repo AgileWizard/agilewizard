@@ -52,6 +52,7 @@
     <Compile Include="Expression\QueryExpression_TagListBuilderTest.cs" />
     <Compile Include="Expression\ResourceListQueryExpression_TestBase.cs" />
     <Compile Include="Expression\ToHitResourceListQueryExperssion_ResourceListBuilderTest.cs" />
+    <Compile Include="Expression\TopLatestResourceListQueryExperssion_ResourceListBuilderTest.cs" />
     <Compile Include="Expression\TopLikeResourceListQueryExperssion_ResourceListBuilderTest.cs" />
     <Compile Include="Helper\GravatarHelperTest.cs" />
     <Compile Include="Helper\HashTest.cs" />

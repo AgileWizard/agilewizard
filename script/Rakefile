@@ -1,3 +1,11 @@
+require  "albacore"
+require 'fileutils'
+
+if not((defined? ROOT)) then
+	load File.join(File.dirname(__FILE__), 'varConfig.rb')
+end
+
+
 desc "Build the agile wizard teamcity file"
 msbuild :compile, :mode do |msb, args|
 	args.with_defaults(:mode =>  COMILE_MODE)
@@ -78,3 +86,31 @@ task :startWebServer do
   Thread.new{system(START_COMMAND)}
   sleep(1)
 end
+
+task :startServer => [:compile, :startWebServer, :openUrl]
+
+task :openUrl do
+	LAUNCH_URL = "http://localhost:"+WEB_PORT
+	system("start iexplore.exe " + LAUNCH_URL)
+end
+
+
+desc 'starting to publish the website project'
+msbuild :publish do |msb|
+	msb.solution = WEBSITE_PROJ
+	msb.verbosity = "minimal"
+	msb.targets :publish
+	msb.parameters  [ "/T:Package",
+						"/P:Configuration=" + COMILE_MODE]
+end
+
+
+desc "initialize the server environment"
+task :deleteBin do
+  puts "delete the bin directory before building"
+  if FileTest::directory?(OUTPUT_DLL_DIR) then
+		FileUtils.rm_rf OUTPUT_DLL_DIR
+	end
+end
+
+task :teamcity => [:deleteBin, :compile,:test,:clean]

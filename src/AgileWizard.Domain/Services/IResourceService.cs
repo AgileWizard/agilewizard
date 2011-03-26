@@ -17,5 +17,6 @@ namespace AgileWizard.Domain.Services
         IList<Resource> GetHitList();
         IList<Resource> GetFirstPage_OfResource();
         IList<Resource> GetFirstPage_OfTagResource(string tagName);
+        IList<Resource> GetLatestList();
     }
 }

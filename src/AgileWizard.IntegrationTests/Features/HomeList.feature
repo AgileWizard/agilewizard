@@ -18,3 +18,11 @@ Scenario: top hit resource list
 	When I see top hit resources
 	Then there will be 3 resources on the page
 	And order by hit desc
+
+Scenario: latest resource list
+	# create time # descending
+	Given there are 2 pages of resources
+	When I wait for non-stale data
+	When I see the latest resources
+	Then there will be 3 resources on the page
+	And order by create time desc

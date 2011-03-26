@@ -82,6 +82,11 @@ namespace AgileWizard.Domain.Services
             return GetResourceList(DateTime.Now.Ticks, tagName);
         }
 
+        public IList<Resource> GetLatestList()
+        {
+            return _repository.GetList(QueryExpressionBuilder.BuildTopLatestResourceList_QueryExperssion()).ToList();            
+        }
+
         public int GetResourcesTotalCountForTag(string tagName)
         {
             return _repository.GetResourcesTotalCountForTag(tagName);
@@ -95,15 +100,13 @@ namespace AgileWizard.Domain.Services
                     _repository.GetList(QueryExpressionBuilder.BuildResourceList_QueryExpression(ticksOfCreateTime)).
                         ToList();
             }
-            else
-            {
-                return _repository.GetList(QueryExpressionBuilder.BuildTagResourceList_QueryExpression(ticksOfCreateTime, tagName)).ToList();
-            }
+            return _repository.GetList(QueryExpressionBuilder.BuildTagResourceList_QueryExpression(ticksOfCreateTime, tagName)).ToList();
         }
 
         public IList<Resource> GetResourceListByTag(long ticksOfCreateTime, string tagName)
         {
             return _repository.GetList(QueryExpressionBuilder.BuildTagResourceList_QueryExpression(ticksOfCreateTime, tagName)).ToList();
         }
+
     }
 }

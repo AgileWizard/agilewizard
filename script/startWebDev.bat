@@ -2,7 +2,7 @@
 
 pushd %~dp0
 
-call rake -f "startWebDev.rb"
+call rake startServer
 
 popd
 

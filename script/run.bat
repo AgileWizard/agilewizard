@@ -1,8 +1,6 @@
 @echo off
 pushd %~dp0
 
-rake -f teamcity.rb
+call rake teamcity
 
 popd
-
-pause
