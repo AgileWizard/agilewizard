@@ -4,6 +4,7 @@ using System.Linq;
 using AgileWizard.Domain.Expression;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Repositories;
+using StructureMap.Attributes;
 
 namespace AgileWizard.Domain.Services
 {
@@ -17,10 +18,15 @@ namespace AgileWizard.Domain.Services
             _repository = repository;
         }
 
+        [SetterProperty]
+        public ISessionStateRepository SessionStateRepository { get; set; }
+
         public Resource AddResource(Resource resource)
         {
             resource.CreateTime = DateTime.Now;
             resource.LastUpdateTime = DateTime.Now;
+            resource.SubmitUser = SessionStateRepository.CurrentUser.UserName;
+            resource.SubmitUserAvatar = SessionStateRepository.CurrentUser.AvatarUrl;
             resource = _repository.Add(resource);
             _repository.Save();
             return resource;
