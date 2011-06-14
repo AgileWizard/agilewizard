@@ -27,7 +27,10 @@ namespace AgileWizard.Data
         public void ID_Subfix()
         {
             const int minsBefore = 1;
-            var resource = ResourceBuilder.AnResource().WithCreateUpdateTime(minsBefore).Build(2);
+            var resource = ResourceBuilder
+                .AnResource()
+                .WithCreateUpdateTime(minsBefore)
+                .Build(2);
 
             Assert.True(resource.Id.EndsWith("2"));
         }

@@ -7,7 +7,7 @@ namespace AgileWizard.Data
     public class ResourceListBuilder
     {
         private int _countOfPage = 1;
-        private int _pageSize = 20;
+        private const int PageSize = 20;
         private bool _differentCreateTime;
         private bool _persistable;
         private string _tagName = "tag";
@@ -19,7 +19,7 @@ namespace AgileWizard.Data
 
         public IList<Resource> Build()
         {
-            var countOfResource = _countOfPage*_pageSize - (_pageSize - 1);
+            var countOfResource = _countOfPage*PageSize - (PageSize - 1);
             var resources = new List<Resource>();
 
             for (int i = 0; i < countOfResource; i++)

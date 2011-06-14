@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AgileWizard.Data;
 using AgileWizard.Domain.Expression;
 using AgileWizard.Domain.Models;
 using Xunit;
@@ -13,7 +14,14 @@ namespace AgileWizard.Domain.Tests.Expression
 
         protected ResourceListQueryExpression_TestBase()
         {
-            _resources = 41.CountOfResouces("agile");
+            //_resources = 41.CountOfResouces("agile");
+
+            _resources = ResourceListBuilder
+                .AnResourceList()
+                .OfPage(3)
+                .WithDifferentCreateUpdateTime().
+                WithTag("agile")
+                .Build();
         }
 
         [Fact]

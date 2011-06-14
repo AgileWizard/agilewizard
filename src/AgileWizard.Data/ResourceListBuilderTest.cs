@@ -33,7 +33,11 @@ namespace AgileWizard.Data
         [Fact]
         public void CanHave_DifferentCreateUpdateTime()
         {
-            var multiplePageOfResource = ResourceListBuilder.AnResourceList().WithDifferentCreateUpdateTime().OfPage(2).Build();
+            var multiplePageOfResource = ResourceListBuilder.
+                AnResourceList().
+                WithDifferentCreateUpdateTime().
+                OfPage(2).
+                Build();
 
             Assert.Equal(21, multiplePageOfResource.Count);
 
@@ -44,7 +48,11 @@ namespace AgileWizard.Data
         [Fact]
         public void ID_ShouldBeDifferent()
         {
-            var multiplePageOfResource = ResourceListBuilder.AnResourceList().WithDifferentCreateUpdateTime().OfPage(2).Build();
+            var multiplePageOfResource = ResourceListBuilder
+                .AnResourceList()
+                .WithDifferentCreateUpdateTime()
+                .OfPage(2)
+                .Build();
 
             Assert.Equal(21, multiplePageOfResource.Count);
 
@@ -55,7 +63,11 @@ namespace AgileWizard.Data
         [Fact]
         public void CanSpecifyTag()
         {
-            var multiplePageOfResource = ResourceListBuilder.AnResourceList().WithTag("Agile").OfPage(2).Build();
+            var multiplePageOfResource = ResourceListBuilder
+                .AnResourceList()
+                .WithTag("Agile")
+                .OfPage(2)
+                .Build();
 
             Assert.Equal("Agile", multiplePageOfResource[0].Tags[0].Name);
         }
