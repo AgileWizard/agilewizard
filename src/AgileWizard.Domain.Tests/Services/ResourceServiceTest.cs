@@ -3,6 +3,7 @@ using AgileWizard.Domain.Expression;
 using AgileWizard.Domain.Models;
 using AgileWizard.Domain.Repositories;
 using AgileWizard.Domain.Services;
+using AgileWizard.Domain.Users;
 using Moq;
 using Xunit;
 
@@ -11,6 +12,7 @@ namespace AgileWizard.Domain.Tests.Services
     public class ResourceServiceTest
     {
         private Mock<IResourceRepository> _repository;
+        private Mock<ISessionStateRepository> _sessionRepository;
         private IResourceService _service;
 
         private readonly DateTime _prepareTime = DateTime.Now.AddSeconds(-1);
@@ -19,7 +21,9 @@ namespace AgileWizard.Domain.Tests.Services
         public ResourceServiceTest()
         {
             _repository = new Mock<IResourceRepository>();
+            _sessionRepository = new Mock<ISessionStateRepository>();
             _service = new ResourceService(_repository.Object);
+            (_service as ResourceService).SessionStateRepository = _sessionRepository.Object;
 
             _resource.CreateTime = _prepareTime;
             _resource.LastUpdateTime = _prepareTime;
@@ -31,6 +35,7 @@ namespace AgileWizard.Domain.Tests.Services
         {
             //Arrange
             _repository.Setup(r => r.Add(_resource)).Returns(_resource);
+            _sessionRepository.Setup(r => r.CurrentUser).Returns(new User());
 
             //Act
             var actualResource = _service.AddResource(_resource);
@@ -39,6 +44,19 @@ namespace AgileWizard.Domain.Tests.Services
             _repository.Verify(r => r.Add(_resource));
             _repository.Verify(r => r.Save());
             Assert.Equal(_resource, actualResource);
+        }
+
+        [Fact]
+        public void Save_current_user_info_as_submiter_when_adding_a_resource()
+        {
+            const string AVATAR_URL = "Avatar Url";
+            const string USER_NAME = "User Name";
+            var user = new Users.User() { AvatarUrl = AVATAR_URL, UserName = USER_NAME };
+            _sessionRepository.Setup(r => r.CurrentUser).Returns(user);
+
+            _service.AddResource(_resource);
+
+            _repository.Verify(r => r.Add(It.Is<Resource>(resource => resource.SubmitUser == USER_NAME && resource.SubmitUserAvatar == AVATAR_URL)));
         }
 
         [Fact]

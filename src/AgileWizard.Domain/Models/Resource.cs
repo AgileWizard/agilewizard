@@ -30,6 +30,8 @@ namespace AgileWizard.Domain.Models
 
         public int Dislike { get; set; }
 
+        public string SubmitUserAvatar { get; set; }
+
         public class ResourceTag
         {
             public string Name { get; set; }

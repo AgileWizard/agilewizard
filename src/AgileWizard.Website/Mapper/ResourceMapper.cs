@@ -29,7 +29,7 @@ namespace AgileWizard.Website.Mapper
             AutoMapper.Mapper.CreateMap<Resource, ResourceListViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.Substring(10)))
                 .ForMember(dest => dest.Content, opt => opt.MapFrom(src => Utils.ExcerptContent(src.Content, 200)))
-                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => Utils.FetchFirstImageUrl(src.Content)));
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.SubmitUserAvatar));
 
             AutoMapper.Mapper.CreateMap<ResourceDetailViewModel, Resource>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => string.Format("resources/{0}", src.Id)))
